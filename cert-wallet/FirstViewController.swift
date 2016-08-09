@@ -3,7 +3,7 @@
 //  cert-wallet
 //
 //  Created by Chris Downie on 8/8/16.
-//  Copyright © 2016 Learning Machine. All rights reserved.
+//  Copyright © 2016 Digital Certificates Project.
 //
 
 import UIKit

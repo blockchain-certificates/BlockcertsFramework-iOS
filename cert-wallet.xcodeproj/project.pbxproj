@@ -224,7 +224,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0800;
-				ORGANIZATIONNAME = "Digital Certificates";
+				ORGANIZATIONNAME = "Digital Certificates Project";
 				TargetAttributes = {
 					836A31A21D5933D800943801 = {
 						CreatedOnToolsVersion = 8.0;
