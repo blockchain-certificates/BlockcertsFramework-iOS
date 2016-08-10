@@ -21,10 +21,46 @@ class cert_walletTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // This will probably make more sense to refactor into different files once these methods actually do useful work
+    func testCertificateImport() {
+        // TODO: Fill out this test.
+        // This should take test files or in-memory JSON, construct a Certificate object, then validate its fields
     }
+    
+    func testCertificateExport() {
+        // TODO: Fill out this test
+        // This should build a Certificate object, then export it to JSON and validate the expected output.
+    }
+    
+    func testCertificateVerify() {
+        // TODO: Fill out this test
+        // This should provide a few valid and invalid certificates. Validate each and compare the results with the expected.
+    }
+    
+    func testCertificateRevoke() {
+        // TODO: Fill out this test
+        // This should take valid & invalid certificates and revoke them. 
+        // Open question: how to mock out the HTTP requests that would spend the bitcoin to revoke it.
+    }
+    
+    func testKeychainSeedPhraseGeneration() {
+        // TODO: Re-enable this assertion once we have seed phrase generation
+//        let mnemonic = Keychain.generateSeedPhrase()
+//        XCTAssertTrue(mnemonic.characters.count > 0, "Mnemonic phrase should not be empty")
+    }
+    
+    func testKeychainKeyGeneration() {
+        let seedPhrase = "constant test seed phrase"
+        let keychain = Keychain(seedPhrase: seedPhrase)
+        
+        let firstKey = keychain.nextPublicKey()
+        let secondKey = keychain.nextPublicKey()
+        
+        // TODO: Replace these tests with actual keys
+        XCTAssertEqual(firstKey, "")
+        XCTAssertEqual(secondKey, "")
+    }
+
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
