@@ -12,7 +12,14 @@ struct Keychain {
     let seedPhrase : String
     
     static func generateSeedPhrase() -> String {
-        return ""
+        let randomData = BTCRandomDataWithLength(32) as Data
+        return generateSeedPhrase(withRandomData: randomData)
+    }
+    
+    static func generateSeedPhrase(withRandomData randomData: Data) -> String {
+        let mn = BTCMnemonic(entropy: randomData, password: "", wordListType: .english)
+        
+        return mn?.words.flatMap({ $0 as? String }).joined(separator: " ") ?? ""
     }
     
     func nextPublicKey() -> String {

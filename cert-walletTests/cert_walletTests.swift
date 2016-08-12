@@ -45,8 +45,13 @@ class cert_walletTests: XCTestCase {
     
     func testKeychainSeedPhraseGeneration() {
         // TODO: Re-enable this assertion once we have seed phrase generation
-//        let mnemonic = Keychain.generateSeedPhrase()
-//        XCTAssertTrue(mnemonic.characters.count > 0, "Mnemonic phrase should not be empty")
+        let seedData = Data(count: 32)
+        let expectedMnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
+        let mnemonic = Keychain.generateSeedPhrase(withRandomData: seedData)
+        print("Got mnemonic: \(mnemonic)")
+        
+        XCTAssertTrue(mnemonic.characters.count > 0, "Mnemonic phrase should not be empty")
+        XCTAssertEqual(mnemonic, expectedMnemonic, "0-seed should generate simple mnemonic phrase")
     }
     
     func testKeychainKeyGeneration() {
