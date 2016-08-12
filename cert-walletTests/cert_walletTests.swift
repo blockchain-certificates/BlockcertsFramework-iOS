@@ -44,7 +44,6 @@ class cert_walletTests: XCTestCase {
     }
     
     func testKeychainSeedPhraseGeneration() {
-        // TODO: Re-enable this assertion once we have seed phrase generation
         let seedData = Data(count: 32)
         let expectedMnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
         let mnemonic = Keychain.generateSeedPhrase(withRandomData: seedData)
@@ -55,17 +54,16 @@ class cert_walletTests: XCTestCase {
     }
     
     func testKeychainKeyGeneration() {
-        let seedPhrase = "constant test seed phrase"
-        let keychain = Keychain(seedPhrase: seedPhrase)
+        let seedPhrase = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
+
+        var keychain = Keychain(seedPhrase: seedPhrase)
         
         let firstKey = keychain.nextPublicKey()
         let secondKey = keychain.nextPublicKey()
         
-        // TODO: Replace these tests with actual keys
-        XCTAssertEqual(firstKey, "")
-        XCTAssertEqual(secondKey, "")
+        XCTAssertTrue(firstKey.characters.count > 0)
+        XCTAssertTrue(secondKey.characters.count > 0)
     }
-
     
     func testPerformanceExample() {
         // This is an example of a performance test case.

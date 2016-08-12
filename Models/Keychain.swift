@@ -9,7 +9,23 @@
 import Foundation
 
 struct Keychain {
-    let seedPhrase : String
+    var seedPhrase : String {
+        return mnemonic.words.flatMap({ $0 as? String}).joined(separator: " ")
+    }
+    private var unusedKeyIndex : UInt32 = 0
+    private let mnemonic : BTCMnemonic
+    private let keychain : BTCKeychain
+    private let accountKeychain : BTCKeychain
+    
+    init(seedPhrase: String) {
+        let words = seedPhrase.components(separatedBy: " ")
+        guard let mnemonic = BTCMnemonic(words: words, password: "", wordListType: .english) else {
+            fatalError("Can't start a Keychain with invalid phrase:\"\(seedPhrase)\"")
+        }
+        self.mnemonic = mnemonic
+        keychain = BTCKeychain(seed: mnemonic.data)
+        accountKeychain = keychain.derivedKeychain(withPath: "m/44'/0'/0'")
+    }
     
     static func generateSeedPhrase() -> String {
         let randomData = BTCRandomDataWithLength(32) as Data
@@ -22,8 +38,12 @@ struct Keychain {
         return mn?.words.flatMap({ $0 as? String }).joined(separator: " ") ?? ""
     }
     
-    func nextPublicKey() -> String {
-        return ""
+    
+    mutating func nextPublicKey() -> String {
+        let key = accountKeychain.key(at: unusedKeyIndex)
+        unusedKeyIndex += 1
+        
+        return key?.publicKey.hex() ?? ""
     }
     
     func has(publicKey : String) -> Bool {
