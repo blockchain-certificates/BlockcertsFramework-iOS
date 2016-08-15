@@ -28,6 +28,9 @@
 		834910F21D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F31D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834F2EE41D62280E008C9650 /* String-Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F2EE31D62280E008C9650 /* String-Extensions.swift */; };
+		834F2EE61D624E80008C9650 /* CertificateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F2EE51D624E80008C9650 /* CertificateTests.swift */; };
+		834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */; };
+		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json */; };
 		836A31A71D5933D800943801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A61D5933D800943801 /* AppDelegate.swift */; };
 		836A31A91D5933D800943801 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* FirstViewController.swift */; };
 		836A31AB1D5933D800943801 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31AA1D5933D800943801 /* SecondViewController.swift */; };
@@ -74,6 +77,9 @@
 		834910EC1D5E445900872DAE /* NSObject+dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+dummy.m"; sourceTree = "<group>"; };
 		834910F01D5E6DC300872DAE /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Extensions/String.swift; sourceTree = "<group>"; };
 		834F2EE31D62280E008C9650 /* String-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extensions.swift"; sourceTree = "<group>"; };
+		834F2EE51D624E80008C9650 /* CertificateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateTests.swift; sourceTree = "<group>"; };
+		834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.1.0.json"; sourceTree = "<group>"; };
+		834F2EE91D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.2.0.json"; sourceTree = "<group>"; };
 		836A31A31D5933D800943801 /* cert-wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cert-wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31A61D5933D800943801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		836A31A81D5933D800943801 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -146,6 +152,15 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		834F2EE71D624FCF008C9650 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */,
+				834F2EE91D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		836A319A1D5933D800943801 = {
 			isa = PBXGroup;
 			children = (
@@ -190,7 +205,9 @@
 		836A31BC1D5933D800943801 /* cert-walletTests */ = {
 			isa = PBXGroup;
 			children = (
+				834F2EE71D624FCF008C9650 /* Resources */,
 				836A31BD1D5933D800943801 /* cert_walletTests.swift */,
+				834F2EE51D624E80008C9650 /* CertificateTests.swift */,
 				834F2EE31D62280E008C9650 /* String-Extensions.swift */,
 				836A31BF1D5933D800943801 /* Info.plist */,
 			);
@@ -358,6 +375,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json in Resources */,
+				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,6 +556,7 @@
 				834910F21D5E6DC300872DAE /* String.swift in Sources */,
 				834F2EE41D62280E008C9650 /* String-Extensions.swift in Sources */,
 				830B7CF91D5A822B0089F13D /* Certificate.swift in Sources */,
+				834F2EE61D624E80008C9650 /* CertificateTests.swift in Sources */,
 				830B7D021D5A82B20089F13D /* Assertion.swift in Sources */,
 				830B7D051D5A82CA0089F13D /* Verify.swift in Sources */,
 				830B7CFC1D5A82540089F13D /* Issuer.swift in Sources */,
