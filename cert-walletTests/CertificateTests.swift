@@ -38,7 +38,7 @@ class CertificateTests: XCTestCase {
                 return
         }
         XCTAssertEqual(cert.title, "Certificate title")
-        XCTAssertEqual(cert.subtitle, "2016")
+        XCTAssertEqual(cert.subtitle, nil)
         XCTAssertEqual(cert.description, "Certificate description")
         XCTAssertEqual(cert.id, URL(string: "https://www.theissuer.edu/criteria/2016/05/certificate-type.json"))
     }
