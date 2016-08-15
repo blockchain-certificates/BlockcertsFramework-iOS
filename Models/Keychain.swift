@@ -47,9 +47,15 @@ struct Keychain {
     }
     
     func has(publicKey : String) -> Bool {
-//        let key = BTCKey(publicKey: <#T##Data!#>)
-//        accountKeychain.find(forPublicKey: <#T##BTCKey!#>, hardened: <#T##Bool#>, limit: <#T##UInt#>)
-        return false
+        guard let keyData = publicKey.asHexData() else {
+            // If the publicKey isn't a valid hex string, then this keychain obviously doesn't have it.
+            return false
+        }
+        
+        let key = BTCKey(publicKey: keyData)
+        let limit : UInt = 10 // arbitrary. What's a good limit?
+        
+        return nil == accountKeychain.find(forPublicKey: key, hardened: true, limit: limit) // Also unsure of hardened value.
     }
 //    func has(keyForRecipient : Recipient) -> Bool {
 //        return false
