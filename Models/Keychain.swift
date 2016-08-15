@@ -47,6 +47,8 @@ struct Keychain {
     }
     
     func has(publicKey : String) -> Bool {
+//        let key = BTCKey(publicKey: <#T##Data!#>)
+//        accountKeychain.find(forPublicKey: <#T##BTCKey!#>, hardened: <#T##Bool#>, limit: <#T##UInt#>)
         return false
     }
 //    func has(keyForRecipient : Recipient) -> Bool {
