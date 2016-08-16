@@ -8,7 +8,7 @@
 
 import XCTest
 
-class UnsignedCertificateV1_2Tests: XCTestCase {
+class CertificateV1_2UnsignedTests: XCTestCase {
     let certificateFilename = "sample_unsigned_cert-1.2.0"
     
     var file : Data? = nil
@@ -101,7 +101,7 @@ class UnsignedCertificateV1_2Tests: XCTestCase {
     }
 }
 
-class SignedCertificateV1_2Tests: XCTestCase {
+class CertificateV1_2SignedTests: XCTestCase {
     let certificateFilename = "sample_signed_cert-1.2.0"
     
     var file : Data? = nil

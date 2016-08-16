@@ -30,6 +30,8 @@ enum CertificateParser {
 // This is common data & functionality to all versions of the Certificate schema. 
 //
 protocol Certificate {
+    var version : String { get }
+    
     var title : String { get }
     var subtitle : String? { get }
     var description: String { get }
