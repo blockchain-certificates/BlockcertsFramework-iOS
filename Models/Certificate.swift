@@ -279,9 +279,29 @@ struct CertificateV1_2 : Certificate {
             return nil
         }
         
-        // Get any key properties on the Certificate object
-        guard let certificateData = json["certificate"] as? [String: AnyObject],
-            let title = certificateData["title"] as? String,
+        guard let fileType = json["@type"] as? String,
+            var certificateData = json["certificate"] as? [String: AnyObject] else {
+                return nil
+        }
+        
+        switch fileType {
+        case "IssuedCertificate":
+            print("issuedCert")
+            let possibleCertificateData = certificateData["certificate"] as? [String: AnyObject]
+            json = certificateData
+            if (possibleCertificateData != nil) {
+                certificateData = possibleCertificateData!
+            } else {
+                return nil
+            }
+        case "DigitalCertificate": break // Nothing special to do in this case, as the normal validation is below.
+        default:
+            return nil
+        }
+        
+        
+        // Validate normal certificate data
+        guard let title = certificateData["title"] as? String,
             let certificateImageURI = certificateData["image:certificate"] as? String,
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),

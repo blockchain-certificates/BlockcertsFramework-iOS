@@ -126,28 +126,28 @@ class SignedCertificateV1_2Tests: XCTestCase {
                 return
         }
         XCTAssertEqual(cert.title, "Certificate title")
-        XCTAssertEqual(cert.subtitle, nil)
+        XCTAssertEqual(cert.subtitle, "2016")
         XCTAssertEqual(cert.description, "Certificate description")
         XCTAssertEqual(cert.id, URL(string: "https://www.theissuer.edu/criteria/2016/05/certificate-type.json"))
     }
     
     func testImportIssuerProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file) else {
+            let cert = CertificateV1_2(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
         let issuer = cert.issuer
         
         XCTAssertEqual(issuer.name, "Issuing Institution")
-        XCTAssertEqual(issuer.email, "issuer@theissuer.edu")
+        XCTAssertEqual(issuer.email, nil)
         XCTAssertEqual(issuer.id, URL(string: "https://www.theissuer.edu/issuer/the-issuer.json"))
         XCTAssertEqual(issuer.url, URL(string: "http://www.theissuer.edu"))
     }
     
     func testImportRecipientProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file) else {
+            let cert = CertificateV1_2(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -162,21 +162,21 @@ class SignedCertificateV1_2Tests: XCTestCase {
     
     func testImportAssertionProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file) else {
+            let cert = CertificateV1_2(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
         let assertion = cert.assertion
         
         XCTAssertEqual(assertion.issuedOn, Date(timeIntervalSinceReferenceDate: 485978400))
-        XCTAssertEqual(assertion.evidence, "")
+        XCTAssertEqual(assertion.evidence, "https://www.theissuer.edu/issuer/the-issuer.json")
         XCTAssertEqual(assertion.uid, "68656c6c6f636f6d7077ffff")
         XCTAssertEqual(assertion.id, URL(string: "http://www.theissuer.edu/68656c6c6f636f6d7077ffff"))
     }
     
     func testImportVerifyProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file) else {
+            let cert = CertificateV1_2(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
