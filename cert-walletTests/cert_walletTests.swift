@@ -11,22 +11,6 @@ import XCTest
 
 class cert_walletTests: XCTestCase {
     
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    // This will probably make more sense to refactor into different files once these methods actually do useful work
-    func testCertificateImport() {
-        // TODO: Fill out this test.
-        // This should take test files or in-memory JSON, construct a Certificate object, then validate its fields
-    }
-    
     func testCertificateExport() {
         // TODO: Fill out this test
         // This should build a Certificate object, then export it to JSON and validate the expected output.
@@ -62,10 +46,7 @@ class cert_walletTests: XCTestCase {
         // 03885da437c0c5b76d3afd29852acf78237d2341b8662cb2438e13d91845942764
         let secondKey = keychain.nextPublicKey()
         // 028b8f132faf5dbd659efdf80a5d18aa6b421f2f1e6d1f58dd57a4d3170688a306
-        
-        print(firstKey)
-        print(secondKey)
-        
+                
         XCTAssertTrue(firstKey.characters.count > 0)
         XCTAssertTrue(secondKey.characters.count > 0)
     }
@@ -81,12 +62,4 @@ class cert_walletTests: XCTestCase {
         XCTAssertTrue(keychain.has(publicKey: firstKey))
         XCTAssertTrue(keychain.has(publicKey: secondKey))
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

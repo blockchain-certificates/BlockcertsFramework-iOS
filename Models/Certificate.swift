@@ -92,6 +92,15 @@ extension Certificate {
     }
 }
 
+
+//
+// MARK: - Private Implementation Details
+//
+// Below here, everything is private. This includes:
+// * The concrete types for different versions of Certificate
+// * Any version-specific or version-agnostic helper functions
+
+
 // These are useful parsing functions that are version-independent.
 private func imageData(from dataURI: String?) -> Data {
     guard let dataURI = dataURI else {
@@ -110,7 +119,7 @@ private func imageData(from dataURI: String?) -> Data {
 }
 
 
-// MARK: - Certificate Version 1.1
+// MARK: Certificate Version 1.1
 private enum MethodsForV1_1 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
         guard let issuerData = issuerJSON as? [String : String],
@@ -248,7 +257,7 @@ private struct CertificateV1_1 : Certificate {
     }
 }
 
-// MARK: - Certificate Version 1.2
+// MARK: Certificate Version 1.2
 private enum MethodsForV1_2 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
         guard let issuerData = issuerJSON as? [String : String],
@@ -283,7 +292,6 @@ private enum MethodsForV1_2 {
     }
 }
 
-// TODO: Right now this is identical to v1.1, except the version string and the method scoped struct
 private struct CertificateV1_2 : Certificate {
     let version = CertificateVersion.oneDotTwo
     let title : String
