@@ -13,6 +13,7 @@ class CertificateParserTests: XCTestCase {
     let v1_2filename = "sample_unsigned_cert-1.2.0"
     let v1_2signedFilename = "sample_signed_cert-1.2.0"
     
+    // MARK: - Simple parse(data:) calls
     func testExpectingV1_1Certificate() {
         let testBundle = Bundle(for: type(of: self))
         guard let fileUrl = testBundle.url(forResource: v1_1filename, withExtension: "json") ,
@@ -22,7 +23,7 @@ class CertificateParserTests: XCTestCase {
         
         let certificate = CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
-        XCTAssertEqual(certificate?.version, "1.1")
+        XCTAssertEqual(certificate?.version, .oneDotOne)
     }
     
     func testExpectingV1_2UnsignedCertificate() {
@@ -34,7 +35,7 @@ class CertificateParserTests: XCTestCase {
         
         let certificate = CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
-        XCTAssertEqual(certificate?.version, "1.2")
+        XCTAssertEqual(certificate?.version, .oneDotTwo)
     }
     
     func testExpectingV1_2SignedCertificate() {
@@ -46,6 +47,29 @@ class CertificateParserTests: XCTestCase {
         
         let certificate = CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
-        XCTAssertEqual(certificate?.version, "1.2")
+        XCTAssertEqual(certificate?.version, .oneDotTwo)
+    }
+    
+    // MARK: - parse(data:asVersion:) calls
+    func testInvalidParsingV1asV2() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v1_1filename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let certificate = CertificateParser.parse(data: file, asVersion: .oneDotTwo)
+        XCTAssertNil(certificate)
+    }
+    
+    func testInvalidParsingV2asV1() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v1_2filename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let certificate = CertificateParser.parse(data: file, asVersion: .oneDotOne)
+        XCTAssertNil(certificate)
     }
 }

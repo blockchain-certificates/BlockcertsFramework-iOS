@@ -13,14 +13,40 @@ enum RevokeError : Error {
     case notImplemented
 }
 
+enum CertificateVersion {
+    case oneDotOne
+    case oneDotTwo
+}
+
 // This enum is used to encapsuate the parse function. This is so CertificateParser is never instantiated.
 enum CertificateParser {
     static func parse(data: Data) -> Certificate? {
-        // Try to instantiate the latest version of the certificate format. Keep going through older versions until we've tried all of them or until we've found something that parses correctly
-        if let v1_2 = CertificateV1_2(data: data) {
-            return v1_2
+        return CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
+    }
+    
+    static func parse(data: Data, asVersion version: CertificateVersion) -> Certificate? {
+        switch version {
+        case .oneDotTwo:
+            return CertificateV1_2(data: data)
+        case .oneDotOne:
+            return CertificateV1_1(data: data)
         }
-        return CertificateV1_1(data: data)
+    }
+    
+    static func parse(data: Data, withMinimumVersion version: CertificateVersion) -> Certificate? {
+        var cert : Certificate?
+        switch version {
+        case .oneDotOne:
+            if cert == nil {
+                cert = CertificateV1_1(data: data)
+            }
+            fallthrough
+        case .oneDotTwo:
+            if cert == nil {
+                cert = CertificateV1_2(data: data)
+            }
+        }
+        return cert
     }
 }
 
@@ -30,7 +56,7 @@ enum CertificateParser {
 // This is common data & functionality to all versions of the Certificate schema. 
 //
 protocol Certificate {
-    var version : String { get }
+    var version : CertificateVersion { get }
     
     var title : String { get }
     var subtitle : String? { get }
@@ -164,8 +190,8 @@ private enum MethodsForV1_1 {
     }
 }
 
-struct CertificateV1_1 : Certificate {
-    let version = "1.1"
+private struct CertificateV1_1 : Certificate {
+    let version = CertificateVersion.oneDotOne
     let title : String
     let subtitle : String?
     let description: String
@@ -258,8 +284,8 @@ private enum MethodsForV1_2 {
 }
 
 // TODO: Right now this is identical to v1.1, except the version string and the method scoped struct
-struct CertificateV1_2 : Certificate {
-    let version = "1.2"
+private struct CertificateV1_2 : Certificate {
+    let version = CertificateVersion.oneDotTwo
     let title : String
     let subtitle : String?
     let description: String
