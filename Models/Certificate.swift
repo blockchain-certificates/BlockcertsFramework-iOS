@@ -45,6 +45,21 @@ protocol Certificate {
     func revoke() throws
 }
 
+// Default implementations for new Certificates.
+extension Certificate {
+    func toFile() -> Data {
+        return Data()
+    }
+    
+    func verify() -> Bool {
+        return false
+    }
+    
+    func revoke() throws {
+        throw RevokeError.notImplemented
+    }
+}
+
 // MARK: - Certificate Version 1.1
 private enum MethodsForV1_1 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
@@ -111,9 +126,22 @@ private enum MethodsForV1_1 {
                          uid: assertionUid,
                          id: assertionIdUrl)
     }
+    
+    static func parse(verifyJSON: AnyObject?) -> Verify? {
+        guard let verifyData = verifyJSON as? [String : String],
+            let signer = verifyData["signer"],
+            let signedAttribute = verifyData["attribute-signed"],
+            let type = verifyData["type"],
+            let signerUrl = URL(string: signer) else {
+                return nil
+        }
+        
+        return Verify(signer: signerUrl, signedAttribute: signedAttribute, type: type)
+    }
 }
 
 struct CertificateV1_1 : Certificate {
+    let version = "1.1"
     let title : String
     let subtitle : String?
     let description: String
@@ -136,10 +164,28 @@ struct CertificateV1_1 : Certificate {
             return nil
         }
         
-        guard let certificateData = json["certificate"] as? [String: AnyObject] else {
+        // Get any key properties on the Certificate object
+        guard let certificateData = json["certificate"] as? [String: AnyObject],
+            let title = certificateData["title"] as? String,
+            let subtitleMap = certificateData["subtitle"] as? [String : String],
+            let certificateImageURI = certificateData["image:certificate"] as? String,
+            let certificateIdString = certificateData["id"] as? String,
+            let certificateIdUrl = URL(string: certificateIdString),
+            let description = certificateData["description"] as? String else {
             return nil
         }
+        let certificateImage = imageData(from: certificateImageURI)
+        let subtitle = subtitleMap["display"] == "FALSE" ? nil : subtitleMap["content"]
         
+        self.title = title
+        self.subtitle = subtitle
+        self.description = description
+        self.image = certificateImage
+        language = ""
+        id = certificateIdUrl
+
+        
+        // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.
         guard let issuer = MethodsForV1_1.parse(issuerJSON: certificateData["issuer"]) else {
                 return nil
         }
@@ -155,47 +201,10 @@ struct CertificateV1_1 : Certificate {
         }
         self.assertion = assertion
         
-        
-        // This is how I expect to be able to parse the JSON into the typed object we've defined.
-        guard let verifyJSON = json["verify"] as? [String : String],
-            let signer = verifyJSON["signer"],
-            let signedAttribute = verifyJSON["attribute-signed"],
-            let type = verifyJSON["type"],
-            let signerUrl = URL(string: signer) else {
+        guard let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]) else {
                 return nil
         }
-        verifyData = Verify(signer: signerUrl, signedAttribute: signedAttribute, type: type)
-        
-        guard let title = certificateData["title"] as? String,
-            let subtitleMap = certificateData["subtitle"] as? [String : String],
-            let certificateImageURI = certificateData["image:certificate"] as? String,
-            let certificateIdString = certificateData["id"] as? String,
-            let certificateIdUrl = URL(string: certificateIdString),
-            let description = certificateData["description"] as? String else {
-                return nil
-        }
-        let certificateImage = imageData(from: certificateImageURI)
-        let subtitle = subtitleMap["display"] == "FALSE" ? nil : subtitleMap["content"]
-        
-        self.title = title
-        self.subtitle = subtitle
-        self.description = description
-        self.image = certificateImage
-        language = ""
-        id = certificateIdUrl
-    }
-    
-    func toFile() -> Data {
-        return Data()
-    }
-    
-    // Is verification binary? How could this fail?
-    func verify() -> Bool {
-        return false
-    }
-    
-    func revoke() throws {
-        throw RevokeError.notImplemented
+        self.verifyData = verifyData
     }
 }
 
