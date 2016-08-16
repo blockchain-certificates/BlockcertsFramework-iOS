@@ -15,7 +15,7 @@ class CertificateTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        let testBundle = Bundle(for: self.dynamicType)
+        let testBundle = Bundle(for: type(of: self))
         guard let fileUrl = testBundle.url(forResource: certificateFilename, withExtension: "json") else {
             file = nil
             return

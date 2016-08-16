@@ -21,9 +21,6 @@
 		830B7D051D5A82CA0089F13D /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D031D5A82CA0089F13D /* Verify.swift */; };
 		830B7D071D5A88130089F13D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
 		830B7D081D5A88130089F13D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
-		834910ED1D5E445900872DAE /* NSObject+dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 834910EC1D5E445900872DAE /* NSObject+dummy.m */; };
-		834910EE1D5E445900872DAE /* NSObject+dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 834910EC1D5E445900872DAE /* NSObject+dummy.m */; };
-		834910EF1D5E445900872DAE /* NSObject+dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 834910EC1D5E445900872DAE /* NSObject+dummy.m */; };
 		834910F11D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F21D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F31D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
@@ -73,8 +70,6 @@
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
-		834910EB1D5E445900872DAE /* NSObject+dummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+dummy.h"; sourceTree = "<group>"; };
-		834910EC1D5E445900872DAE /* NSObject+dummy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+dummy.m"; sourceTree = "<group>"; };
 		834910F01D5E6DC300872DAE /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Extensions/String.swift; sourceTree = "<group>"; };
 		834F2EE31D62280E008C9650 /* String-Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extensions.swift"; sourceTree = "<group>"; };
 		834F2EE51D624E80008C9650 /* CertificateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateTests.swift; sourceTree = "<group>"; };
@@ -138,8 +133,6 @@
 				830B7D001D5A82B20089F13D /* Assertion.swift */,
 				830B7D031D5A82CA0089F13D /* Verify.swift */,
 				830B7D061D5A88130089F13D /* Keychain.swift */,
-				834910EB1D5E445900872DAE /* NSObject+dummy.h */,
-				834910EC1D5E445900872DAE /* NSObject+dummy.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -532,7 +525,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				834910ED1D5E445900872DAE /* NSObject+dummy.m in Sources */,
 				834910F11D5E6DC300872DAE /* String.swift in Sources */,
 				836A31AB1D5933D800943801 /* SecondViewController.swift in Sources */,
 				836A31A71D5933D800943801 /* AppDelegate.swift in Sources */,
@@ -552,7 +544,6 @@
 			files = (
 				836A31BE1D5933D800943801 /* cert_walletTests.swift in Sources */,
 				830B7CFF1D5A82980089F13D /* Recipient.swift in Sources */,
-				834910EE1D5E445900872DAE /* NSObject+dummy.m in Sources */,
 				834910F21D5E6DC300872DAE /* String.swift in Sources */,
 				834F2EE41D62280E008C9650 /* String-Extensions.swift in Sources */,
 				830B7CF91D5A822B0089F13D /* Certificate.swift in Sources */,
@@ -569,7 +560,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
-				834910EF1D5E445900872DAE /* NSObject+dummy.m in Sources */,
 				836A31C91D5933D800943801 /* cert_walletUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -627,6 +617,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -676,6 +667,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
