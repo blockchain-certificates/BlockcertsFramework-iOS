@@ -47,8 +47,9 @@ protocol Certificate {
 
 // MARK: - Certificate Version 1.1
 private enum MethodsForV1_1 {
-    static func parse(issuerData: [String : String]) -> Issuer? {
-        guard let issuerURLString = issuerData["url"],
+    static func parse(issuerJSON: AnyObject?) -> Issuer? {
+        guard let issuerData = issuerJSON as? [String : String],
+            let issuerURLString = issuerData["url"],
             let issuerURL = URL(string: issuerURLString),
             let logoURI = issuerData["image:logo"],
             let issuerEmail = issuerData["email"],
@@ -69,8 +70,9 @@ private enum MethodsForV1_1 {
                       requestUrl: URL(string: "https://google.com")!)
     }
 
-    static func parse(recipientData: [String: AnyObject]) -> Recipient? {
-        guard let identityType = recipientData["type"] as? String,
+    static func parse(recipientJSON: AnyObject?) -> Recipient? {
+        guard let recipientData = recipientJSON as? [String : AnyObject],
+            let identityType = recipientData["type"] as? String,
             let familyName = recipientData["familyName"] as? String,
             let givenName = recipientData["givenName"] as? String,
             let isHashed = recipientData["hashed"] as? Bool,
@@ -87,11 +89,12 @@ private enum MethodsForV1_1 {
                          publicKey: publicKey)
     }
     
-    static func parse(assertionData: [String: String]) -> Assertion? {
+    static func parse(assertionJSON: AnyObject?) -> Assertion? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
         
-        guard let issuedOnString = assertionData["issuedOn"],
+        guard let assertionData = assertionJSON as? [String : String],
+            let issuedOnString = assertionData["issuedOn"],
             let issuedOnDate = dateFormatter.date(from: issuedOnString),
             let signatureImageURI = assertionData["image:signature"],
             let assertionId = assertionData["id"],
@@ -137,20 +140,17 @@ struct CertificateV1_1 : Certificate {
             return nil
         }
         
-        guard let issuerData = certificateData["issuer"] as? [String: String],
-            let issuer = MethodsForV1_1.parse(issuerData: issuerData) else {
+        guard let issuer = MethodsForV1_1.parse(issuerJSON: certificateData["issuer"]) else {
                 return nil
         }
         self.issuer = issuer
         
-        guard let recipientData = json["recipient"] as? [String : AnyObject],
-            let recipient = MethodsForV1_1.parse(recipientData: recipientData) else {
+        guard let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]) else {
                 return nil
         }
         self.recipient = recipient
         
-        guard let assertionData = json["assertion"] as? [String : String],
-            let assertion = MethodsForV1_1.parse(assertionData: assertionData) else {
+        guard let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]) else {
                 return nil
         }
         self.assertion = assertion
