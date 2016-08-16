@@ -13,7 +13,34 @@ enum RevokeError : Error {
     case notImplemented
 }
 
-struct Certificate {
+// This enum is used to encapsuate the parse function. This is so CertificateParser is never instantiated.
+enum CertificateParser {
+    static func parse(data: Data) -> Certificate? {
+        return CertificateV1_1(data: data)
+    }
+}
+
+protocol Certificate {
+    var title : String { get }
+    var subtitle : String? { get }
+    var description: String { get }
+    var image : Data { get }
+    var language : String { get }
+    var id : URL { get }
+    
+    var issuer : Issuer { get }
+    var recipient : Recipient { get }
+    var assertion : Assertion { get }
+    var verifyData : Verify { get }
+    
+    init?(data: Data)
+    
+    func toFile() -> Data
+    func verify() -> Bool
+    func revoke() throws
+}
+
+struct CertificateV1_1 : Certificate {
     let title : String
     let subtitle : String?
     let description: String
@@ -27,13 +54,14 @@ struct Certificate {
     let verifyData : Verify
     
     // Not sure if this is better as a static func or an initialization function. This has the fewest 
-    static func from(file: Data) -> Certificate? {
+    init?(data: Data) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        
         // Deserialize JSON
         var json: [String: AnyObject]
         do {
-            try json = JSONSerialization.jsonObject(with: file, options: []) as! [String: AnyObject]
+            try json = JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
         } catch {
             return nil
         }
@@ -54,7 +82,7 @@ struct Certificate {
                 return nil
         }
         let logo = imageData(from: logoURI)
-        let issuer = Issuer(name: issuerName, email: issuerEmail, image: logo, id: issuerIdURL, url: issuerURL, publicKey: "", publicKeyAddress: URL(string: "https://google.com")!, requestUrl: URL(string: "https://google.com")!)
+        issuer = Issuer(name: issuerName, email: issuerEmail, image: logo, id: issuerIdURL, url: issuerURL, publicKey: "", publicKeyAddress: URL(string: "https://google.com")!, requestUrl: URL(string: "https://google.com")!)
         
         
         guard let recipientData = json["recipient"] as? [String : AnyObject],
@@ -66,7 +94,7 @@ struct Certificate {
             let identity = recipientData["identity"] as? String else {
                 return nil
         }
-        let recipient = Recipient(givenName: givenName, familyName: familyName, identity: identity, identityType: identityType, isHashed: isHashed, publicKey: publicKey)
+        recipient = Recipient(givenName: givenName, familyName: familyName, identity: identity, identityType: identityType, isHashed: isHashed, publicKey: publicKey)
         
         guard let assertionData = json["assertion"] as? [String : String],
             let issuedOnString = assertionData["issuedOn"],
@@ -79,18 +107,18 @@ struct Certificate {
                 return nil
         }
         let signatureImage = imageData(from: signatureImageURI)
-        let assertion = Assertion(issuedOn: issuedOnDate, signatureImage: signatureImage, evidence: evidence, uid: assertionUid, id: assertionIdUrl)
+        assertion = Assertion(issuedOn: issuedOnDate, signatureImage: signatureImage, evidence: evidence, uid: assertionUid, id: assertionIdUrl)
         
         
         // This is how I expect to be able to parse the JSON into the typed object we've defined.
-        guard let verifyData = json["verify"] as? [String : String],
-            let signer = verifyData["signer"],
-            let signedAttribute = verifyData["attribute-signed"],
-            let type = verifyData["type"],
+        guard let verifyJSON = json["verify"] as? [String : String],
+            let signer = verifyJSON["signer"],
+            let signedAttribute = verifyJSON["attribute-signed"],
+            let type = verifyJSON["type"],
             let signerUrl = URL(string: signer) else {
                 return nil
         }
-        let verify = Verify(signer: signerUrl, signedAttribute: signedAttribute, type: type)
+        verifyData = Verify(signer: signerUrl, signedAttribute: signedAttribute, type: type)
         
         guard let title = certificateData["title"] as? String,
             let subtitleMap = certificateData["subtitle"] as? [String : String],
@@ -102,7 +130,13 @@ struct Certificate {
         }
         let certificateImage = imageData(from: certificateImageURI)
         let subtitle = subtitleMap["display"] == "FALSE" ? nil : subtitleMap["content"]
-        return Certificate(title: title, subtitle: subtitle, description: description, image: certificateImage, language: "", id: certificateIdUrl, issuer: issuer, recipient: recipient, assertion: assertion, verifyData: verify)
+        
+        self.title = title
+        self.subtitle = subtitle
+        self.description = description
+        self.image = certificateImage
+        language = ""
+        id = certificateIdUrl
     }
     
     func toFile() -> Data {
@@ -117,21 +151,21 @@ struct Certificate {
     func revoke() throws {
         throw RevokeError.notImplemented
     }
-    
-    private static func imageData(from dataURI: String?) -> Data {
-        guard let dataURI = dataURI else {
-            // Passed in an empty string. Return empty data.
-            return Data()
-        }
-        guard let imageUrl = URL(string: dataURI) else {
-            // dataURI is invalid. Probably didn't start with `data:`
-            return Data()
-        }
-        do {
-            return try Data(contentsOf: imageUrl)
-        } catch {
-            return Data()
-        }
+}
+
+private func imageData(from dataURI: String?) -> Data {
+    guard let dataURI = dataURI else {
+        // Passed in an empty string. Return empty data.
+        return Data()
+    }
+    guard let imageUrl = URL(string: dataURI) else {
+        // dataURI is invalid. Probably didn't start with `data:`
+        return Data()
+    }
+    do {
+        return try Data(contentsOf: imageUrl)
+    } catch {
+        return Data()
     }
 }
 

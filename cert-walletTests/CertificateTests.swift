@@ -33,7 +33,7 @@ class CertificateTests: XCTestCase {
     func testImportProperties() {
         XCTAssertNotNil(file)
         guard let file = file,
-            let cert = Certificate.from(file: file) else {
+            let cert = CertificateParser.parse(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -45,7 +45,7 @@ class CertificateTests: XCTestCase {
     
     func testImportIssuerProperties() {
         guard let file = file,
-            let cert = Certificate.from(file: file) else {
+            let cert = CertificateParser.parse(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -59,7 +59,7 @@ class CertificateTests: XCTestCase {
     
     func testImportRecipientProperties() {
         guard let file = file,
-            let cert = Certificate.from(file: file) else {
+            let cert = CertificateParser.parse(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -74,7 +74,7 @@ class CertificateTests: XCTestCase {
     
     func testImportAssertionProperties() {
         guard let file = file,
-            let cert = Certificate.from(file: file) else {
+            let cert = CertificateParser.parse(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -88,7 +88,7 @@ class CertificateTests: XCTestCase {
     
     func testImportVerifyProperties() {
         guard let file = file,
-            let cert = Certificate.from(file: file) else {
+            let cert = CertificateParser.parse(data: file) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
