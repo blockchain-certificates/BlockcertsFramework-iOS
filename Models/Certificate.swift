@@ -20,6 +20,11 @@ enum CertificateParser {
     }
 }
 
+//
+// MARK: - Certificate Protocol definition
+//
+// This is common data & functionality to all versions of the Certificate schema. 
+//
 protocol Certificate {
     var title : String { get }
     var subtitle : String? { get }
@@ -40,6 +45,71 @@ protocol Certificate {
     func revoke() throws
 }
 
+// MARK: - Certificate Version 1.1
+private enum MethodsForV1_1 {
+    static func parse(issuerData: [String : String]) -> Issuer? {
+        guard let issuerURLString = issuerData["url"],
+            let issuerURL = URL(string: issuerURLString),
+            let logoURI = issuerData["image:logo"],
+            let issuerEmail = issuerData["email"],
+            let issuerName = issuerData["name"],
+            let issuerId = issuerData["id"],
+            let issuerIdURL = URL(string: issuerId) else {
+                return nil
+        }
+        let logo = imageData(from: logoURI)
+        
+        return Issuer(name: issuerName,
+                      email: issuerEmail,
+                      image: logo,
+                      id: issuerIdURL,
+                      url: issuerURL,
+                      publicKey: "",
+                      publicKeyAddress: URL(string: "https://google.com")!,
+                      requestUrl: URL(string: "https://google.com")!)
+    }
+
+    static func parse(recipientData: [String: AnyObject]) -> Recipient? {
+        guard let identityType = recipientData["type"] as? String,
+            let familyName = recipientData["familyName"] as? String,
+            let givenName = recipientData["givenName"] as? String,
+            let isHashed = recipientData["hashed"] as? Bool,
+            let publicKey = recipientData["pubkey"] as? String,
+            let identity = recipientData["identity"] as? String else {
+                return nil
+        }
+        
+        return Recipient(givenName: givenName,
+                         familyName: familyName,
+                         identity: identity,
+                         identityType: identityType,
+                         isHashed: isHashed,
+                         publicKey: publicKey)
+    }
+    
+    static func parse(assertionData: [String: String]) -> Assertion? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        
+        guard let issuedOnString = assertionData["issuedOn"],
+            let issuedOnDate = dateFormatter.date(from: issuedOnString),
+            let signatureImageURI = assertionData["image:signature"],
+            let assertionId = assertionData["id"],
+            let assertionIdUrl = URL(string: assertionId),
+            let assertionUid = assertionData["uid"],
+            let evidence = assertionData["evidence"] else {
+                return nil
+        }
+        
+        let signatureImage = imageData(from: signatureImageURI)
+        return Assertion(issuedOn: issuedOnDate,
+                         signatureImage: signatureImage,
+                         evidence: evidence,
+                         uid: assertionUid,
+                         id: assertionIdUrl)
+    }
+}
+
 struct CertificateV1_1 : Certificate {
     let title : String
     let subtitle : String?
@@ -55,9 +125,6 @@ struct CertificateV1_1 : Certificate {
     
     // Not sure if this is better as a static func or an initialization function. This has the fewest 
     init?(data: Data) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        
         // Deserialize JSON
         var json: [String: AnyObject]
         do {
@@ -66,48 +133,27 @@ struct CertificateV1_1 : Certificate {
             return nil
         }
         
-        // Creating dummy objects with terrible values to pass the type checker for now
         guard let certificateData = json["certificate"] as? [String: AnyObject] else {
             return nil
         }
         
         guard let issuerData = certificateData["issuer"] as? [String: String],
-            let issuerURLString = issuerData["url"],
-            let issuerURL = URL(string: issuerURLString),
-            let logoURI = issuerData["image:logo"],
-            let issuerEmail = issuerData["email"],
-            let issuerName = issuerData["name"],
-            let issuerId = issuerData["id"],
-            let issuerIdURL = URL(string: issuerId) else {
+            let issuer = MethodsForV1_1.parse(issuerData: issuerData) else {
                 return nil
         }
-        let logo = imageData(from: logoURI)
-        issuer = Issuer(name: issuerName, email: issuerEmail, image: logo, id: issuerIdURL, url: issuerURL, publicKey: "", publicKeyAddress: URL(string: "https://google.com")!, requestUrl: URL(string: "https://google.com")!)
-        
+        self.issuer = issuer
         
         guard let recipientData = json["recipient"] as? [String : AnyObject],
-            let identityType = recipientData["type"] as? String,
-            let familyName = recipientData["familyName"] as? String,
-            let givenName = recipientData["givenName"] as? String,
-            let isHashed = recipientData["hashed"] as? Bool,
-            let publicKey = recipientData["pubkey"] as? String,
-            let identity = recipientData["identity"] as? String else {
+            let recipient = MethodsForV1_1.parse(recipientData: recipientData) else {
                 return nil
         }
-        recipient = Recipient(givenName: givenName, familyName: familyName, identity: identity, identityType: identityType, isHashed: isHashed, publicKey: publicKey)
+        self.recipient = recipient
         
         guard let assertionData = json["assertion"] as? [String : String],
-            let issuedOnString = assertionData["issuedOn"],
-            let issuedOnDate = dateFormatter.date(from: issuedOnString),
-            let signatureImageURI = assertionData["image:signature"],
-            let assertionId = assertionData["id"],
-            let assertionIdUrl = URL(string: assertionId),
-            let assertionUid = assertionData["uid"],
-            let evidence = assertionData["evidence"] else {
+            let assertion = MethodsForV1_1.parse(assertionData: assertionData) else {
                 return nil
         }
-        let signatureImage = imageData(from: signatureImageURI)
-        assertion = Assertion(issuedOn: issuedOnDate, signatureImage: signatureImage, evidence: evidence, uid: assertionUid, id: assertionIdUrl)
+        self.assertion = assertion
         
         
         // This is how I expect to be able to parse the JSON into the typed object we've defined.
