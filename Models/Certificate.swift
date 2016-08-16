@@ -60,6 +60,24 @@ extension Certificate {
     }
 }
 
+// These are useful parsing functions that are version-independent.
+private func imageData(from dataURI: String?) -> Data {
+    guard let dataURI = dataURI else {
+        // Passed in an empty string. Return empty data.
+        return Data()
+    }
+    guard let imageUrl = URL(string: dataURI) else {
+        // dataURI is invalid. Probably didn't start with `data:`
+        return Data()
+    }
+    do {
+        return try Data(contentsOf: imageUrl)
+    } catch {
+        return Data()
+    }
+}
+
+
 // MARK: - Certificate Version 1.1
 private enum MethodsForV1_1 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
@@ -154,7 +172,6 @@ struct CertificateV1_1 : Certificate {
     let assertion : Assertion
     let verifyData : Verify
     
-    // Not sure if this is better as a static func or an initialization function. This has the fewest 
     init?(data: Data) {
         // Deserialize JSON
         var json: [String: AnyObject]
@@ -186,41 +203,16 @@ struct CertificateV1_1 : Certificate {
 
         
         // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.
-        guard let issuer = MethodsForV1_1.parse(issuerJSON: certificateData["issuer"]) else {
+        guard let issuer = MethodsForV1_1.parse(issuerJSON: certificateData["issuer"]),
+            let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]),
+            let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]),
+            let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]) else {
                 return nil
         }
         self.issuer = issuer
-        
-        guard let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]) else {
-                return nil
-        }
         self.recipient = recipient
-        
-        guard let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]) else {
-                return nil
-        }
         self.assertion = assertion
-        
-        guard let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]) else {
-                return nil
-        }
         self.verifyData = verifyData
-    }
-}
-
-private func imageData(from dataURI: String?) -> Data {
-    guard let dataURI = dataURI else {
-        // Passed in an empty string. Return empty data.
-        return Data()
-    }
-    guard let imageUrl = URL(string: dataURI) else {
-        // dataURI is invalid. Probably didn't start with `data:`
-        return Data()
-    }
-    do {
-        return try Data(contentsOf: imageUrl)
-    } catch {
-        return Data()
     }
 }
 
