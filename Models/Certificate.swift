@@ -227,7 +227,6 @@ private enum MethodsForV1_2 {
             let issuerURLString = issuerData["url"],
             let issuerURL = URL(string: issuerURLString),
             let logoURI = issuerData["image:logo"],
-            let issuerEmail = issuerData["email"],
             let issuerName = issuerData["name"],
             let issuerId = issuerData["id"],
             let issuerIdURL = URL(string: issuerId) else {
@@ -236,7 +235,7 @@ private enum MethodsForV1_2 {
         let logo = imageData(from: logoURI)
         
         return Issuer(name: issuerName,
-                      email: issuerEmail,
+                      email: nil,
                       image: logo,
                       id: issuerIdURL,
                       url: issuerURL,
@@ -246,57 +245,13 @@ private enum MethodsForV1_2 {
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
-        guard let recipientData = recipientJSON as? [String : AnyObject],
-            let identityType = recipientData["type"] as? String,
-            let familyName = recipientData["familyName"] as? String,
-            let givenName = recipientData["givenName"] as? String,
-            let isHashed = recipientData["hashed"] as? Bool,
-            let publicKey = recipientData["pubkey"] as? String,
-            let identity = recipientData["identity"] as? String else {
-                return nil
-        }
-        
-        return Recipient(givenName: givenName,
-                         familyName: familyName,
-                         identity: identity,
-                         identityType: identityType,
-                         isHashed: isHashed,
-                         publicKey: publicKey)
+        return MethodsForV1_1.parse(recipientJSON: recipientJSON)
     }
-    
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        
-        guard let assertionData = assertionJSON as? [String : String],
-            let issuedOnString = assertionData["issuedOn"],
-            let issuedOnDate = dateFormatter.date(from: issuedOnString),
-            let signatureImageURI = assertionData["image:signature"],
-            let assertionId = assertionData["id"],
-            let assertionIdUrl = URL(string: assertionId),
-            let assertionUid = assertionData["uid"],
-            let evidence = assertionData["evidence"] else {
-                return nil
-        }
-        
-        let signatureImage = imageData(from: signatureImageURI)
-        return Assertion(issuedOn: issuedOnDate,
-                         signatureImage: signatureImage,
-                         evidence: evidence,
-                         uid: assertionUid,
-                         id: assertionIdUrl)
+        return MethodsForV1_1.parse(assertionJSON: assertionJSON)
     }
-    
     static func parse(verifyJSON: AnyObject?) -> Verify? {
-        guard let verifyData = verifyJSON as? [String : String],
-            let signer = verifyData["signer"],
-            let signedAttribute = verifyData["attribute-signed"],
-            let type = verifyData["type"],
-            let signerUrl = URL(string: signer) else {
-                return nil
-        }
-        
-        return Verify(signer: signerUrl, signedAttribute: signedAttribute, type: type)
+        return MethodsForV1_1.parse(verifyJSON: verifyJSON)
     }
 }
 
@@ -327,7 +282,6 @@ struct CertificateV1_2 : Certificate {
         // Get any key properties on the Certificate object
         guard let certificateData = json["certificate"] as? [String: AnyObject],
             let title = certificateData["title"] as? String,
-            let subtitleMap = certificateData["subtitle"] as? [String : String],
             let certificateImageURI = certificateData["image:certificate"] as? String,
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),
@@ -335,7 +289,7 @@ struct CertificateV1_2 : Certificate {
                 return nil
         }
         let certificateImage = imageData(from: certificateImageURI)
-        let subtitle = subtitleMap["display"] == "FALSE" ? nil : subtitleMap["content"]
+        let subtitle = certificateData["subtitle"] as? String
         
         self.title = title
         self.subtitle = subtitle
