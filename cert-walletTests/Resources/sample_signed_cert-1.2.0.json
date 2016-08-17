@@ -25,7 +25,6 @@
       "title": "Certificate title",
       "image:certificate": "data:image/png;base64,",
       "id": "https://www.theissuer.edu/criteria/2016/05/certificate-type.json",
-      "email": "issuer@theissuer.edu",
       "issuer": {
         "@type": "Issuer",
         "url": "http://www.theissuer.edu",
