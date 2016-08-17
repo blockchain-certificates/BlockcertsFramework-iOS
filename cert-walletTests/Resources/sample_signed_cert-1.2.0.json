@@ -31,7 +31,8 @@
         "url": "http://www.theissuer.edu",
         "name": "Issuing Institution",
         "id": "https://www.theissuer.edu/issuer/the-issuer.json",
-        "image:logo": "data:image/png;base64,"
+        "image:logo": "data:image/png;base64,",
+        "email": "issuer@theissuer.edu"
       }
     },
     "assertion": {

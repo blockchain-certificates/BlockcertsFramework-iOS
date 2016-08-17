@@ -53,7 +53,7 @@ class CertificateV1_2UnsignedTests: XCTestCase {
         let issuer = cert.issuer
         
         XCTAssertEqual(issuer.name, "Issuing Institution")
-        XCTAssertNil(issuer.email)
+        XCTAssertEqual(issuer.email, "issuer@theissuer.edu")
         XCTAssertEqual(issuer.id, URL(string: "https://www.theissuer.edu/issuer/the-issuer.json"))
         XCTAssertEqual(issuer.url, URL(string: "http://www.theissuer.edu"))
     }
@@ -157,7 +157,7 @@ class CertificateV1_2SignedTests: XCTestCase {
         let issuer = cert.issuer
         
         XCTAssertEqual(issuer.name, "Issuing Institution")
-        XCTAssertEqual(issuer.email, nil)
+        XCTAssertEqual(issuer.email, "issuer@theissuer.edu")
         XCTAssertEqual(issuer.id, URL(string: "https://www.theissuer.edu/issuer/the-issuer.json"))
         XCTAssertEqual(issuer.url, URL(string: "http://www.theissuer.edu"))
     }
