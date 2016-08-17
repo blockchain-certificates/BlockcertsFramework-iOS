@@ -43,12 +43,10 @@ class cert_walletTests: XCTestCase {
         var keychain = Keychain(seedPhrase: seedPhrase)
         
         let firstKey = keychain.nextPublicKey()
-        // 03885da437c0c5b76d3afd29852acf78237d2341b8662cb2438e13d91845942764
         let secondKey = keychain.nextPublicKey()
-        // 028b8f132faf5dbd659efdf80a5d18aa6b421f2f1e6d1f58dd57a4d3170688a306
-                
-        XCTAssertTrue(firstKey.characters.count > 0)
-        XCTAssertTrue(secondKey.characters.count > 0)
+        
+        XCTAssertEqual(firstKey, "03885da437c0c5b76d3afd29852acf78237d2341b8662cb2438e13d91845942764")
+        XCTAssertEqual(secondKey, "028b8f132faf5dbd659efdf80a5d18aa6b421f2f1e6d1f58dd57a4d3170688a306")
     }
     
     func testKeychainSearch() {
