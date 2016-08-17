@@ -101,6 +101,23 @@ class CertificateV1_2UnsignedTests: XCTestCase {
     }
 }
 
+class CertificateV1_2UnsignedInvalidTests: XCTestCase {
+    func testMissingIssuerEmail() {
+        let filename = "sample_unsigned_cert-invalid_no_email-1.2.0"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
+            let file = try? Data(contentsOf: fileUrl) else {
+                XCTFail("Failed to load \(filename) in \(#function)")
+                return
+        }
+        
+        let cert = CertificateParser.parse(data: file)
+        
+        XCTAssertNil(cert)
+    }
+}
+
+
 class CertificateV1_2SignedTests: XCTestCase {
     let certificateFilename = "sample_signed_cert-1.2.0"
     

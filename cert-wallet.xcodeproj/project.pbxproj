@@ -27,7 +27,7 @@
 		834F2EE41D62280E008C9650 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F2EE31D62280E008C9650 /* StringExtensions.swift */; };
 		834F2EE61D624E80008C9650 /* CertificateV1_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834F2EE51D624E80008C9650 /* CertificateV1_1Tests.swift */; };
 		834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */; };
-		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json */; };
+		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
 		835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B62451D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json */; };
 		835B62481D63B39F00C95EB8 /* CertificateV1_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B62471D63B39F00C95EB8 /* CertificateV1_2Tests.swift */; };
 		835B624A1D63C87200C95EB8 /* CertificateParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B62491D63C87200C95EB8 /* CertificateParserTests.swift */; };
@@ -77,7 +77,7 @@
 		834F2EE31D62280E008C9650 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		834F2EE51D624E80008C9650 /* CertificateV1_1Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_1Tests.swift; sourceTree = "<group>"; };
 		834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.1.0.json"; sourceTree = "<group>"; };
-		834F2EE91D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.2.0.json"; sourceTree = "<group>"; };
+		834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-invalid_no_email-1.2.0.json"; sourceTree = "<group>"; };
 		835B62451D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.2.0.json"; sourceTree = "<group>"; };
 		835B62471D63B39F00C95EB8 /* CertificateV1_2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_2Tests.swift; sourceTree = "<group>"; };
 		835B62491D63C87200C95EB8 /* CertificateParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateParserTests.swift; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 			children = (
 				835B62451D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json */,
 				834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */,
-				834F2EE91D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json */,
+				834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -378,7 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */,
-				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-1.2.0.json in Resources */,
+				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

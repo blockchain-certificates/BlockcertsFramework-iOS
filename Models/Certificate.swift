@@ -260,25 +260,26 @@ private struct CertificateV1_1 : Certificate {
 // MARK: Certificate Version 1.2
 private enum MethodsForV1_2 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
-        guard let issuerData = issuerJSON as? [String : String],
-            let issuerURLString = issuerData["url"],
-            let issuerURL = URL(string: issuerURLString),
-            let logoURI = issuerData["image:logo"],
-            let issuerName = issuerData["name"],
-            let issuerId = issuerData["id"],
-            let issuerIdURL = URL(string: issuerId) else {
-                return nil
-        }
-        let logo = imageData(from: logoURI)
-        
-        return Issuer(name: issuerName,
-                      email: nil,
-                      image: logo,
-                      id: issuerIdURL,
-                      url: issuerURL,
-                      publicKey: "",
-                      publicKeyAddress: URL(string: "https://google.com")!,
-                      requestUrl: URL(string: "https://google.com")!)
+        return MethodsForV1_1.parse(issuerJSON: issuerJSON)
+//        guard let issuerData = issuerJSON as? [String : String],
+//            let issuerURLString = issuerData["url"],
+//            let issuerURL = URL(string: issuerURLString),
+//            let logoURI = issuerData["image:logo"],
+//            let issuerName = issuerData["name"],
+//            let issuerId = issuerData["id"],
+//            let issuerIdURL = URL(string: issuerId) else {
+//                return nil
+//        }
+//        let logo = imageData(from: logoURI)
+//        
+//        return Issuer(name: issuerName,
+//                      email: nil,
+//                      image: logo,
+//                      id: issuerIdURL,
+//                      url: issuerURL,
+//                      publicKey: "",
+//                      publicKeyAddress: URL(string: "https://google.com")!,
+//                      requestUrl: URL(string: "https://google.com")!)
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {

@@ -10,7 +10,7 @@ import Foundation
 
 struct Issuer {
     let name : String
-    let email : String?
+    let email : String
     let image : Data
     let id : URL
     let url : URL
