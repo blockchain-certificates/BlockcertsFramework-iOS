@@ -71,7 +71,35 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Phm-Ow-sVg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1438" y="374"/>
+            <point key="canvasLocation" x="1833" y="374"/>
+        </scene>
+        <!--Certificate Detail View Controller-->
+        <scene sceneID="whT-iY-Ln3">
+            <objects>
+                <tableViewController id="FC2-NO-MGJ" customClass="CertificateDetailViewController" customModule="cert_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="arL-jb-JcT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificateDetailTableViewCell" id="g8P-Ai-igF">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g8P-Ai-igF" id="syi-VO-g7z">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FC2-NO-MGJ" id="nAH-9N-0qf"/>
+                            <outlet property="delegate" destination="FC2-NO-MGJ" id="TWh-wi-UWD"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ny4-Ev-r2j" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1833" y="1138"/>
         </scene>
         <!--Certificates-->
         <scene sceneID="k9a-D2-VXj">
@@ -84,6 +112,7 @@
                     </navigationBar>
                     <connections>
                         <segue destination="CfM-7E-Px4" kind="relationship" relationship="rootViewController" id="3cX-CR-2xi"/>
+                        <segue destination="FC2-NO-MGJ" kind="show" identifier="CertificateDetail" id="gK5-0g-MWY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YKs-eV-wCp" userLabel="First Responder" sceneMemberID="firstResponder"/>
