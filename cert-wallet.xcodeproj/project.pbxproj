@@ -34,7 +34,7 @@
 		835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B624D1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json */; };
 		836A31A71D5933D800943801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A61D5933D800943801 /* AppDelegate.swift */; };
 		836A31A91D5933D800943801 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* FirstViewController.swift */; };
-		836A31AB1D5933D800943801 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31AA1D5933D800943801 /* SecondViewController.swift */; };
+		836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31AA1D5933D800943801 /* CertificatesViewController.swift */; };
 		836A31AE1D5933D800943801 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AC1D5933D800943801 /* Main.storyboard */; };
 		836A31B01D5933D800943801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AF1D5933D800943801 /* Assets.xcassets */; };
 		836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31B11D5933D800943801 /* LaunchScreen.storyboard */; };
@@ -86,7 +86,7 @@
 		836A31A31D5933D800943801 /* cert-wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cert-wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31A61D5933D800943801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		836A31A81D5933D800943801 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		836A31AA1D5933D800943801 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		836A31AA1D5933D800943801 /* CertificatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatesViewController.swift; sourceTree = "<group>"; };
 		836A31AD1D5933D800943801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		836A31AF1D5933D800943801 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		836A31B21D5933D800943801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 			children = (
 				836A31A61D5933D800943801 /* AppDelegate.swift */,
 				836A31A81D5933D800943801 /* FirstViewController.swift */,
-				836A31AA1D5933D800943801 /* SecondViewController.swift */,
+				836A31AA1D5933D800943801 /* CertificatesViewController.swift */,
 				836A31AC1D5933D800943801 /* Main.storyboard */,
 				836A31AF1D5933D800943801 /* Assets.xcassets */,
 				836A31B11D5933D800943801 /* LaunchScreen.storyboard */,
@@ -540,7 +540,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				834910F11D5E6DC300872DAE /* String.swift in Sources */,
-				836A31AB1D5933D800943801 /* SecondViewController.swift in Sources */,
+				836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */,
 				836A31A71D5933D800943801 /* AppDelegate.swift in Sources */,
 				836A31A91D5933D800943801 /* FirstViewController.swift in Sources */,
 				830B7D011D5A82B20089F13D /* Assertion.swift in Sources */,
