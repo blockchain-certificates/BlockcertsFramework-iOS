@@ -30,7 +30,7 @@ enum CertificateValidator {
     
         do {
             //let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-            let json  = try JSONSerialization.jsonObject(with: data)!
+            let json  = try JSONSerialization.jsonObject(with: data) as! [String: AnyObject]
             if let blogs = json["blogs"] as? [[String: AnyObject]] {
                 for blog in blogs {
                     if let name = blog["name"] as? String {
