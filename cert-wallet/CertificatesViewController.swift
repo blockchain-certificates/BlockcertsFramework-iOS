@@ -9,6 +9,7 @@
 import UIKit
 
 class CertificatesViewController: UITableViewController {
+    var certificates = [Certificate]()
     let cellReuseIdentifier = "CertificateTableViewCell"
     let detailSegueIdentifier = "CertificateDetail"
 
@@ -31,14 +32,14 @@ class CertificatesViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return certificates.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)!
-
-        cell.textLabel?.text = "Title \(indexPath.row)"
-        cell.detailTextLabel?.text = "Subtitle \(indexPath.row)"
+        let certificate = certificates[indexPath.row]
+        cell.textLabel?.text = certificate.title
+        cell.detailTextLabel?.text = certificate.subtitle
 
         return cell
     }
@@ -50,6 +51,23 @@ class CertificatesViewController: UITableViewController {
 
 extension CertificatesViewController : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        print("Got document at url: \(url)")
+        guard let data = try? Data(contentsOf: url) else {
+            let alertController = UIAlertController(title: "Couldn't read file", message: "Something went wrong trying to open the file.", preferredStyle: .alert)
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        guard let certificate = CertificateParser.parse(data: data) else {
+            let alertController = UIAlertController(title: "Invalid Certificate", message: "That doesn't appear to be a valid Certificate file.", preferredStyle: .alert)
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+
+        // TODO: We should check and see if that cert is already in the array.
+
+        certificates.append(certificate)
+        
+        // TODO: We should do an insert animation rather than a full table reload.
+        tableView.reloadData()
     }
 }
