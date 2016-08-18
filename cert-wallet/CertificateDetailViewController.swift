@@ -8,9 +8,20 @@
 
 import UIKit
 
+struct CertificateProperty {
+    let title : String
+    let values : [String : String]
+}
+
+
 class CertificateDetailViewController: UITableViewController {
     let cellReuseIdentifier = "CertificateDetailTableViewCell"
-    var certificate: Certificate?
+    var sections = [CertificateProperty]()
+    var certificate: Certificate? {
+        didSet {
+            generateSectionData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,23 +33,43 @@ class CertificateDetailViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func generateSectionData() {
+        // Details
+        sections = [
+            CertificateProperty(title: "Details", values: [
+                "Title": certificate?.title ?? "",
+                "Subtitle": certificate?.subtitle ?? "",
+                "Description": certificate?.description ?? "",
+                "Language": certificate?.language ?? "",
+//                "Id": "\(certificateId)"
+            ])
+        ]
+    }
 }
 
 // MARK: Table View Controller overrides
 extension CertificateDetailViewController {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return sections.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        let values = sections[section].values
+        return values.keys.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)!
         
-        cell.textLabel?.text = "Title \(indexPath.row)"
-        cell.detailTextLabel?.text = "Subtitle \(indexPath.row)"
+        let values = sections[indexPath.section].values
+        let sortedKeys = values.keys.sorted(by: <)
+        let thisKey = sortedKeys[indexPath.row]
+        let thisValue = values[thisKey]
+        
+        cell.textLabel?.text = thisKey
+        cell.detailTextLabel?.text = thisValue
         
         return cell
     }
