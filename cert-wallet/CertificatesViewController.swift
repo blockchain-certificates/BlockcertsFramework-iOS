@@ -53,12 +53,18 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         guard let data = try? Data(contentsOf: url) else {
             let alertController = UIAlertController(title: "Couldn't read file", message: "Something went wrong trying to open the file.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
+                alertController?.dismiss(animated: true, completion: nil)
+            }))
             present(alertController, animated: true, completion: nil)
             return
         }
         
         guard let certificate = CertificateParser.parse(data: data) else {
             let alertController = UIAlertController(title: "Invalid Certificate", message: "That doesn't appear to be a valid Certificate file.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
+                alertController?.dismiss(animated: true, completion: nil)
+            }))
             present(alertController, animated: true, completion: nil)
             return
         }
