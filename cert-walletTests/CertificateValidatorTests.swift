@@ -24,17 +24,16 @@ enum CertificateValidator {
     }
     
     
-    
-    static func completion2(data:Data) {
-        var names = [String]()
+    static func completion(data:Data) {
+
     
         do {
             //let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             let json  = try JSONSerialization.jsonObject(with: data) as! [String: AnyObject]
-            if let blogs = json["blogs"] as? [[String: AnyObject]] {
-                for blog in blogs {
-                    if let name = blog["name"] as? String {
-                        names.append(name)
+            if let outputs = json["out"] as? [[String: AnyObject]] {
+                for output in outputs {
+                    if output["value"] as? Int == 0 {
+                        print(output["script"])
                     }
                 }
             }
@@ -42,19 +41,9 @@ enum CertificateValidator {
             print("error serializing JSON: \(error)")
         }
     
-        print(names) // ["Bloxus test", "Manila Test"]
+        //print(names) // ["Bloxus test", "Manila Test"]
     }
     
-    static func completion(data : Data) {
-        do {
-            let json = try JSONSerialization.jsonObject(with: data)
-            print(json)
-        } catch {
-            print(error)
-        }
-        
-        print(data)
-    }
     
     static func callUrl(transactionId : String) {
         
@@ -198,9 +187,8 @@ enum CertificateValidator {
 
 
 class CertificateValidatorTests: XCTestCase {
-    let v1_1filename = "sample_unsigned_cert-1.1.0"
-    let v1_2filename = "sample_unsigned_cert-1.2.0"
-    let v1_2signedFilename = "sample_signed_cert-1.2.0"
+    let v1_1filename = "sample_signed_cert-1.1.0"
+    let v1_1transactionId = "d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d"
     
     // MARK: - Simple parse(data:) calls
     func testExpectingV1_1Certificate() {
@@ -211,9 +199,11 @@ class CertificateValidatorTests: XCTestCase {
         }
         
         let certificate = CertificateParser.parse(data: file)
-        let transactionId:String = String("d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d")
-        let result = CertificateValidator.validate(transactionId: transactionId, certificate: certificate!)
+        let result = CertificateValidator.validate(transactionId: v1_1transactionId, certificate: certificate!)
         print(result)
+        
+        XCTAssertNotNil(certificate)
+        XCTAssert(result)
     }
     
 

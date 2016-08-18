@@ -7,7 +7,7 @@
   "recipient": {
     "type": "email",
     "familyName": "RecipientLastName",
-    "hashed": false,
+    "hashed": "false",
     "givenName": "RecipientFirstName",
     "pubkey": "n1EduLzKsTL1pM8Roz9vEV16AQnBdg9JCx",
     "identity": "recipient@domain.com"
@@ -26,11 +26,11 @@
     },
     "description": "Certificate description",
     "title": "Certificate title",
-    "image:certificate": "data:image/png;base64,",
+    "image": "data:image/png;base64,",
     "id": "https://www.theissuer.edu/criteria/2016/05/certificate-type.json",
     "issuer": {
       "url": "http://www.theissuer.edu",
-      "image:logo": "data:image/png;base64,",
+      "image": "data:image/png;base64,",
       "email": "issuer@theissuer.edu",
       "name": "Issuing Institution",
       "id": "https://www.theissuer.edu/issuer/the-issuer.json"

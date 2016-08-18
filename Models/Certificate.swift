@@ -125,7 +125,7 @@ private enum MethodsForV1_1 {
         guard let issuerData = issuerJSON as? [String : String],
             let issuerURLString = issuerData["url"],
             let issuerURL = URL(string: issuerURLString),
-            let logoURI = issuerData["image:logo"],
+            let logoURI = issuerData["image"],
             let issuerEmail = issuerData["email"],
             let issuerName = issuerData["name"],
             let issuerId = issuerData["id"],
@@ -149,7 +149,7 @@ private enum MethodsForV1_1 {
             let identityType = recipientData["type"] as? String,
             let familyName = recipientData["familyName"] as? String,
             let givenName = recipientData["givenName"] as? String,
-            let isHashed = recipientData["hashed"] as? Bool,
+            let isHashed = recipientData["hashed"] as? String,
             let publicKey = recipientData["pubkey"] as? String,
             let identity = recipientData["identity"] as? String else {
                 return nil
@@ -159,7 +159,7 @@ private enum MethodsForV1_1 {
                          familyName: familyName,
                          identity: identity,
                          identityType: identityType,
-                         isHashed: isHashed,
+                         isHashed: isHashed.uppercased() == "TRUE",
                          publicKey: publicKey)
     }
     
@@ -226,7 +226,7 @@ private struct CertificateV1_1 : Certificate {
         guard let certificateData = json["certificate"] as? [String: AnyObject],
             let title = certificateData["title"] as? String,
             let subtitleMap = certificateData["subtitle"] as? [String : String],
-            let certificateImageURI = certificateData["image:certificate"] as? String,
+            let certificateImageURI = certificateData["image"] as? String,
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),
             let description = certificateData["description"] as? String else {
