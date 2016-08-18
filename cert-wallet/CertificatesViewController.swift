@@ -23,6 +23,18 @@ class CertificatesViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == detailSegueIdentifier {
+            let destination = segue.destination as? CertificateDetailViewController
+            if let selectedIndex = tableView.indexPathForSelectedRow?.row {
+                destination?.certificate = certificates[selectedIndex]
+            } else {
+                destination?.certificate = nil
+            }
+        }
+    }
+
+
     @IBAction func importTapped(_ sender: UIBarButtonItem) {
         let controller = UIDocumentPickerViewController(documentTypes: ["public.content"], in: .import)
         controller.delegate = self
@@ -46,9 +58,10 @@ class CertificatesViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.performSegue(withIdentifier: detailSegueIdentifier, sender: self)
-    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let certificate = certificates[indexPath.row]
+//        performSegue(withIdentifier: detailSegueIdentifier, sender: certificate)
+//    }
 }
 
 extension CertificatesViewController : UIDocumentPickerDelegate {

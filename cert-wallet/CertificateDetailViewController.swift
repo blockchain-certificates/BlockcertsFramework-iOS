@@ -10,18 +10,22 @@ import UIKit
 
 class CertificateDetailViewController: UITableViewController {
     let cellReuseIdentifier = "CertificateDetailTableViewCell"
+    var certificate: Certificate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        title = "Certificates"
+        title = certificate?.title ?? "CertiFicate"
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+}
+
+// MARK: Table View Controller overrides
+extension CertificateDetailViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }

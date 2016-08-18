@@ -57,18 +57,18 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NML-IU-Chb" id="MJz-IH-Yua">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yn9-f7-JvX">
-                                            <frame key="frameInset" minX="60" minY="5" width="33.5" height="20.5"/>
+                                            <frame key="frameInset" minX="60" minY="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eMR-EV-x98">
-                                            <frame key="frameInset" minX="60" minY="25.5" width="44" height="14.5"/>
+                                            <frame key="frameInset" minX="60" minY="25" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -80,6 +80,9 @@
                                         </imageView>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="FC2-NO-MGJ" kind="show" identifier="CertificateDetail" id="mos-eT-9Gx"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -125,12 +128,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ny4-Ev-r2j" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1833" y="1138"/>
+            <point key="canvasLocation" x="2668" y="374"/>
         </scene>
         <!--Certificates-->
         <scene sceneID="k9a-D2-VXj">
             <objects>
-                <navigationController title="Certificates" id="S79-nS-LVS" sceneMemberID="viewController">
+                <navigationController title="Certificates" id="S79-nS-LVS" customClass="CertificatesNavigationController" customModule="cert_wallet" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Certificates" image="second" id="YPO-Nr-cvT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="I46-gL-fKK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -138,7 +141,6 @@
                     </navigationBar>
                     <connections>
                         <segue destination="CfM-7E-Px4" kind="relationship" relationship="rootViewController" id="3cX-CR-2xi"/>
-                        <segue destination="FC2-NO-MGJ" kind="show" identifier="CertificateDetail" id="gK5-0g-MWY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YKs-eV-wCp" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -34,6 +34,12 @@
 		835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B624D1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json */; };
 		835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
 		835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
+		83659CF61D6657FA00316BA8 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7CF71D5A822B0089F13D /* Certificate.swift */; };
+		83659CF71D6657FA00316BA8 /* Issuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7CFA1D5A82540089F13D /* Issuer.swift */; };
+		83659CF81D6657FA00316BA8 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7CFD1D5A82980089F13D /* Recipient.swift */; };
+		83659CF91D6657FA00316BA8 /* Assertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D001D5A82B20089F13D /* Assertion.swift */; };
+		83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D031D5A82CA0089F13D /* Verify.swift */; };
+		83659CFB1D6657FA00316BA8 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
 		836A31A71D5933D800943801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A61D5933D800943801 /* AppDelegate.swift */; };
 		836A31A91D5933D800943801 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* FirstViewController.swift */; };
 		836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31AA1D5933D800943801 /* CertificatesViewController.swift */; };
@@ -591,6 +597,12 @@
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
 				836A31C91D5933D800943801 /* cert_walletUITests.swift in Sources */,
 				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
+				83659CF91D6657FA00316BA8 /* Assertion.swift in Sources */,
+				83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */,
+				83659CFB1D6657FA00316BA8 /* Keychain.swift in Sources */,
+				83659CF61D6657FA00316BA8 /* Certificate.swift in Sources */,
+				83659CF71D6657FA00316BA8 /* Issuer.swift in Sources */,
+				83659CF81D6657FA00316BA8 /* Recipient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
