@@ -38,8 +38,10 @@ class CertificatesViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)!
         let certificate = certificates[indexPath.row]
+        
         cell.textLabel?.text = certificate.title
         cell.detailTextLabel?.text = certificate.subtitle
+        cell.imageView?.image = UIImage(data: certificate.image)
 
         return cell
     }
