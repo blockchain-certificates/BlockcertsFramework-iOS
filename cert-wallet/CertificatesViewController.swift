@@ -15,14 +15,21 @@ class CertificatesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        title = "Certificates"
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    @IBAction func importTapped(_ sender: UIBarButtonItem) {
+        let controller = UIDocumentPickerViewController(documentTypes: ["public.content"], in: .import)
+        controller.delegate = self
+        controller.modalPresentationStyle = .formSheet
+        
+        present(controller, animated: true, completion: nil)
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
@@ -41,3 +48,8 @@ class CertificatesViewController: UITableViewController {
     }
 }
 
+extension CertificatesViewController : UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        print("Got document at url: \(url)")
+    }
+}

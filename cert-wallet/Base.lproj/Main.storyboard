@@ -57,7 +57,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NML-IU-Chb" id="MJz-IH-Yua">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -67,7 +67,13 @@
                             <outlet property="delegate" destination="CfM-7E-Px4" id="JhC-hv-scT"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="MQM-hu-Q0S"/>
+                    <navigationItem key="navigationItem" title="Certificates" id="MQM-hu-Q0S">
+                        <barButtonItem key="rightBarButtonItem" title="Import" id="lBF-dv-lbs">
+                            <connections>
+                                <action selector="importTapped:" destination="CfM-7E-Px4" id="yBU-Zz-Ohm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Phm-Ow-sVg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -86,7 +92,7 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g8P-Ai-igF" id="syi-VO-g7z">
-                                    <frame key="frameInset" width="375" height="43"/>
+                                    <frame key="frameInset" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
