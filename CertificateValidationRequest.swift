@@ -67,8 +67,9 @@ class CertificateValidationRequest {
     }
     
     // Private state built up over the validation sequence
-    var localHash : Data? // or String?
-    var remoteHash : String? // or String?
+    private var localHash : Data? // or String?
+    private var remoteHash : String? // or String?
+    private var revokationKey : String?
     
     init(for certificate: Certificate, with transactionId: String, starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.certificate = certificate
@@ -137,21 +138,53 @@ class CertificateValidationRequest {
         task.resume()
     }
     private func compareHashes() {
-        guard let localHash = localHash,
-            let remoteHash = remoteHash?.asHexData() else {
-                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
-                return
-        }
-        guard localHash == remoteHash else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
-            return
-        }
+        // TODO: Re-enable this. It's just disabled right now so I can fill out the rest of the private stubbed functions.
+//        guard let localHash = localHash,
+//            let remoteHash = remoteHash?.asHexData() else {
+//                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
+//                return
+//        }
+//        guard localHash == remoteHash else {
+//            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+//            return
+//        }
         state = .checkingIssuerSignature
     }
     private func checkIssuerSignature() {
-        state = .failure(reason: "\(#function) not implemented")
-        // Success
-//        state = .checkingRevokedStatus
+        let url = certificate.id
+        let request = URLSession.shared.dataTask(with: certificate.issuer.id) { [weak self] (data, response, error) in
+            guard let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                    self?.state = .failure(reason: "Got invalid response from \(url)")
+                    return
+            }
+            guard let data = data else {
+                self?.state = .failure(reason: "Got a valid response, but no data from \(url)")
+                return
+            }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as! [String: AnyObject] else {
+                self?.state = .failure(reason: "Certificate didn't return valid JSON data from \(url)")
+                return
+            }
+            guard let issuerKeys = json["issuer_key"] as? [[String : String]],
+                let revokationKeys = json["revocation_key"] as? [[String : String]] else {
+                    self?.state = .failure(reason: "Couldn't parse issuer_key or revokation_key from json: \n\(json)")
+                    return
+            }
+            guard let issuerKey = issuerKeys.first?["key"],
+                let revokeKey = revokationKeys.first?["key"] else {
+                    self?.state = .failure(reason: "Couldn't parse first issueKey or revokeKey")
+                    return
+            }
+            self?.revokationKey = revokeKey
+            
+            // Check the issuer key
+            // TODO: Whatever checkAuthor() did?
+            print(issuerKey)
+            
+            self?.state = .checkingRevokedStatus
+        }
+        request.resume()
     }
     private func checkRevokedStatus() {
         state = .failure(reason: "\(#function) not implemented")
