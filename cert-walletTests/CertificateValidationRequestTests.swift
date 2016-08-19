@@ -24,14 +24,15 @@ class CertificateValidationRequestTests: XCTestCase {
         
         let certificate = CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
-        _ = CertificateValidationRequest(for: certificate!, starting: true) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, with:v1_1transactionId) { (success, errorMessage) in
             XCTAssertFalse(success)
             XCTAssertNotNil(errorMessage)
             XCTAssertEqual(errorMessage!, "Failed")
             
             testExpectation.fulfill()
         }
+        request.start()
         
-        waitForExpectations(timeout: 5.0, handler: nil)
+        waitForExpectations(timeout: 20.0, handler: nil)
     }    
 }

@@ -64,6 +64,7 @@ protocol Certificate {
     var image : Data { get }
     var language : String { get }
     var id : URL { get }
+    var file : Data { get }
     
     var issuer : Issuer { get }
     var recipient : Recipient { get }
@@ -72,17 +73,12 @@ protocol Certificate {
     
     init?(data: Data)
     
-    func toFile() -> Data
     func verify() -> Bool
     func revoke() throws
 }
 
 // Default implementations for new Certificates.
 extension Certificate {
-    func toFile() -> Data {
-        return Data()
-    }
-    
     func verify() -> Bool {
         return false
     }
@@ -207,6 +203,7 @@ private struct CertificateV1_1 : Certificate {
     let image : Data
     let language : String
     let id : URL
+    let file : Data
     
     let issuer : Issuer
     let recipient : Recipient
@@ -214,6 +211,8 @@ private struct CertificateV1_1 : Certificate {
     let verifyData : Verify
     
     init?(data: Data) {
+        self.file = data
+        
         // Deserialize JSON
         var json: [String: AnyObject]
         do {
@@ -301,6 +300,7 @@ private struct CertificateV1_2 : Certificate {
     let image : Data
     let language : String
     let id : URL
+    let file : Data
     
     let issuer : Issuer
     let recipient : Recipient
@@ -308,6 +308,8 @@ private struct CertificateV1_2 : Certificate {
     let verifyData : Verify
     
     init?(data: Data) {
+        file = data
+        
         // Deserialize JSON
         var json: [String: AnyObject]
         do {

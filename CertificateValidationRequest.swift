@@ -35,6 +35,7 @@ extension CertificateValidationRequestDelegate {
 
 class CertificateValidationRequest {
     let certificate : Certificate
+    let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
     weak var delegate : CertificateValidationRequestDelegate?
 
@@ -65,8 +66,13 @@ class CertificateValidationRequest {
         }
     }
     
-    @discardableResult init(for certificate: Certificate, starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
+    // Private state built up over the validation sequence
+    var localHash : Data? // or String?
+    var remoteHash : String? // or String?
+    
+    init(for certificate: Certificate, with transactionId: String, starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.certificate = certificate
+        self.transactionId = transactionId
         self.completionHandler = completionHandler
         
         if (starting) {
@@ -83,14 +89,52 @@ class CertificateValidationRequest {
     }
     
     private func computeLocalHash() {
-        state = .failure(reason: "\(#function) not implemented")
-        // Success
-//        state = .fetchingRemoteHash
+        localHash = sha256(data: certificate.file)
+        state = .fetchingRemoteHash
     }
     private func fetchRemoteHash() {
-        state = .failure(reason: "\(#function) not implemented")
-        // Success
-//        state = .comparingHashes
+        guard let transactionUrl = URL(string: "https://blockchain.info/rawtx/\(transactionId)?cors=true") else {
+            state = .failure(reason: "Transaction ID (\(transactionId)) is invalid")
+            return
+        }
+        let task = URLSession.shared.dataTask(with: transactionUrl) { [weak self] (data, response : URLResponse?, _) in
+            guard let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                self?.state = .failure(reason: "Got invalid response from \(transactionUrl)")
+                return
+            }
+            guard let data = data else {
+                self?.state = .failure(reason: "Got a valid response, but no data from \(transactionUrl)")
+                return
+            }
+
+            // Let's parse the OP_RETURN value out of the data.
+            guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : AnyObject] else {
+                self?.state = .failure(reason: "Transaction didn't return valid JSON data from \(transactionUrl)")
+                return
+            }
+            guard let outputs = json?["out"] as? [[String: AnyObject]] else {
+                self?.state = .failure(reason: "Missing 'out' property in response:\n\(json)")
+                return
+            }
+            guard let lastOutput = outputs.last else {
+                self?.state = .failure(reason: "Couldn't find the last 'value' key in outputs: \(outputs)")
+                return
+            }
+            guard let value = lastOutput["value"] as? Int,
+                let hash = lastOutput["script"] as? String else {
+                self?.state = .failure(reason: "Invalid types for 'value' or 'string' in output: \(lastOutput)")
+                return
+            }
+            guard value == 0 else {
+                self?.state = .failure(reason: "No output values were 0: \(outputs)")
+                return
+            }
+            self?.remoteHash = hash
+            
+            self?.state = .comparingHashes
+        }
+        task.resume()
     }
     private func compareHashes() {
         state = .failure(reason: "\(#function) not implemented")
@@ -106,5 +150,14 @@ class CertificateValidationRequest {
         state = .failure(reason: "\(#function) not implemented")
         // Success
 //        state = .success
+    }
+    
+    // MARK: helper functions
+    func sha256(data : Data) -> Data {
+        var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
+        data.withUnsafeBytes {
+            _ = CC_SHA256($0, CC_LONG(data.count), &hash)
+        }
+        return Data(bytes: hash)
     }
 }
