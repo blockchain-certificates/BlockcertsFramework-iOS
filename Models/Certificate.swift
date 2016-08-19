@@ -259,30 +259,46 @@ private struct CertificateV1_1 : Certificate {
 // MARK: Certificate Version 1.2
 private enum MethodsForV1_2 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
-        return MethodsForV1_1.parse(issuerJSON: issuerJSON)
-//        guard let issuerData = issuerJSON as? [String : String],
-//            let issuerURLString = issuerData["url"],
-//            let issuerURL = URL(string: issuerURLString),
-//            let logoURI = issuerData["image:logo"],
-//            let issuerName = issuerData["name"],
-//            let issuerId = issuerData["id"],
-//            let issuerIdURL = URL(string: issuerId) else {
-//                return nil
-//        }
-//        let logo = imageData(from: logoURI)
-//        
-//        return Issuer(name: issuerName,
-//                      email: nil,
-//                      image: logo,
-//                      id: issuerIdURL,
-//                      url: issuerURL,
-//                      publicKey: "",
-//                      publicKeyAddress: URL(string: "https://google.com")!,
-//                      requestUrl: URL(string: "https://google.com")!)
+        guard let issuerData = issuerJSON as? [String : String],
+            let issuerURLString = issuerData["url"],
+            let issuerURL = URL(string: issuerURLString),
+            let logoURI = issuerData["image:logo"], // main difference from v1.1
+            let issuerEmail = issuerData["email"],
+            let issuerName = issuerData["name"],
+            let issuerId = issuerData["id"],
+            let issuerIdURL = URL(string: issuerId) else {
+                return nil
+        }
+        let logo = imageData(from: logoURI)
+        
+        return Issuer(name: issuerName,
+                      email: issuerEmail,
+                      image: logo,
+                      id: issuerIdURL,
+                      url: issuerURL,
+                      publicKey: "",
+                      publicKeyAddress: URL(string: "https://google.com")!,
+                      requestUrl: URL(string: "https://google.com")!)
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
-        return MethodsForV1_1.parse(recipientJSON: recipientJSON)
+        guard let recipientData = recipientJSON as? [String : AnyObject],
+            let identityType = recipientData["type"] as? String,
+            let familyName = recipientData["familyName"] as? String,
+            let givenName = recipientData["givenName"] as? String,
+            let isHashed = recipientData["hashed"] as? Bool, // main difference from v1.1
+            let publicKey = recipientData["pubkey"] as? String,
+            let identity = recipientData["identity"] as? String else {
+                return nil
+        }
+        
+        return Recipient(givenName: givenName,
+                         familyName: familyName,
+                         identity: identity,
+                         identityType: identityType,
+                         isHashed: isHashed,
+                         publicKey: publicKey)
+
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
         return MethodsForV1_1.parse(assertionJSON: assertionJSON)
