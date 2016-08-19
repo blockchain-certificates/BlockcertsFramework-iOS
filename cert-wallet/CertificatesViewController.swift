@@ -16,6 +16,7 @@ class CertificatesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        loadCertificates()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,11 +58,27 @@ class CertificatesViewController: UITableViewController {
 
         return cell
     }
-
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let certificate = certificates[indexPath.row]
-//        performSegue(withIdentifier: detailSegueIdentifier, sender: certificate)
-//    }
+    
+    func loadCertificates() {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        guard paths.count > 0 else {
+            // TODO: How to handle being unable to find the document Directory
+            return
+        }
+        let documentsDirectory = paths[0]
+        let directoryUrl = URL(fileURLWithPath: documentsDirectory)
+        let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
+        
+        filenames.forEach { (filename) in
+            if let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
+                let certificate = CertificateParser.parse(data: data) {
+                    certificates.append(certificate)
+            } else {
+                // TODO: What to do here?
+                print("Existing file \(filename) is an invalid certificate.")
+            }
+        }
+    }
 }
 
 extension CertificatesViewController : UIDocumentPickerDelegate {
@@ -83,6 +100,15 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
             present(alertController, animated: true, completion: nil)
             return
         }
+        
+        // At this point, data is totally a valid certificate. Let's save that to the documents directory.
+        let filename = "\(certificate.id)".replacingOccurrences(of: "/", with: "_")
+        let didSave = save(certificateData: data, withFilename: filename)
+        if didSave {
+            print("Save worked")
+        } else {
+            print("Save failed")
+        }
 
         // TODO: We should check and see if that cert is already in the array.
 
@@ -90,5 +116,23 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
         
         // TODO: We should do an insert animation rather than a full table reload.
         tableView.reloadData()
+    }
+    
+    func save(certificateData data: Data, withFilename filename: String) -> Bool {
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
+        guard paths.count > 0 else {
+            // TODO: How to handle being unable to find the document Directory
+            return false
+        }
+        let documentsDirectory = paths[0]
+        let filePath = "\(documentsDirectory)/\(filename)"
+        if FileManager.default.fileExists(atPath: filePath) {
+            print("File \(filename) already exists")
+            // TODO: Should we make a copy? Check if it's equal?
+            return false
+        } else {
+            // TODO: What file attributes would be useful here?
+            return FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+        }
     }
 }
