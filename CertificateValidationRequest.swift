@@ -138,16 +138,15 @@ class CertificateValidationRequest {
         task.resume()
     }
     private func compareHashes() {
-        // TODO: Re-enable this. It's just disabled right now so I can fill out the rest of the private stubbed functions.
-//        guard let localHash = localHash,
-//            let remoteHash = remoteHash?.asHexData() else {
-//                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
-//                return
-//        }
-//        guard localHash == remoteHash else {
-//            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
-//            return
-//        }
+        guard let localHash = localHash,
+            let remoteHash = remoteHash?.asHexData() else {
+                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
+                return
+        }
+        guard localHash == remoteHash else {
+            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+            return
+        }
         state = .checkingIssuerSignature
     }
     private func checkIssuerSignature() {
@@ -182,7 +181,9 @@ class CertificateValidationRequest {
             // TODO: Whatever checkAuthor() did?
             print(issuerKey)
             
-            self?.state = .checkingRevokedStatus
+            self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
+            // When the above TODO is done, this can be the actual state change:
+//            self?.state = .checkingRevokedStatus
         }
         request.resume()
     }
