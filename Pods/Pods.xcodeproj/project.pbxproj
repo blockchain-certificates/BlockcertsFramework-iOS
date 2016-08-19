@@ -21,6 +21,7 @@
 		0F4EE3BC86B491B3DF59788644478536 /* BTCHashID.h in Headers */ = {isa = PBXBuildFile; fileRef = 59DEE9E6492D4539F34F0FDA83C2132D /* BTCHashID.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		175458C2E67CDA38C7133ADF7D2C7004 /* BTCTransaction.m in Sources */ = {isa = PBXBuildFile; fileRef = 5B20BBCFC281003B03B2B94FCEF7AA49 /* BTCTransaction.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		19BECB117D8929FA0BC712579A4D4840 /* NS+BTCBase58.m in Sources */ = {isa = PBXBuildFile; fileRef = 7B91044D10C05C9159EB3F6EAAE911E5 /* NS+BTCBase58.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		1F66AF81EB4B4D32C02D9731DF44F5A3 /* Pods-cert-walletUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B7E58B2F6A123C6CE40AADCD61423 /* Pods-cert-walletUITests-dummy.m */; };
 		242B91C8E0112D358AC013D542739FA7 /* ISO8601DateFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E8F77303EFD76D9DC6667AEBF48BBB0A /* ISO8601DateFormatter.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		26BF270BBF2BDC2E416A00BFBB5F1CFF /* BTCNumberFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = B37A988D87AFA7F5B6988D9FE8AB5D03 /* BTCNumberFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		282B6795E8F183D0A02A650C708EDB85 /* BTCPaymentMethodRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F17F9CC24B7ABAE6655096178229519 /* BTCPaymentMethodRequest.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -32,7 +33,6 @@
 		2F1867B28747E40075D3CCCBFF06AA3B /* BTCPaymentProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 767C5E02402DB168922B08B105736C35 /* BTCPaymentProtocol.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3081DAD9B371CE11DF6AF0705F60D6D2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		38C90D6E15989D2FBD02FA439AEB8EAB /* BTCTransactionBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D53FBD3B59ADAD245706B6FBBEB010A /* BTCTransactionBuilder.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		3ADC36C561E20B73F80AF3DB6608B5B0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		3EEE3BE09E73CC0278FFA63AE0CA7883 /* BTCCurrencyConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = DDD9D648670DD9ACA5C7C0872574C1B5 /* BTCCurrencyConverter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4121173BC22AF9D935F242489483A063 /* Pods-cert-wallet-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BA58C0F6B74DB30A16093459F2026880 /* Pods-cert-wallet-dummy.m */; };
 		430E0E4DB97A9BC328610AFC310B310C /* BTCMnemonic.h in Headers */ = {isa = PBXBuildFile; fileRef = 7999740E4861151D7811BDA0E5D05795 /* BTCMnemonic.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -45,18 +45,20 @@
 		4DFD418860400B79858A93EE43A6D579 /* BTCProtocolBuffers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A18333B135CBE8CF6083579F0E5FA35 /* BTCProtocolBuffers.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F88077F42A6B3DCC475122DCA10A1C5 /* NSData+BTCData.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DD06F8AE892A732AA4F3E5E62DE4D7 /* NSData+BTCData.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5129997029DA84C7A45DA592D265DA6F /* BTCQRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = C58FD6365EDDA44973CAB03DD65E6272 /* BTCQRCode.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		554C3F2FBEBD213B0E9B37146C54A832 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		5A90768B6BFFDA7B487D052CCF5BA9B1 /* BTCAssetID.h in Headers */ = {isa = PBXBuildFile; fileRef = 51C71F46603A98EB75CF6D6E330F866A /* BTCAssetID.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5C9F9BF12C24970827536F07FB57DE31 /* BTCUnitsAndLimits.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F0A4D7F0301BDB3744AB9953713DEFA /* BTCUnitsAndLimits.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5E4FEDB1B68A49A770BFB2D44D3B5368 /* BTCKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 328B473668F29462D84DBE9F24F0C3FC /* BTCKey.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5E5F013D066082517B73F9C27450ADC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		5F30C88A981A21365634790EF85A96CF /* BTCOpcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA3F319A03E8544D3498729B8B93C9 /* BTCOpcode.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5F621C0E2176197204BD78CBF54FA323 /* BTCPriceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = BB1A97FC2E838CDA8F320956F5463126 /* BTCPriceSource.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		5FE674CBEE1423C1F2B6D4603B4ED31B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A6FF208CEC4C2861F1E9D42D651453 /* Foundation.framework */; };
 		61BCDCB66FC89331FB21CFB8BF3768D4 /* BTCBase58.m in Sources */ = {isa = PBXBuildFile; fileRef = 46930BDB2FFD4D0C6E09A87FE45B091E /* BTCBase58.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		661C92768990E0FF7638B71756129242 /* BTCOpcode.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ED8B037221C3B994609521C7EC09426 /* BTCOpcode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		69C6BC160E6C5F53484B94E5CEDC9B93 /* BTCTransactionInput.h in Headers */ = {isa = PBXBuildFile; fileRef = D60A89B90ED546F928BD11F1626B4C79 /* BTCTransactionInput.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71D47404FA1D735B9344FAEB3F2E038D /* CoreBitcoin.h in Headers */ = {isa = PBXBuildFile; fileRef = A90E3CEBD23E7B846FE72DB5DB82FA42 /* CoreBitcoin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		72E64E38195B231B77E530DC1D541981 /* BTCBigNumber.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B6C85A92DD7C97FA810E7BA6DF49912 /* BTCBigNumber.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		745E56474CF8EA3A476EC243D3B674E1 /* BTCSecretSharing.h in Headers */ = {isa = PBXBuildFile; fileRef = F6033666C1CDDD1555DB1CCD78F9CAE3 /* BTCSecretSharing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75AB60D302C4C80C25BA3EB57AB51E17 /* Pods-cert-walletTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D619CEBDB497F1AAC27F779B4CF0C /* Pods-cert-walletTests-dummy.m */; };
 		7894EF0ECC25F842EDEE96150B6750A5 /* BTCBase58.h in Headers */ = {isa = PBXBuildFile; fileRef = 857EE2E891652D4686338A4349FDC96D /* BTCBase58.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		79D846F83F4EE16E3281BDBDDA484192 /* BTCPaymentProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 671231CD4111DB27EDFE72875D5A84AC /* BTCPaymentProtocol.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A1E90DA6B0956F19D93C67AF4A5DF24 /* NS+BTCBase58.h in Headers */ = {isa = PBXBuildFile; fileRef = BBCF326503480D6CDB3E42C613B42402 /* NS+BTCBase58.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -86,10 +88,8 @@
 		AC375AA80104F6457C19BFDBEB57CFF9 /* BTCSignatureHashType.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C2ABD6F58DC803238C564BD7B47B9CD /* BTCSignatureHashType.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B3C9FF0ED26AEDBF63F1839A8047EBFE /* BTCCurvePoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 85452A202EB1107A6F8365B44A7CAAEF /* BTCCurvePoint.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B893831DA759DE848675D13A09C0C8ED /* BTCNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E24312176ECD623EF4F42CD7614BE68 /* BTCNumberFormatter.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		B9624D83D61202EFE337CB70A90A7CE5 /* Pods-cert-walletUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F7B7E58B2F6A123C6CE40AADCD61423 /* Pods-cert-walletUITests-dummy.m */; };
 		BA221E44A36EAA4EB98E1EB740A23414 /* BTCTransaction.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A4D0E0C8AB29CA85DA879D303523933 /* BTCTransaction.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BB0974C28C76029AB7E344EBDB281FD8 /* BTCData.m in Sources */ = {isa = PBXBuildFile; fileRef = C447C2731766741B1FD03BB5DF09CC24 /* BTCData.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		BD7397C0ED5A894C54C556BD438C77DA /* Pods-cert-walletTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A4D619CEBDB497F1AAC27F779B4CF0C /* Pods-cert-walletTests-dummy.m */; };
 		BECE2E073E36B3E5088D105264D7F363 /* BTCAssetAddress.m in Sources */ = {isa = PBXBuildFile; fileRef = E8B08F15024FE0FE1B71909D68AA21BF /* BTCAssetAddress.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C0C524AD66379B2196D871A7C986CFBD /* BTCAssetType.m in Sources */ = {isa = PBXBuildFile; fileRef = D94B4230094690820679F3496F120870 /* BTCAssetType.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C1DE147AF9258DC66B7827AAF7A9FB4A /* BTCNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 4721A07395A1B7AD594A6606F5160AD0 /* BTCNetwork.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -139,7 +139,35 @@
 			remoteGlobalIDString = F52EAAC1064AAFC417153E52B8C108B2;
 			remoteInfo = ISO8601DateFormatter;
 		};
+		4DBB815D2243F241EC8FA3E52308C8BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F52EAAC1064AAFC417153E52B8C108B2;
+			remoteInfo = ISO8601DateFormatter;
+		};
+		5444AD99035D331C5AE286871C9D48E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A6F7BA3B3EBE01788C4C70CF8861CAB;
+			remoteInfo = CoreBitcoin;
+		};
+		B968227190EAC62AA3A8CF946F16933A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8A6F7BA3B3EBE01788C4C70CF8861CAB;
+			remoteInfo = CoreBitcoin;
+		};
 		C6F3B7DB2EF6EDD2A0BC845371F4E3A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F52EAAC1064AAFC417153E52B8C108B2;
+			remoteInfo = ISO8601DateFormatter;
+		};
+		EC2460B357A17B447472A87F54D55C1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
@@ -376,19 +404,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7D6CEF220DD7B06CF34F3C34CF717310 /* Frameworks */ = {
+		80BB59E15716E0378F8DB596F0F8679A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ADC36C561E20B73F80AF3DB6608B5B0 /* Foundation.framework in Frameworks */,
+				5E5F013D066082517B73F9C27450ADC7 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		80F81801800AB86FC5253F8DCBA64763 /* Frameworks */ = {
+		B69274492A660B3E7C0C66A3DDF00B29 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				554C3F2FBEBD213B0E9B37146C54A832 /* Foundation.framework in Frameworks */,
+				5FE674CBEE1423C1F2B6D4603B4ED31B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -826,22 +854,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3449C408A8A28B09D50C45FA7059B7DB /* Pods-cert-walletUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 39A8AEDEDE198989CB3753E221A37C89 /* Build configuration list for PBXNativeTarget "Pods-cert-walletUITests" */;
-			buildPhases = (
-				0A669E63A69E429BB1A0E91931FF6138 /* Sources */,
-				7D6CEF220DD7B06CF34F3C34CF717310 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-cert-walletUITests";
-			productName = "Pods-cert-walletUITests";
-			productReference = 7A0FC7EA9C831A276BB07187D8056F6D /* libPods-cert-walletUITests.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		8A6F7BA3B3EBE01788C4C70CF8861CAB /* CoreBitcoin */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5D080D58EA780ACA47A8B9D4D15DB565 /* Build configuration list for PBXNativeTarget "CoreBitcoin" */;
@@ -878,20 +890,40 @@
 			productReference = EC14F795D1ECD8C7032D18852C5BCBA7 /* libPods-cert-wallet.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		966592EBAB7EB1A9ACEEFD4DB2F05812 /* Pods-cert-walletTests */ = {
+		98B8968E3667803E0DE0C85C979CCEA2 /* Pods-cert-walletTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D55364C3C5DD41A2D37F33D50F7FA68C /* Build configuration list for PBXNativeTarget "Pods-cert-walletTests" */;
+			buildConfigurationList = FD2960CE0C3FD96B1BE88142A48CDB98 /* Build configuration list for PBXNativeTarget "Pods-cert-walletTests" */;
 			buildPhases = (
-				3DEDB7779FFCB92B46626B4F1AE54427 /* Sources */,
-				80F81801800AB86FC5253F8DCBA64763 /* Frameworks */,
+				7DAA135D77A2DDBC72AB210CCAAE8372 /* Sources */,
+				B69274492A660B3E7C0C66A3DDF00B29 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3DCC2153DC0EF250C818A082947B0EF1 /* PBXTargetDependency */,
+				42EB9E95F53A7A3C740BDDEF0AB66ABE /* PBXTargetDependency */,
 			);
 			name = "Pods-cert-walletTests";
 			productName = "Pods-cert-walletTests";
 			productReference = 91814B6A1105F9044A3DAB50E615B863 /* libPods-cert-walletTests.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		ECEAFEE63C72AF03FF4B695D3BEC4C32 /* Pods-cert-walletUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A0C594F64D21B00BDD8B7D48017F4D1 /* Build configuration list for PBXNativeTarget "Pods-cert-walletUITests" */;
+			buildPhases = (
+				D92ED1DB9C98674A576D30FA506B6D75 /* Sources */,
+				80BB59E15716E0378F8DB596F0F8679A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				81A0566FD7C96A8B06F60C1E1376E065 /* PBXTargetDependency */,
+				C2092134C26FF289CABE81C8F7BD314E /* PBXTargetDependency */,
+			);
+			name = "Pods-cert-walletUITests";
+			productName = "Pods-cert-walletUITests";
+			productReference = 7A0FC7EA9C831A276BB07187D8056F6D /* libPods-cert-walletUITests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		F52EAAC1064AAFC417153E52B8C108B2 /* ISO8601DateFormatter */ = {
@@ -935,34 +967,26 @@
 				8A6F7BA3B3EBE01788C4C70CF8861CAB /* CoreBitcoin */,
 				F52EAAC1064AAFC417153E52B8C108B2 /* ISO8601DateFormatter */,
 				8E5F9CC2F48A5BBA9AE0F5747A14A7DF /* Pods-cert-wallet */,
-				966592EBAB7EB1A9ACEEFD4DB2F05812 /* Pods-cert-walletTests */,
-				3449C408A8A28B09D50C45FA7059B7DB /* Pods-cert-walletUITests */,
+				98B8968E3667803E0DE0C85C979CCEA2 /* Pods-cert-walletTests */,
+				ECEAFEE63C72AF03FF4B695D3BEC4C32 /* Pods-cert-walletUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0A669E63A69E429BB1A0E91931FF6138 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B9624D83D61202EFE337CB70A90A7CE5 /* Pods-cert-walletUITests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3DEDB7779FFCB92B46626B4F1AE54427 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BD7397C0ED5A894C54C556BD438C77DA /* Pods-cert-walletTests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		72D7077EB9AF86889A11075A42064977 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				4121173BC22AF9D935F242489483A063 /* Pods-cert-wallet-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7DAA135D77A2DDBC72AB210CCAAE8372 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75AB60D302C4C80C25BA3EB57AB51E17 /* Pods-cert-walletTests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,6 +1055,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D92ED1DB9C98674A576D30FA506B6D75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F66AF81EB4B4D32C02D9731DF44F5A3 /* Pods-cert-walletUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1040,11 +1072,35 @@
 			target = F52EAAC1064AAFC417153E52B8C108B2 /* ISO8601DateFormatter */;
 			targetProxy = C6F3B7DB2EF6EDD2A0BC845371F4E3A8 /* PBXContainerItemProxy */;
 		};
+		3DCC2153DC0EF250C818A082947B0EF1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CoreBitcoin;
+			target = 8A6F7BA3B3EBE01788C4C70CF8861CAB /* CoreBitcoin */;
+			targetProxy = B968227190EAC62AA3A8CF946F16933A /* PBXContainerItemProxy */;
+		};
+		42EB9E95F53A7A3C740BDDEF0AB66ABE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ISO8601DateFormatter;
+			target = F52EAAC1064AAFC417153E52B8C108B2 /* ISO8601DateFormatter */;
+			targetProxy = 4DBB815D2243F241EC8FA3E52308C8BF /* PBXContainerItemProxy */;
+		};
+		81A0566FD7C96A8B06F60C1E1376E065 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CoreBitcoin;
+			target = 8A6F7BA3B3EBE01788C4C70CF8861CAB /* CoreBitcoin */;
+			targetProxy = 5444AD99035D331C5AE286871C9D48E1 /* PBXContainerItemProxy */;
+		};
 		9ED8374EA3FDFF31E7FFF06289930F5B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CoreBitcoin;
 			target = 8A6F7BA3B3EBE01788C4C70CF8861CAB /* CoreBitcoin */;
 			targetProxy = 0A17ED35B95A4939A0C04EB2279B2D8C /* PBXContainerItemProxy */;
+		};
+		C2092134C26FF289CABE81C8F7BD314E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ISO8601DateFormatter;
+			target = F52EAAC1064AAFC417153E52B8C108B2 /* ISO8601DateFormatter */;
+			targetProxy = EC2460B357A17B447472A87F54D55C1A /* PBXContainerItemProxy */;
 		};
 		DF92F408BE0297165489DA8305C32C87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1055,27 +1111,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0BBCDE6ACDB275BD3D243F506B8BD9F9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1C4B0497CBD916B12BDF6428CD51D124 /* Pods-cert-walletUITests.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
 		12914D756594D15C6F2CA12FE5F89F1B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1141,6 +1176,27 @@
 			};
 			name = Release;
 		};
+		25F376AE6EB1C79A249622684A5AB3F8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3CA439F4E01FF698F8A7F64C57F3606 /* Pods-cert-walletTests.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 		2D57F61560BA3E582A2B3D1756744583 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 525C64E211A6AF817652FA484AF5CD15 /* CoreBitcoin.xcconfig */;
@@ -1163,17 +1219,17 @@
 			};
 			name = Release;
 		};
-		30E7BF9C42F6615FB2A35DEED91DB8E3 /* Release */ = {
+		608362D061936D34653EA989C3E82A28 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B902BEF281E1DDFF003FC798AB188F25 /* Pods-cert-walletTests.release.xcconfig */;
+			baseConfigurationReference = 1C4B0497CBD916B12BDF6428CD51D124 /* Pods-cert-walletUITests.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1182,7 +1238,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Release;
+			name = Debug;
 		};
 		701967EA69D7F132A74A4E7F33854B3F /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1227,27 +1283,6 @@
 			};
 			name = Debug;
 		};
-		968BCC5ECEECE5FCDEAEE549907343FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 476E4846240898A6301A504DC227939D /* Pods-cert-walletUITests.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 		A434D3660869295183128745DD42EC6B /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EDB30C0ACB838ABAA14F1797889586C2 /* ISO8601DateFormatter.xcconfig */;
@@ -1270,17 +1305,17 @@
 			};
 			name = Release;
 		};
-		BBD8462B4282CF08F35C9DB499091771 /* Debug */ = {
+		C8D313C5A05A67668622118397C83016 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3CA439F4E01FF698F8A7F64C57F3606 /* Pods-cert-walletTests.debug.xcconfig */;
+			baseConfigurationReference = B902BEF281E1DDFF003FC798AB188F25 /* Pods-cert-walletTests.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACH_O_TYPE = staticlib;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -1289,7 +1324,28 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
-			name = Debug;
+			name = Release;
+		};
+		DAF12815CCF3257A695435F4D94505AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 476E4846240898A6301A504DC227939D /* Pods-cert-walletUITests.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
 		};
 		E72E7977875C2D251FC62736BBDDC389 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1383,15 +1439,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		39A8AEDEDE198989CB3753E221A37C89 /* Build configuration list for PBXNativeTarget "Pods-cert-walletUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0BBCDE6ACDB275BD3D243F506B8BD9F9 /* Debug */,
-				968BCC5ECEECE5FCDEAEE549907343FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		5D080D58EA780ACA47A8B9D4D15DB565 /* Build configuration list for PBXNativeTarget "CoreBitcoin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1401,11 +1448,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D55364C3C5DD41A2D37F33D50F7FA68C /* Build configuration list for PBXNativeTarget "Pods-cert-walletTests" */ = {
+		6A0C594F64D21B00BDD8B7D48017F4D1 /* Build configuration list for PBXNativeTarget "Pods-cert-walletUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				BBD8462B4282CF08F35C9DB499091771 /* Debug */,
-				30E7BF9C42F6615FB2A35DEED91DB8E3 /* Release */,
+				608362D061936D34653EA989C3E82A28 /* Debug */,
+				DAF12815CCF3257A695435F4D94505AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FD2960CE0C3FD96B1BE88142A48CDB98 /* Build configuration list for PBXNativeTarget "Pods-cert-walletTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				25F376AE6EB1C79A249622684A5AB3F8 /* Debug */,
+				C8D313C5A05A67668622118397C83016 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

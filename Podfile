@@ -11,11 +11,13 @@ target 'cert-wallet' do
   target 'cert-walletTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'CoreBitcoin', :podspec => 'https://raw.github.com/oleganza/CoreBitcoin/master/CoreBitcoin.podspec', :inhibit_warnings => true
   end
 
   target 'cert-walletUITests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'CoreBitcoin', :podspec => 'https://raw.github.com/oleganza/CoreBitcoin/master/CoreBitcoin.podspec', :inhibit_warnings => true
   end
 
 end
