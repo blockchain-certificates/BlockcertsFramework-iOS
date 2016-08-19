@@ -27,7 +27,9 @@ class CertificateValidationRequestTests: XCTestCase {
         let request = CertificateValidationRequest(for: certificate!, with:v1_1transactionId) { (success, errorMessage) in
             XCTAssertFalse(success)
             XCTAssertNotNil(errorMessage)
-            XCTAssertEqual(errorMessage!, "Failed")
+            
+            let isErrorExpected = errorMessage?.contains("Local hash doesn't match remote hash") ?? false
+            XCTAssertTrue(isErrorExpected)
             
             testExpectation.fulfill()
         }

@@ -137,9 +137,16 @@ class CertificateValidationRequest {
         task.resume()
     }
     private func compareHashes() {
-        state = .failure(reason: "\(#function) not implemented")
-        // Success
-//        state = .checkingIssuerSignature
+        guard let localHash = localHash,
+            let remoteHash = remoteHash?.asHexData() else {
+                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
+                return
+        }
+        guard localHash == remoteHash else {
+            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+            return
+        }
+        state = .checkingIssuerSignature
     }
     private func checkIssuerSignature() {
         state = .failure(reason: "\(#function) not implemented")
