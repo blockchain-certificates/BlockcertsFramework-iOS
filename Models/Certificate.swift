@@ -197,7 +197,6 @@ private enum MethodsForV1_1 {
 }
 
 private struct CertificateV1_1 : Certificate {
-    
     let version = CertificateVersion.oneDotOne
     let title : String
     let subtitle : String?
