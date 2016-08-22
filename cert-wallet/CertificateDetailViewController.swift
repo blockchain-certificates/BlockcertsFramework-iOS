@@ -57,7 +57,31 @@ class CertificateDetailViewController: UITableViewController {
                 "Subtitle": certificate?.subtitle ?? "",
                 "Description": certificate?.description ?? "",
                 "Language": certificate?.language ?? "",
-//                "Id": "\(certificateId)"
+            ]),
+            CertificateProperty(title: "Issuer", values: [
+                "Name": certificate?.issuer.name ?? "",
+                "Email": certificate?.issuer.email ?? "",
+                "ID": "\(certificate?.issuer.id)",
+                "URL": "\(certificate?.issuer.url)"
+            ]),
+            CertificateProperty(title: "Recipient", values: [
+                "Given Name": certificate?.recipient.givenName ?? "",
+                "Family Name": certificate?.recipient.familyName ?? "",
+                "Identity": certificate?.recipient.identity ?? "",
+                "Identity Type": certificate?.recipient.identityType ?? "",
+                "Hashed?": "\(certificate?.recipient.isHashed)",
+                "Public Key": certificate?.recipient.publicKey ?? ""
+            ]),
+            CertificateProperty(title: "Assertion", values: [
+                "Issued On": "\(certificate?.assertion.issuedOn)",
+                "Evidence": certificate?.assertion.evidence ?? "",
+                "UID": certificate?.assertion.uid ?? "",
+                "ID": "\(certificate?.assertion.id)"
+            ]),
+            CertificateProperty(title: "Verify", values: [
+                "Signer": "\(certificate?.verifyData.signer)",
+                "Signed Attribute": certificate?.verifyData.signedAttribute ?? "",
+                "Type": certificate?.verifyData.type ?? ""
             ])
         ]
     }
