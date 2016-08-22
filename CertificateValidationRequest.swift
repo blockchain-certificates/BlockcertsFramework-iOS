@@ -138,11 +138,13 @@ class CertificateValidationRequest {
         task.resume()
     }
     private func compareHashes() {
+
         guard let localHash = localHash,
             let remoteHash = remoteHash?.asHexData() else {
-                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
+                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
                 return
         }
+        
         guard localHash == remoteHash else {
             state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
             return
@@ -177,16 +179,26 @@ class CertificateValidationRequest {
             }
             self?.revokationKey = revokeKey
             
-            // Check the issuer key
-            // TODO: Whatever checkAuthor() did?
-            print(issuerKey)
+            // Check the issuer key: here's how it works:
+            // 1. base64 decode the signature that's on the certificate ('signature') field
+            // 2. use the CoreBitcoin library method BTCKey.verifySignature to derive the key used to create this signature:
+            //    - it takes as input the signature on the certificate and the message (the assertion uid) that we expect it to be the signature of.
+            //    - it returns a matching BTCKey if found
+            // 3. we still have to check that the BTCKey returned above matches the issuer's public key that we looked up
             
-            self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
-            // When the above TODO is done, this can be the actual state change:
-//            self?.state = .checkingRevokedStatus
+            // base64 decode the signature on the certificate
+            let decodedData = NSData.init(base64Encoded: (self?.certificate.signature)!, options: NSData.Base64DecodingOptions(rawValue: 0))
+            // derive the key that produced this signature
+            let btcKey = BTCKey.verifySignature(decodedData as Data!, forMessage: self?.certificate.assertion.uid)
+            // if this succeeds, we successfully derived a key, but still have to check that it matches the issuerKey
+            if btcKey?.address?.string != issuerKey {
+                self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
+            }
+            self?.state = .checkingRevokedStatus
         }
         request.resume()
     }
+    
     private func checkRevokedStatus() {
         state = .failure(reason: "\(#function) not implemented")
         // Success

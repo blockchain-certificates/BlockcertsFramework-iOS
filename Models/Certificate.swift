@@ -65,7 +65,8 @@ protocol Certificate {
     var language : String { get }
     var id : URL { get }
     var file : Data { get }
-    
+    var signature : String { get }
+
     var issuer : Issuer { get }
     var recipient : Recipient { get }
     var assertion : Assertion { get }
@@ -196,6 +197,7 @@ private enum MethodsForV1_1 {
 }
 
 private struct CertificateV1_1 : Certificate {
+    
     let version = CertificateVersion.oneDotOne
     let title : String
     let subtitle : String?
@@ -204,6 +206,7 @@ private struct CertificateV1_1 : Certificate {
     let language : String
     let id : URL
     let file : Data
+    let signature: String
     
     let issuer : Issuer
     let recipient : Recipient
@@ -246,13 +249,15 @@ private struct CertificateV1_1 : Certificate {
         guard let issuer = MethodsForV1_1.parse(issuerJSON: certificateData["issuer"]),
             let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]),
-            let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]) else {
+            let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]),
+            let signature = json["signature"] else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
+        self.signature = signature as! String
     }
 }
 
@@ -317,6 +322,7 @@ private struct CertificateV1_2 : Certificate {
     let language : String
     let id : URL
     let file : Data
+    let signature: String
     
     let issuer : Issuer
     let recipient : Recipient
@@ -378,13 +384,15 @@ private struct CertificateV1_2 : Certificate {
         guard let issuer = MethodsForV1_2.parse(issuerJSON: certificateData["issuer"]),
             let recipient = MethodsForV1_2.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV1_2.parse(assertionJSON: json["assertion"]),
-            let verifyData = MethodsForV1_2.parse(verifyJSON: json["verify"]) else {
+            let verifyData = MethodsForV1_2.parse(verifyJSON: json["verify"]),
+            let signature = json["signature"] else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
+        self.signature = signature as! String
     }
 }
 

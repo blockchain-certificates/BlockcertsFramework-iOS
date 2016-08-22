@@ -88,12 +88,14 @@ enum CertificateValidator {
                 for output in outputs {
                     if output["value"] as? Int == 0 {
                         print(output["script"])
-                        // convert this value to a hex string (python's hexlify) and return
+                        return output["script"]
+                        // TODO convert this value to a hex string (python's hexlify) and return
                     }
                 }
             }
         } catch {
             print("error serializing JSON: \(error)")
+            return nil  // TODO
         }
     }
     
@@ -107,13 +109,14 @@ enum CertificateValidator {
             return issuerKeys
         } catch {
             print("error serializing JSON: \(error)")
+            return nil  // TODO
         }
     }
     
     
     static func checkRevocation(revocationAddress : String, transactionOutputs : Array) {
         for o in transactionOutputs {
-            if o.get("addr") == revocationAddress and o.get("spent") is False {
+            if o.get("addr") == revocationAddress && !o.get("spent") {
                 return True
             }
         }
