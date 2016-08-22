@@ -115,11 +115,42 @@ extension CertificateDetailViewController {
     }
     
     func validateCertificate(with transactionId: String) {
-        print("Transaction id: \(transactionId)")
-        
-        if let selectedIndexPath = tableView.indexPathForSelectedRow {
-            tableView.deselectRow(at: selectedIndexPath, animated: true)
+        let dismissAction = UIAlertAction(title: "OK", style: .default) { [weak self] (action) in
+            if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
+                self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
+            }
         }
+        let completeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
+        completeAlert.addAction(dismissAction)
+        
+        guard let certificate = certificate else {
+            completeAlert.title = "Error"
+            completeAlert.message = "Certificate is missing. Try again?"
+            present(completeAlert, animated: true, completion: nil)
+            return
+        }
+        
+        let validationRequest = CertificateValidationRequest(for: certificate, with: transactionId, starting: false) { [weak self] (success, errorMessage) in
+            if success {
+                completeAlert.title = "Success"
+                completeAlert.message = "This is a valid certificate!"
+            } else {
+                completeAlert.title = "Invalid"
+                if let error = errorMessage {
+                    completeAlert.message = "This certificate isn't valid: \(error)"
+                } else {
+                    completeAlert.message = "This certificate isn't valid."
+                }
+            }
+            
+            self?.present(completeAlert, animated: true) { () in
+                if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
+                    self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
+                }
+            }
+        }
+        
+        validationRequest.start()
     }
     
 }
