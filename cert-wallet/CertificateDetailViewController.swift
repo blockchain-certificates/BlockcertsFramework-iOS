@@ -49,39 +49,45 @@ class CertificateDetailViewController: UITableViewController {
     }
     
     func generateSectionData() {
+        guard let certificate = certificate else {
+            sections = []
+            return
+        }
+
         // Details
         sections = [
             CertificateActions(),
             CertificateProperty(title: "Details", values: [
-                "Title": certificate?.title ?? "",
-                "Subtitle": certificate?.subtitle ?? "",
-                "Description": certificate?.description ?? "",
-                "Language": certificate?.language ?? "",
+                "Title": certificate.title,
+                "Subtitle": certificate.subtitle ?? "",
+                "Description": certificate.description,
+                "Language": certificate.language,
+                "ID": "\(certificate.id)"
             ]),
             CertificateProperty(title: "Issuer", values: [
-                "Name": certificate?.issuer.name ?? "",
-                "Email": certificate?.issuer.email ?? "",
-                "ID": "\(certificate?.issuer.id)",
-                "URL": "\(certificate?.issuer.url)"
+                "Name": certificate.issuer.name,
+                "Email": certificate.issuer.email,
+                "ID": "\(certificate.issuer.id)",
+                "URL": "\(certificate.issuer.url)"
             ]),
             CertificateProperty(title: "Recipient", values: [
-                "Given Name": certificate?.recipient.givenName ?? "",
-                "Family Name": certificate?.recipient.familyName ?? "",
-                "Identity": certificate?.recipient.identity ?? "",
-                "Identity Type": certificate?.recipient.identityType ?? "",
-                "Hashed?": "\(certificate?.recipient.isHashed)",
-                "Public Key": certificate?.recipient.publicKey ?? ""
+                "Given Name": certificate.recipient.givenName,
+                "Family Name": certificate.recipient.familyName,
+                "Identity": certificate.recipient.identity,
+                "Identity Type": certificate.recipient.identityType,
+                "Hashed?": "\(certificate.recipient.isHashed)",
+                "Public Key": certificate.recipient.publicKey
             ]),
             CertificateProperty(title: "Assertion", values: [
-                "Issued On": "\(certificate?.assertion.issuedOn)",
-                "Evidence": certificate?.assertion.evidence ?? "",
-                "UID": certificate?.assertion.uid ?? "",
-                "ID": "\(certificate?.assertion.id)"
+                "Issued On": "\(certificate.assertion.issuedOn)",
+                "Evidence": certificate.assertion.evidence,
+                "UID": certificate.assertion.uid,
+                "ID": "\(certificate.assertion.id)"
             ]),
             CertificateProperty(title: "Verify", values: [
-                "Signer": "\(certificate?.verifyData.signer)",
-                "Signed Attribute": certificate?.verifyData.signedAttribute ?? "",
-                "Type": certificate?.verifyData.type ?? ""
+                "Signer": "\(certificate.verifyData.signer)",
+                "Signed Attribute": certificate.verifyData.signedAttribute,
+                "Type": certificate.verifyData.type
             ])
         ]
     }
