@@ -8,15 +8,29 @@
 
 import UIKit
 
-struct CertificateProperty {
-    let title : String
+protocol TableSection {
+    var identifier: String { get }
+    var title: String? { get }
+    var rows: Int { get }
+}
+
+struct CertificateProperty : TableSection {
+    let identifier = "CertificateDetailTableViewCell"
+    let title : String?
     let values : [String : String]
+    var rows : Int { return values.keys.count }
+}
+
+struct CertificateActions : TableSection {
+    let identifier = "CertificateActionsTableViewCell"
+    let title : String? = "Actions"
+    let rows = 1
 }
 
 
 class CertificateDetailViewController: UITableViewController {
-    let cellReuseIdentifier = "CertificateDetailTableViewCell"
-    var sections = [CertificateProperty]()
+    
+    var sections = [TableSection]()
     var certificate: Certificate? {
         didSet {
             generateSectionData()
@@ -37,6 +51,7 @@ class CertificateDetailViewController: UITableViewController {
     func generateSectionData() {
         // Details
         sections = [
+            CertificateActions(),
             CertificateProperty(title: "Details", values: [
                 "Title": certificate?.title ?? "",
                 "Subtitle": certificate?.subtitle ?? "",
@@ -56,21 +71,24 @@ extension CertificateDetailViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let values = sections[section].values
-        return values.keys.count
+        return sections[section].rows
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)!
+        let section = sections[indexPath.section]
+        let cell = tableView.dequeueReusableCell(withIdentifier: section.identifier)!
         
-        let values = sections[indexPath.section].values
-        let sortedKeys = values.keys.sorted(by: <)
-        let thisKey = sortedKeys[indexPath.row]
-        let thisValue = values[thisKey]
-        
-        cell.textLabel?.text = thisKey
-        cell.detailTextLabel?.text = thisValue
-        
+        if section is CertificateActions {
+            cell.textLabel?.text = "Validate"
+        } else if let section = section as? CertificateProperty {
+            let values = section.values
+            let sortedKeys = values.keys.sorted(by: <)
+            let thisKey = sortedKeys[indexPath.row]
+            let thisValue = values[thisKey]
+            
+            cell.textLabel?.text = thisKey
+            cell.detailTextLabel?.text = thisValue
+        }
         return cell
     }
     
