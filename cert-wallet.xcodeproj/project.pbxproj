@@ -23,6 +23,7 @@
 		830B7D051D5A82CA0089F13D /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D031D5A82CA0089F13D /* Verify.swift */; };
 		830B7D071D5A88130089F13D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
 		830B7D081D5A88130089F13D /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
+		8346F53A1D6B9E5500E3741F /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		834910F11D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F21D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F31D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
@@ -614,6 +615,7 @@
 			files = (
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
 				836A31C91D5933D800943801 /* cert_walletUITests.swift in Sources */,
+				8346F53A1D6B9E5500E3741F /* CertificateValidationRequest.swift in Sources */,
 				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				83659CF91D6657FA00316BA8 /* Assertion.swift in Sources */,
 				83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */,

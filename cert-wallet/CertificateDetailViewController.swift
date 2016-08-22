@@ -96,5 +96,31 @@ extension CertificateDetailViewController {
         return sections[section].title
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        if section is CertificateActions {
+            let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
+            prompt.addTextField(configurationHandler: nil)
+            
+            prompt.addAction(UIAlertAction(title: "Validate", style: .default, handler: { [weak self, weak prompt] (action) in
+                let transactionId = prompt?.textFields?.first?.text ?? ""
+                self?.validateCertificate(with: transactionId)
+            }))
+                
+            present(prompt, animated: true, completion: nil)
+            
+        } else {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    func validateCertificate(with transactionId: String) {
+        print("Transaction id: \(transactionId)")
+        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: true)
+        }
+    }
+    
 }
 
