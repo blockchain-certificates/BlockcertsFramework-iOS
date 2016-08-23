@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RCView: UIView {
+class RenderedCertificateView: UIView {
 
     @IBOutlet var view: UIView!
     
@@ -21,7 +21,7 @@ class RCView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        Bundle.main.loadNibNamed("RCView", owner: self, options: nil)
+        Bundle.main.loadNibNamed("RenderedCertificateView", owner: self, options: nil)
         addSubview(view)
     }
 

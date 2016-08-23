@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RCView" customModule="cert_wallet" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RenderedCertificateView" customModule="cert_wallet" customModuleProvider="target">
             <connections>
                 <outlet property="issuerIcon" destination="Bsm-eO-oQu" id="ems-bW-ScC"/>
                 <outlet property="leftSignature" destination="dct-ai-7vl" id="J1t-gL-pXB"/>
