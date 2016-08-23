@@ -54,6 +54,10 @@
 		83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		83AC79231D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
+		83B383371D6CFDC100268BCE /* RenderedCertificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B383351D6CFDC100268BCE /* RenderedCertificateViewController.swift */; };
+		83B383381D6CFDC100268BCE /* RenderedCertificateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B383351D6CFDC100268BCE /* RenderedCertificateViewController.swift */; };
+		83B383391D6CFDC100268BCE /* RenderedCertificateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B383361D6CFDC100268BCE /* RenderedCertificateViewController.xib */; };
+		83B3833A1D6CFDC100268BCE /* RenderedCertificateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B383361D6CFDC100268BCE /* RenderedCertificateViewController.xib */; };
 		83E2B5581D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */; };
 		83E2B5591D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */; };
 		83E2B55B1D6CB104005665E5 /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E2B55A1D6CB104005665E5 /* RenderedCertificateView.swift */; };
@@ -123,6 +127,8 @@
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequest.swift; sourceTree = "<group>"; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
+		83B383351D6CFDC100268BCE /* RenderedCertificateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenderedCertificateViewController.swift; path = RenderedCertificateView/RenderedCertificateViewController.swift; sourceTree = "<group>"; };
+		83B383361D6CFDC100268BCE /* RenderedCertificateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateViewController.xib; path = RenderedCertificateView/RenderedCertificateViewController.xib; sourceTree = "<group>"; };
 		83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateView.xib; path = RenderedCertificateView/RenderedCertificateView.xib; sourceTree = "<group>"; };
 		83E2B55A1D6CB104005665E5 /* RenderedCertificateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenderedCertificateView.swift; path = RenderedCertificateView/RenderedCertificateView.swift; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -268,6 +274,8 @@
 			children = (
 				83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */,
 				83E2B55A1D6CB104005665E5 /* RenderedCertificateView.swift */,
+				83B383351D6CFDC100268BCE /* RenderedCertificateViewController.swift */,
+				83B383361D6CFDC100268BCE /* RenderedCertificateViewController.xib */,
 			);
 			name = RenderedCertificateView;
 			sourceTree = "<group>";
@@ -426,6 +434,7 @@
 				836A31B01D5933D800943801 /* Assets.xcassets in Resources */,
 				836A31AE1D5933D800943801 /* Main.storyboard in Resources */,
 				83E2B5581D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */,
+				83B383391D6CFDC100268BCE /* RenderedCertificateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +456,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83E2B5591D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */,
+				83B3833A1D6CFDC100268BCE /* RenderedCertificateViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +619,7 @@
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				830B7CFB1D5A82540089F13D /* Issuer.swift in Sources */,
 				830B7CFE1D5A82980089F13D /* Recipient.swift in Sources */,
+				83B383371D6CFDC100268BCE /* RenderedCertificateViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +654,7 @@
 				8346F53A1D6B9E5500E3741F /* CertificateValidationRequest.swift in Sources */,
 				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				83659CF91D6657FA00316BA8 /* Assertion.swift in Sources */,
+				83B383381D6CFDC100268BCE /* RenderedCertificateViewController.swift in Sources */,
 				83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */,
 				83659CFB1D6657FA00316BA8 /* Keychain.swift in Sources */,
 				83659CF61D6657FA00316BA8 /* Certificate.swift in Sources */,

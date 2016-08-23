@@ -6,6 +6,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Item-->
+        <scene sceneID="lM9-Zp-dm0">
+            <objects>
+                <viewController id="RWG-sR-u35" customClass="RenderedCertificateViewController" customModule="cert_wallet" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="SeP-ON-Jad"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qPF-RX-yAO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="753" y="-995"/>
+        </scene>
         <!--Issuers-->
         <scene sceneID="hNz-n2-bh7">
             <objects>
@@ -193,6 +203,7 @@
                     <connections>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="S79-nS-LVS" kind="relationship" relationship="viewControllers" id="cYY-7V-5pi"/>
+                        <segue destination="RWG-sR-u35" kind="relationship" relationship="viewControllers" id="mTQ-oz-nOa"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
