@@ -54,6 +54,10 @@
 		83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		83AC79231D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
+		83B3835C1D6D0C0400268BCE /* RCView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RCView.xib */; };
+		83B3835D1D6D0C0400268BCE /* RCView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RCView.xib */; };
+		83B3835F1D6D0C6500268BCE /* RCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RCView.swift */; };
+		83B383601D6D0C6500268BCE /* RCView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RCView.swift */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +121,8 @@
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequest.swift; sourceTree = "<group>"; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
+		83B3835B1D6D0C0400268BCE /* RCView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RCView.xib; path = RenderedCertificateView/RCView.xib; sourceTree = "<group>"; };
+		83B3835E1D6D0C6500268BCE /* RCView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RCView.swift; path = RenderedCertificateView/RCView.swift; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -258,6 +264,8 @@
 		83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */ = {
 			isa = PBXGroup;
 			children = (
+				83B3835B1D6D0C0400268BCE /* RCView.xib */,
+				83B3835E1D6D0C6500268BCE /* RCView.swift */,
 			);
 			name = RenderedCertificateView;
 			sourceTree = "<group>";
@@ -412,6 +420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B3835C1D6D0C0400268BCE /* RCView.xib in Resources */,
 				836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */,
 				836A31B01D5933D800943801 /* Assets.xcassets in Resources */,
 				836A31AE1D5933D800943801 /* Main.storyboard in Resources */,
@@ -434,6 +443,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B3835D1D6D0C0400268BCE /* RCView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,6 +599,7 @@
 				83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */,
 				836A31A91D5933D800943801 /* FirstViewController.swift in Sources */,
 				830B7D011D5A82B20089F13D /* Assertion.swift in Sources */,
+				83B3835F1D6D0C6500268BCE /* RCView.swift in Sources */,
 				830B7D041D5A82CA0089F13D /* Verify.swift in Sources */,
 				830B7D071D5A88130089F13D /* Keychain.swift in Sources */,
 				830B7CF81D5A822B0089F13D /* Certificate.swift in Sources */,
@@ -623,6 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B383601D6D0C6500268BCE /* RCView.swift in Sources */,
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
 				836A31C91D5933D800943801 /* cert_walletUITests.swift in Sources */,
 				8346F53A1D6B9E5500E3741F /* CertificateValidationRequest.swift in Sources */,
