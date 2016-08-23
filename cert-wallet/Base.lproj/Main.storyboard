@@ -116,8 +116,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificateActionsTableViewCell" textLabel="xaO-RB-hdl" style="IBUITableViewCellStyleDefault" id="avt-wR-BzQ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RenderedCertificateTableViewCell" id="dgM-Oe-EgG">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dgM-Oe-EgG" id="V4O-GU-DPH">
+                                    <frame key="frameInset" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-p1-ii5" customClass="RenderedCertificateView" customModule="cert_wallet" customModuleProvider="target">
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="height" secondItem="V4O-GU-DPH" secondAttribute="height" id="b4n-X6-NaH"/>
+                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="centerX" secondItem="V4O-GU-DPH" secondAttribute="centerX" id="fiD-od-0ew"/>
+                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="width" secondItem="V4O-GU-DPH" secondAttribute="width" id="tZX-sQ-wd2"/>
+                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="centerY" secondItem="V4O-GU-DPH" secondAttribute="centerY" id="yR9-og-ebf"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificateActionsTableViewCell" textLabel="xaO-RB-hdl" style="IBUITableViewCellStyleDefault" id="avt-wR-BzQ">
+                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="avt-wR-BzQ" id="WFj-zp-R8I">
                                     <frame key="frameInset" width="375" height="43"/>
@@ -134,7 +153,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificateDetailTableViewCell" textLabel="IGJ-dy-r2Q" detailTextLabel="PDa-af-Af0" style="IBUITableViewCellStyleValue1" id="g8P-Ai-igF">
-                                <rect key="frame" x="0.0" y="136" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="180" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g8P-Ai-igF" id="syi-VO-g7z">
                                     <frame key="frameInset" width="375" height="43"/>

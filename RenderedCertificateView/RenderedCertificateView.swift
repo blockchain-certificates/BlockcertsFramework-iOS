@@ -18,7 +18,7 @@ class RenderedCertificateView: UIView {
     @IBOutlet weak var leftSignature: UIImageView!
     @IBOutlet weak var sealIcon: UIImageView!
     @IBOutlet weak var rightSignature: UIImageView!
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         Bundle.main.loadNibNamed("RenderedCertificateView", owner: self, options: nil)

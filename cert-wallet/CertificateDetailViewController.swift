@@ -27,6 +27,12 @@ struct CertificateActions : TableSection {
     let rows = 1
 }
 
+struct CertificateDisplay : TableSection {
+    var identifier = "RenderedCertificateTableViewCell"
+    let title : String? = nil
+    let rows = 1
+}
+
 
 class CertificateDetailViewController: UITableViewController {
     
@@ -56,6 +62,7 @@ class CertificateDetailViewController: UITableViewController {
 
         // Details
         sections = [
+            CertificateDisplay(),
             CertificateActions(),
             CertificateProperty(title: "Details", values: [
                 "Title": certificate.title,
@@ -108,7 +115,13 @@ extension CertificateDetailViewController {
         let section = sections[indexPath.section]
         let cell = tableView.dequeueReusableCell(withIdentifier: section.identifier)!
         
-        if section is CertificateActions {
+        if section is CertificateDisplay {
+            // TODO: THis is hacky. Make a proper UITableViewCell subclass
+            if let renderedView = cell.contentView.subviews.first as? RenderedCertificateView {
+                renderedView.titleLabel.text = certificate?.title
+                renderedView.subtitleLabel.text = certificate?.subtitle
+            }
+        } else if section is CertificateActions {
             cell.textLabel?.text = "Validate"
         } else if let section = section as? CertificateProperty {
             let values = section.values
