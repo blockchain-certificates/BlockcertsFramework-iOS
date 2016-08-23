@@ -54,6 +54,8 @@
 		83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		83AC79231D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
+		83E2B5581D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */; };
+		83E2B5591D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +119,7 @@
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequest.swift; sourceTree = "<group>"; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
+		83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateView.xib; path = RenderedCertificateView/RenderedCertificateView.xib; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 		836A319A1D5933D800943801 = {
 			isa = PBXGroup;
 			children = (
+				83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */,
 				834910F41D5E6DC900872DAE /* Extensions */,
 				830B7CF61D5A81B30089F13D /* Models */,
 				836A31A51D5933D800943801 /* cert-wallet */,
@@ -252,6 +256,14 @@
 				836A31CA1D5933D800943801 /* Info.plist */,
 			);
 			path = "cert-walletUITests";
+			sourceTree = "<group>";
+		};
+		83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */ = {
+			isa = PBXGroup;
+			children = (
+				83E2B5571D6CAC13005665E5 /* RenderedCertificateView.xib */,
+			);
+			name = RenderedCertificateView;
 			sourceTree = "<group>";
 		};
 		BA06BCAA0680E083B5A63088 /* Frameworks */ = {
@@ -407,6 +419,7 @@
 				836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */,
 				836A31B01D5933D800943801 /* Assets.xcassets in Resources */,
 				836A31AE1D5933D800943801 /* Main.storyboard in Resources */,
+				83E2B5581D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,6 +439,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83E2B5591D6CAC13005665E5 /* RenderedCertificateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
