@@ -9,6 +9,8 @@
 import UIKit
 
 class RenderedCertificateView: UIView {
+    let nibName = "RenderedCertificateView"
+    var view : UIView!
     
     @IBOutlet weak var certificateView: UIView!
     @IBOutlet weak var title: UILabel!
@@ -34,9 +36,24 @@ class RenderedCertificateView: UIView {
     }
 
     private func commonInit() {
+        // Load from nib file
+        view = loadViewFromNib()
+        view.frame = bounds
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        addSubview(view)
+        
+        // Configure properties
         certificateView.layer.shadowOffset = CGSize(width: 0, height: 5)
         certificateView.layer.shadowColor = UIColor.black.cgColor
         certificateView.layer.shadowRadius = 5.0
         certificateView.layer.shadowOpacity = 0.5
+    }
+
+    func loadViewFromNib() -> UIView {
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: nibName, bundle: bundle)
+        let view = nib.instantiate(withOwner: self, options: nil).first as! UIView
+        
+        return view
     }
 }
