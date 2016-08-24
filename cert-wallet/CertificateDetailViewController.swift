@@ -201,12 +201,18 @@ extension CertificateDetailViewController {
                     completeAlert.message = "This certificate isn't valid."
                 }
             }
-            self?.presentedViewController?.dismiss(animated: false, completion: nil)
             
-            self?.present(completeAlert, animated: false) { () in
-                if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
-                    self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
+            let showCompleteAlert : () -> Void = {
+                self?.present(completeAlert, animated: false) { () in
+                    if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
+                        self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
+                    }
                 }
+            }
+            if self?.presentedViewController != nil {
+                self?.presentedViewController?.dismiss(animated: false, completion: showCompleteAlert)
+            } else {
+                showCompleteAlert()
             }
         }
         
