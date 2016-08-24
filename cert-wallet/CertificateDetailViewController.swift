@@ -35,13 +35,13 @@ struct CertificateDisplay : TableSection {
 
 
 class CertificateDetailViewController: UITableViewController {
-    
     var sections = [TableSection]()
     var certificate: Certificate? {
         didSet {
             generateSectionData()
         }
     }
+    var inProgressValidationRequest : CertificateValidationRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,7 +188,8 @@ extension CertificateDetailViewController {
             return
         }
         
-        let validationRequest = CertificateValidationRequest(for: certificate, with: transactionId, starting: false) { [weak self] (success, errorMessage) in
+        inProgressValidationRequest?.abort()
+        inProgressValidationRequest = CertificateValidationRequest(for: certificate, with: transactionId, starting: false) { [weak self] (success, errorMessage) in
             if success {
                 completeAlert.title = "Success"
                 completeAlert.message = "This is a valid certificate!"
@@ -200,15 +201,27 @@ extension CertificateDetailViewController {
                     completeAlert.message = "This certificate isn't valid."
                 }
             }
+            self?.presentedViewController?.dismiss(animated: false, completion: nil)
             
-            self?.present(completeAlert, animated: true) { () in
+            self?.present(completeAlert, animated: false) { () in
                 if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
                     self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
                 }
             }
         }
         
-        validationRequest.start()
+        inProgressValidationRequest?.start()
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
+            self?.inProgressValidationRequest?.abort()
+            self?.inProgressValidationRequest = nil
+            
+            if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
+                self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
+            }
+        }
+        let validatingAlert = UIAlertController(title: nil, message: "Validating this certificate...", preferredStyle: .alert)
+        validatingAlert.addAction(cancelAction)
+        present(validatingAlert, animated: true, completion: nil)
     }
     
 }
