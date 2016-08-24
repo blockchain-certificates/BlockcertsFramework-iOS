@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A294a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="16A304a" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -111,23 +111,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RenderedCertificateTableViewCell" id="dgM-Oe-EgG">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RenderedCertificateTableViewCell" id="dgM-Oe-EgG" customClass="RenderedCertificateTableViewCell" customModule="cert_wallet" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dgM-Oe-EgG" id="V4O-GU-DPH">
                                     <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RoZ-p1-ii5" customClass="RenderedCertificateView" customModule="cert_wallet" customModuleProvider="target">
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="height" secondItem="V4O-GU-DPH" secondAttribute="height" id="b4n-X6-NaH"/>
-                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="centerX" secondItem="V4O-GU-DPH" secondAttribute="centerX" id="fiD-od-0ew"/>
-                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="width" secondItem="V4O-GU-DPH" secondAttribute="width" id="tZX-sQ-wd2"/>
-                                        <constraint firstItem="RoZ-p1-ii5" firstAttribute="centerY" secondItem="V4O-GU-DPH" secondAttribute="centerY" id="yR9-og-ebf"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificateActionsTableViewCell" textLabel="xaO-RB-hdl" style="IBUITableViewCellStyleDefault" id="avt-wR-BzQ">

@@ -47,6 +47,9 @@ class CertificateDetailViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         title = certificate?.title ?? "CertiFicate"
+        
+        tableView.estimatedRowHeight = 45
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func didReceiveMemoryWarning() {
@@ -154,6 +157,15 @@ extension CertificateDetailViewController {
             
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let section = sections[indexPath.section]
+        if section is CertificateDisplay {
+            return 220
+        } else {
+            return 44
         }
     }
     
