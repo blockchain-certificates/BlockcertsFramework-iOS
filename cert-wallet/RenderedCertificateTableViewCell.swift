@@ -13,6 +13,14 @@ class RenderedCertificateTableViewCell: UITableViewCell {
     weak var renderedView: RenderedCertificateView?
     
     // MARK: Pass-through properties to the rendered view.
+    var nameText : String? {
+        get {
+            return renderedView?.nameLabel.text
+        }
+        set {
+            renderedView?.nameLabel.text = newValue
+        }
+    }
     var titleText : String? {
         get {
             return renderedView?.titleLabel.text

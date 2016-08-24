@@ -119,9 +119,13 @@ extension CertificateDetailViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: section.identifier)!
         
         if section is CertificateDisplay {
-            if let renderedViewCell = cell as? RenderedCertificateTableViewCell {
-                renderedViewCell.titleText = certificate?.title ?? ""
-                renderedViewCell.subtitleText = certificate?.subtitle ?? ""
+            if let renderedViewCell = cell as? RenderedCertificateTableViewCell,
+                let certificate = certificate {
+                renderedViewCell.nameText = "\(certificate.recipient.givenName) \(certificate.recipient.familyName)"
+                renderedViewCell.titleText = certificate.title
+                renderedViewCell.subtitleText = certificate.subtitle
+                renderedViewCell.issuerIcon = UIImage(data: certificate.issuer.image)
+                renderedViewCell.leftSignature = UIImage(data: certificate.assertion.signatureImage)
             }
         } else if section is CertificateActions {
             cell.textLabel?.text = "Validate"
