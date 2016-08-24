@@ -119,10 +119,9 @@ extension CertificateDetailViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: section.identifier)!
         
         if section is CertificateDisplay {
-            // TODO: THis is hacky. Make a proper UITableViewCell subclass
-            if let renderedView = cell.contentView.subviews.first as? RenderedCertificateView {
-                renderedView.titleLabel.text = certificate?.title
-                renderedView.subtitleLabel.text = certificate?.subtitle
+            if let renderedViewCell = cell as? RenderedCertificateTableViewCell {
+                renderedViewCell.titleText = certificate?.title ?? ""
+                renderedViewCell.subtitleText = certificate?.subtitle ?? ""
             }
         } else if section is CertificateActions {
             cell.textLabel?.text = "Validate"
