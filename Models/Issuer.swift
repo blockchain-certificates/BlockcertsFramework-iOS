@@ -103,3 +103,17 @@ struct Issuer {
         
     }
 }
+
+// MARK: - Equality test
+extension Issuer : Equatable {}
+
+func ==(lhs: Issuer, rhs: Issuer) -> Bool {
+    return lhs.name == rhs.name
+        && lhs.email == rhs.email
+        && lhs.image == rhs.image
+        && lhs.id == rhs.id
+        && lhs.url == rhs.url
+        && lhs.publicKey == rhs.publicKey
+        && lhs.publicKeyAddress == rhs.publicKeyAddress
+        && lhs.requestUrl == rhs.requestUrl
+}
