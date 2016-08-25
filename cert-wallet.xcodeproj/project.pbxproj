@@ -44,7 +44,7 @@
 		83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D031D5A82CA0089F13D /* Verify.swift */; };
 		83659CFB1D6657FA00316BA8 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
 		836A31A71D5933D800943801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A61D5933D800943801 /* AppDelegate.swift */; };
-		836A31A91D5933D800943801 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* FirstViewController.swift */; };
+		836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* IssuersViewController.swift */; };
 		836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31AA1D5933D800943801 /* CertificatesViewController.swift */; };
 		836A31AE1D5933D800943801 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AC1D5933D800943801 /* Main.storyboard */; };
 		836A31B01D5933D800943801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AF1D5933D800943801 /* Assets.xcassets */; };
@@ -109,7 +109,7 @@
 		83659CF51D66492800316BA8 /* cert-wallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "cert-wallet.entitlements"; sourceTree = "<group>"; };
 		836A31A31D5933D800943801 /* cert-wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cert-wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31A61D5933D800943801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		836A31A81D5933D800943801 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		836A31A81D5933D800943801 /* IssuersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuersViewController.swift; sourceTree = "<group>"; };
 		836A31AA1D5933D800943801 /* CertificatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatesViewController.swift; sourceTree = "<group>"; };
 		836A31AD1D5933D800943801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		836A31AF1D5933D800943801 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -229,7 +229,7 @@
 			children = (
 				83659CF51D66492800316BA8 /* cert-wallet.entitlements */,
 				836A31A61D5933D800943801 /* AppDelegate.swift */,
-				836A31A81D5933D800943801 /* FirstViewController.swift */,
+				836A31A81D5933D800943801 /* IssuersViewController.swift */,
 				836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */,
 				836A31AA1D5933D800943801 /* CertificatesViewController.swift */,
 				835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */,
@@ -601,7 +601,7 @@
 				836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */,
 				836A31A71D5933D800943801 /* AppDelegate.swift in Sources */,
 				83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */,
-				836A31A91D5933D800943801 /* FirstViewController.swift in Sources */,
+				836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */,
 				830B7D011D5A82B20089F13D /* Assertion.swift in Sources */,
 				83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
 				830B7D041D5A82CA0089F13D /* Verify.swift in Sources */,
