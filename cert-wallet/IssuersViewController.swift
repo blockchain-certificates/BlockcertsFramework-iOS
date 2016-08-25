@@ -9,6 +9,8 @@
 import UIKit
 
 class IssuersViewController: UITableViewController {
+    private let archiveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("Issuers")
+    
     let cellReuseIdentifier = "IssuerTableViewCell"
     let segueToAddIssuerIdentifier = "AddIssuer"
     var issuers = [Issuer]()
@@ -19,13 +21,20 @@ class IssuersViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        loadIssuers()
+        
         let seedPhrase = Keychain.generateSeedPhrase()
         keychain = Keychain(seedPhrase: seedPhrase)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func saveIssuers() {
+        let issuersCodingList: [[String : String]] = issuers.map({ $0.toDictionary() })
+        NSKeyedArchiver.archiveRootObject(issuersCodingList, toFile: archiveURL.path)
+    }
+    
+    func loadIssuers() {
+        let codedIssuers : [[String : String]] = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? [[String: String]] ?? []
+        issuers = codedIssuers.flatMap({ Issuer(dictionary: $0) })
     }
 }
 
@@ -56,6 +65,8 @@ extension IssuersViewController {
 extension IssuersViewController : AddIssuerViewControllerDelegate {
     func created(issuer: Issuer) {
         issuers.append(issuer)
+        
+        saveIssuers()
         // TODO: Possibly make this an add animation rather than simply reloading the data.
         tableView.reloadData()
     }
