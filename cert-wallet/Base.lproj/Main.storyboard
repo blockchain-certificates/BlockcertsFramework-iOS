@@ -43,7 +43,7 @@
                     <navigationItem key="navigationItem" title="Issuers" id="hiB-IE-nk9">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="7aQ-Pa-UbL">
                             <connections>
-                                <segue destination="eFH-hy-zWZ" kind="presentation" id="kaf-gR-ynZ"/>
+                                <segue destination="eFH-hy-zWZ" kind="presentation" identifier="AddIssuer" id="kaf-gR-ynZ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -286,11 +286,11 @@
                                 <rect key="frame" x="0.0" y="136" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="avt-wR-BzQ" id="WFj-zp-R8I">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Action" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xaO-RB-hdl">
-                                            <frame key="frameInset" minX="15" width="345" height="43.5"/>
+                                            <frame key="frameInset" minX="15" width="345" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -303,18 +303,18 @@
                                 <rect key="frame" x="0.0" y="180" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="g8P-Ai-igF" id="syi-VO-g7z">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IGJ-dy-r2Q">
-                                            <frame key="frameInset" minX="15" minY="12" width="33.5" height="20.5"/>
+                                            <frame key="frameInset" minX="15" minY="11" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PDa-af-Af0">
-                                            <frame key="frameInset" minX="316" minY="12" width="44" height="20.5"/>
+                                            <frame key="frameInset" minX="316" minY="11" width="44" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>

@@ -10,7 +10,8 @@ import UIKit
 
 class IssuersViewController: UITableViewController {
     let cellReuseIdentifier = "IssuerTableViewCell"
-    var issuers = Array(repeating: 17, count: 5)
+    let segueToAddIssuerIdentifier = "AddIssuer"
+    var issuers = [Issuer]()
 
 //    @IBOutlet weak var keyPhraseLabel: UILabel!
     var keychain : Keychain?
@@ -25,11 +26,6 @@ class IssuersViewController: UITableViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func addIssuerTapped(_ sender: UIBarButtonItem) {
-        issuers.append(0)
-        tableView.reloadData()
     }
 }
 
@@ -47,3 +43,20 @@ extension IssuersViewController {
     }
 }
 
+extension IssuersViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueToAddIssuerIdentifier {
+            let target = segue.destination as! AddIssuerViewController
+            target.delegate = self
+            target.keychain = keychain!
+        }
+    }
+}
+
+extension IssuersViewController : AddIssuerViewControllerDelegate {
+    func created(issuer: Issuer) {
+        issuers.append(issuer)
+        // TODO: Possibly make this an add animation rather than simply reloading the data.
+        tableView.reloadData()
+    }
+}
