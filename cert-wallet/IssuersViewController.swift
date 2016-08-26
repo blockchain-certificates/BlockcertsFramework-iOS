@@ -50,6 +50,23 @@ extension IssuersViewController {
         
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+            self?.issuers.remove(at: indexPath.row)
+            self?.saveIssuers()
+            self?.tableView.reloadData()
+        }
+        return [ deleteAction ]
+    }
 }
 
 extension IssuersViewController {
