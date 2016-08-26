@@ -17,6 +17,8 @@ class CertificatesViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         loadCertificates()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadCertificates), name: NotificationNames.allDataReset, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,15 +98,16 @@ class CertificatesViewController: UITableViewController {
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
         
-        filenames.forEach { (filename) in
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
-                let certificate = CertificateParser.parse(data: data) {
-                    certificates.append(certificate)
-            } else {
-                // TODO: What to do here?
-                print("Existing file \(filename) is an invalid certificate.")
+        certificates = filenames.flatMap { (filename) in
+            guard let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
+                let certificate = CertificateParser.parse(data: data) else {
+                    // Certificate is invalid. Don't load it.
+                    return nil
             }
+            return certificate
         }
+        
+        tableView.reloadData()
     }
     
     func filenameFor(certificate : Certificate) -> String {

@@ -22,6 +22,7 @@ class IssuersViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         loadIssuers()
+        NotificationCenter.default.addObserver(self, selector: #selector(loadIssuers), name: NotificationNames.allDataReset, object: nil)
         
         let seedPhrase = Keychain.generateSeedPhrase()
         keychain = Keychain(seedPhrase: seedPhrase)
@@ -35,6 +36,7 @@ class IssuersViewController: UITableViewController {
     func loadIssuers() {
         let codedIssuers : [[String : String]] = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? [[String: String]] ?? []
         issuers = codedIssuers.flatMap({ Issuer(dictionary: $0) })
+        tableView.reloadData()
     }
 }
 

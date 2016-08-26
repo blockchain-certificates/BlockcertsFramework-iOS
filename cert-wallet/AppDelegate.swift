@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum NotificationNames {
+    static let allDataReset = Notification.Name(rawValue: "AllDataReset")
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private let resetKey = "nukeItFromOrbit"
@@ -50,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         defer {
+            NotificationCenter.default.post(Notification(name: NotificationNames.allDataReset))
             UserDefaults.standard.set(false, forKey: resetKey)
         }
 
