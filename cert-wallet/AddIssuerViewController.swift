@@ -28,6 +28,10 @@ class AddIssuerViewController: UIViewController {
     }
 
     @IBAction func saveTapped(_ sender: UIBarButtonItem) {
+        captureDataAndCreateIssuer()
+    }
+    
+    func captureDataAndCreateIssuer() {
         guard let givenName = firstNamefield.text,
             let familyName = lastNameField.text,
             let email = emailAddressField.text,
@@ -53,7 +57,7 @@ class AddIssuerViewController: UIViewController {
         }
     }
     
-    @IBAction func fieldEditingDidEnd(_ sender: UITextField) {
+    @IBAction func fieldChanged(_ sender: UITextField) {
         validate()
     }
 
@@ -62,7 +66,7 @@ class AddIssuerViewController: UIViewController {
         saveButton.isEnabled = areAllFieldsValid()
     }
     
-    private func areAllFieldsValid() -> Bool {
+    public func areAllFieldsValid() -> Bool {
         return isIssuerURLValid()
             && isFirstNameValid()
             && isLastNameValid()
@@ -125,8 +129,6 @@ class AddIssuerViewController: UIViewController {
                                 publicKeyAddress: issuerUrl,
                                 requestUrl: issuerUrl)
             callback?(issuer)
-//            print(issuer)
-//            callback?(nil)
         }
     }
     /*
@@ -139,4 +141,27 @@ class AddIssuerViewController: UIViewController {
     }
     */
 
+}
+
+extension AddIssuerViewController : UITextViewDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        switch textField {
+        case publicKeyURLField:
+            firstNamefield.becomeFirstResponder()
+        case firstNamefield:
+            lastNameField.becomeFirstResponder()
+        case lastNameField:
+            emailAddressField.becomeFirstResponder()
+        case emailAddressField:
+            let allValid = self.areAllFieldsValid()
+            if allValid {
+                captureDataAndCreateIssuer()
+            } else {
+                return false
+            }
+        default:
+            break;
+        }
+        return true
+    }
 }
