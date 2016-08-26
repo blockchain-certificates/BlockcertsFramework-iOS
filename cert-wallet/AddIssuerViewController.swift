@@ -15,6 +15,7 @@ class AddIssuerViewController: UIViewController {
 
     weak var delegate : AddIssuerViewControllerDelegate?
     var keychain : Keychain!
+    var inFlightRequest : IssuerCreationRequest?
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -117,19 +118,17 @@ class AddIssuerViewController: UIViewController {
     // MARK: - Contacting the issuer
     func createIssuer(from issuerUrl: URL, for recipient: Recipient, callback: ((Issuer?) -> Void)?) {
         
-        // TODO: Actually make URL requests and the like here. For now, just adding a 700ms timeout to simulate network traffic then returning dummy values.
-        let sevenHundredMilliseconds = DispatchTime(uptimeNanoseconds: 7_000_000)
-        DispatchQueue.main.asyncAfter(deadline: sevenHundredMilliseconds) {
-            let issuer = Issuer(name: "Fake Issuer Name",
-                                email: "Fake Issuer email",
-                                image: Data(),
-                                id: URL(string:"http://google.com")!,
-                                url: URL(string:"http://google.com")!,
-                                publicKey: "AbsolutelyFakePublicKey",
-                                publicKeyAddress: issuerUrl,
-                                requestUrl: issuerUrl)
+        let request = IssuerCreationRequest(withUrl: issuerUrl) { [weak self] (issuer) in
+            guard let issuer = issuer else {
+                return
+            }
+            //
+            issuer.introduce(recipient: recipient)
             callback?(issuer)
+            self?.inFlightRequest = nil
         }
+        request.start()
+        inFlightRequest = request
     }
     /*
     // MARK: - Navigation
