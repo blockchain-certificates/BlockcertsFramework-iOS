@@ -70,6 +70,7 @@ class CertificateValidationRequest {
     private var localHash : Data? // or String?
     private var remoteHash : String? // or String?
     private var revokationKey : String?
+    private var revokedAddresses : Set<String>?
     
     init(for certificate: Certificate, with transactionId: String, starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.certificate = certificate
@@ -94,7 +95,9 @@ class CertificateValidationRequest {
         state = .fetchingRemoteHash
     }
     private func fetchRemoteHash() {
-        guard let transactionUrl = URL(string: "https://blockchain.info/rawtx/\(transactionId)?cors=true") else {
+        let transactionDataHandler = BlockchainInfoHandler(transactionId: transactionId)
+        
+        guard let transactionUrl = URL(string: transactionDataHandler.transactionUrlAsString!) else {
             state = .failure(reason: "Transaction ID (\(transactionId)) is invalid")
             return
         }
@@ -108,41 +111,33 @@ class CertificateValidationRequest {
                 self?.state = .failure(reason: "Got a valid response, but no data from \(transactionUrl)")
                 return
             }
-
-            // Let's parse the OP_RETURN value out of the data.
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : AnyObject] else {
                 self?.state = .failure(reason: "Transaction didn't return valid JSON data from \(transactionUrl)")
                 return
             }
-            guard let outputs = json?["out"] as? [[String: AnyObject]] else {
-                self?.state = .failure(reason: "Missing 'out' property in response:\n\(json)")
+            
+            // Let's parse the OP_RETURN value out of the data.
+            transactionDataHandler.parseResponse(json: json!)
+            guard let transactionData : TransactionData = transactionDataHandler.transactionData else {
+                self?.state = .failure(reason: transactionDataHandler.failureReason!)
                 return
             }
-            guard let lastOutput = outputs.last else {
-                self?.state = .failure(reason: "Couldn't find the last 'value' key in outputs: \(outputs)")
-                return
-            }
-            guard let value = lastOutput["value"] as? Int,
-                let hash = lastOutput["script"] as? String else {
-                self?.state = .failure(reason: "Invalid types for 'value' or 'string' in output: \(lastOutput)")
-                return
-            }
-            guard value == 0 else {
-                self?.state = .failure(reason: "No output values were 0: \(outputs)")
-                return
-            }
-            self?.remoteHash = hash
+            
+            self?.remoteHash = transactionData.opReturnScript
+            self?.revokedAddresses = transactionData.revokedAddresses
             
             self?.state = .comparingHashes
         }
         task.resume()
     }
     private func compareHashes() {
+
         guard let localHash = localHash,
             let remoteHash = remoteHash?.asHexData() else {
-                state = .failure(reason: "Can't ompare hashes: at least one hash is still nil")
+                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
                 return
         }
+        
         guard localHash == remoteHash else {
             state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
             return
@@ -177,20 +172,34 @@ class CertificateValidationRequest {
             }
             self?.revokationKey = revokeKey
             
-            // Check the issuer key
-            // TODO: Whatever checkAuthor() did?
-            print(issuerKey)
+            // Check the issuer key: here's how it works:
+            // 1. base64 decode the signature that's on the certificate ('signature') field
+            // 2. use the CoreBitcoin library method BTCKey.verifySignature to derive the key used to create this signature:
+            //    - it takes as input the signature on the certificate and the message (the assertion uid) that we expect it to be the signature of.
+            //    - it returns a matching BTCKey if found
+            // 3. we still have to check that the BTCKey returned above matches the issuer's public key that we looked up
             
-            self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
-            // When the above TODO is done, this can be the actual state change:
-//            self?.state = .checkingRevokedStatus
+            // base64 decode the signature on the certificate
+            let decodedData = NSData.init(base64Encoded: (self?.certificate.signature)!, options: NSData.Base64DecodingOptions(rawValue: 0))
+            // derive the key that produced this signature
+            let btcKey = BTCKey.verifySignature(decodedData as Data!, forMessage: self?.certificate.assertion.uid)
+            // if this succeeds, we successfully derived a key, but still have to check that it matches the issuerKey
+            if btcKey?.address?.string != issuerKey {
+                self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
+            }
+            self?.state = .checkingRevokedStatus
         }
         request.resume()
     }
+    
     private func checkRevokedStatus() {
-        state = .failure(reason: "\(#function) not implemented")
+        let revoked : Bool = (revokedAddresses?.contains(self.revokationKey!))!
+        if !revoked {
+            self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.revokationKey!)")
+            return
+        }
         // Success
-//        state = .success
+        state = .success
     }
     
     // MARK: helper functions
