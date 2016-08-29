@@ -10,6 +10,7 @@ import XCTest
 
 class CertificateParserTests: XCTestCase {
     let v1_1filename = "sample_unsigned_cert-1.1.0"
+    let v1_1signedFilename = "sample_signed_cert-valid-1.1.0"
     let v1_2filename = "sample_unsigned_cert-1.2.0"
     let v1_2signedFilename = "sample_signed_cert-1.2.0"
     
@@ -19,6 +20,18 @@ class CertificateParserTests: XCTestCase {
         guard let fileUrl = testBundle.url(forResource: v1_1filename, withExtension: "json") ,
             let file = try? Data(contentsOf: fileUrl) else {
             return
+        }
+        
+        let certificate = CertificateParser.parse(data: file)
+        XCTAssertNotNil(certificate)
+        XCTAssertEqual(certificate?.version, .oneDotOne)
+    }
+    
+    func testExpectingV1_1SignedCertificate() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v1_1signedFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
         }
         
         let certificate = CertificateParser.parse(data: file)
