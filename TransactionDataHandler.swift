@@ -49,8 +49,14 @@ class BlockchainInfoHandler : TransactionDataHandler {
             super.failureReason = "No output values were 0: \(outputs)"
             return
         }
+        var revoked : Set<String> = Set()
+        for output in outputs {
+            if (output["spent"] as? Bool == true) {
+                revoked.insert(output["addr"] as! String)
+            }
+        }
         
-        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: nil)
+        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked)
     }
 }
 

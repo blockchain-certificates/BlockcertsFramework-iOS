@@ -70,6 +70,7 @@ class CertificateValidationRequest {
     private var localHash : Data? // or String?
     private var remoteHash : String? // or String?
     private var revokationKey : String?
+    private var revokedAddresses : Set<String>?
     
     init(for certificate: Certificate, with transactionId: String, starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.certificate = certificate
@@ -123,7 +124,7 @@ class CertificateValidationRequest {
             }
             
             self?.remoteHash = transactionData.opReturnScript
-            // TODO: revoked addresses
+            self?.revokedAddresses = transactionData.revokedAddresses
             
             self?.state = .comparingHashes
         }
@@ -192,9 +193,13 @@ class CertificateValidationRequest {
     }
     
     private func checkRevokedStatus() {
-        state = .failure(reason: "\(#function) not implemented")
+        let revoked : Bool = (revokedAddresses?.contains(self.revokationKey!))!
+        if !revoked {
+            self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.revokationKey!)")
+            return
+        }
         // Success
-//        state = .success
+        state = .success
     }
     
     // MARK: helper functions
