@@ -94,7 +94,9 @@ class CertificateValidationRequest {
         state = .fetchingRemoteHash
     }
     private func fetchRemoteHash() {
-        guard let transactionUrl = URL(string: "https://blockchain.info/rawtx/\(transactionId)?cors=true") else {
+        let transactionDataHandler = BlockchainInfoHandler(transactionId: transactionId)
+        
+        guard let transactionUrl = URL(string: transactionDataHandler.transactionUrlAsString!) else {
             state = .failure(reason: "Transaction ID (\(transactionId)) is invalid")
             return
         }
@@ -108,30 +110,20 @@ class CertificateValidationRequest {
                 self?.state = .failure(reason: "Got a valid response, but no data from \(transactionUrl)")
                 return
             }
-
-            // Let's parse the OP_RETURN value out of the data.
             guard let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String : AnyObject] else {
                 self?.state = .failure(reason: "Transaction didn't return valid JSON data from \(transactionUrl)")
                 return
             }
-            guard let outputs = json?["out"] as? [[String: AnyObject]] else {
-                self?.state = .failure(reason: "Missing 'out' property in response:\n\(json)")
+            
+            // Let's parse the OP_RETURN value out of the data.
+            transactionDataHandler.parseResponse(json: json!)
+            guard let transactionData : TransactionData = transactionDataHandler.transactionData else {
+                self?.state = .failure(reason: transactionDataHandler.failureReason!)
                 return
             }
-            guard let lastOutput = outputs.last else {
-                self?.state = .failure(reason: "Couldn't find the last 'value' key in outputs: \(outputs)")
-                return
-            }
-            guard let value = lastOutput["value"] as? Int,
-                let hash = lastOutput["script"] as? String else {
-                self?.state = .failure(reason: "Invalid types for 'value' or 'string' in output: \(lastOutput)")
-                return
-            }
-            guard value == 0 else {
-                self?.state = .failure(reason: "No output values were 0: \(outputs)")
-                return
-            }
-            self?.remoteHash = hash
+            
+            self?.remoteHash = transactionData.opReturnScript
+            // TODO: revoked addresses
             
             self?.state = .comparingHashes
         }
