@@ -65,7 +65,7 @@ protocol Certificate {
     var language : String { get }
     var id : URL { get }
     var file : Data { get }
-    var signature : String { get }
+    var signature : String? { get }
 
     var issuer : Issuer { get }
     var recipient : Recipient { get }
@@ -142,31 +142,43 @@ private enum MethodsForV1_1 {
     }
 
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
+
         guard let recipientData = recipientJSON as? [String : AnyObject],
             let identityType = recipientData["type"] as? String,
             let familyName = recipientData["familyName"] as? String,
             let givenName = recipientData["givenName"] as? String,
-            let isHashed = recipientData["hashed"] as? String,
+            let isHashedObj = recipientData["hashed"] as AnyObject?,
             let publicKey = recipientData["pubkey"] as? String,
             let identity = recipientData["identity"] as? String else {
                 return nil
+        }
+        
+        var hashed : Bool = false
+
+        if let isHashed = isHashedObj as? Bool {
+            hashed = isHashed
+        } else {
+            hashed = isHashedObj.uppercased == "TRUE"
         }
         
         return Recipient(givenName: givenName,
                          familyName: familyName,
                          identity: identity,
                          identityType: identityType,
-                         isHashed: isHashed.uppercased() == "TRUE",
+                         isHashed: hashed,
                          publicKey: publicKey)
     }
     
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
+        // TODO: the json schema allowed datetime, which inclues yyyy-MM-dd and TBD others. How can we make date formatter
+        // accept multiple string formats?
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "yyyy-MM-dd"
         
         guard let assertionData = assertionJSON as? [String : String],
             let issuedOnString = assertionData["issuedOn"],
-            let issuedOnDate = dateFormatter.date(from: issuedOnString),
             let signatureImageURI = assertionData["image:signature"],
             let assertionId = assertionData["id"],
             let assertionIdUrl = URL(string: assertionId),
@@ -175,8 +187,16 @@ private enum MethodsForV1_1 {
                 return nil
         }
         
+        var issuedOnDate : Date?
+        
+        if let iod = dateFormatter.date(from: issuedOnString) as Date? {
+            issuedOnDate = iod
+        } else {
+            issuedOnDate = dateFormatter2.date(from: issuedOnString)
+        }
+        
         let signatureImage = imageData(from: signatureImageURI)
-        return Assertion(issuedOn: issuedOnDate,
+        return Assertion(issuedOn: issuedOnDate!,
                          signatureImage: signatureImage,
                          evidence: evidence,
                          uid: assertionUid,
@@ -205,7 +225,7 @@ private struct CertificateV1_1 : Certificate {
     let language : String
     let id : URL
     let file : Data
-    let signature: String
+    let signature: String?
     
     let issuer : Issuer
     let recipient : Recipient
@@ -226,7 +246,7 @@ private struct CertificateV1_1 : Certificate {
         // Get any key properties on the Certificate object
         guard let certificateData = json["certificate"] as? [String: AnyObject],
             let title = certificateData["title"] as? String,
-            let subtitleMap = certificateData["subtitle"] as? [String : String],
+            let subtitleMap = certificateData["subtitle"] as? [String : AnyObject],
             let certificateImageURI = certificateData["image"] as? String,
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),
@@ -234,7 +254,17 @@ private struct CertificateV1_1 : Certificate {
             return nil
         }
         let certificateImage = imageData(from: certificateImageURI)
-        let subtitle = subtitleMap["display"] == "FALSE" ? nil : subtitleMap["content"]
+        var subtitle : String? = nil
+        if let subtitleDisplay = subtitleMap["display"] as? Bool {
+            if subtitleDisplay {
+                subtitle = (subtitleMap["content"] as? String)!
+            }
+        } else {
+            let subtitleDisplayStr = subtitleMap["display"] as! String
+            if subtitleDisplayStr.uppercased() == "TRUE" {
+                subtitle = (subtitleMap["content"] as? String)!
+            }
+        }
         
         self.title = title
         self.subtitle = subtitle
@@ -249,14 +279,14 @@ private struct CertificateV1_1 : Certificate {
             let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]),
             let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]),
-            let signature = json["signature"] else {
+            let signature = json["signature"] as? String? else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
-        self.signature = signature as! String
+        self.signature = signature
     }
 }
 
@@ -321,7 +351,7 @@ private struct CertificateV1_2 : Certificate {
     let language : String
     let id : URL
     let file : Data
-    let signature: String
+    let signature: String?
     
     let issuer : Issuer
     let recipient : Recipient
@@ -384,14 +414,14 @@ private struct CertificateV1_2 : Certificate {
             let recipient = MethodsForV1_2.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV1_2.parse(assertionJSON: json["assertion"]),
             let verifyData = MethodsForV1_2.parse(verifyJSON: json["verify"]),
-            let signature = json["signature"] else {
+            let signature = json["signature"] as? String? else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
-        self.signature = signature as! String
+        self.signature = signature
     }
 }
 

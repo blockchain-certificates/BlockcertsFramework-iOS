@@ -38,6 +38,7 @@ class CertificateValidationRequest {
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
     weak var delegate : CertificateValidationRequestDelegate?
+    let chain : String
 
     var state = ValidationState.notStarted {
         didSet {
@@ -72,15 +73,18 @@ class CertificateValidationRequest {
     private var revokationKey : String?
     private var revokedAddresses : Set<String>?
     
-    init(for certificate: Certificate, with transactionId: String, starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
+    init(for certificate: Certificate, with transactionId: String, chain: String = "mainnet", starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.certificate = certificate
         self.transactionId = transactionId
         self.completionHandler = completionHandler
+        self.chain = chain
         
         if (starting) {
             self.start()
         }
     }
+    
+    // TODO: set chain
     
     func start() {
         state = .computingLocalHash
@@ -91,11 +95,13 @@ class CertificateValidationRequest {
     }
     
     private func computeLocalHash() {
-        localHash = sha256(data: certificate.file)
+        self.localHash = sha256(data: certificate.file)
         state = .fetchingRemoteHash
     }
     private func fetchRemoteHash() {
-        let transactionDataHandler = BlockchainInfoHandler(transactionId: transactionId)
+        
+        // todo: what is proper init pattern here?
+        let transactionDataHandler : TransactionDataHandler = TransactionDataHandler.create(chain: self.chain, transactionId: transactionId)
         
         guard let transactionUrl = URL(string: transactionDataHandler.transactionUrlAsString!) else {
             state = .failure(reason: "Transaction ID (\(transactionId)) is invalid")
@@ -132,8 +138,8 @@ class CertificateValidationRequest {
     }
     private func compareHashes() {
 
-        guard let localHash = localHash,
-            let remoteHash = remoteHash?.asHexData() else {
+        guard let localHash = self.localHash,
+            let remoteHash = self.remoteHash?.asHexData() else {
                 state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
                 return
         }
@@ -145,7 +151,7 @@ class CertificateValidationRequest {
         state = .checkingIssuerSignature
     }
     private func checkIssuerSignature() {
-        let url = certificate.id
+        let url = certificate.issuer.id
         let request = URLSession.shared.dataTask(with: certificate.issuer.id) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
@@ -184,8 +190,18 @@ class CertificateValidationRequest {
             // derive the key that produced this signature
             let btcKey = BTCKey.verifySignature(decodedData as Data!, forMessage: self?.certificate.assertion.uid)
             // if this succeeds, we successfully derived a key, but still have to check that it matches the issuerKey
-            if btcKey?.address?.string != issuerKey {
-                self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
+            
+            // TODO: this is awkward
+            if self?.chain == "testnet" {
+                if btcKey?.addressTestnet?.string != issuerKey {
+                    self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
+                    return
+                }
+            } else {
+                if btcKey?.address?.string != issuerKey {
+                    self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
+                    return
+                }
             }
             self?.state = .checkingRevokedStatus
         }
@@ -194,7 +210,7 @@ class CertificateValidationRequest {
     
     private func checkRevokedStatus() {
         let revoked : Bool = (revokedAddresses?.contains(self.revokationKey!))!
-        if !revoked {
+        if revoked {
             self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.revokationKey!)")
             return
         }

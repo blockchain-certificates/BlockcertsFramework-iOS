@@ -24,6 +24,17 @@ class TransactionDataHandler {
         self.transactionId = transactionId
         self.transactionUrlAsString = transactionUrlAsString
     }
+    
+    func parseResponse(json: [String : AnyObject]) {
+    }
+    
+    static func create(chain: String, transactionId: String) -> TransactionDataHandler {
+        if chain == "testnet" {
+            return BlockcypherHandler(transactionId: transactionId)
+        } else {
+            return BlockchainInfoHandler(transactionId: transactionId)
+        }
+    }
 }
 
 class BlockchainInfoHandler : TransactionDataHandler {
@@ -31,7 +42,7 @@ class BlockchainInfoHandler : TransactionDataHandler {
         super.init(transactionId: transactionId, transactionUrlAsString: "https://blockchain.info/rawtx/\(transactionId)?cors=true")
     }
     
-    func parseResponse(json: [String : AnyObject]) {
+    override func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["out"] as? [[String: AnyObject]] else {
             super.failureReason = "Missing 'out' property in response:\n\(json)"
             return
@@ -60,11 +71,11 @@ class BlockchainInfoHandler : TransactionDataHandler {
     }
 }
 
-class BlockcypherConnector : TransactionDataHandler {
+class BlockcypherHandler : TransactionDataHandler {
     init(transactionId: String) {
         super.init(transactionId: transactionId, transactionUrlAsString: "http://api.blockcypher.com/v1/btc/test3/txs/\(transactionId)")
     }
-    func parseResponse(json: [String : AnyObject]) {
+    override func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["outputs"] as? [[String: AnyObject]] else {
             super.failureReason = "Missing 'out' property in response:\n\(json)"
             return
@@ -74,7 +85,7 @@ class BlockcypherConnector : TransactionDataHandler {
             return
         }
         guard let value = lastOutput["value"] as? Int,
-            let opReturnScript = lastOutput["script"] as? String else {
+            let opReturnScript = lastOutput["data_hex"] as? String else {
                 super.failureReason = "Couldn't find the last 'value' key in outputs: \(outputs)"
                 return
         }
@@ -82,7 +93,13 @@ class BlockcypherConnector : TransactionDataHandler {
             super.failureReason = "No output values were 0: \(outputs)"
             return
         }
+        var revoked : Set<String> = Set()
+        for output in outputs {
+            if (output["spent_by"] as? String != nil) {
+                revoked.insert(output["address"] as! String)
+            }
+        }
         
-        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: nil)
+        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked)
     }
 }

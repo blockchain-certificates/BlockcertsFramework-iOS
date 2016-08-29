@@ -9,11 +9,10 @@
 import XCTest
 
 class CertificateValidationRequestTests: XCTestCase {
-    let v1_1filename = "sample_signed_cert-1.1.0"
-    let v1_1transactionId = "d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d"
     
-    // This is using the new CertificateValidationRequest class.
     func testTamperedV1_1Certificate() {
+        let v1_1filename = "sample_signed_cert-1.1.0"
+        let v1_1transactionId = "d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d"
         let testExpectation = expectation(description: "Validation will call the completion handler")
         
         let testBundle = Bundle(for: type(of: self))
@@ -36,5 +35,27 @@ class CertificateValidationRequestTests: XCTestCase {
         request.start()
         
         waitForExpectations(timeout: 20.0, handler: nil)
-    }    
+    }
+    func testValidV1_1Certificate() {
+        let v1_1filename = "sample_signed_cert-valid-1.1.0"
+        let v1_1transactionId = "1703d2f5d706d495c1c65b40a086991ab755cc0a02bef51cd4aff9ed7a8586aa"
+        let testExpectation = expectation(description: "Validation will call the completion handler")
+        
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v1_1filename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let certificate = CertificateParser.parse(data: file)
+        XCTAssertNotNil(certificate)
+        let request = CertificateValidationRequest(for: certificate!, with:v1_1transactionId, chain: "testnet") { (success, errorMessage) in
+            XCTAssertTrue(success)
+            XCTAssertNil(errorMessage)
+            testExpectation.fulfill()
+        }
+        request.start()
+        
+        waitForExpectations(timeout: 1020.0, handler: nil)
+    }
 }
