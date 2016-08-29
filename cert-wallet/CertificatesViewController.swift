@@ -17,6 +17,8 @@ class CertificatesViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         loadCertificates()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadCertificates), name: NotificationNames.allDataReset, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,6 +61,33 @@ class CertificatesViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
+            let deletedCertificate : Certificate! = self?.certificates.remove(at: indexPath.row)
+            
+            let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+            let documentsDirectory = URL(fileURLWithPath: documentsDirectoryPath)
+            let certificateFilename = self?.filenameFor(certificate: deletedCertificate) ?? ""
+            let filePath = URL(fileURLWithPath: certificateFilename, relativeTo: documentsDirectory)
+            do {
+                try FileManager.default.removeItem(at: filePath)
+                tableView.reloadData()
+            } catch {
+                self?.certificates.insert(deletedCertificate, at: indexPath.row)
+                
+                let alertController = UIAlertController(title: "Couldn't delete file", message: "Something went wrong deleting that certificate.", preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self?.present(alertController, animated: true, completion: nil)
+            }
+            
+        }
+        return [ deleteAction ]
+    }
+    
     func loadCertificates() {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         guard paths.count > 0 else {
@@ -69,15 +98,20 @@ class CertificatesViewController: UITableViewController {
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
         
-        filenames.forEach { (filename) in
-            if let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
-                let certificate = CertificateParser.parse(data: data) {
-                    certificates.append(certificate)
-            } else {
-                // TODO: What to do here?
-                print("Existing file \(filename) is an invalid certificate.")
+        certificates = filenames.flatMap { (filename) in
+            guard let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
+                let certificate = CertificateParser.parse(data: data) else {
+                    // Certificate is invalid. Don't load it.
+                    return nil
             }
+            return certificate
         }
+        
+        tableView.reloadData()
+    }
+    
+    func filenameFor(certificate : Certificate) -> String {
+        return "\(certificate.id)".replacingOccurrences(of: "/", with: "_")
     }
 }
 
@@ -102,7 +136,7 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
         }
         
         // At this point, data is totally a valid certificate. Let's save that to the documents directory.
-        let filename = "\(certificate.id)".replacingOccurrences(of: "/", with: "_")
+        let filename = filenameFor(certificate: certificate)
         let didSave = save(certificateData: data, withFilename: filename)
         if didSave {
             print("Save worked")

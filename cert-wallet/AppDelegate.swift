@@ -8,13 +8,18 @@
 
 import UIKit
 
+enum NotificationNames {
+    static let allDataReset = Notification.Name(rawValue: "AllDataReset")
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    private let resetKey = "nukeItFromOrbit"
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
+        resetStateIfNeeded()
         return true
     }
     
@@ -30,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        resetStateIfNeeded()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -40,6 +46,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    
+    private func resetStateIfNeeded() {
+        let shouldReset = UserDefaults.standard.bool(forKey: resetKey)
+        guard shouldReset else {
+            // If that flag isn't on, then we don't need to reset.
+            return
+        }
+        defer {
+            NotificationCenter.default.post(Notification(name: NotificationNames.allDataReset))
+            UserDefaults.standard.set(false, forKey: resetKey)
+        }
+
+        // Delete everything in the Documents directory
+        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        do {
+            let allFiles = try FileManager.default.contentsOfDirectory(atPath: documents)
+            allFiles.forEach { (fileName) in
+                let filePath = "\(documents)/\(fileName)"
+             
+                do {
+                    try FileManager.default.removeItem(atPath: filePath)
+                } catch {
+                    print("Failed to delete \(fileName) at \(filePath)")
+                }
+            }
+        } catch {
+            print("Unable to reset state completely.")
+        }
+        
+        // TODO: Destroy the key phrase in the Keychain
+    }
 
 }
 

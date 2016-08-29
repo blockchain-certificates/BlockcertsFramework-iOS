@@ -42,17 +42,29 @@
 		83659CF91D6657FA00316BA8 /* Assertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D001D5A82B20089F13D /* Assertion.swift */; };
 		83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D031D5A82CA0089F13D /* Verify.swift */; };
 		83659CFB1D6657FA00316BA8 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830B7D061D5A88130089F13D /* Keychain.swift */; };
+		8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
+		8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
+		8369CB0C1D6FA288006D603E /* IssuerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB0B1D6FA288006D603E /* IssuerTests.swift */; };
+		8369CB0E1D70B7AD006D603E /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB0D1D70B7AD006D603E /* IssuerCreationRequest.swift */; };
+		8369CB0F1D70B7AD006D603E /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB0D1D70B7AD006D603E /* IssuerCreationRequest.swift */; };
+		8369CB111D70B805006D603E /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB101D70B805006D603E /* CertificateValidationRequest.swift */; };
+		8369CB121D70B805006D603E /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB101D70B805006D603E /* CertificateValidationRequest.swift */; };
+		8369CB141D70D02C006D603E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8369CB131D70D02C006D603E /* Settings.bundle */; };
 		836A31A71D5933D800943801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A61D5933D800943801 /* AppDelegate.swift */; };
-		836A31A91D5933D800943801 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* FirstViewController.swift */; };
+		836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* IssuersViewController.swift */; };
 		836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31AA1D5933D800943801 /* CertificatesViewController.swift */; };
 		836A31AE1D5933D800943801 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AC1D5933D800943801 /* Main.storyboard */; };
 		836A31B01D5933D800943801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AF1D5933D800943801 /* Assets.xcassets */; };
 		836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31B11D5933D800943801 /* LaunchScreen.storyboard */; };
 		836A31BE1D5933D800943801 /* cert_walletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31BD1D5933D800943801 /* cert_walletTests.swift */; };
 		836A31C91D5933D800943801 /* cert_walletUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31C81D5933D800943801 /* cert_walletUITests.swift */; };
-		83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
-		83AC79231D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */; };
+		836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
+		836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
+		83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
+		83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
+		83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
+		83B383601D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
 
@@ -100,9 +112,14 @@
 		835B624D1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.2.0.json"; sourceTree = "<group>"; };
 		835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateDetailViewController.swift; sourceTree = "<group>"; };
 		83659CF51D66492800316BA8 /* cert-wallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "cert-wallet.entitlements"; sourceTree = "<group>"; };
+		8369CB081D6F6378006D603E /* AddIssuerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddIssuerViewController.swift; sourceTree = "<group>"; };
+		8369CB0B1D6FA288006D603E /* IssuerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerTests.swift; sourceTree = "<group>"; };
+		8369CB0D1D70B7AD006D603E /* IssuerCreationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IssuerCreationRequest.swift; path = Models/IssuerCreationRequest.swift; sourceTree = "<group>"; };
+		8369CB101D70B805006D603E /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateValidationRequest.swift; path = Models/CertificateValidationRequest.swift; sourceTree = "<group>"; };
+		8369CB131D70D02C006D603E /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		836A31A31D5933D800943801 /* cert-wallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "cert-wallet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31A61D5933D800943801 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		836A31A81D5933D800943801 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		836A31A81D5933D800943801 /* IssuersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuersViewController.swift; sourceTree = "<group>"; };
 		836A31AA1D5933D800943801 /* CertificatesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificatesViewController.swift; sourceTree = "<group>"; };
 		836A31AD1D5933D800943801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		836A31AF1D5933D800943801 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,8 +131,10 @@
 		836A31C41D5933D800943801 /* cert-walletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31C81D5933D800943801 /* cert_walletUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cert_walletUITests.swift; sourceTree = "<group>"; };
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequest.swift; sourceTree = "<group>"; };
+		836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderedCertificateTableViewCell.swift; sourceTree = "<group>"; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
+		83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateView.xib; path = RenderedCertificateView/RenderedCertificateView.xib; sourceTree = "<group>"; };
+		83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenderedCertificateView.swift; path = RenderedCertificateView/RenderedCertificateView.swift; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -161,7 +180,8 @@
 				830B7D031D5A82CA0089F13D /* Verify.swift */,
 				830B7D061D5A88130089F13D /* Keychain.swift */,
 				3BF0FCEB1D64DA6100CCEC57 /* Validate.swift */,
-				83AC79211D6772E300AEE1FA /* CertificateValidationRequest.swift */,
+				8369CB101D70B805006D603E /* CertificateValidationRequest.swift */,
+				8369CB0D1D70B7AD006D603E /* IssuerCreationRequest.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -189,6 +209,8 @@
 		836A319A1D5933D800943801 = {
 			isa = PBXGroup;
 			children = (
+				8369CB131D70D02C006D603E /* Settings.bundle */,
+				83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */,
 				834910F41D5E6DC900872DAE /* Extensions */,
 				830B7CF61D5A81B30089F13D /* Models */,
 				836A31A51D5933D800943801 /* cert-wallet */,
@@ -218,7 +240,9 @@
 			children = (
 				83659CF51D66492800316BA8 /* cert-wallet.entitlements */,
 				836A31A61D5933D800943801 /* AppDelegate.swift */,
-				836A31A81D5933D800943801 /* FirstViewController.swift */,
+				836A31A81D5933D800943801 /* IssuersViewController.swift */,
+				8369CB081D6F6378006D603E /* AddIssuerViewController.swift */,
+				836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */,
 				836A31AA1D5933D800943801 /* CertificatesViewController.swift */,
 				835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */,
 				836A31AC1D5933D800943801 /* Main.storyboard */,
@@ -238,6 +262,7 @@
 				83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */,
 				834F2EE51D624E80008C9650 /* CertificateV1_1Tests.swift */,
 				835B62471D63B39F00C95EB8 /* CertificateV1_2Tests.swift */,
+				8369CB0B1D6FA288006D603E /* IssuerTests.swift */,
 				834F2EE31D62280E008C9650 /* StringExtensions.swift */,
 				836A31BF1D5933D800943801 /* Info.plist */,
 			);
@@ -251,6 +276,15 @@
 				836A31CA1D5933D800943801 /* Info.plist */,
 			);
 			path = "cert-walletUITests";
+			sourceTree = "<group>";
+		};
+		83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */ = {
+			isa = PBXGroup;
+			children = (
+				83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */,
+				83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */,
+			);
+			name = RenderedCertificateView;
 			sourceTree = "<group>";
 		};
 		BA06BCAA0680E083B5A63088 /* Frameworks */ = {
@@ -353,7 +387,7 @@
 				TargetAttributes = {
 					836A31A21D5933D800943801 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = 44UYG9267L;
+						DevelopmentTeam = CYEWR6MU44;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
@@ -364,12 +398,14 @@
 					};
 					836A31B81D5933D800943801 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CYEWR6MU44;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 836A31A21D5933D800943801;
 					};
 					836A31C31D5933D800943801 = {
 						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CYEWR6MU44;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 836A31A21D5933D800943801;
@@ -401,7 +437,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 				836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */,
+				8369CB141D70D02C006D603E /* Settings.bundle in Resources */,
 				836A31B01D5933D800943801 /* Assets.xcassets in Resources */,
 				836A31AE1D5933D800943801 /* Main.storyboard in Resources */,
 			);
@@ -423,6 +461,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,14 +612,18 @@
 			files = (
 				3BF0FCEC1D64DA6100CCEC57 /* Validate.swift in Sources */,
 				834910F11D5E6DC300872DAE /* String.swift in Sources */,
+				8369CB0E1D70B7AD006D603E /* IssuerCreationRequest.swift in Sources */,
 				836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */,
 				836A31A71D5933D800943801 /* AppDelegate.swift in Sources */,
-				83AC79221D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */,
-				836A31A91D5933D800943801 /* FirstViewController.swift in Sources */,
+				8369CB111D70B805006D603E /* CertificateValidationRequest.swift in Sources */,
+				836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */,
 				830B7D011D5A82B20089F13D /* Assertion.swift in Sources */,
+				83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
 				830B7D041D5A82CA0089F13D /* Verify.swift in Sources */,
 				830B7D071D5A88130089F13D /* Keychain.swift in Sources */,
 				830B7CF81D5A822B0089F13D /* Certificate.swift in Sources */,
+				8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */,
+				836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				830B7CFB1D5A82540089F13D /* Issuer.swift in Sources */,
 				830B7CFE1D5A82980089F13D /* Recipient.swift in Sources */,
@@ -593,13 +636,13 @@
 			files = (
 				836A31BE1D5933D800943801 /* cert_walletTests.swift in Sources */,
 				830B7CFF1D5A82980089F13D /* Recipient.swift in Sources */,
-				83AC79231D6772E300AEE1FA /* CertificateValidationRequest.swift in Sources */,
 				834910F21D5E6DC300872DAE /* String.swift in Sources */,
 				834F2EE41D62280E008C9650 /* StringExtensions.swift in Sources */,
 				835B62481D63B39F00C95EB8 /* CertificateV1_2Tests.swift in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
 				830B7CF91D5A822B0089F13D /* Certificate.swift in Sources */,
 				834F2EE61D624E80008C9650 /* CertificateV1_1Tests.swift in Sources */,
+				8369CB0C1D6FA288006D603E /* IssuerTests.swift in Sources */,
 				830B7D021D5A82B20089F13D /* Assertion.swift in Sources */,
 				830B7D051D5A82CA0089F13D /* Verify.swift in Sources */,
 				830B7CFC1D5A82540089F13D /* Issuer.swift in Sources */,
@@ -612,12 +655,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B383601D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
+				8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */,
+				8369CB121D70B805006D603E /* CertificateValidationRequest.swift in Sources */,
+				8369CB0F1D70B7AD006D603E /* IssuerCreationRequest.swift in Sources */,
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
 				836A31C91D5933D800943801 /* cert_walletUITests.swift in Sources */,
 				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				83659CF91D6657FA00316BA8 /* Assertion.swift in Sources */,
 				83659CFA1D6657FA00316BA8 /* Verify.swift in Sources */,
 				83659CFB1D6657FA00316BA8 /* Keychain.swift in Sources */,
+				836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				83659CF61D6657FA00316BA8 /* Certificate.swift in Sources */,
 				83659CF71D6657FA00316BA8 /* Issuer.swift in Sources */,
 				83659CF81D6657FA00316BA8 /* Recipient.swift in Sources */,
@@ -683,6 +731,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -700,7 +749,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -733,6 +782,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -744,7 +794,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -759,14 +809,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "cert-wallet/cert-wallet.entitlements";
-				DEVELOPMENT_TEAM = 44UYG9267L;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "cert-wallet/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.cert-wallet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-wallet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
@@ -777,13 +831,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "cert-wallet/cert-wallet.entitlements";
-				DEVELOPMENT_TEAM = 44UYG9267L;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = "cert-wallet/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-wallet";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.cert-wallet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-wallet-Bridging-Header.h";
+				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 3.0;
+				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
 		};
@@ -793,6 +851,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
 				INFOPLIST_FILE = "cert-walletTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletTests";
@@ -810,6 +869,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
 				INFOPLIST_FILE = "cert-walletTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletTests";
@@ -825,6 +885,7 @@
 			baseConfigurationReference = D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
 				INFOPLIST_FILE = "cert-walletUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletUITests";
@@ -841,6 +902,7 @@
 			baseConfigurationReference = E356569F68C6D153A8F9DECD /* Pods-cert-walletUITests.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
 				INFOPLIST_FILE = "cert-walletUITests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletUITests";

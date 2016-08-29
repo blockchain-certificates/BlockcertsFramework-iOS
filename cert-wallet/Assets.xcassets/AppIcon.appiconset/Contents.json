@@ -31,12 +31,24 @@
       "scale" : "3x"
     },
     {
+      "size" : "60x60",
       "idiom" : "iphone",
+      "filename" : "AppIcon@2x-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "AppIcon@3x-1.png",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "car",
       "size" : "60x60",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
+      "idiom" : "car",
       "size" : "60x60",
       "scale" : "3x"
     }
