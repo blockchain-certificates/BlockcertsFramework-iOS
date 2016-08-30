@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // TODO: Remove this code.
         let shared = Keychain.shared
-        print(shared.seedPhrase)
+        print(shared)
         return true
     }
     
