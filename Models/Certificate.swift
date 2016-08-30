@@ -71,6 +71,7 @@ protocol Certificate {
     var recipient : Recipient { get }
     var assertion : Assertion { get }
     var verifyData : Verify { get }
+    var receipt : Receipt? { get }
     
     init?(data: Data)
     
@@ -182,8 +183,7 @@ private enum MethodsForV1_1 {
             let signatureImageURI = assertionData["image:signature"],
             let assertionId = assertionData["id"],
             let assertionIdUrl = URL(string: assertionId),
-            let assertionUid = assertionData["uid"],
-            let evidence = assertionData["evidence"] else {
+            let assertionUid = assertionData["uid"] else {
                 return nil
         }
         
@@ -193,6 +193,14 @@ private enum MethodsForV1_1 {
             issuedOnDate = iod
         } else {
             issuedOnDate = dateFormatter2.date(from: issuedOnString)
+        }
+        
+        // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a 
+        // hosting requirement, which is why I made it optional. But it is required for OBI compliance. Still on the fence.
+        let evidenceObj : AnyObject? = assertionData["evidence"] as AnyObject?
+        var evidence : String = ""
+        if ((evidenceObj as? String) != nil) {
+            evidence = evidenceObj as! String
         }
         
         let signatureImage = imageData(from: signatureImageURI)
@@ -231,6 +239,7 @@ private struct CertificateV1_1 : Certificate {
     let recipient : Recipient
     let assertion : Assertion
     let verifyData : Verify
+    let receipt: Receipt? = nil
     
     init?(data: Data) {
         self.file = data
@@ -340,9 +349,25 @@ private enum MethodsForV1_2 {
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         return MethodsForV1_1.parse(verifyJSON: verifyJSON)
     }
+    static func parse(receiptJSON: AnyObject?) -> Receipt? {
+        guard let receiptData = receiptJSON as? [String : AnyObject],
+            let merkleRoot = receiptData["merkleRoot"] as? String,
+            let targetHash = receiptData["targetHash"] as? String,
+            let anchors = receiptData["anchors"] as? [[String : AnyObject]],
+            let transactionId = anchors[0]["sourceId"] as? String,
+            let proof = receiptData["proof"] as? [[String : AnyObject]] else {
+                return nil
+        }
+        
+        return Receipt(merkleRoot: merkleRoot,
+                       targetHash: targetHash,
+                       proof: proof,
+                       transactionId : transactionId)
+    }
 }
 
 private struct CertificateV1_2 : Certificate {
+
     let version = CertificateVersion.oneDotTwo
     let title : String
     let subtitle : String?
@@ -358,6 +383,8 @@ private struct CertificateV1_2 : Certificate {
     let assertion : Assertion
     let verifyData : Verify
     
+    let receipt : Receipt?
+    
     init?(data: Data) {
         file = data
         
@@ -370,7 +397,8 @@ private struct CertificateV1_2 : Certificate {
         }
         
         guard let fileType = json["@type"] as? String,
-            var certificateData = json["certificate"] as? [String: AnyObject] else {
+            var documentData = json["document"] as? [String: AnyObject],
+            var certificateData = documentData["certificate"] as? [String: AnyObject] else {
                 return nil
         }
         
@@ -384,7 +412,7 @@ private struct CertificateV1_2 : Certificate {
             } else {
                 return nil
             }
-        case "DigitalCertificate": break // Nothing special to do in this case, as the normal validation is below.
+        case "BlockchainCertificate": break // Nothing special to do in this case, as the normal validation is below.
         default:
             return nil
         }
@@ -411,16 +439,18 @@ private struct CertificateV1_2 : Certificate {
         
         // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.
         guard let issuer = MethodsForV1_2.parse(issuerJSON: certificateData["issuer"]),
-            let recipient = MethodsForV1_2.parse(recipientJSON: json["recipient"]),
-            let assertion = MethodsForV1_2.parse(assertionJSON: json["assertion"]),
-            let verifyData = MethodsForV1_2.parse(verifyJSON: json["verify"]),
-            let signature = json["signature"] as? String? else {
+            let recipient = MethodsForV1_2.parse(recipientJSON: documentData["recipient"]),
+            let assertion = MethodsForV1_2.parse(assertionJSON: documentData["assertion"]),
+            let verifyData = MethodsForV1_2.parse(verifyJSON: documentData["verify"]),
+            let receiptData = MethodsForV1_2.parse(receiptJSON: json["receipt"]),
+            let signature = documentData["signature"] as? String? else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
+        self.receipt = receiptData
         self.signature = signature
     }
 }

@@ -96,7 +96,8 @@ class BlockcypherHandler : TransactionDataHandler {
         var revoked : Set<String> = Set()
         for output in outputs {
             if (output["spent_by"] as? String != nil) {
-                revoked.insert(output["address"] as! String)
+                let addresses = output["addresses"] as! [String]
+                revoked.insert(addresses[0])
             }
         }
         

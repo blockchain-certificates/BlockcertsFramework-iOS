@@ -9,7 +9,9 @@
 import XCTest
 
 class CertificateV1_2UnsignedTests: XCTestCase {
-    let certificateFilename = "sample_unsigned_cert-1.2.0"
+    let certificateFilename = "sample_signed_cert-1.2.0"
+    // TODO: I'm not sure there are any scenarios for importing unsigned scenarios. I switched to the signed test case, which invalidates
+    // the point of these tests (and possibly duplicate CertificateV1_2SignedTests
     
     var file : Data? = nil
     
