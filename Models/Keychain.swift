@@ -47,6 +47,8 @@ class Keychain {
         
         return nil == accountKeychain.find(forPublicKey: key, hardened: true, limit: limit) // Also unsure of hardened value.
     }
+    
+    
 }
 
 // MARK: Static methods for seed phrase generation
@@ -66,15 +68,18 @@ extension Keychain {
 // MARK: Singleton access, and loading/storing
 extension Keychain {
     static private var seedPhraseKey = "org.blockcerts.seed-phrase"
+    static private var _shared : Keychain? = nil
     static var shared : Keychain {
-        // Implicitly unwrapped String, because it will either be loaded from memory or generated
-        var seedPhrase : String! = loadSeedPhrase()
-        if seedPhrase == nil {
-            seedPhrase = generateSeedPhrase()
-            save(seedPhrase: seedPhrase)
+        if _shared == nil {
+            // Implicitly unwrapped String, because it will either be loaded from memory or generated
+            var seedPhrase : String! = loadSeedPhrase()
+            if seedPhrase == nil {
+                seedPhrase = generateSeedPhrase()
+                save(seedPhrase: seedPhrase)
+            }
+            _shared = Keychain(seedPhrase: seedPhrase)
         }
-        
-        return Keychain(seedPhrase: seedPhrase)
+        return _shared!
     }
     
     private static func loadSeedPhrase() -> String? {
@@ -111,4 +116,26 @@ extension Keychain {
         
         return result == noErr
     }
+    
+    @discardableResult static func destroyShared() -> Bool {
+        let query = [
+            String(kSecClass) : kSecClassGenericPassword
+        ]
+        let result = SecItemDelete(query as CFDictionary)
+        _shared = nil
+
+        return result == noErr
+    }
+    
+    @discardableResult static func updateShared(with seedPhrase: String) {
+        // TODO: Do I need some kind of semaphore or something to make sure these two lines run one at a time?
+        // If they don't, then it's possible we'll delete the key, the singleton will be recreated
+        // with a random seed phrase, and the new seed phrase will be saved to the keychain. This will correct
+        // itself when the app dies & is re-launched, but in the meantime the user might issue public keys
+        // for a seed phrase he doesn't actually know.
+        destroyShared()
+        save(seedPhrase: seedPhrase)
+    }
+    
+
 }

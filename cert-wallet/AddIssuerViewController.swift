@@ -14,7 +14,6 @@ protocol AddIssuerViewControllerDelegate : class {
 class AddIssuerViewController: UIViewController {
 
     weak var delegate : AddIssuerViewControllerDelegate?
-    var keychain : Keychain!
     var inFlightRequest : IssuerCreationRequest?
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -42,7 +41,7 @@ class AddIssuerViewController: UIViewController {
                 return
         }
         
-        let newPublicKey = keychain.nextPublicKey()
+        let newPublicKey = Keychain.shared.nextPublicKey()
         
         let recipient = Recipient(givenName: givenName, familyName: familyName, identity: email, identityType: "email", isHashed: false, publicKey: newPublicKey)
 

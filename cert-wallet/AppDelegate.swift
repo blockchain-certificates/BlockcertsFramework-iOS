@@ -21,9 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         resetStateIfNeeded()
         
-        // TODO: Remove this code.
-        let shared = Keychain.shared
-        print(shared)
+        print(Keychain.shared)
         return true
     }
     
@@ -78,9 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Unable to reset state completely.")
         }
-        
-        // TODO: Destroy the key phrase in the Keychain
-//        SecItemDelete(<#T##query: CFDictionary##CFDictionary#>)
+
+        Keychain.destroyShared()
     }
 
 }

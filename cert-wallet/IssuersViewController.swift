@@ -16,16 +16,12 @@ class IssuersViewController: UITableViewController {
     var issuers = [Issuer]()
 
 //    @IBOutlet weak var keyPhraseLabel: UILabel!
-    var keychain : Keychain?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         loadIssuers()
         NotificationCenter.default.addObserver(self, selector: #selector(loadIssuers), name: NotificationNames.allDataReset, object: nil)
-        
-        let seedPhrase = Keychain.generateSeedPhrase()
-        keychain = Keychain(seedPhrase: seedPhrase)
     }
     
     func saveIssuers() {
@@ -76,7 +72,6 @@ extension IssuersViewController {
         if segue.identifier == segueToAddIssuerIdentifier {
             let target = segue.destination as! AddIssuerViewController
             target.delegate = self
-            target.keychain = keychain!
         }
     }
 }
