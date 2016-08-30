@@ -148,18 +148,22 @@ private enum MethodsForV1_1 {
             let identityType = recipientData["type"] as? String,
             let familyName = recipientData["familyName"] as? String,
             let givenName = recipientData["givenName"] as? String,
-            let isHashedObj = recipientData["hashed"] as AnyObject?,
+            let isHashedObj = recipientData["hashed"],
             let publicKey = recipientData["pubkey"] as? String,
             let identity = recipientData["identity"] as? String else {
                 return nil
         }
         
         var hashed : Bool = false
-
-        if let isHashed = isHashedObj as? Bool {
-            hashed = isHashed
-        } else {
-            hashed = isHashedObj.uppercased == "TRUE"
+    
+        switch isHashedObj {
+        case let value as Bool:
+            hashed = value
+        case let value as String:
+            hashed = value.uppercased() == "TRUE"
+        default:
+            // error -- unrecognized type
+            return nil
         }
         
         return Recipient(givenName: givenName,
@@ -193,6 +197,11 @@ private enum MethodsForV1_1 {
             issuedOnDate = iod
         } else {
             issuedOnDate = dateFormatter2.date(from: issuedOnString)
+        }
+        
+        if issuedOnDate == nil {
+            // issuedOnDate didn't match either format
+            return nil
         }
         
         // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a 
@@ -264,15 +273,12 @@ private struct CertificateV1_1 : Certificate {
         }
         let certificateImage = imageData(from: certificateImageURI)
         var subtitle : String? = nil
-        if let subtitleDisplay = subtitleMap["display"] as? Bool {
-            if subtitleDisplay {
-                subtitle = (subtitleMap["content"] as? String)!
-            }
-        } else {
-            let subtitleDisplayStr = subtitleMap["display"] as! String
-            if subtitleDisplayStr.uppercased() == "TRUE" {
-                subtitle = (subtitleMap["content"] as? String)!
-            }
+        if let subtitleDisplay = subtitleMap["display"] as? Bool,
+            subtitleDisplay {
+            subtitle = subtitleMap["content"] as? String
+        } else if let subtitleDisplayStr = subtitleMap["display"] as? String,
+            subtitleDisplayStr.uppercased() == "TRUE" {
+            subtitle = subtitleMap["content"] as? String
         }
         
         self.title = title
@@ -287,15 +293,14 @@ private struct CertificateV1_1 : Certificate {
         guard let issuer = MethodsForV1_1.parse(issuerJSON: certificateData["issuer"]),
             let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]),
-            let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]),
-            let signature = json["signature"] as? String? else {
+            let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]) else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
-        self.signature = signature
+        self.signature = json["signature"] as? String
     }
 }
 
@@ -442,8 +447,7 @@ private struct CertificateV1_2 : Certificate {
             let recipient = MethodsForV1_2.parse(recipientJSON: documentData["recipient"]),
             let assertion = MethodsForV1_2.parse(assertionJSON: documentData["assertion"]),
             let verifyData = MethodsForV1_2.parse(verifyJSON: documentData["verify"]),
-            let receiptData = MethodsForV1_2.parse(receiptJSON: json["receipt"]),
-            let signature = documentData["signature"] as? String? else {
+            let receiptData = MethodsForV1_2.parse(receiptJSON: json["receipt"]) else {
                 return nil
         }
         self.issuer = issuer
@@ -451,7 +455,7 @@ private struct CertificateV1_2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        self.signature = signature
+        self.signature = documentData["signature"] as? String
     }
 }
 

@@ -90,8 +90,6 @@ class CertificateValidationRequest {
         }
     }
     
-    // TODO: set chain
-    
     func start() {
         state = .computingLocalHash
     }
@@ -106,8 +104,7 @@ class CertificateValidationRequest {
     }
     internal func fetchRemoteHash() {
         
-        // todo: what is proper init pattern here?
-        let transactionDataHandler : TransactionDataHandler = TransactionDataHandler.create(chain: self.chain, transactionId: transactionId)
+        let transactionDataHandler = TransactionDataHandler.create(chain: self.chain, transactionId: transactionId)
         
         guard let transactionUrl = URL(string: transactionDataHandler.transactionUrlAsString!) else {
             state = .failure(reason: "Transaction ID (\(transactionId)) is invalid")
@@ -130,7 +127,7 @@ class CertificateValidationRequest {
             
             // Let's parse the OP_RETURN value out of the data.
             transactionDataHandler.parseResponse(json: json!)
-            guard let transactionData : TransactionData = transactionDataHandler.transactionData else {
+            guard let transactionData = transactionDataHandler.transactionData else {
                 self?.state = .failure(reason: transactionDataHandler.failureReason!)
                 return
             }
@@ -197,18 +194,19 @@ class CertificateValidationRequest {
             let btcKey = BTCKey.verifySignature(decodedData as Data!, forMessage: self?.certificate.assertion.uid)
             // if this succeeds, we successfully derived a key, but still have to check that it matches the issuerKey
             
-            // TODO: this is awkward
+            
+            let address : String?
             if self?.chain == "testnet" {
-                if btcKey?.addressTestnet?.string != issuerKey {
-                    self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
-                    return
-                }
+                address = btcKey?.addressTestnet?.string
             } else {
-                if btcKey?.address?.string != issuerKey {
-                    self?.state = .failure(reason: "Didn't check the issuer key \(issuerKey)")
-                    return
-                }
+                address = btcKey?.address?.string
             }
+            
+            guard address == issuerKey else {
+                self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address\(address)\n issuerKey\(issuerKey)")
+                return
+            }
+            
             self?.state = .checkingRevokedStatus
         }
         request.resume()
