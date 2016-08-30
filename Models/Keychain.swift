@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import Security
 
-struct Keychain {
+class Keychain {
     var seedPhrase : String {
         return mnemonic.words.flatMap({ $0 as? String}).joined(separator: " ")
     }
@@ -39,7 +40,7 @@ struct Keychain {
     }
     
     
-    mutating func nextPublicKey() -> String {
+    func nextPublicKey() -> String {
         let key = accountKeychain.key(at: unusedKeyIndex)
         unusedKeyIndex += 1
         
@@ -57,7 +58,52 @@ struct Keychain {
         
         return nil == accountKeychain.find(forPublicKey: key, hardened: true, limit: limit) // Also unsure of hardened value.
     }
-//    func has(keyForRecipient : Recipient) -> Bool {
-//        return false
-//    }
+}
+
+extension Keychain {
+    static var shared : Keychain {
+//        let query = [
+//            kSecClassKey
+//        ]
+//        let result = SecItemCopyMatching(query, <#T##result: UnsafeMutablePointer<CFTypeRef?>?##UnsafeMutablePointer<CFTypeRef?>?#>)
+        let phrase = Keychain.generateSeedPhrase()
+        var returnValue : CFTypeRef
+        let attributes : [CFString: String] = [
+            kSecClassGenericPassword: phrase
+        ]
+        let result = SecItemAdd(attributes, &returnValue)
+        
+        switch result {
+        case noErr:
+            print("No err")
+//        case paramErr:
+//            print("Param err")
+        case errSecSuccess:
+            print("success")
+        case errSecUnimplemented:
+            print("Unimplemented")
+        case errSecParam:
+            print("param")
+        case errSecAllocate:
+            print("Allocate")
+        case errSecNotAvailable:
+            print("Not available")
+        case errSecAuthFailed:
+            print("Auth failed")
+        case errSecDuplicateItem:
+            print("Duplicate item")
+        case errSecItemNotFound:
+            print("Not found")
+        case errSecInteractionNotAllowed:
+            print("Interaction not allowed")
+        case errSecDecode:
+            print("Decode")
+        default:
+            print("Not sure what to do with this error code \(result)")
+        }
+        
+
+        
+        return Keychain(seedPhrase: phrase)
+    }
 }

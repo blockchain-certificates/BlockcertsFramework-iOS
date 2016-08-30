@@ -76,6 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // TODO: Destroy the key phrase in the Keychain
+        SecItemDelete(<#T##query: CFDictionary##CFDictionary#>)
     }
 
 }
