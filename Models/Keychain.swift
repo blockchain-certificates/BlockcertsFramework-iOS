@@ -61,18 +61,67 @@ class Keychain {
 }
 
 extension Keychain {
+    static private var seedPhraseKey = "org.blockcerts.seed-phrase"
     static var shared : Keychain {
+        //
+        // Check existence of the seed phrase, and pull it out if it's there.
+        //
+        let query : [String : Any] = [
+            String(kSecClass): kSecClassGenericPassword,
+            String(kSecAttrAccount): seedPhraseKey,
+            String(kSecReturnData): kCFBooleanTrue,
+            String(kSecMatchLimit): kSecMatchLimitOne
+        ]
+        
+        var dataTypeRef : CFTypeRef?
+        var result = SecItemCopyMatching(query as CFDictionary, &dataTypeRef)
+        
+        switch result {
+        case noErr:
+            print("No err")
+            if dataTypeRef != nil {
+                let data = dataTypeRef! as! Data
+                let keyPhrase = String(data: data, encoding: .utf8)
+                print(keyPhrase)
+            }
+            //        case paramErr:
+        //            print("Param err")
+        case errSecSuccess:
+            print("success")
+        case errSecUnimplemented:
+            print("Unimplemented")
+        case errSecParam:
+            print("param")
+        case errSecAllocate:
+            print("Allocate")
+        case errSecNotAvailable:
+            print("Not available")
+        case errSecAuthFailed:
+            print("Auth failed")
+        case errSecDuplicateItem:
+            print("Duplicate item")
+        case errSecItemNotFound:
+            print("Not found")
+        case errSecInteractionNotAllowed:
+            print("Interaction not allowed")
+        case errSecDecode:
+            print("Decode")
+        default:
+            print("Not sure what to do with this error code \(result)")
+        }
 
+        //
         // Generate a seed phrase, save it to the keychain.
+        //
         let phrase = Keychain.generateSeedPhrase()
         
         let attributes : [String : Any] = [
             String(kSecClass) : kSecClassGenericPassword,
-            String(kSecAttrAccount) : "org.blockcerts.seed-phrase",
+            String(kSecAttrAccount) : seedPhraseKey,
             String(kSecValueData) : phrase.data(using: .utf8)!
         ]
         var returnValue : CFTypeRef?
-        let result = SecItemAdd(attributes as CFDictionary, &returnValue)
+        result = SecItemAdd(attributes as CFDictionary, &returnValue)
         
         switch result {
         case noErr:
