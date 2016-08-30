@@ -9,16 +9,27 @@
 import Foundation
 import Security
 
+private var unusedKeyIndexKey = "org.blockcerts.unused-key-index"
 class Keychain {
-    private var seedPhrase : String {
+    public var seedPhrase : String {
         return mnemonic.words.flatMap({ $0 as? String}).joined(separator: " ")
     }
-    private var unusedKeyIndex : UInt32
+    private var unusedKeyIndex : UInt32 {
+        didSet {
+            UserDefaults.standard.set(unusedKeyIndex, forKey: unusedKeyIndexKey)
+        }
+    }
     private let mnemonic : BTCMnemonic
     private let keychain : BTCKeychain
     private let accountKeychain : BTCKeychain
     
-    init(seedPhrase: String, unusedKeyIndex: UInt32 = 0) {
+    convenience init(seedPhrase: String) {
+        // This lookup returns 0 if it can't be found.
+        let index = UInt32(UserDefaults.standard.integer(forKey: unusedKeyIndexKey))
+        self.init(seedPhrase: seedPhrase, unusedKeyIndex: index)
+    }
+    
+    init(seedPhrase: String, unusedKeyIndex: UInt32) {
         let words = seedPhrase.components(separatedBy: " ")
         guard let mnemonic = BTCMnemonic(words: words, password: "", wordListType: .english) else {
             fatalError("Can't start a Keychain with invalid phrase:\"\(seedPhrase)\"")
@@ -117,17 +128,26 @@ extension Keychain {
         return result == noErr
     }
     
+    private static func save(unusedKeyIndex: Int) {
+        UserDefaults.standard.set(unusedKeyIndex, forKey: unusedKeyIndexKey)
+    }
+    
     @discardableResult static func destroyShared() -> Bool {
+        // Delete the seed phrase
         let query = [
             String(kSecClass) : kSecClassGenericPassword
         ]
         let result = SecItemDelete(query as CFDictionary)
         _shared = nil
+        
+        // Reset the unusedKeyIndex
+        UserDefaults.standard.removeObject(forKey: unusedKeyIndexKey)
+        UserDefaults.standard.synchronize()
 
         return result == noErr
     }
     
-    @discardableResult static func updateShared(with seedPhrase: String) {
+    @discardableResult static func updateShared(with seedPhrase: String, unusedIndex index: Int = 0) {
         // TODO: Do I need some kind of semaphore or something to make sure these two lines run one at a time?
         // If they don't, then it's possible we'll delete the key, the singleton will be recreated
         // with a random seed phrase, and the new seed phrase will be saved to the keychain. This will correct
@@ -135,6 +155,7 @@ extension Keychain {
         // for a seed phrase he doesn't actually know.
         destroyShared()
         save(seedPhrase: seedPhrase)
+        save(unusedKeyIndex: index)
     }
     
 
