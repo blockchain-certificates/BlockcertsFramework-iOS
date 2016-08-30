@@ -295,7 +295,7 @@ private struct CertificateV1_1 : Certificate {
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
-        self.signature = json["signature"] as? String?
+        self.signature = json["signature"] as? String
     }
 }
 
@@ -450,7 +450,7 @@ private struct CertificateV1_2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        self.signature = json["signature"] as? String?
+        self.signature = documentData["signature"] as? String
     }
 }
 

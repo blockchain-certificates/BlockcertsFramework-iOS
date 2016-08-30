@@ -26,6 +26,8 @@ class TransactionDataHandler {
     }
     
     func parseResponse(json: [String : AnyObject]) {
+        // TODO: this actually is intended as a abstract method, which means this should be
+        // done differently....
     }
     
     static func create(chain: String, transactionId: String) -> TransactionDataHandler {
