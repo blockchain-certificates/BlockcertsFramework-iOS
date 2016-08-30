@@ -20,6 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         resetStateIfNeeded()
+        
+        // TODO: Remove this code.
+        let shared = Keychain.shared
+        print(shared.seedPhrase)
         return true
     }
     
@@ -76,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         // TODO: Destroy the key phrase in the Keychain
-        SecItemDelete(<#T##query: CFDictionary##CFDictionary#>)
+//        SecItemDelete(<#T##query: CFDictionary##CFDictionary#>)
     }
 
 }

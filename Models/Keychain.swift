@@ -62,16 +62,17 @@ class Keychain {
 
 extension Keychain {
     static var shared : Keychain {
-//        let query = [
-//            kSecClassKey
-//        ]
-//        let result = SecItemCopyMatching(query, <#T##result: UnsafeMutablePointer<CFTypeRef?>?##UnsafeMutablePointer<CFTypeRef?>?#>)
+
+        // Generate a seed phrase, save it to the keychain.
         let phrase = Keychain.generateSeedPhrase()
-        var returnValue : CFTypeRef
-        let attributes : [CFString: String] = [
-            kSecClassGenericPassword: phrase
+        
+        let attributes : [String : Any] = [
+            String(kSecClass) : kSecClassGenericPassword,
+            String(kSecAttrAccount) : "org.blockcerts.seed-phrase",
+            String(kSecValueData) : phrase.data(using: .utf8)!
         ]
-        let result = SecItemAdd(attributes, &returnValue)
+        var returnValue : CFTypeRef?
+        let result = SecItemAdd(attributes as CFDictionary, &returnValue)
         
         switch result {
         case noErr:
@@ -101,8 +102,6 @@ extension Keychain {
         default:
             print("Not sure what to do with this error code \(result)")
         }
-        
-
         
         return Keychain(seedPhrase: phrase)
     }
