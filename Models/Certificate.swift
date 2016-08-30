@@ -199,6 +199,11 @@ private enum MethodsForV1_1 {
             issuedOnDate = dateFormatter2.date(from: issuedOnString)
         }
         
+        if issuedOnDate == nil {
+            // issuedOnDate didn't match either format
+            return nil
+        }
+        
         // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a 
         // hosting requirement, which is why I made it optional. But it is required for OBI compliance. Still on the fence.
         let evidenceObj : AnyObject? = assertionData["evidence"] as AnyObject?
