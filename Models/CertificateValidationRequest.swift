@@ -90,8 +90,6 @@ class CertificateValidationRequest {
         }
     }
     
-    // TODO: set chain
-    
     func start() {
         state = .computingLocalHash
     }
