@@ -8,10 +8,28 @@
 
 import Foundation
 
-typealias DataTaskResult = (Data?, URLResponse?, Error?) -> Void
-
+//
+// This is an implementation of the technique described here:
+// http://masilotti.com/testing-nsurlsession-input/
+//
+// The goal is to use protocol-oriented programming to let us inject mock URL Session classes during tests.
+// We also need to make sure the existing Foundation classes conform to these protocols as well.
+//
 protocol URLSessionProtocol {
-    func dataTask(with url: URL, completionHandler: DataTaskResult) -> URLSessionDataTask
+    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
-extension URLSession : URLSessionProtocol {}
+protocol URLSessionDataTaskProtocol {
+    func resume()
+}
+
+
+extension URLSession : URLSessionProtocol {
+    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+        let result : URLSessionDataTask = dataTask(with: url, completionHandler: completionHandler)
+        return result as URLSessionDataTaskProtocol
+    }
+}
+
+extension URLSessionDataTask : URLSessionDataTaskProtocol {}
+
