@@ -137,7 +137,6 @@ class CertificateValidationRequest {
     }
     
     internal func fetchRemoteHash() {
-        
         let transactionDataHandler = TransactionDataHandler.create(chain: self.chain, transactionId: transactionId)
         
         guard let transactionUrl = URL(string: transactionDataHandler.transactionUrlAsString!) else {

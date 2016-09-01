@@ -22,7 +22,6 @@ class IssuerCreationRequest {
     }
     
     func start() {
-        let requestUrl = url
         currentTask = session.dataTask(with: url) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
@@ -41,20 +40,32 @@ class IssuerCreationRequest {
             }
             
             guard let name = json["name"],
-                let email = json["email"] else {
+                let email = json["email"],
+                let imageString = json["image"],
+                let imageStringURL = URL(string: imageString),
+                let image = try? Data(contentsOf: imageStringURL),
+                let idString = json["id"],
+                let id = URL(string: idString),
+                let urlString = json["url"],
+                let url = URL(string: urlString),
+                let publicKeyString = json["publicKeyAddress"],
+                let publicKeyURL = URL(string: publicKeyString),
+                let introductionURLString = json["requestURL"],
+                let introductionURL = URL(string: introductionURLString) else {
                     self?.reportFailure()
                     return
             }
             
-            // TODO: Extract data out of the URL somehow
+            // TODO: Query the public key address to get the public key
+            
             let fakeIssuer = Issuer(name: name,
                                     email: email,
-                                    image: Data(),
-                                    id: requestUrl,
-                                    url: requestUrl,
+                                    image: image,
+                                    id: id,
+                                    url: url,
                                     publicKey: "AbsolutelyFakePublicKey",
-                                    publicKeyAddress: requestUrl,
-                                    requestUrl: requestUrl)
+                                    publicKeyAddress: publicKeyURL,
+                                    requestUrl: introductionURL)
             self?.reportSuccess(with: fakeIssuer)
         }
         currentTask?.resume()
