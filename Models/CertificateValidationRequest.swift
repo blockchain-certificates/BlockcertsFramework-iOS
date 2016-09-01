@@ -267,8 +267,26 @@ class CertificateValidationRequest {
     }
     
     func checkMerkleRoot() {
-        // no-op TODO: bad
+        guard certificate.version == .oneDotTwo else {
+            state = .failure(reason: "Invalid state. Shouldn't need to check merkle root for this version of the cert format")
+            return
+        }
+        
+        // compare merkleRoot to blockchain
+        guard let merkleRoot = certificate.receipt?.merkleRoot,
+            let remoteHash = self.remoteHash else {
+                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
+                return
+        }
+        
+        guard merkleRoot == remoteHash else {
+            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+            return
+        }
+        
+        state = .checkingReceipt
     }
+    
     func checkReceipt() {
         // no-op TODO: bad
     }
@@ -296,22 +314,4 @@ class CertificateValidationRequestV2 : CertificateValidationRequest {
         }
         state = .checkingIssuerSignature
     }
-        
-    override func checkMerkleRoot() {
-        // compare merkleRoot to blockchain
-        
-        guard let merkleRoot = super.certificate.receipt?.merkleRoot,
-            let remoteHash = self.remoteHash else {
-                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
-                return
-        }
-        
-        guard merkleRoot == remoteHash else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
-            return
-        }
-        
-        state = .checkingReceipt
-    }
-    
 }
