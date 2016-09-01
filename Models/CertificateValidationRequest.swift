@@ -97,6 +97,24 @@ class CertificateValidationRequest {
         }
     }
     
+    convenience init?(for certificate: Certificate,
+                     chain: String = "mainnet",
+                     starting : Bool = false,
+                     session: URLSessionProtocol = URLSession.shared,
+                     completionHandler: ((Bool, String?) -> Void)? = nil) {
+        guard let transactionId = certificate.receipt?.transactionId else {
+            // To use this init function
+            return nil
+        }
+        
+        self.init(for: certificate,
+                  with: transactionId,
+                  chain: chain,
+                  starting: starting,
+                  session: session,
+                  completionHandler: completionHandler)
+    }
+    
     func start() {
         state = .computingLocalHash
     }
@@ -106,9 +124,18 @@ class CertificateValidationRequest {
     }
     
     internal func computeLocalHash() {
-        self.localHash = sha256(data: certificate.file)
+        if certificate.version == .oneDotOne {
+            self.localHash = sha256(data: certificate.file)
+        } else {
+            /**
+             * TODO!! the local hash is computed differently in v2, but I can't find swift json ld libraries to support this.
+             * When available, this needs to be replaced with a call to jsonld.normalize(cert["document"]) and then hash
+             */
+            // TODO: implement behavior in comments when json ld libraries are available for swift
+        }
         state = .fetchingRemoteHash
     }
+    
     internal func fetchRemoteHash() {
         
         let transactionDataHandler = TransactionDataHandler.create(chain: self.chain, transactionId: transactionId)
@@ -256,15 +283,6 @@ class CertificateValidationRequestV2 : CertificateValidationRequest {
         if (starting) {
             super.start()
         }
-    }
-    
-    /**
-     * TODO!! the local hash is computed differently in v2, but I can't find swift json ld libraries to support this.
-     * When available, this needs to be replaced with a call to jsonld.normalize(cert["document"]) and then hash
-     */
-    override func computeLocalHash() {
-        // TOOD: implement behavior in comments when json ld libraries are available for swift
-        state = .fetchingRemoteHash
     }
     
     /**
