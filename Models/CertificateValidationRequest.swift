@@ -310,7 +310,3 @@ func sha256(data : Data) -> Data {
     }
     return Data(bytes: hash)
 }
-
-class CertificateValidationRequestV2 : CertificateValidationRequest {
-
-}

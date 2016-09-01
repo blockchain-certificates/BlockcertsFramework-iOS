@@ -98,7 +98,7 @@ class CertificateValidationRequestTests: XCTestCase {
         
         let certificate = CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
-        let request = CertificateValidationRequestV2(for: certificate!, chain: "testnet") { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, chain: "testnet") { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
