@@ -40,7 +40,7 @@ class cert_walletTests: XCTestCase {
     func testKeychainKeyGeneration() {
         let seedPhrase = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
 
-        var keychain = Keychain(seedPhrase: seedPhrase)
+        let keychain = Keychain(seedPhrase: seedPhrase)
         
         let firstKey = keychain.nextPublicKey()
         let secondKey = keychain.nextPublicKey()

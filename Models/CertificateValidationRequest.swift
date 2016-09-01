@@ -36,6 +36,7 @@ extension CertificateValidationRequestDelegate {
 }
 
 class CertificateValidationRequest {
+    let session : URLSessionProtocol
     let certificate : Certificate
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
@@ -79,7 +80,13 @@ class CertificateValidationRequest {
     private var revokationKey : String?
     private var revokedAddresses : Set<String>?
     
-    init(for certificate: Certificate, with transactionId: String, chain: String = "mainnet", starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
+    init(for certificate: Certificate,
+         with transactionId: String,
+         chain: String = "mainnet",
+         starting : Bool = false,
+         session : URLSessionProtocol = URLSession.shared,
+         completionHandler: ((Bool, String?) -> Void)? = nil) {
+        self.session = session
         self.certificate = certificate
         self.transactionId = transactionId
         self.completionHandler = completionHandler
@@ -110,7 +117,7 @@ class CertificateValidationRequest {
             state = .failure(reason: "Transaction ID (\(transactionId)) is invalid")
             return
         }
-        let task = URLSession.shared.dataTask(with: transactionUrl) { [weak self] (data, response : URLResponse?, _) in
+        let task = session.dataTask(with: transactionUrl) { [weak self] (data, response : URLResponse?, _) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
                 self?.state = .failure(reason: "Got invalid response from \(transactionUrl)")
@@ -155,7 +162,7 @@ class CertificateValidationRequest {
     }
     internal func checkIssuerSignature() {
         let url = certificate.issuer.id
-        let request = URLSession.shared.dataTask(with: certificate.issuer.id) { [weak self] (data, response, error) in
+        let request = session.dataTask(with: certificate.issuer.id) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
                     self?.state = .failure(reason: "Got invalid response from \(url)")
