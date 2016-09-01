@@ -16,7 +16,7 @@ class Keychain {
     }
     private var unusedKeyIndex : UInt32 {
         didSet {
-            UserDefaults.standard.set(unusedKeyIndex, forKey: unusedKeyIndexKey)
+            UserDefaults.standard.set(Int(unusedKeyIndex), forKey: unusedKeyIndexKey)
         }
     }
     private let mnemonic : BTCMnemonic
