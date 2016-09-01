@@ -49,4 +49,6 @@ class MockURLSessionDataTask : URLSessionDataTaskProtocol {
         // TODO: Maybe delay a bit?
         completionHandler(data, response, error)
     }
+    
+    func cancel() {}
 }

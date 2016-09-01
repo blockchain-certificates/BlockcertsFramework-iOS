@@ -21,6 +21,7 @@ protocol URLSessionProtocol {
 
 protocol URLSessionDataTaskProtocol {
     func resume()
+    func cancel()
 }
 
 
