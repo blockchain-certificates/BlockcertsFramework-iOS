@@ -274,17 +274,6 @@ func sha256(data : Data) -> Data {
 }
 
 class CertificateValidationRequestV2 : CertificateValidationRequest {
-
-    init(for certificate: Certificate, chain: String = "mainnet", starting : Bool = false, completionHandler: ((Bool, String?) -> Void)? = nil) {
-        let receipt: Receipt = certificate.receipt!
-        let transactionId = receipt.transactionId
-        super.init(for: certificate, with: transactionId, chain: chain, starting: starting, completionHandler: completionHandler)
-
-        if (starting) {
-            super.start()
-        }
-    }
-    
     /**
      * Verify the merkle receipt
      */

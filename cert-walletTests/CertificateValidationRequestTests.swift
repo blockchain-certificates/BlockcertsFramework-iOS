@@ -103,7 +103,8 @@ class CertificateValidationRequestTests: XCTestCase {
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
         }
-        request.start()
+        XCTAssertNotNil(request)
+        request!.start()
         
         waitForExpectations(timeout: 20.0, handler: nil)
     }
