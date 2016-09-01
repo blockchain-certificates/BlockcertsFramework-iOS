@@ -288,7 +288,17 @@ class CertificateValidationRequest {
     }
     
     func checkReceipt() {
-        // no-op TODO: bad
+        guard certificate.version == .oneDotTwo else {
+            state = .failure(reason: "Invalid state. Shouldn't need to check receipt for this version of the cert format")
+            return
+        }
+        
+        let isReceiptValid = ReceiptVerifier().validate(receipt: certificate.receipt!, chain: chain)
+        guard isReceiptValid else {
+            state = .failure(reason: "Invalid Merkle Receipt:\n Receipt\(certificate.receipt!)")
+            return
+        }
+        state = .checkingIssuerSignature
     }
 }
 
@@ -302,16 +312,5 @@ func sha256(data : Data) -> Data {
 }
 
 class CertificateValidationRequestV2 : CertificateValidationRequest {
-    /**
-     * Verify the merkle receipt
-     */
-    override func checkReceipt() {
-        let verifier : ReceiptVerifier = ReceiptVerifier()
-        let valid = verifier.validate(receipt: certificate.receipt!, chain: super.chain)
-        guard valid == true else {
-            state = .failure(reason: "Invalid Merkle Receipt:\n Receipt\(certificate.receipt!)")
-            return
-        }
-        state = .checkingIssuerSignature
-    }
+
 }
