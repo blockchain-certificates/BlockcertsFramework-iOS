@@ -173,19 +173,29 @@ class CertificateValidationRequest {
         }
         task.resume()
     }
+    
     internal func compareHashes() {
-
-        guard let localHash = self.localHash,
-            let remoteHash = self.remoteHash?.asHexData() else {
-                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
+        if certificate.version == .oneDotOne {
+            guard let localHash = self.localHash,
+                let remoteHash = self.remoteHash?.asHexData() else {
+                    state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
+                    return
+            }
+            
+            guard localHash == remoteHash else {
+                state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
                 return
+            }
+            state = .checkingIssuerSignature
+        } else {
+            /**
+             * TODO!! see above comment about json ld library
+             * Override v1 compareHashes comparison.
+             *
+             * Compare local hash to targetHash in receipt.
+             */
+            state = .checkingMerkleRoot
         }
-        
-        guard localHash == remoteHash else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
-            return
-        }
-        state = .checkingIssuerSignature
     }
     internal func checkIssuerSignature() {
         let url = certificate.issuer.id
@@ -286,29 +296,7 @@ class CertificateValidationRequestV2 : CertificateValidationRequest {
         }
         state = .checkingIssuerSignature
     }
-    
-    /**
-     * TODO!! see above comment about json ld library
-     * Override v1 compareHashes comparison. 
-     *
-     * Compare local hash to targetHash in receipt.
-     */
-    override func compareHashes() {
-        //
         
-        /*guard let targetHash = super.certificate.receipt?.targetHash.asHexData(),
-            let localHash = self.localHash else {
-                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
-                return
-        }
-        guard targetHash == localHash else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
-            return
-        }*/
-        
-        state = .checkingMerkleRoot
-    }
-    
     override func checkMerkleRoot() {
         // compare merkleRoot to blockchain
         
