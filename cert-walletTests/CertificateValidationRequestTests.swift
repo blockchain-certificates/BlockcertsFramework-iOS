@@ -77,6 +77,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               response: HTTPURLResponse(url: issuerURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
                               error: nil)
         
+        // Make the validation request.
         let request = CertificateValidationRequest(for: certificate!, with:v1_1ValidTransactionId, chain: "testnet", session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
@@ -98,7 +99,24 @@ class CertificateValidationRequestTests: XCTestCase {
         
         let certificate = CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
-        let request = CertificateValidationRequest(for: certificate!, chain: "testnet") { (success, errorMessage) in
+        
+        // Build mocked network request & response
+        let id = certificate?.receipt?.transactionId
+        let expectedURL = URL(string: "http://api.blockcypher.com/v1/btc/test3/txs/\(id!)")!
+        let mockedResponse = HTTPURLResponse(url: expectedURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        let mockedData = "{\"block_hash\":\"000000000000009924d4d472cfb6d81b10cac8b524d2835f66180440b1b7907e\",\"block_height\":925856,\"block_index\":3,\"hash\":\"39119eca980f5110cc661428cd067053d2696d78b6f8350ab411acedb843610e\",\"addresses\":[\"mgCNaPM3TFhh8Yn6U6VcEM9jWLhQbizy1x\",\"mgrZkCBM1Z3r6BnjHLrdkBQinH7P3sWUtr\",\"mmShyF6mhf6LeQzPdEsmiCghhgMuEn9TNF\",\"mpqCxRQqEEpCnTnEbpEA5UGVMkmZgyrc9F\",\"msM9tTGxNHEsYvW4pK2JFDLW7hJNhazntb\",\"muo6VjBPkwWaCcYnXcSrmWpNugAVjsvHHW\",\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"],\"total\":99799531,\"fees\":28747,\"size\":574,\"preference\":\"high\",\"relayed_by\":\"18.181.6.229:18333\",\"confirmed\":\"2016-08-29T17:50:53Z\",\"received\":\"2016-08-29T17:50:19.16Z\",\"ver\":1,\"lock_time\":0,\"double_spend\":false,\"vin_sz\":1,\"vout_sz\":12,\"confirmations\":467,\"confidence\":1,\"data_protocol\":\"unknown\",\"inputs\":[{\"prev_hash\":\"6773785b4dc5d2cced67d26fc0820329307a8e10dfaef50d506924984387bf0b\",\"output_index\":10,\"script\":\"47304402204c7190a7eff802a08e9b7857b3006c0ef1e74effa8e26e5cfd8218eeecbfe8df02200518d6ffc838ab70750132d592c7748728da60a97a23dc588a74916312816e7e0121037175dfbeecd8b5a54eb5ad9a696f15b7b39da2ea7d67b4cd7a3299bb95e28884\",\"output_value\":99828278,\"sequence\":4294967295,\"addresses\":[\"mmShyF6mhf6LeQzPdEsmiCghhgMuEn9TNF\"],\"script_type\":\"pay-to-pubkey-hash\"}],\"outputs\":[{\"value\":2750,\"script\":\"76a9149c9f432f68edd715cb0a92811b02e846105f784588ac\",\"addresses\":[\"muo6VjBPkwWaCcYnXcSrmWpNugAVjsvHHW\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914cc0a909c4c83068be8b45d69b60a6f09c2be0fda88ac\",\"addresses\":[\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a91481c706f7e6b2d9546169c1e76f50a3ee18e1e1d788ac\",\"addresses\":[\"msM9tTGxNHEsYvW4pK2JFDLW7hJNhazntb\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914cc0a909c4c83068be8b45d69b60a6f09c2be0fda88ac\",\"addresses\":[\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a9140ead9f2e0c70cd312977454caa74366f2aa9192c88ac\",\"addresses\":[\"mgrZkCBM1Z3r6BnjHLrdkBQinH7P3sWUtr\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914cc0a909c4c83068be8b45d69b60a6f09c2be0fda88ac\",\"addresses\":[\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914662cdbb1ab07d15cf2550fd64748b7cc1651c34088ac\",\"addresses\":[\"mpqCxRQqEEpCnTnEbpEA5UGVMkmZgyrc9F\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914cc0a909c4c83068be8b45d69b60a6f09c2be0fda88ac\",\"addresses\":[\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a91407747de3dc1873c9dbd7ceccfbfc6d71a34abac088ac\",\"addresses\":[\"mgCNaPM3TFhh8Yn6U6VcEM9jWLhQbizy1x\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914cc0a909c4c83068be8b45d69b60a6f09c2be0fda88ac\",\"addresses\":[\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":99772031,\"script\":\"76a9144103222e7c72b869c5e47bfe86702684531f2c9088ac\",\"spent_by\":\"ccb2bdb71db1536aff78bec39a27d59ba0e40f3f7c52d0f81cc16485ced38952\",\"addresses\":[\"mmShyF6mhf6LeQzPdEsmiCghhgMuEn9TNF\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":0,\"script\":\"6a2040ab35359d9674907b32b323042d75de3ef3586bfd482b570749b15eb24a6d68\",\"addresses\":null,\"script_type\":\"null-data\",\"data_hex\":\"40ab35359d9674907b32b323042d75de3ef3586bfd482b570749b15eb24a6d68\"}]}".data(using: .utf8)
+        
+        let mockedSession = MockURLSession()
+        mockedSession.respond(to: expectedURL, with: mockedData, response: mockedResponse, error: nil)
+        
+        let issuerURL = URL(string: "http://www.blockcerts.org/mockissuer/issuer/got-issuer.json")!
+        mockedSession.respond(to: issuerURL,
+                              with: "{\"issuer_key\":[{\"date\":\"2016-08-28\",\"key\":\"mmShyF6mhf6LeQzPdEsmiCghhgMuEn9TNF\"}],\"revocation_key\":[{\"date\":\"2016-08-28\",\"key\":\"mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT\"}]}".data(using: .utf8),
+                              response: HTTPURLResponse(url: issuerURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
+                              error: nil)
+        
+        // Make the validation request.
+        let request = CertificateValidationRequest(for: certificate!, chain: "testnet", session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
