@@ -46,17 +46,26 @@ class MockURLSession : URLSessionProtocol {
     }
     
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
-        guard
-            let url = request.url,
-            let responseData = responseData[url] else {
-            fatalError("MockURLSession saw request for \(request.url), but doesn't know how to respond to it.")
+        guard let url = request.url else {
+            fatalError("MockURLSession saw request that had no URL.")
         }
         
-        return MockURLSessionDataTask(send: responseData.data,
-                                      response: responseData.response,
-                                      error: responseData.error,
-                                      to: completionHandler)
-
+        let callback = responseCallbacks[url]
+        let data = responseData[url]
+        let task : MockURLSessionDataTask!
+        
+        if let callback = callback {
+            task = MockURLSessionDataTask(serverCallback: callback, callback: completionHandler)
+        } else if let data = data {
+            task = MockURLSessionDataTask(send: data.data,
+                                          response: data.response,
+                                          error: data.error,
+                                          to: completionHandler)
+        } else {
+            fatalError("MockURLSession saw request for \(url), but doesn't know how to respond to it.")
+        }
+        
+        return task
     }
     
 

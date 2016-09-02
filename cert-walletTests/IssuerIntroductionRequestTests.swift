@@ -11,6 +11,7 @@ import XCTest
 class IssuerIntroductionRequestTests: XCTestCase {
     func testSuccessfulIntroductionRequest() {
         let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
+        let itShouldCallTheServer = expectation(description: "Mocking framework should call our fake server function.")
         
         let issuer = Issuer(name: "BlockCerts Issuer",
                             email: "issuer@blockcerts.org",
@@ -29,12 +30,16 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         // Mock out the network
         let session = MockURLSession()
-        let response = "Success"
         let url = issuer.requestUrl!
-        session.respond(to: url,
-                        with: response.data(using: .utf8),
-                        response: HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil),
-                        error: nil)
+        session.respond(to: url) { () -> (data: Data?, response: URLResponse?, error: Error?) in
+            itShouldCallTheServer.fulfill()
+            
+            return (
+                data: "Success".data(using: .utf8),
+                response: HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil),
+                error: nil
+            )
+        }
         
         // Create the request
         let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, session: session) { (success, error) in
