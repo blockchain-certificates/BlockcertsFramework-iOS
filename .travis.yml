@@ -1,9 +1,5 @@
 language: objective-c
 
 osx_image: xcode8
-xcode_sdk: iphonesimulator10.0
-
-script:
-  - xcodebuild -version
-  - xcodebuild -showsdks
-  - xcodebuild -workspace cert-wallet.xcworkspace -scheme "cert-wallet" -destination "platform=iOS Simulator,name=iPhone 6" test
+xcode_workspace: cert-wallet.xcworkspace
+xcode_scheme: cert-wallet
