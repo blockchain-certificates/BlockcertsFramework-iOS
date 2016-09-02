@@ -1,5 +1,6 @@
 language: objective-c
 
 osx_image: xcode8
-xcode_workspace: cert-wallet.xcworkspace
-xcode_scheme: cert-wallet
+
+script:
+- xcodebuild test -workspace cert-wallet.xcworkspace -scheme cert-wallet -destination "OS=10.0,name=iPhone 6"
