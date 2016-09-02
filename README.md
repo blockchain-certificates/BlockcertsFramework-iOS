@@ -1,4 +1,6 @@
 # cert-wallet
+[![Build Status](https://travis-ci.org/blockchain-certificates/cert-wallet.svg?branch=master)](https://travis-ci.org/blockchain-certificates/cert-wallet)
+
 An iOS wallet for viewing, validating, and sharing digital certificates.
 
 ## Archive a build for TestFlight
