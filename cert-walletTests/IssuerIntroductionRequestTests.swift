@@ -31,8 +31,12 @@ class IssuerIntroductionRequestTests: XCTestCase {
         // Mock out the network
         let session = MockURLSession()
         let url = issuer.requestUrl!
-        session.respond(to: url) { () -> (data: Data?, response: URLResponse?, error: Error?) in
+        session.respond(to: url) { request in
             itShouldCallTheServer.fulfill()
+            
+            XCTAssertEqual(request.url, url)
+            
+            // TODO: Check the post body of the request.
             
             return (
                 data: "Success".data(using: .utf8),

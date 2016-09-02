@@ -10,7 +10,7 @@ import Foundation
 
 class MockURLSession : URLSessionProtocol {
     private var responseData = [URL : (data: Data?, response: URLResponse?, error: Error?)]()
-    private var responseCallbacks = [URL : () -> (data: Data?, response: URLResponse?, error: Error?)]()
+    private var responseCallbacks = [URL : (request: URLRequest) -> (data: Data?, response: URLResponse?, error: Error?)]()
     
     func respond(to url: URL, with data: Data?, response: URLResponse?, error: Error?) {
         responseData[url] = (
@@ -20,7 +20,7 @@ class MockURLSession : URLSessionProtocol {
         )
     }
     
-    func respond(to url: URL, callback: @escaping () -> (data: Data?, response: URLResponse?, error: Error?)) {
+    func respond(to url: URL, callback: @escaping (URLRequest) -> (data: Data?, response: URLResponse?, error: Error?)) {
         responseCallbacks[url] = callback
     }
     
@@ -32,7 +32,8 @@ class MockURLSession : URLSessionProtocol {
         let task : MockURLSessionDataTask!
         
         if let callback = callback {
-            task = MockURLSessionDataTask(serverCallback: callback, callback: completionHandler)
+            let request = URLRequest(url: url)
+            task = MockURLSessionDataTask(request: request, serverCallback: callback, callback: completionHandler)
         } else if let data = data {
             task = MockURLSessionDataTask(send: data.data,
                                           response: data.response,
@@ -55,7 +56,7 @@ class MockURLSession : URLSessionProtocol {
         let task : MockURLSessionDataTask!
         
         if let callback = callback {
-            task = MockURLSessionDataTask(serverCallback: callback, callback: completionHandler)
+            task = MockURLSessionDataTask(request: request, serverCallback: callback, callback: completionHandler)
         } else if let data = data {
             task = MockURLSessionDataTask(send: data.data,
                                           response: data.response,
@@ -73,7 +74,8 @@ class MockURLSession : URLSessionProtocol {
 
 class MockURLSessionDataTask : URLSessionDataTaskProtocol {
     let completionHandler : (Data?, URLResponse?, Error?) -> Void
-    let serverCallback : (() -> (Data?, URLResponse?, Error?))?
+    let serverCallback : ((URLRequest) -> (Data?, URLResponse?, Error?))?
+    let request : URLRequest?
     let data : Data?
     let response: URLResponse?
     let error: Error?
@@ -82,23 +84,25 @@ class MockURLSessionDataTask : URLSessionDataTaskProtocol {
         self.data = data
         self.response = response
         self.error = error
+        request = nil
         serverCallback = nil
         completionHandler = callback
     }
     
-    init(serverCallback: @escaping () -> (Data?, URLResponse?, Error?), callback: @escaping (Data?, URLResponse?, Error?) -> Void) {
+    init(request: URLRequest, serverCallback: @escaping (URLRequest) -> (Data?, URLResponse?, Error?), callback: @escaping (Data?, URLResponse?, Error?) -> Void) {
         data = nil
         response = nil
         error = nil
+        self.request = request
         self.serverCallback = serverCallback
         completionHandler = callback
     }
     
-    
     func resume() {
         // TODO: Maybe delay a bit?
-        if let serverCallback = serverCallback {
-            let (data, response, error) = serverCallback()
+        if let serverCallback = serverCallback,
+            let request = request {
+            let (data, response, error) = serverCallback(request)
             completionHandler(data, response, error)
         } else {
             completionHandler(data, response, error)
