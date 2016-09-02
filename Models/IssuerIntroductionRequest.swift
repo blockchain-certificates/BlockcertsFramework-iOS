@@ -15,10 +15,11 @@ class IssuerIntroductionRequest {
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    init(with requestURL: URL, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
+    init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
         self.callback = callback
         self.session = session
-        url = requestURL
+        // TODO: It may not make sense for these additional properties to be optional. Investigate so I can remove this force-unwrap.
+        url = issuer.requestUrl!
     }
     
     func start() {

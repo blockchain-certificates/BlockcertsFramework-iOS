@@ -15,12 +15,11 @@ struct Issuer {
     let id : URL
     let url : URL
     
-    // TODO: Make these optional.
     var publicKey : String?
     let publicKeyAddress : URL?
     let requestUrl : URL?
 
-    init(name: String, email: String, image: Data, id: URL, url: URL, publicKey: String?, publicKeyAddress: URL?, requestUrl: URL?) {
+    init(name: String, email: String, image: Data, id: URL, url: URL, publicKey: String?, publicKeyAddress: URL?, requestUrl: URL) {
         self.name = name
         self.email = email
         self.image = image

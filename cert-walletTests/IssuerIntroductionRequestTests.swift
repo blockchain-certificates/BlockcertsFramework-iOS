@@ -12,18 +12,33 @@ class IssuerIntroductionRequestTests: XCTestCase {
     func testSuccessfulIntroductionRequest() {
         let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
         
-        let url = URL(string: "http://blockcerts.org/issuer/request")!
+        let issuer = Issuer(name: "BlockCerts Issuer",
+                            email: "issuer@blockcerts.org",
+                            image: "data:image/png;base64,".data(using: .utf8)!,
+                            id: URL(string: "https://blockcerts.org/issuer.json")!,
+                            url: URL(string: "https://blockcerts.org")!,
+                            publicKey: "FakeIssuerPublicKey",
+                            publicKeyAddress: URL(string: "https://blockcerts.org/pubkey")!,
+                            requestUrl: URL(string: "https://blockcerts.org/introduce/")!)
+        let recipient = Recipient(givenName: "Johnny",
+                                  familyName: "Strong",
+                                  identity: "johnny@blockcerts.org",
+                                  identityType: "email",
+                                  isHashed: false,
+                                  publicKey: "FakeRecipientPublicKey")
         
         // Mock out the network
         let session = MockURLSession()
         let response = "Success"
+        let url = issuer.requestUrl!
         session.respond(to: url,
                         with: response.data(using: .utf8),
                         response: HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil),
                         error: nil)
         
         // Create the request
-        let request = IssuerIntroductionRequest(with: url, session: session) { (success, error) in
+        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, session: session) { (success, error) in
+            
             XCTAssertTrue(success)
             XCTAssertNil(error)
             itShouldCallTheCallback.fulfill()
