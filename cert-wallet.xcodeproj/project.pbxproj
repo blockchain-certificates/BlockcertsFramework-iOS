@@ -209,17 +209,17 @@
 		830B7CF61D5A81B30089F13D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				830B7CF71D5A822B0089F13D /* Certificate.swift */,
-				830B7CFA1D5A82540089F13D /* Issuer.swift */,
-				830B7CFD1D5A82980089F13D /* Recipient.swift */,
 				830B7D001D5A82B20089F13D /* Assertion.swift */,
-				830B7D031D5A82CA0089F13D /* Verify.swift */,
-				830B7D061D5A88130089F13D /* Keychain.swift */,
-				3BF0FCEB1D64DA6100CCEC57 /* Validate.swift */,
+				830B7CF71D5A822B0089F13D /* Certificate.swift */,
 				8369CB101D70B805006D603E /* CertificateValidationRequest.swift */,
+				830B7CFA1D5A82540089F13D /* Issuer.swift */,
 				8369CB0D1D70B7AD006D603E /* IssuerCreationRequest.swift */,
-				3BDF6E971D73F52100EC005C /* TransactionDataHandler.swift */,
+				830B7D061D5A88130089F13D /* Keychain.swift */,
 				3BDF6EA01D74F62C00EC005C /* Receipt.swift */,
+				830B7CFD1D5A82980089F13D /* Recipient.swift */,
+				3BDF6E971D73F52100EC005C /* TransactionDataHandler.swift */,
+				3BF0FCEB1D64DA6100CCEC57 /* Validate.swift */,
+				830B7D031D5A82CA0089F13D /* Verify.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
