@@ -17,6 +17,7 @@ import Foundation
 //
 protocol URLSessionProtocol {
     func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
 protocol URLSessionDataTaskProtocol {
@@ -28,6 +29,11 @@ protocol URLSessionDataTaskProtocol {
 extension URLSession : URLSessionProtocol {
     func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
         let result : URLSessionDataTask = dataTask(with: url, completionHandler: completionHandler)
+        return result as URLSessionDataTaskProtocol
+    }
+    
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+        let result : URLSessionDataTask = dataTask(with: request, completionHandler: completionHandler)
         return result as URLSessionDataTaskProtocol
     }
 }

@@ -30,6 +30,22 @@ class MockURLSession : URLSessionProtocol {
                                       error: responseData.error,
                                       to: completionHandler)
     }
+    
+    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+        guard
+            let url = request.url,
+            let responseData = responseMap[url] else {
+            fatalError("MockURLSession saw request for \(request.url), but doesn't know how to respond to it.")
+        }
+        
+        return MockURLSessionDataTask(send: responseData.data,
+                                      response: responseData.response,
+                                      error: responseData.error,
+                                      to: completionHandler)
+
+    }
+    
+
 }
 
 class MockURLSessionDataTask : URLSessionDataTaskProtocol {

@@ -41,7 +41,7 @@ class IssuerIntroductionRequest {
         request.httpMethod = "POST"
         request.httpBody = data
         
-        currentTask = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+        currentTask = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
                     self?.reportFailure("Server responded with non-200 status.")
@@ -50,16 +50,6 @@ class IssuerIntroductionRequest {
             
             self?.reportSuccess()
         }
-        
-//        currentTask = session.dataTask(with: url) { [weak self] (data, response, error) in
-//            guard let response = response as? HTTPURLResponse,
-//                response.statusCode == 200 else {
-//                    self?.reportFailure("Server responded with non-200 status.")
-//                    return
-//            }
-//            
-//            self?.reportSuccess()
-//        }
         currentTask?.resume()
     }
     

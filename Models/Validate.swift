@@ -29,7 +29,7 @@ enum CertificateValidator {
 
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(url: requestURL as URL)
         let session = URLSession.shared
-        let task = session.dataTask(with: urlRequest as URLRequest) {
+        let task : URLSessionDataTask = session.dataTask(with: urlRequest as URLRequest) {
             (data, response, error) -> Void in
             
             let httpResponse = response as! HTTPURLResponse
