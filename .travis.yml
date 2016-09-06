@@ -7,5 +7,5 @@ install:
 
 script:
 - set -o pipefail
-- xcodebuild clean build -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=9.3,name=iPhone 6" | xcpretty -c || true
-- xcodebuild test -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=9.3,name=iPhone 6" | xcpretty -c
+- xcodebuild clean build -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=10.0,name=iPhone 6" | xcpretty -c || true
+- xcodebuild test -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=10.0,name=iPhone 6" | xcpretty -c
