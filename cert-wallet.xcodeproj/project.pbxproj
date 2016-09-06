@@ -71,6 +71,9 @@
 		836A31B01D5933D800943801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AF1D5933D800943801 /* Assets.xcassets */; };
 		836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31B11D5933D800943801 /* LaunchScreen.storyboard */; };
 		836A31BE1D5933D800943801 /* cert_walletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31BD1D5933D800943801 /* cert_walletTests.swift */; };
+		836B85781D7F553F00B2130B /* CertificateRevocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836B85771D7F553F00B2130B /* CertificateRevocationRequest.swift */; };
+		836B85791D7F553F00B2130B /* CertificateRevocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836B85771D7F553F00B2130B /* CertificateRevocationRequest.swift */; };
+		836B857A1D7F553F00B2130B /* CertificateRevocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836B85771D7F553F00B2130B /* CertificateRevocationRequest.swift */; };
 		836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
@@ -172,6 +175,7 @@
 		836A31BF1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836A31C41D5933D800943801 /* cert-walletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		836B85771D7F553F00B2130B /* CertificateRevocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateRevocationRequest.swift; path = Models/CertificateRevocationRequest.swift; sourceTree = "<group>"; };
 		836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderedCertificateTableViewCell.swift; sourceTree = "<group>"; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
 		83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateView.xib; path = RenderedCertificateView/RenderedCertificateView.xib; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 			children = (
 				830B7D001D5A82B20089F13D /* Assertion.swift */,
 				830B7CF71D5A822B0089F13D /* Certificate.swift */,
+				836B85771D7F553F00B2130B /* CertificateRevocationRequest.swift */,
 				8369CB101D70B805006D603E /* CertificateValidationRequest.swift */,
 				83C319A41D7F34B100DC9D3B /* CommonRequest.swift */,
 				830B7CFA1D5A82540089F13D /* Issuer.swift */,
@@ -679,6 +684,7 @@
 				836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */,
 				830B7D011D5A82B20089F13D /* Assertion.swift in Sources */,
 				83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
+				836B85781D7F553F00B2130B /* CertificateRevocationRequest.swift in Sources */,
 				830B7D041D5A82CA0089F13D /* Verify.swift in Sources */,
 				830B7D071D5A88130089F13D /* Keychain.swift in Sources */,
 				830B7CF81D5A822B0089F13D /* Certificate.swift in Sources */,
@@ -705,6 +711,7 @@
 				834910F21D5E6DC300872DAE /* String.swift in Sources */,
 				834F2EE41D62280E008C9650 /* StringExtensions.swift in Sources */,
 				83258E391D79E70A002D78FC /* IssuerIntroductionRequest.swift in Sources */,
+				836B85791D7F553F00B2130B /* CertificateRevocationRequest.swift in Sources */,
 				835B62481D63B39F00C95EB8 /* CertificateV1_2Tests.swift in Sources */,
 				3BDF6E991D73FFFA00EC005C /* TransactionDataHandler.swift in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
@@ -747,6 +754,7 @@
 				83659CF61D6657FA00316BA8 /* Certificate.swift in Sources */,
 				83659CF71D6657FA00316BA8 /* Issuer.swift in Sources */,
 				83659CF81D6657FA00316BA8 /* Recipient.swift in Sources */,
+				836B857A1D7F553F00B2130B /* CertificateRevocationRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
