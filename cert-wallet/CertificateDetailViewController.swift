@@ -46,9 +46,7 @@ class CertificateDetailViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        title = certificate?.title ?? "CertiFicate"
-        
+
         tableView.estimatedRowHeight = 45
         tableView.rowHeight = UITableViewAutomaticDimension
     }

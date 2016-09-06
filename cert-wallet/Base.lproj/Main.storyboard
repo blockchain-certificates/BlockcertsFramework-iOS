@@ -330,6 +330,9 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="vp4-A7-fzq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="XaZ-kl-flT"/>
+                    </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ny4-Ev-r2j" userLabel="First Responder" sceneMemberID="firstResponder"/>
