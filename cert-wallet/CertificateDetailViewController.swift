@@ -24,7 +24,8 @@ struct CertificateProperty : TableSection {
 struct CertificateActions : TableSection {
     let identifier = "CertificateActionsTableViewCell"
     let title : String? = "Actions"
-    let rows = 1
+    let actions = [ "Validate", "Revoke" ]
+    var rows : Int { return actions.count }
 }
 
 struct CertificateDisplay : TableSection {
@@ -128,8 +129,8 @@ extension CertificateDetailViewController {
                 renderedViewCell.sealIcon = UIImage(data: certificate.image)
                 renderedViewCell.leftSignature = UIImage(data: certificate.assertion.signatureImage)
             }
-        } else if section is CertificateActions {
-            cell.textLabel?.text = "Validate"
+        } else if let section = section as? CertificateActions {
+            cell.textLabel?.text = section.actions[indexPath.row]
         } else if let section = section as? CertificateProperty {
             let values = section.values
             let sortedKeys = values.keys.sorted(by: <)
@@ -148,16 +149,23 @@ extension CertificateDetailViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let section = sections[indexPath.section]
-        if section is CertificateActions {
-            let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
-            prompt.addTextField(configurationHandler: nil)
-            
-            prompt.addAction(UIAlertAction(title: "Validate", style: .default, handler: { [weak self, weak prompt] (action) in
-                let transactionId = prompt?.textFields?.first?.text ?? ""
-                self?.validateCertificate(with: transactionId)
-            }))
+        if let section = section as? CertificateActions {
+            switch section.actions[indexPath.row] {
+            case "Validate":
+                let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
+                prompt.addTextField(configurationHandler: nil)
                 
-            present(prompt, animated: true, completion: nil)
+                prompt.addAction(UIAlertAction(title: "Validate", style: .default, handler: { [weak self, weak prompt] (action) in
+                    let transactionId = prompt?.textFields?.first?.text ?? ""
+                    self?.validateCertificate(with: transactionId)
+                    }))
+                
+                present(prompt, animated: true, completion: nil)
+            case "Revoke":
+                revokeCertificate()
+            default:
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
             
         } else {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -229,6 +237,22 @@ extension CertificateDetailViewController {
         let validatingAlert = UIAlertController(title: nil, message: "Validating this certificate...", preferredStyle: .alert)
         validatingAlert.addAction(cancelAction)
         present(validatingAlert, animated: true, completion: nil)
+    }
+    
+    func revokeCertificate() {
+        let revokeConfirmation = UIAlertController(title: "Revoke Certificate?", message: "Revoking a certificate is permanent. Are you sure you want to revoke this certificate?", preferredStyle: .alert)
+        let actionHandler : (UIAlertAction) -> Void = { [weak self] (action) in
+            if let selectedRow = self?.tableView.indexPathForSelectedRow {
+                self?.tableView.deselectRow(at: selectedRow, animated: true)
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: actionHandler)
+        let revokeAction = UIAlertAction(title: "Revoke", style: .destructive, handler: actionHandler)
+
+        revokeConfirmation.addAction(cancelAction)
+        revokeConfirmation.addAction(revokeAction)
+        
+        present(revokeConfirmation, animated: true, completion: nil)
     }
     
 }
