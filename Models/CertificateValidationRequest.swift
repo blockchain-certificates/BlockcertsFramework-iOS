@@ -35,7 +35,7 @@ extension CertificateValidationRequestDelegate {
     }
 }
 
-class CertificateValidationRequest {
+class CertificateValidationRequest : CommonRequest {
     let session : URLSessionProtocol
     let certificate : Certificate
     let transactionId : String
