@@ -220,18 +220,18 @@
                                 <rect key="frame" x="0.0" y="92" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NML-IU-Chb" id="MJz-IH-Yua">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yn9-f7-JvX">
-                                            <frame key="frameInset" minX="60" minY="5" width="33.5" height="20.5"/>
+                                            <frame key="frameInset" minX="60" minY="4" width="34" height="21"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eMR-EV-x98">
-                                            <frame key="frameInset" minX="60" minY="25.5" width="44" height="14.5"/>
+                                            <frame key="frameInset" minX="60" minY="25" width="44" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <nil key="textColor"/>
@@ -331,7 +331,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="vp4-A7-fzq">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="XaZ-kl-flT"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="XaZ-kl-flT">
+                            <connections>
+                                <action selector="shareButtonTapped:" destination="FC2-NO-MGJ" id="Q91-H5-82s"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>

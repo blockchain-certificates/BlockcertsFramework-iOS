@@ -100,6 +100,16 @@ class CertificateDetailViewController: UITableViewController {
             ])
         ]
     }
+    
+    @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
+        guard let certificate = certificate else {
+            print("Something's gone wrong")
+            return
+        }
+        let shareController = UIActivityViewController(activityItems: [certificate.file], applicationActivities: nil)
+        
+        self.present(shareController, animated: true, completion: nil)
+    }
 }
 
 // MARK: Table View Controller overrides
