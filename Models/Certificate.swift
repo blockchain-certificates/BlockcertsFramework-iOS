@@ -74,22 +74,7 @@ protocol Certificate {
     var receipt : Receipt? { get }
     
     init?(data: Data)
-    
-    func verify() -> Bool
-    func revoke() throws
 }
-
-// Default implementations for new Certificates.
-extension Certificate {
-    func verify() -> Bool {
-        return false
-    }
-    
-    func revoke() throws {
-        throw RevokeError.notImplemented
-    }
-}
-
 
 //
 // MARK: - Private Implementation Details
