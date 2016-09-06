@@ -14,7 +14,7 @@ protocol AddIssuerViewControllerDelegate : class {
 class AddIssuerViewController: UIViewController {
 
     weak var delegate : AddIssuerViewControllerDelegate?
-    var inFlightRequest : IssuerCreationRequest?
+    var inFlightRequest : CommonRequest?
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
@@ -116,18 +116,27 @@ class AddIssuerViewController: UIViewController {
     
     // MARK: - Contacting the issuer
     func createIssuer(from issuerUrl: URL, for recipient: Recipient, callback: ((Issuer?) -> Void)?) {
-        
-        let request = IssuerCreationRequest(withUrl: issuerUrl) { [weak self] (issuer) in
+        let creationRequest = IssuerCreationRequest(withUrl: issuerUrl) { [weak self] (issuer) in
             guard let issuer = issuer else {
+                DispatchQueue.main.async { callback?(nil) }
                 return
             }
-            //
-            issuer.introduce(recipient: recipient)
-            callback?(issuer)
+
+            let introductionRequest = IssuerIntroductionRequest(introduce: recipient, to: issuer, callback: { (success, error) in
+                if success {
+                    DispatchQueue.main.async { callback?(issuer) }
+                } else {
+                    print("Issuer introduction failed with \(error)")
+                    DispatchQueue.main.async { callback?(nil) }
+                }
+            })
+            introductionRequest.start()
+            self?.inFlightRequest = introductionRequest
+
             self?.inFlightRequest = nil
         }
-        request.start()
-        inFlightRequest = request
+        creationRequest.start()
+        inFlightRequest = creationRequest
     }
     /*
     // MARK: - Navigation

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class IssuerIntroductionRequest {
+class IssuerIntroductionRequest : CommonRequest {
     var callback : ((Bool, String?) -> Void)?
     let url : URL
     
