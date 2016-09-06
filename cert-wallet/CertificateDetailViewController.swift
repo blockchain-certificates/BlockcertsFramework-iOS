@@ -130,7 +130,13 @@ extension CertificateDetailViewController {
                 renderedViewCell.leftSignature = UIImage(data: certificate.assertion.signatureImage)
             }
         } else if let section = section as? CertificateActions {
-            cell.textLabel?.text = section.actions[indexPath.row]
+            let action = section.actions[indexPath.row]
+            cell.textLabel?.text = action
+            if action == "Revoke" {
+                cell.textLabel?.textColor = UIColor.red
+            } else {
+                cell.textLabel?.textColor = cell.tintColor
+            }
         } else if let section = section as? CertificateProperty {
             let values = section.values
             let sortedKeys = values.keys.sorted(by: <)
