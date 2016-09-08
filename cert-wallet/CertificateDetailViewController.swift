@@ -106,7 +106,13 @@ class CertificateDetailViewController: UITableViewController {
             print("Something's gone wrong")
             return
         }
-        let shareController = UIActivityViewController(activityItems: [certificate.file], applicationActivities: nil)
+
+        let items : [Any] = [
+            certificate.id,
+            certificate.file
+        ]
+
+        let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         
         self.present(shareController, animated: true, completion: nil)
     }
