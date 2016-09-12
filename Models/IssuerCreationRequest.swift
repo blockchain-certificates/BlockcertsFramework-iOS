@@ -34,27 +34,36 @@ class IssuerCreationRequest : CommonRequest {
             }
             
             guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []),
-                let json = jsonData as? [String: String] else {
+                let json = jsonData as? [String: AnyObject] else {
                 self?.reportFailure()
                 return
             }
             
-            guard let name = json["name"],
-                let email = json["email"],
-                let imageString = json["image"],
+            // Flat properties. This is basically everything but the keys.
+            guard let name = json["name"] as? String,
+                let email = json["email"] as? String,
+                let imageString = json["image"] as? String,
                 let imageStringURL = URL(string: imageString),
                 let image = try? Data(contentsOf: imageStringURL),
-                let idString = json["id"],
+                let idString = json["id"] as? String,
                 let id = URL(string: idString),
-                let urlString = json["url"],
+                let urlString = json["url"] as? String,
                 let url = URL(string: urlString),
-                let publicKeyString = json["publicKeyAddress"],
-                let publicKeyURL = URL(string: publicKeyString),
-                let introductionURLString = json["requestURL"],
+                let introductionURLString = json["introductionURL"] as? String,
                 let introductionURL = URL(string: introductionURLString) else {
                     self?.reportFailure()
                     return
             }
+            
+            // The keys
+            guard let issuerKeys = json["issuerKey"] as? [[String : String]],
+                let revocationKeys = json["revocationKey"] as? [[String : String]] else {
+                    self?.reportFailure()
+                    return
+            }
+            print(issuerKeys, revocationKeys)
+            
+            // Convert array of strings to named tuples.
             
             // TODO: Query the public key address to get the public key
             
@@ -64,7 +73,7 @@ class IssuerCreationRequest : CommonRequest {
                                     id: id,
                                     url: url,
                                     publicKey: "AbsolutelyFakePublicKey",
-                                    publicKeyAddress: publicKeyURL,
+                                    publicKeyAddress: nil,
                                     requestUrl: introductionURL)
             self?.reportSuccess(with: fakeIssuer)
         }
