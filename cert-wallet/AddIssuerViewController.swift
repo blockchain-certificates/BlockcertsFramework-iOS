@@ -132,8 +132,6 @@ class AddIssuerViewController: UIViewController {
             })
             introductionRequest.start()
             self?.inFlightRequest = introductionRequest
-
-            self?.inFlightRequest = nil
         }
         creationRequest.start()
         inFlightRequest = creationRequest
