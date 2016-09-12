@@ -40,7 +40,7 @@ struct Issuer {
         
         self.publicKey = nil
         self.publicKeyAddress = nil
-        self.requestUrl = nil
+        self.requestUrl = introductionURL
     }
 
     init(name: String, email: String, image: Data, id: URL, url: URL, publicKey: String?, publicKeyAddress: URL?, requestUrl: URL) {
