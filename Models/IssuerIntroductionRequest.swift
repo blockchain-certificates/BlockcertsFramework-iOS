@@ -10,7 +10,7 @@ import Foundation
 
 class IssuerIntroductionRequest : CommonRequest {
     var callback : ((Bool, String?) -> Void)?
-    let url : URL
+    let url : URL?
     
     private var recipient : Recipient
     private var session : URLSessionProtocol
@@ -20,11 +20,15 @@ class IssuerIntroductionRequest : CommonRequest {
         self.callback = callback
         self.session = session
         self.recipient = recipient
-        // TODO: It may not make sense for these additional properties to be optional. Investigate so I can remove this force-unwrap.
+
         url = issuer.introductionURL
     }
     
     func start() {
+        guard let url = url else {
+            reportFailure("Issuer does not have an introductionURL. Try refreshing the data.")
+            return
+        }
         // Create JSON body
         let dataMap = [
             "bitcoinAddress": recipient.publicKey,
