@@ -19,11 +19,29 @@ struct Issuer {
     let image : Data
     let id : URL
     let url : URL
+    let issuerKeys : [KeyRotation]
+    let revocationKeys : [KeyRotation]
     
-    var publicKey : String?
-    let publicKeyAddress : URL?
-    let requestUrl : URL?
+    var publicKey : String? {
+        return issuerKeys.first?.key
+    }
+    let introductionURL : URL
 
+    init(name: String,
+         email: String,
+         image: Data,
+         id: URL,
+         url: URL) {
+        self.name = name
+        self.email = email
+        self.image = image
+        self.id = id
+        self.url = url
+        
+        issuerKeys = []
+        revocationKeys = []
+        introductionURL = URL(string: "http://google.com")!
+    }
     init(name: String,
          email: String,
          image: Data,
@@ -37,44 +55,23 @@ struct Issuer {
         self.image = image
         self.id = id
         self.url = url
-        
-        self.publicKey = nil
-        self.publicKeyAddress = nil
-        self.requestUrl = introductionURL
-    }
-
-    init(name: String, email: String, image: Data, id: URL, url: URL, publicKey: String?, publicKeyAddress: URL?, requestUrl: URL) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        
-        self.publicKey = publicKey
-        self.publicKeyAddress = publicKeyAddress
-        self.requestUrl = requestUrl
-    }
-    init(name: String, email: String, image: Data, id: URL, url: URL) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        
-        publicKey = nil
-        publicKeyAddress = nil
-        requestUrl = nil
+        issuerKeys = publicIssuerKeys.sorted(by: <)
+        revocationKeys = publicRevocationKeys.sorted(by: <)
+        self.introductionURL = introductionURL
     }
     
-    init?(dictionary: [String: String]) {
-        guard let name = dictionary["name"],
-            let email = dictionary["email"],
-            let imageString = dictionary["image"],
-            let image = Data(base64Encoded: imageString),
-            let idString = dictionary["id"],
+    init?(dictionary: [String: Any]) {
+        guard let name = dictionary["name"] as? String,
+            let email = dictionary["email"] as? String,
+            let imageString = dictionary["image"] as? String,
+            let imageURL = URL(string: imageString),
+            let image = try? Data(contentsOf: imageURL),
+            let idString = dictionary["id"] as? String,
             let id = URL(string: idString),
-            let urlString = dictionary["url"],
-            let url = URL(string: urlString) else {
+            let urlString = dictionary["url"] as? String,
+            let url = URL(string: urlString),
+            let introductionString = dictionary["introductionURL"] as? String,
+            let introductionURL = URL(string: introductionString) else {
             return nil
         }
         
@@ -83,42 +80,66 @@ struct Issuer {
         self.image = image
         self.id = id
         self.url = url
+        self.introductionURL = introductionURL
         
-        self.publicKey = dictionary["publicKey"]
-        if let addressString = dictionary["publicKeyAddress"],
-            let publicKeyAddress = URL(string: addressString) {
-            self.publicKeyAddress = publicKeyAddress
-        } else {
-            publicKeyAddress = nil
+        guard let issuerKeyData = dictionary["issuerKey"] as? [[String: String]],
+            let revocationKeyData = dictionary["revocationKey"] as? [[String : String]] else {
+                return nil
         }
-        if let requestString = dictionary["requestUrl"],
-            let requestUrl = URL(string: requestString) {
-            self.requestUrl = requestUrl
-        } else {
-            requestUrl = nil
+        
+        func keyRotationSchedule(from dictionary: [String : String]) -> KeyRotation? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+            
+            guard let dateString = dictionary["date"],
+                let date = dateFormatter.date(from: dateString),
+                let key = dictionary["key"] else {
+                    return nil
+            }
+            
+            return KeyRotation(on: date, key: key)
+        }
+        issuerKeys = issuerKeyData.flatMap(keyRotationSchedule).sorted(by: <)
+        revocationKeys = revocationKeyData.flatMap(keyRotationSchedule).sorted(by: <)
+
+        // This is only valid if we have at least 1 issuerKey and 1 revocation key.
+        // Also, if the `flatMap` returned nil from any of the keyData items, then fail. We may be able to relax this constraint, but since it would have an impact on valid public key date ranges, I figure we should just fail the parse.
+        guard issuerKeys.count > 0,
+            issuerKeys.count == issuerKeyData.count,
+            revocationKeys.count > 0,
+            revocationKeys.count == revocationKeyData.count else {
+                return nil
         }
     }
     
     
-    func toDictionary() -> [String: String] {
-        var dictionary = [
+    func toDictionary() -> [String: Any] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        
+        let serializedIssuerKeys = issuerKeys.map { (keyRotation) -> [String : String] in
+            return [
+                "date": dateFormatter.string(from: keyRotation.on),
+                "key": keyRotation.key
+            ]
+        }
+        let serializedRevocationKeys = issuerKeys.map { (keyRotation) -> [String : String] in
+            return [
+                "date": dateFormatter.string(from: keyRotation.on),
+                "key": keyRotation.key
+            ]
+        }
+
+        return [
             "name": name,
             "email": email,
             "image": String(data: image, encoding: .utf8)!,
             "id": "\(id)",
             "url": "\(url)",
+            "introductionURL": "\(introductionURL)",
+            "issuerKeys": serializedIssuerKeys,
+            "revocationKeys": serializedRevocationKeys
         ]
-        if let publicKey = publicKey {
-            dictionary["publicKey"] = publicKey
-        }
-        if let publicKeyAddress = publicKeyAddress {
-            dictionary["publicKeyAddress"] = "\(publicKeyAddress)"
-        }
-        if let requestUrl = requestUrl {
-            dictionary["requestUrl"] = "\(requestUrl)"
-        }
-        
-        return dictionary
     }
     
     
@@ -136,7 +157,16 @@ func ==(lhs: Issuer, rhs: Issuer) -> Bool {
         && lhs.image == rhs.image
         && lhs.id == rhs.id
         && lhs.url == rhs.url
-        && lhs.publicKey == rhs.publicKey
-        && lhs.publicKeyAddress == rhs.publicKeyAddress
-        && lhs.requestUrl == rhs.requestUrl
+//        && lhs.issuerKeys == rhs.issuerKeys
+//        && lhs.revocationKeys == rhs.revocationKeys
+}
+
+extension KeyRotation : Comparable {}
+
+func ==(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
+    return lhs.on == rhs.on && lhs.key == rhs.key
+}
+
+func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
+    return lhs.on < rhs.on
 }

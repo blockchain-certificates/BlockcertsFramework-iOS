@@ -25,7 +25,7 @@ class IssuersViewController: UITableViewController {
     }
     
     func saveIssuers() {
-        let issuersCodingList: [[String : String]] = issuers.map({ $0.toDictionary() })
+        let issuersCodingList: [[String : Any]] = issuers.map({ $0.toDictionary() })
         NSKeyedArchiver.archiveRootObject(issuersCodingList, toFile: archiveURL.path)
     }
     

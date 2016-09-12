@@ -59,7 +59,7 @@ class IssuerCreationRequestTests: XCTestCase {
             XCTAssertEqual(issuer!.image, try! Data(contentsOf: URL(string: expectedImageData)!))
             XCTAssertEqual(issuer!.id, url)
             XCTAssertEqual(issuer!.url, URL(string: expectedURLString)!)
-            XCTAssertEqual(issuer!.requestUrl, URL(string: expectedIntroductionURLString)!)
+            XCTAssertEqual(issuer!.introductionURL, URL(string: expectedIntroductionURLString)!)
             
             itShouldCallTheCallback.fulfill()
         }

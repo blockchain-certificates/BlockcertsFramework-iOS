@@ -21,7 +21,7 @@ class IssuerIntroductionRequest : CommonRequest {
         self.session = session
         self.recipient = recipient
         // TODO: It may not make sense for these additional properties to be optional. Investigate so I can remove this force-unwrap.
-        url = issuer.requestUrl!
+        url = issuer.introductionURL
     }
     
     func start() {

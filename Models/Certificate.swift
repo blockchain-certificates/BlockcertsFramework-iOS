@@ -116,15 +116,12 @@ private enum MethodsForV1_1 {
                 return nil
         }
         let logo = imageData(from: logoURI)
-        
+
         return Issuer(name: issuerName,
                       email: issuerEmail,
                       image: logo,
                       id: issuerIdURL,
-                      url: issuerURL,
-                      publicKey: "",
-                      publicKeyAddress: URL(string: "https://google.com")!,
-                      requestUrl: URL(string: "https://google.com")!)
+                      url: issuerURL)
     }
 
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
@@ -308,10 +305,7 @@ private enum MethodsForV1_2 {
                       email: issuerEmail,
                       image: logo,
                       id: issuerIdURL,
-                      url: issuerURL,
-                      publicKey: "",
-                      publicKeyAddress: URL(string: "https://google.com")!,
-                      requestUrl: URL(string: "https://google.com")!)
+                      url: issuerURL)
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {

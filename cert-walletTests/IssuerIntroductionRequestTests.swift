@@ -23,9 +23,14 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             image: "data:image/png;base64,".data(using: .utf8)!,
                             id: URL(string: "https://blockcerts.org/issuer.json")!,
                             url: URL(string: "https://blockcerts.org")!,
-                            publicKey: "FakeIssuerPublicKey",
-                            publicKeyAddress: URL(string: "https://blockcerts.org/pubkey")!,
-                            requestUrl: URL(string: "https://blockcerts.org/introduce/")!)
+                            publicIssuerKeys: [
+                                KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
+                            ],
+                            publicRevocationKeys: [
+                                KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_REVOCATION_KEY")
+                            ],
+                            introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
+
         let recipient = Recipient(givenName: expectedFirstName,
                                   familyName: expectedLastName,
                                   identity: expectedEmail,
@@ -35,7 +40,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         // Mock out the network
         let session = MockURLSession()
-        let url = issuer.requestUrl!
+        let url = issuer.introductionURL
         session.respond(to: url) { request in
             let body = request.httpBody
             XCTAssertNotNil(body, "Request to the issuer should have a body.")
