@@ -30,13 +30,13 @@ class IssuerCreationRequestTests: XCTestCase {
             "name": expectedName,
             "email": expectedEmail,
             "image": expectedImageData,
-            "issuerKey": [
+            "issuer_key": [
                 [
                     "date": "2016-05-01",
                     "key": "FAKE_ISSUER_KEY"
                 ]
             ],
-            "revocationKey": [
+            "revocation_key": [
                 [
                     "date": "2016-05-01",
                     "key": "FAKE_REVOCATION_KEY"

@@ -139,8 +139,8 @@ struct Issuer {
             self.introductionURL = nil
         }
         
-        guard let issuerKeyData = dictionary["issuerKey"] as? [[String: String]],
-            let revocationKeyData = dictionary["revocationKey"] as? [[String : String]] else {
+        guard let issuerKeyData = dictionary["issuer_key"] as? [[String: String]],
+            let revocationKeyData = dictionary["revocation_key"] as? [[String : String]] else {
                 return nil
         }
         

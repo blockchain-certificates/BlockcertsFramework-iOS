@@ -74,13 +74,13 @@ class IssuerTests: XCTestCase {
             "url": urlValue,
             "publicKey": publicKeyValue,
             "introductionURL": introductionURLValue,
-            "issuerKey": [
+            "issuer_key": [
                 [
                     "date": dateFormatter.string(from: issuerKey.on),
                     "key": issuerKey.key
                 ]
             ],
-            "revocationKey": [
+            "revocation_key": [
                 [
                     "date": dateFormatter.string(from: revocationKey.on),
                     "key": revocationKey.key
