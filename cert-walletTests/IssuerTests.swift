@@ -22,6 +22,7 @@ class IssuerTests: XCTestCase {
     
     override func setUp() {
         dateFormatter.dateFormat = "YYYY-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
     }
 
     func testDictionaryConversion() {

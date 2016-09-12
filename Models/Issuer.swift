@@ -90,6 +90,7 @@ struct Issuer {
         func keyRotationSchedule(from dictionary: [String : String]) -> KeyRotation? {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "YYYY-MM-dd"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
             
             guard let dateString = dictionary["date"],
                 let date = dateFormatter.date(from: dateString),
@@ -116,6 +117,7 @@ struct Issuer {
     func toDictionary() -> [String: Any] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         
         let serializedIssuerKeys = issuerKeys.map { (keyRotation) -> [String : String] in
             return [
@@ -157,8 +159,8 @@ func ==(lhs: Issuer, rhs: Issuer) -> Bool {
         && lhs.image == rhs.image
         && lhs.id == rhs.id
         && lhs.url == rhs.url
-//        && lhs.issuerKeys == rhs.issuerKeys
-//        && lhs.revocationKeys == rhs.revocationKeys
+        && lhs.issuerKeys == rhs.issuerKeys
+        && lhs.revocationKeys == rhs.revocationKeys
 }
 
 extension KeyRotation : Comparable {}
