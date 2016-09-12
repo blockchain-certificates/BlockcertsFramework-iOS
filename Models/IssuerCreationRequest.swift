@@ -15,10 +15,10 @@ class IssuerCreationRequest : CommonRequest {
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    init(withUrl issuerUrl: URL, session: URLSessionProtocol = URLSession.shared, callback: ((Issuer?) -> Void)?) {
+    init(id: URL, session: URLSessionProtocol = URLSession.shared, callback: ((Issuer?) -> Void)?) {
         self.callback = callback
         self.session = session
-        url = issuerUrl
+        url = id
     }
     
     func start() {

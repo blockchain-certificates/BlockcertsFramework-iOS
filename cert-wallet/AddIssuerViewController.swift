@@ -116,7 +116,7 @@ class AddIssuerViewController: UIViewController {
     
     // MARK: - Contacting the issuer
     func createIssuer(from issuerUrl: URL, for recipient: Recipient, callback: ((Issuer?) -> Void)?) {
-        let creationRequest = IssuerCreationRequest(withUrl: issuerUrl) { [weak self] (issuer) in
+        let creationRequest = IssuerCreationRequest(id: issuerUrl) { [weak self] (issuer) in
             guard let issuer = issuer else {
                 DispatchQueue.main.async { callback?(nil) }
                 return

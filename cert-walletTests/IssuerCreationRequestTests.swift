@@ -52,7 +52,7 @@ class IssuerCreationRequestTests: XCTestCase {
                         error: nil)
         
         // Create the request
-        let request = IssuerCreationRequest(withUrl: url, session: session) { (issuer) in
+        let request = IssuerCreationRequest(id: url, session: session) { (issuer) in
             XCTAssertNotNil(issuer)
             XCTAssertEqual(issuer!.name, expectedName)
             XCTAssertEqual(issuer!.email, expectedEmail)

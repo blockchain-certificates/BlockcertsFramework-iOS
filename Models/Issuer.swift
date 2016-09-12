@@ -8,9 +8,11 @@
 
 import Foundation
 
-/// <#Description#>
+/// Signifies when a new key was rotated in for a given purpose.
 struct KeyRotation {
+    /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
     let on : Date
+    /// A base64-encoded string representing the data of the key.
     let key : String
 }
 
@@ -199,7 +201,7 @@ struct Issuer {
             "issuerKeys": serializedIssuerKeys,
             "revocationKeys": serializedRevocationKeys
         ]
-        if introductionURL != nil {
+        if let introductionURL = introductionURL {
             dictionary["introductionURL"] = "\(introductionURL)"
         }
         

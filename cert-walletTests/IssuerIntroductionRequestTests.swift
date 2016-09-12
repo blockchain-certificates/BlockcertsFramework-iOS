@@ -40,7 +40,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         // Mock out the network
         let session = MockURLSession()
-        let url = issuer.introductionURL
+        let url = issuer.introductionURL!
         session.respond(to: url) { request in
             let body = request.httpBody
             XCTAssertNotNil(body, "Request to the issuer should have a body.")
