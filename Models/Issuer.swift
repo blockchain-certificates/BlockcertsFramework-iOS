@@ -123,7 +123,7 @@ struct Issuer {
                 "key": keyRotation.key
             ]
         }
-        let serializedRevocationKeys = issuerKeys.map { (keyRotation) -> [String : String] in
+        let serializedRevocationKeys = revocationKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": dateFormatter.string(from: keyRotation.on),
                 "key": keyRotation.key

@@ -34,47 +34,34 @@ class IssuerTests: XCTestCase {
                             publicRevocationKeys: [revocationKey],
                             introductionURL: URL(string: introductionURLValue)!)
         
-//        let expectedResults = [
-//            "name": nameValue,
-//            "email": emailValue,
-//            "image": imageDataValue,
-//            "id": idValue,
-//            "url": urlValue,
-//            "introductionURL": introductionURLValue,
-//            "issuerKeys": [
-//                "date": dateFormatter.string(from: issuerKey.on),
-//                "key": issuerKey.key
-//            ],
-//            "revocationKeys": [
-//                "date": dateFormatter.string(from: revocationKey.on),
-//                "key": revocationKey.key
-//            ]
-//        ]
-//        let expectedIssuerKeys = [
-//            [
-//                "date": dateFormatter.string(from: issuerKey.on),
-//                "key": issuerKey.key
-//            ]
-//        ]
-//        let expectedRevocationKeys = [
-//            [
-//                "date": dateFormatter.string(from: revocationKey.on),
-//                "key": revocationKey.key
-//            ]
-//        ]
+        let expectedIssuerKeys : [[String: String]] = [
+            [
+                "date": dateFormatter.string(from: issuerKey.on),
+                "key": issuerKey.key
+            ]
+        ]
+        let expectedRevocationKeys : [[String: String]] = [
+            [
+                "date": dateFormatter.string(from: revocationKey.on),
+                "key": revocationKey.key
+            ]
+        ]
         
         let result = issuer.toDictionary()
-//        XCTAssertEqual(result, expectedResult)
-//        XCTAssertEqual(result as [String : NSObject], expectedResult)
         XCTAssertEqual(result["name"] as! String, nameValue)
         XCTAssertEqual(result["email"] as! String, emailValue)
         XCTAssertEqual(result["image"] as! String, imageDataValue)
         XCTAssertEqual(result["id"] as! String, idValue)
         XCTAssertEqual(result["url"] as! String, urlValue)
         XCTAssertEqual(result["introductionURL"] as! String, introductionURLValue)
-//        XCTAssertEqual(result["issuerKeys"] as! [Dictionary<String, String>], expectedIssuerKeys)
-//        XCTAssertEqual(result["revocationKeys"] as! [Dictionary<String, String>], expectedRevocationKeys)
-
+        
+        let issuerKeys = result["issuerKeys"] as! [[String: String]]
+        XCTAssertEqual(issuerKeys.count, 1)
+        XCTAssertEqual(issuerKeys.first!, expectedIssuerKeys.first!)
+        
+        let revocationKeys = result["revocationKeys"] as! [[String: String]]
+        XCTAssertEqual(revocationKeys.count, 1)
+        XCTAssertEqual(revocationKeys.first!, expectedRevocationKeys.first!)
     }
     
     func testDictionaryInitialization() {
