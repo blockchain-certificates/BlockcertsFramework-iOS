@@ -8,6 +8,11 @@
 
 import Foundation
 
+struct KeyRotation {
+    let on : Date
+    let key : String
+}
+
 struct Issuer {
     let name : String
     let email : String
@@ -18,6 +23,25 @@ struct Issuer {
     var publicKey : String?
     let publicKeyAddress : URL?
     let requestUrl : URL?
+
+    init(name: String,
+         email: String,
+         image: Data,
+         id: URL,
+         url: URL,
+         publicIssuerKeys: [KeyRotation],
+         publicRevocationKeys: [KeyRotation],
+         introductionURL: URL) {
+        self.name = name
+        self.email = email
+        self.image = image
+        self.id = id
+        self.url = url
+        
+        self.publicKey = nil
+        self.publicKeyAddress = nil
+        self.requestUrl = nil
+    }
 
     init(name: String, email: String, image: Data, id: URL, url: URL, publicKey: String?, publicKeyAddress: URL?, requestUrl: URL) {
         self.name = name
