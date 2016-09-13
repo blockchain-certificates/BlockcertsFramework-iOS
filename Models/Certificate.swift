@@ -7,23 +7,36 @@
 //
 
 import Foundation
-//import UIKit
 
-enum RevokeError : Error {
-    case notImplemented
-}
-
+/// These are versionf of the CertificateFormat that the CertificateParser understands. It will also be prsent on the resulting Certificate object
+///
+/// - oneDotOne: This is a v1.1 certificate
+/// - oneDotTwo: This is a v1.2 certificate
 enum CertificateVersion {
     case oneDotOne
     case oneDotTwo
 }
 
-// This enum is used to encapsuate the parse function. This is so CertificateParser is never instantiated.
+/// CertificateParser should never be instantiated. Call one of its `parse` methods to turn a Data object into a Certificate.
 enum CertificateParser {
+    /// This is the most general parse function. Pass it a data object representing the certificate, and it will
+    /// auto-detect which version of the Certificate format to use. It will always use the latest version that
+    /// passes a valid parse
+    ///
+    /// - parameter data: A Data-representation of the Certificate. Usually, this is a JSON object.
+    ///
+    /// - returns: A certificate if the provided data passes any known version of the Certificate format. Nil otherwise.
     static func parse(data: Data) -> Certificate? {
         return CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
     }
     
+    /// This parses a data object as a specific version of the certificate format. Useful if you're expecting a 1.2
+    /// certificate, and you'd like the parse to fail if it only finds a v1.1 certificate
+    ///
+    /// - parameter data:    A Data-representation of the Certificate. Usually, this is a JSON object
+    /// - parameter version: Which version to parse the `data` parameter as.
+    ///
+    /// - returns: A Certificate if `data` is a valid Certificate at the specified version. Nil otherwise.
     static func parse(data: Data, asVersion version: CertificateVersion) -> Certificate? {
         switch version {
         case .oneDotTwo:
@@ -33,6 +46,14 @@ enum CertificateParser {
         }
     }
     
+    /// Parses a data object with a minimum certificate version. This is the most future-compatible parse. If you
+    /// want to rely on features introduced in a specific version fo the Certificate format, this is the best way
+    /// to do that.
+    ///
+    /// - parameter data:    A Data-representation of the Certificate. Usually, this is a JSON object
+    /// - parameter version: The minimum version to parse `data` parameter as.
+    ///
+    /// - returns: A Certificate if `data` is a valid Certificate at the specified version or later. Nil otherwise.
     static func parse(data: Data, withMinimumVersion version: CertificateVersion) -> Certificate? {
         var cert : Certificate?
         switch version {
@@ -50,30 +71,53 @@ enum CertificateParser {
     }
 }
 
-//
 // MARK: - Certificate Protocol definition
 //
-// This is common data & functionality to all versions of the Certificate schema. 
-//
+/// An abstract definition of a Certificate. Private concrete subclasses will conform to this protocol.
 protocol Certificate {
+    /// Which version of the Certificate format this was parsed as.
     var version : CertificateVersion { get }
     
+    
+    /// Title of the certificate
     var title : String { get }
+    
+    /// Subtitle of the certificate. May be nil.
     var subtitle : String? { get }
+    
+    /// Description of what the certificate represents or certifies.
     var description: String { get }
+    
+    /// A base64-encoded png image of the issuer's logo. This is featured prominently in the display of the certifiate.
     var image : Data { get }
+    
+    /// Represents the IETF language and IETF country codes.
     var language : String { get }
+    
+    /// Link to a JSON that details the issuer's issuing and recovation keys.
     var id : URL { get }
+    
+    /// The raw, unedited file representation of the certificate.
     var file : Data { get }
+    
+    /// String of signature created when the Bitcoin private key signs the value in the attribute-signed field.
     var signature : String? { get }
 
-    var issuer : Issuer { get }
-    var recipient : Recipient { get }
-    var assertion : Assertion { get }
-    var verifyData : Verify { get }
-    var receipt : Receipt? { get }
     
-    init?(data: Data)
+    /// Represents the entity that issued this certifiate. See `Issuer` for more details
+    var issuer : Issuer { get }
+    
+    /// Represents the entity this certificate was issued to. See `Recipient` for more details
+    var recipient : Recipient { get }
+    
+    /// Represents the assertion made by this certificate. See `Assertion` for more details
+    var assertion : Assertion { get }
+    
+    /// Represents data needed to verify this certificate. See `Verify` for more details
+    var verifyData : Verify { get }
+    
+    /// Represents any reciept data to help verify the certificate. See `Reciept` for more details
+    var receipt : Receipt? { get }
 }
 
 //
@@ -83,6 +127,11 @@ protocol Certificate {
 // * The concrete types for different versions of Certificate
 // * Any version-specific or version-agnostic helper functions
 
+private extension Certificate {
+    init?(data: Data) {
+        return nil
+    }
+}
 
 // These are useful parsing functions that are version-independent.
 private func imageData(from dataURI: String?) -> Data {
