@@ -24,7 +24,7 @@ struct CertificateProperty : TableSection {
 struct CertificateActions : TableSection {
     let identifier = "CertificateActionsTableViewCell"
     let title : String? = "Actions"
-    let actions = [ "Validate", "Revoke" ]
+    let actions = [ "Validate" ] // , "Revoke"
     var rows : Int { return actions.count }
 }
 
