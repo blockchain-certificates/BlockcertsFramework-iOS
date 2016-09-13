@@ -15,11 +15,14 @@ import Foundation
 // The goal is to use protocol-oriented programming to let us inject mock URL Session classes during tests.
 // We also need to make sure the existing Foundation classes conform to these protocols as well.
 //
+
+/// A common protocol for a URLSession. We can use this to mock out the network during tests
 protocol URLSessionProtocol {
     func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
+/// A common protocol for handling URLSessionDataTasks. We can use this to mock out the network during tests.
 protocol URLSessionDataTaskProtocol {
     func resume()
     func cancel()

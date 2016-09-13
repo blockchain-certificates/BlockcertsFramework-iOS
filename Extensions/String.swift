@@ -9,6 +9,9 @@
 import Foundation
 
 extension String {
+    /// Turns a string of hexidecimal characters into a Data representation with the same value.
+    ///
+    /// - returns: Data representing that hexidecimal sequence if the string is valid. Nil otherwise.
     func asHexData() -> Data? {
         let adjustedString = self.characters.count % 2 == 1 ? "0" + self : self
         
@@ -41,37 +44,4 @@ extension String {
         
         return data
     }
-//    func asHexData() -> Data? {
-//        var data = Data(capacity: characters.count / 2)
-//        let validHexCharacters = Set<Character>(["0"])
-//        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
-//
-//        var array : Array<String> = []
-//        for index in stride(from: 0, to: characters.count, by: 2) {
-//            array.append(self.substring(with: String.Index(index)...String.Index(index+1)))
-//        }
-//        
-////        
-////        regex.matches(in: self, options: [], range: NSMakeRange(0, characters.count)).forEach { (result) in
-////            result.range.location
-////        }
-////        
-////        data.append(UInt8(byteString))
-////        
-////        
-////        let data = NSMutableData(capacity: characters.count / 2)
-////        
-////        
-////        let nsString
-////        regex.enumerateMatches(in: "ab12", options: [], range: <#T##NSRange#>, using: <#T##(NSTextCheckingResult?, NSRegularExpression.MatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void#>)
-////        
-//////        regex.enumerateMatches(in: <#T##String#>, options: <#T##NSRegularExpression.MatchingOptions#>, range: <#T##NSRange#>)
-////        regex.enumerateMatches(in: self as NSString, options: [], range: NSMakeRange(0, characters.count) as NSRange)  { (match, flags, stop) in
-////            let byteString = self.substring(with: match!.range)
-////            var num = UInt8(byteString, radix: 16)
-////            data?.append(&num, length: 1)
-////        }
-//        
-////        regex.enumerateMatches(in: <#T##String#>, options: <#T##NSRegularExpression.MatchingOptions#>, range: <#T##NSRange#>, using: <#T##(NSTextCheckingResult?, NSRegularExpression.MatchingFlags, UnsafeMutablePointer<ObjCBool>) -> Void#>)
-//    }
 }
