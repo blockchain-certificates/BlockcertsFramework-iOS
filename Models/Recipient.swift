@@ -8,12 +8,23 @@
 
 import Foundation
 
+/// This represents who a certificate is issued to. It also more abstractly represents the user, but they may choose to use different names with differing institutions.
 struct Recipient {
+    /// The recipient's given name.
     let givenName : String
+    
+    /// The recipient's family name
     let familyName : String
     
-    let identity : String       // Usually, an email address
-    let identityType : String   // "email" by default
-    let isHashed : Bool         // false by default
-    let publicKey : String      // bitcoin address of recipient
+    /// A unique string identifying the recipient. Currently, only an email address is supported
+    let identity : String
+    
+    /// Signifies what type of data exists in the `identity` property. Currently, `"email"` is the only valid value.
+    let identityType : String
+    
+    /// Describes if the value in the identity field is hashed or not. Default is false, indicating that the identity is not hashed.
+    let isHashed : Bool
+    
+    /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
+    let publicKey : String
 }
