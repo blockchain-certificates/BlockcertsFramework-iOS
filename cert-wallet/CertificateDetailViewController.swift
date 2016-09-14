@@ -106,16 +106,41 @@ class CertificateDetailViewController: UITableViewController {
             print("Something's gone wrong")
             return
         }
+        
+//        FileManager.default.createFile(atPath: <#T##String#>, contents: <#T##Data?#>, attributes: <#T##[String : Any]?#>)
 
         let items : [Any] = [
-            certificate.id,
-            certificate.file
+            CertificateActivityItemSource(certificate: certificate)
         ]
 
         let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         
         self.present(shareController, animated: true, completion: nil)
     }
+}
+
+class CertificateActivityItemSource: NSObject, UIActivityItemSource {
+    let certificate : Certificate
+    
+    init(certificate: Certificate) {
+        self.certificate = certificate
+    }
+    
+    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
+        return Data()
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+        return certificate.file
+    }
+    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivityType?) -> String {
+        return "My Certificate"
+    }
+    
+    func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivityType?) -> String {
+        return "com.netscape.javascript-​source"
+    }
+    
 }
 
 // MARK: Table View Controller overrides
