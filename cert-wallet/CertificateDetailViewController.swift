@@ -107,11 +107,12 @@ class CertificateDetailViewController: UITableViewController {
             return
         }
         
-//        FileManager.default.createFile(atPath: <#T##String#>, contents: <#T##Data?#>, attributes: <#T##[String : Any]?#>)
+        // Moving the file to a temporary directory. Sharing a file URL seems to be better than sharing the file's contents directly.
+        let filePath = "\(NSTemporaryDirectory())/certificate.json"
+        let url = URL(fileURLWithPath: filePath)
+        FileManager.default.createFile(atPath: filePath, contents: certificate.file, attributes: nil)
 
-        let items : [Any] = [
-            CertificateActivityItemSource(certificate: certificate)
-        ]
+        let items : [Any] = [ url ]
 
         let shareController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         
@@ -119,29 +120,6 @@ class CertificateDetailViewController: UITableViewController {
     }
 }
 
-class CertificateActivityItemSource: NSObject, UIActivityItemSource {
-    let certificate : Certificate
-    
-    init(certificate: Certificate) {
-        self.certificate = certificate
-    }
-    
-    func activityViewControllerPlaceholderItem(_ activityViewController: UIActivityViewController) -> Any {
-        return Data()
-    }
-    
-    func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
-        return certificate.file
-    }
-    func activityViewController(_ activityViewController: UIActivityViewController, subjectForActivityType activityType: UIActivityType?) -> String {
-        return "My Certificate"
-    }
-    
-    func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivityType?) -> String {
-        return "com.netscape.javascript-​source"
-    }
-    
-}
 
 // MARK: Table View Controller overrides
 extension CertificateDetailViewController {
