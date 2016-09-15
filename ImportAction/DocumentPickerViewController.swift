@@ -10,21 +10,61 @@ import UIKit
 
 class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
     var certificates = [(URL, Certificate)]()
+    var incomingCertificate : Certificate?
+    
+    var fileCoordinator : NSFileCoordinator {
+        let fileCoordinator = NSFileCoordinator()
+        fileCoordinator.purposeIdentifier = self.providerIdentifier
+        return fileCoordinator
+    }
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var exportView: UIView!
+    @IBOutlet weak var successEmojiLabel: UILabel!
+    @IBOutlet weak var explanationLabel: UILabel!
+    @IBOutlet weak var confirmButton: UIButton!
 
-    @IBAction func openDocument(_ sender: AnyObject?) {
-        let documentURL = self.documentStorageURL!.appendingPathComponent("Untitled.txt")
+    override func prepareForPresentation(in mode: UIDocumentPickerMode) {
+        // We may not need to do this every time.
         
-        // TODO: if you do not have a corresponding file provider, you must ensure that the URL returned here is backed by a file
-        self.dismissGrantingAccess(to: documentURL)
+        switch mode {
+        case .exportToService, .moveToService:
+            successEmojiLabel.text = "⌛️"
+            explanationLabel.text = "Validating file..."
+            confirmButton.isHidden = true
+            validateCertificate(at: originalURL)
+        case .open, .import:
+            loadCertificates()
+            exportView.isHidden = true
+        }
+    }
+
+    @IBAction func confirmButtonTapped(_ sender: UIButton) {
+        guard let sourceURL = originalURL,
+            let certificate = incomingCertificate else {
+            return
+        }
+        
+        switch documentPickerMode {
+        case .moveToService, .exportToService:
+            let fileName = "\(certificate)".replacingOccurrences(of: "/", with: "_")
+            let certificateDirectory = URL(string: Paths.certificateDirectory)
+            let destinationURL = URL(fileURLWithPath: fileName, relativeTo: certificateDirectory)
+            fileCoordinator.coordinate(readingItemAt: sourceURL, options: .withoutChanges, error: nil, byAccessor: { (newURL) in
+                do {
+                    try FileManager.default.copyItem(at: sourceURL, to: destinationURL)
+                    self.dismissGrantingAccess(to: destinationURL)
+                } catch {
+                    print("Error copying \(sourceURL) to \(destinationURL)")
+                }
+            })
+
+        default:
+            dismiss(animated: true, completion: nil)
+        }
     }
     
-    override func prepareForPresentation(in mode: UIDocumentPickerMode) {
-        // TODO: present a view controller appropriate for picker mode here
-        loadCertificates()
-    }
-
     private func loadCertificates() {
         let documentsDirectory = Paths.certificateDirectory
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
@@ -41,6 +81,36 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
         }
         
         tableView.reloadData()
+
+    }
+    
+    private func validateCertificate(at url: URL?) {
+        guard let url = url else {
+            successEmojiLabel.text = "⛔"
+            explanationLabel.text = "No document provided."
+            return
+        }
+        
+        // TODO: Use the fileCoordinator before this access of the url here.
+        
+        var certificate : Certificate?
+        do {
+            let data = try Data(contentsOf: url)
+            certificate = CertificateParser.parse(data: data)
+        } catch {
+            certificate = nil
+        }
+
+        if certificate != nil {
+            successEmojiLabel.text = "✅"
+            explanationLabel.text = "This is a valid Certificate!"
+            confirmButton.isHidden = false
+            
+            incomingCertificate = certificate
+        } else {
+            successEmojiLabel.text = "⛔"
+            explanationLabel.text = "That file is not a valid certificate."
+        }
 
     }
 }
