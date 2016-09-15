@@ -43,8 +43,10 @@ extension IssuersViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)!
+        let issuer = issuers[indexPath.row]
         
-        cell.textLabel?.text = "Issuer #\(indexPath.row): \(issuers[indexPath.row])"
+        cell.textLabel?.text = issuer.name
+        cell.imageView?.image = UIImage(data: issuer.image)
         
         return cell
     }
