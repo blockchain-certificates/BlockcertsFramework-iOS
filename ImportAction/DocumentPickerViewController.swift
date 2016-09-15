@@ -9,7 +9,7 @@
 import UIKit
 
 class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
-    let certificates = [Certificate]()
+    var certificates = [(URL, Certificate)]()
     
     @IBOutlet weak var tableView: UITableView!
 
@@ -22,8 +22,27 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
     
     override func prepareForPresentation(in mode: UIDocumentPickerMode) {
         // TODO: present a view controller appropriate for picker mode here
+        loadCertificates()
     }
 
+    private func loadCertificates() {
+        let documentsDirectory = Paths.certificateDirectory
+        let directoryUrl = URL(fileURLWithPath: documentsDirectory)
+        let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
+        
+        certificates = filenames.flatMap { (filename) in
+            let fileURL = URL(fileURLWithPath: filename, relativeTo: directoryUrl)
+            guard let data = try? Data(contentsOf: fileURL),
+                let certificate = CertificateParser.parse(data: data) else {
+                    // Certificate is invalid. Don't load it.
+                    return nil
+            }
+            return (fileURL, certificate)
+        }
+        
+        tableView.reloadData()
+
+    }
 }
 
 extension DocumentPickerViewController : UITableViewDataSource {
@@ -33,7 +52,7 @@ extension DocumentPickerViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CertificateTableViewCell")!
-        let certificate = certificates[indexPath.row]
+        let (_, certificate) = certificates[indexPath.row]
         
         cell.textLabel?.text = certificate.title
         cell.detailTextLabel?.text = certificate.subtitle
@@ -45,8 +64,8 @@ extension DocumentPickerViewController : UITableViewDataSource {
 
 extension DocumentPickerViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let certificate = certificates[indexPath.row]
-        
-        print("Selected cert \(certificate)")
+        tableView.deselectRow(at: indexPath, animated: true)
+        let (fileURL, _) = certificates[indexPath.row]
+        self.dismissGrantingAccess(to: fileURL)
     }
 }

@@ -105,6 +105,10 @@
 		83DF83171D8B35F0006CA7AF /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF83151D8B35F0006CA7AF /* Receipt.swift */; };
 		83DF83181D8B35F0006CA7AF /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF83151D8B35F0006CA7AF /* Receipt.swift */; };
 		83DF83191D8B35F0006CA7AF /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF83151D8B35F0006CA7AF /* Receipt.swift */; };
+		83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
+		83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
+		83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
+		83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
 
@@ -236,6 +240,7 @@
 		83DF11BD1D88617B002E8921 /* TransactionDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDataHandler.swift; sourceTree = "<group>"; };
 		83DF11BE1D88617B002E8921 /* Verify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verify.swift; sourceTree = "<group>"; };
 		83DF83151D8B35F0006CA7AF /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		83DF831A1D8B3653006CA7AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -429,6 +434,7 @@
 			isa = PBXGroup;
 			children = (
 				83DF11B11D88617B002E8921 /* Assertion.swift */,
+				83DF831A1D8B3653006CA7AF /* Globals.swift */,
 				83DF11B21D88617B002E8921 /* Certificate.swift */,
 				83DF11B31D88617B002E8921 /* Issuer.swift */,
 				83DF11B41D88617B002E8921 /* Keychain.swift */,
@@ -860,6 +866,7 @@
 				832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */,
 				83DF83191D8B35F0006CA7AF /* Receipt.swift in Sources */,
 				836B0CFE1D8B339E00A90254 /* Issuer.swift in Sources */,
+				83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */,
 				836B0D011D8B339E00A90254 /* Verify.swift in Sources */,
 				836B0CFC1D8B338E00A90254 /* Certificate.swift in Sources */,
 				836B0D001D8B339E00A90254 /* Recipient.swift in Sources */,
@@ -898,6 +905,7 @@
 				836B0D071D8B33E700A90254 /* ReceiptVerifier.swift in Sources */,
 				836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				83DF11D71D88617B002E8921 /* CommonRequest.swift in Sources */,
+				83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */,
 				83DF11BF1D88617B002E8921 /* Assertion.swift in Sources */,
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				83DF11D11D88617B002E8921 /* CertificateRevocationRequest.swift in Sources */,
@@ -908,6 +916,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */,
 				83258E3C1D79E944002D78FC /* IssuerIntroductionRequestTests.swift in Sources */,
 				83DF11C61D88617B002E8921 /* Issuer.swift in Sources */,
 				3BDF6EAA1D75160E00EC005C /* ReceiptTests.swift in Sources */,
@@ -959,6 +968,7 @@
 				83CD9CDF1D788D1B0077D769 /* MockURLSession.swift in Sources */,
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
 				83DF11DC1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */,
+				83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */,
 				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				83DF11D01D88617B002E8921 /* Recipient.swift in Sources */,
 				83DF11DF1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */,

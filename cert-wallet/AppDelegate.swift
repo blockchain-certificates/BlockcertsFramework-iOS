@@ -8,40 +8,6 @@
 
 import UIKit
 
-enum NotificationNames {
-    static let allDataReset = Notification.Name(rawValue: "AllDataReset")
-}
-
-enum Paths {
-    static var certificateDirectory : String {
-        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-        
-        let appGroup = "group.org.blockcerts.cert-wallet"
-        guard let groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
-            return documentDirectory
-        }
-        
-        let certsDirectory = groupPath.appendingPathComponent("Certificates")
-        if !FileManager.default.fileExists(atPath: certsDirectory.path) {
-            do {
-                try FileManager.default.createDirectory(at: certsDirectory, withIntermediateDirectories: false, attributes: nil)
-            } catch {
-                return documentDirectory
-            }
-        }
-        
-        return certsDirectory.path
-    }
-    
-    static var issuerDirectory : String {
-        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-    }
-    
-    static var all : [String] {
-        return [certificateDirectory, issuerDirectory]
-    }
-}
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private let resetKey = "nukeItFromOrbit"
