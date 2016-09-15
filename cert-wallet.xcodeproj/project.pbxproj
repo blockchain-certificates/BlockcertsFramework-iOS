@@ -15,6 +15,11 @@
 		53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */; };
 		83258E351D78D8A7002D78FC /* IssuerCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */; };
 		83258E3C1D79E944002D78FC /* IssuerIntroductionRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */; };
+		832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BAE1D8B12D900BDCD59 /* DocumentPickerViewController.swift */; };
+		832A0BB21D8B12D900BDCD59 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 832A0BB01D8B12D900BDCD59 /* MainInterface.storyboard */; };
+		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
+		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		834910F11D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F21D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F31D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
@@ -106,6 +111,20 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		832A0BBF1D8B12D900BDCD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 832A0BB71D8B12D900BDCD59;
+			remoteInfo = ImportActionFileProvider;
+		};
+		832A0BC21D8B12D900BDCD59 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 832A0BA91D8B12D900BDCD59;
+			remoteInfo = ImportAction;
+		};
 		836A31BA1D5933D800943801 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 836A319B1D5933D800943801 /* Project object */;
@@ -122,6 +141,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		832A0BA51D8B129900BDCD59 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */,
+				832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC550FD5CE48EBC6F6DB6F5 /* Pods-cert-walletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -133,6 +167,15 @@
 		63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequestTests.swift; sourceTree = "<group>"; };
 		83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequestTests.swift; sourceTree = "<group>"; };
+		832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImportAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		832A0BAD1D8B12D900BDCD59 /* ImportAction.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportAction.entitlements; sourceTree = "<group>"; };
+		832A0BAE1D8B12D900BDCD59 /* DocumentPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerViewController.swift; sourceTree = "<group>"; };
+		832A0BB11D8B12D900BDCD59 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		832A0BB31D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImportActionFileProvider.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
+		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
+		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -191,6 +234,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		832A0BA71D8B12D900BDCD59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		832A0BB51D8B12D900BDCD59 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		836A31A01D5933D800943801 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -218,6 +275,43 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		832A0BAB1D8B12D900BDCD59 /* ImportAction */ = {
+			isa = PBXGroup;
+			children = (
+				832A0BAE1D8B12D900BDCD59 /* DocumentPickerViewController.swift */,
+				832A0BB01D8B12D900BDCD59 /* MainInterface.storyboard */,
+				832A0BB31D8B12D900BDCD59 /* Info.plist */,
+				832A0BAC1D8B12D900BDCD59 /* Supporting Files */,
+			);
+			path = ImportAction;
+			sourceTree = "<group>";
+		};
+		832A0BAC1D8B12D900BDCD59 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				832A0BAD1D8B12D900BDCD59 /* ImportAction.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		832A0BB91D8B12D900BDCD59 /* ImportActionFileProvider */ = {
+			isa = PBXGroup;
+			children = (
+				832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */,
+				832A0BBE1D8B12D900BDCD59 /* Info.plist */,
+				832A0BBA1D8B12D900BDCD59 /* Supporting Files */,
+			);
+			path = ImportActionFileProvider;
+			sourceTree = "<group>";
+		};
+		832A0BBA1D8B12D900BDCD59 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		834910F41D5E6DC900872DAE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,6 +345,8 @@
 				836A31A51D5933D800943801 /* cert-wallet */,
 				836A31BC1D5933D800943801 /* cert-walletTests */,
 				836A31C71D5933D800943801 /* cert-walletUITests */,
+				832A0BAB1D8B12D900BDCD59 /* ImportAction */,
+				832A0BB91D8B12D900BDCD59 /* ImportActionFileProvider */,
 				836A31A41D5933D800943801 /* Products */,
 				FB7ABE3E3FD88A725A13B911 /* Pods */,
 				BA06BCAA0680E083B5A63088 /* Frameworks */,
@@ -266,6 +362,8 @@
 				836A31A31D5933D800943801 /* cert-wallet.app */,
 				836A31B91D5933D800943801 /* cert-walletTests.xctest */,
 				836A31C41D5933D800943801 /* cert-walletUITests.xctest */,
+				832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */,
+				832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -380,6 +478,40 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		832A0BA91D8B12D900BDCD59 /* ImportAction */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 832A0BC81D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportAction" */;
+			buildPhases = (
+				832A0BA61D8B12D900BDCD59 /* Sources */,
+				832A0BA71D8B12D900BDCD59 /* Frameworks */,
+				832A0BA81D8B12D900BDCD59 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImportAction;
+			productName = ImportAction;
+			productReference = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 832A0BC51D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportActionFileProvider" */;
+			buildPhases = (
+				832A0BB41D8B12D900BDCD59 /* Sources */,
+				832A0BB51D8B12D900BDCD59 /* Frameworks */,
+				832A0BB61D8B12D900BDCD59 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ImportActionFileProvider;
+			productName = ImportActionFileProvider;
+			productReference = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		836A31A21D5933D800943801 /* cert-wallet */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 836A31CD1D5933D800943801 /* Build configuration list for PBXNativeTarget "cert-wallet" */;
@@ -390,11 +522,14 @@
 				836A31A11D5933D800943801 /* Resources */,
 				59A5AD2CEF282BC219BD888D /* [CP] Embed Pods Frameworks */,
 				D77F3CE64A7AE75236008630 /* [CP] Copy Pods Resources */,
+				832A0BA51D8B129900BDCD59 /* Embed App Extensions */,
 			);
 			buildRules = (
 				3BDF6E951D73F20A00EC005C /* PBXBuildRule */,
 			);
 			dependencies = (
+				832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */,
+				832A0BC31D8B12D900BDCD59 /* PBXTargetDependency */,
 			);
 			name = "cert-wallet";
 			productName = "cert-wallet";
@@ -453,12 +588,25 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Digital Certificates Project";
 				TargetAttributes = {
+					832A0BA91D8B12D900BDCD59 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CYEWR6MU44;
+						ProvisioningStyle = Automatic;
+					};
+					832A0BB71D8B12D900BDCD59 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CYEWR6MU44;
+						ProvisioningStyle = Automatic;
+					};
 					836A31A21D5933D800943801 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = CYEWR6MU44;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -496,11 +644,28 @@
 				836A31A21D5933D800943801 /* cert-wallet */,
 				836A31B81D5933D800943801 /* cert-walletTests */,
 				836A31C31D5933D800943801 /* cert-walletUITests */,
+				832A0BA91D8B12D900BDCD59 /* ImportAction */,
+				832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		832A0BA81D8B12D900BDCD59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832A0BB21D8B12D900BDCD59 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		832A0BB61D8B12D900BDCD59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		836A31A11D5933D800943801 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -676,6 +841,22 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		832A0BA61D8B12D900BDCD59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		832A0BB41D8B12D900BDCD59 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		836A319F1D5933D800943801 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -769,6 +950,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */;
+			targetProxy = 832A0BBF1D8B12D900BDCD59 /* PBXContainerItemProxy */;
+		};
+		832A0BC31D8B12D900BDCD59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 832A0BA91D8B12D900BDCD59 /* ImportAction */;
+			targetProxy = 832A0BC21D8B12D900BDCD59 /* PBXContainerItemProxy */;
+		};
 		836A31BB1D5933D800943801 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 836A31A21D5933D800943801 /* cert-wallet */;
@@ -782,6 +973,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		832A0BB01D8B12D900BDCD59 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				832A0BB11D8B12D900BDCD59 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		836A31AC1D5933D800943801 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -801,6 +1000,66 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		832A0BC61D8B12D900BDCD59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImportActionFileProvider/ImportActionFileProvider.entitlements;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = ImportActionFileProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.cert-wallet.ImportActionFileProvider";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		832A0BC71D8B12D900BDCD59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImportActionFileProvider/ImportActionFileProvider.entitlements;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = ImportActionFileProvider/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.cert-wallet.ImportActionFileProvider";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		832A0BC91D8B12D900BDCD59 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImportAction/ImportAction.entitlements;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = ImportAction/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.cert-wallet.ImportAction";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		832A0BCA1D8B12D900BDCD59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ImportAction/ImportAction.entitlements;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = ImportAction/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.cert-wallet.ImportAction";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		836A31CB1D5933D800943801 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -900,6 +1159,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "cert-wallet/cert-wallet.entitlements";
@@ -922,6 +1182,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4577D4DA579179516CE8C7E7 /* Pods-cert-wallet.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "cert-wallet/cert-wallet.entitlements";
@@ -1010,6 +1271,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		832A0BC51D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportActionFileProvider" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				832A0BC61D8B12D900BDCD59 /* Debug */,
+				832A0BC71D8B12D900BDCD59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		832A0BC81D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportAction" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				832A0BC91D8B12D900BDCD59 /* Debug */,
+				832A0BCA1D8B12D900BDCD59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		836A319E1D5933D800943801 /* Build configuration list for PBXProject "cert-wallet" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

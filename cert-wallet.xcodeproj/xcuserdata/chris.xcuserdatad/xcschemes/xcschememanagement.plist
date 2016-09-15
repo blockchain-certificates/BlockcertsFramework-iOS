@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>ImportAction.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
+		<key>ImportActionFileProvider.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 		<key>cert-wallet.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -12,6 +22,26 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>832A0B831D8B129800BDCD59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>832A0B911D8B129800BDCD59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>832A0BA91D8B12D900BDCD59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>832A0BB71D8B12D900BDCD59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>836A31A21D5933D800943801</key>
 		<dict>
 			<key>primary</key>
