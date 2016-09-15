@@ -437,7 +437,6 @@ private struct CertificateV1_2 : Certificate {
         
         switch fileType {
         case "IssuedCertificate":
-            print("issuedCert")
             let possibleCertificateData = certificateData["certificate"] as? [String: AnyObject]
             json = certificateData
             if (possibleCertificateData != nil) {

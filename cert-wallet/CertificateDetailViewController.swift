@@ -103,7 +103,6 @@ class CertificateDetailViewController: UITableViewController {
     
     @IBAction func shareButtonTapped(_ sender: UIBarButtonItem) {
         guard let certificate = certificate else {
-            print("Something's gone wrong")
             return
         }
         

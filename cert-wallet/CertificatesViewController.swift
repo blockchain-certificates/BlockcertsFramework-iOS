@@ -137,12 +137,7 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
         
         // At this point, data is totally a valid certificate. Let's save that to the documents directory.
         let filename = filenameFor(certificate: certificate)
-        let didSave = save(certificateData: data, withFilename: filename)
-        if didSave {
-            print("Save worked")
-        } else {
-            print("Save failed")
-        }
+        save(certificateData: data, withFilename: filename)
 
         // TODO: We should check and see if that cert is already in the array.
 
@@ -152,7 +147,7 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
         tableView.reloadData()
     }
     
-    func save(certificateData data: Data, withFilename filename: String) -> Bool {
+    @discardableResult func save(certificateData data: Data, withFilename filename: String) -> Bool {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         guard paths.count > 0 else {
             // TODO: How to handle being unable to find the document Directory

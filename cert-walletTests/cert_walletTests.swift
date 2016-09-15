@@ -31,7 +31,6 @@ class cert_walletTests: XCTestCase {
         let seedData = Data(count: 32)
         let expectedMnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
         let mnemonic = Keychain.generateSeedPhrase(withRandomData: seedData)
-        print("Got mnemonic: \(mnemonic)")
         
         XCTAssertTrue(mnemonic.characters.count > 0, "Mnemonic phrase should not be empty")
         XCTAssertEqual(mnemonic, expectedMnemonic, "0-seed should generate simple mnemonic phrase")

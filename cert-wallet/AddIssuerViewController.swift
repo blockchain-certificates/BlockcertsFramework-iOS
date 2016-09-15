@@ -133,7 +133,6 @@ class AddIssuerViewController: UIViewController {
                 if success {
                     DispatchQueue.main.async { callback?(issuer) }
                 } else {
-                    print("Issuer introduction failed with \(error)")
                     DispatchQueue.main.async { callback?(nil) }
                 }
             })
