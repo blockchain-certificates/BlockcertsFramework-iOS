@@ -12,24 +12,34 @@ enum NotificationNames {
     static let allDataReset = Notification.Name(rawValue: "AllDataReset")
 }
 
-func certificatesDirectoryPath() -> String {
-    let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-    
-    let appGroup = "group.org.blockcerts.cert-wallet"
-    guard let groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
-        return documentDirectory
-    }
-    
-    let certsDirectory = groupPath.appendingPathComponent("Certificates")
-    if !FileManager.default.fileExists(atPath: certsDirectory.path) {
-        do {
-            try FileManager.default.createDirectory(at: certsDirectory, withIntermediateDirectories: false, attributes: nil)
-        } catch {
+enum Paths {
+    static var certificateDirectory : String {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        
+        let appGroup = "group.org.blockcerts.cert-wallet"
+        guard let groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
             return documentDirectory
         }
+        
+        let certsDirectory = groupPath.appendingPathComponent("Certificates")
+        if !FileManager.default.fileExists(atPath: certsDirectory.path) {
+            do {
+                try FileManager.default.createDirectory(at: certsDirectory, withIntermediateDirectories: false, attributes: nil)
+            } catch {
+                return documentDirectory
+            }
+        }
+        
+        return certsDirectory.path
     }
     
-    return certsDirectory.absoluteString
+    static var issuerDirectory : String {
+        return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+    }
+    
+    static var all : [String] {
+        return [certificateDirectory, issuerDirectory]
+    }
 }
 
 @UIApplicationMain
@@ -80,20 +90,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Delete everything in the Documents directory
-        let documents = certificatesDirectoryPath()
-        do {
-            let allFiles = try FileManager.default.contentsOfDirectory(atPath: documents)
-            allFiles.forEach { (fileName) in
-                let filePath = "\(documents)/\(fileName)"
-             
-                do {
-                    try FileManager.default.removeItem(atPath: filePath)
-                } catch {
-                    print("Failed to delete \(fileName) at \(filePath)")
+        for path in Paths.all {
+            do {
+                let allFiles = try FileManager.default.contentsOfDirectory(atPath: path)
+                allFiles.forEach { (fileName) in
+                    let filePath = "\(path)/\(fileName)"
+                 
+                    do {
+                        try FileManager.default.removeItem(atPath: filePath)
+                    } catch {
+                        print("Failed to delete \(fileName) at \(filePath)")
+                    }
                 }
+            } catch {
+                print("Unable to reset state completely.")
             }
-        } catch {
-            print("Unable to reset state completely.")
         }
 
         Keychain.destroyShared()

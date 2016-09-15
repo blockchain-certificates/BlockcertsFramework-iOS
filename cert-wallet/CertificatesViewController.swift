@@ -69,8 +69,7 @@ class CertificatesViewController: UITableViewController {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
             let deletedCertificate : Certificate! = self?.certificates.remove(at: indexPath.row)
             
-            let documentsDirectoryPath = certificatesDirectoryPath()
-            let documentsDirectory = URL(fileURLWithPath: documentsDirectoryPath)
+            let documentsDirectory = URL(fileURLWithPath: Paths.certificateDirectory)
             let certificateFilename = self?.filenameFor(certificate: deletedCertificate) ?? ""
             let filePath = URL(fileURLWithPath: certificateFilename, relativeTo: documentsDirectory)
             do {
@@ -89,7 +88,7 @@ class CertificatesViewController: UITableViewController {
     }
     
     func loadCertificates() {
-        let documentsDirectory = certificatesDirectoryPath()
+        let documentsDirectory = Paths.certificateDirectory
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
         
@@ -143,7 +142,7 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
     }
     
     @discardableResult func save(certificateData data: Data, withFilename filename: String) -> Bool {
-        let documentsDirectory = certificatesDirectoryPath()
+        let documentsDirectory = Paths.certificateDirectory
         let filePath = "\(documentsDirectory)/\(filename)"
         if FileManager.default.fileExists(atPath: filePath) {
             print("File \(filename) already exists")
