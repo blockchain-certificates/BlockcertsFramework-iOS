@@ -202,7 +202,7 @@ private enum MethodsForV1_1 {
                          identity: identity,
                          identityType: identityType,
                          isHashed: hashed,
-                         publicKey: publicKey)
+                         publicAddress: publicKey)
     }
     
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
@@ -373,7 +373,7 @@ private enum MethodsForV1_2 {
                          identity: identity,
                          identityType: identityType,
                          isHashed: isHashed,
-                         publicKey: publicKey)
+                         publicAddress: publicKey)
 
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {

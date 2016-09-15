@@ -195,7 +195,7 @@ struct Issuer {
         var dictionary : [String: Any] = [
             "name": name,
             "email": email,
-            "image": String(data: image, encoding: .utf8)!,
+            "image": image.base64EncodedString(),
             "id": "\(id)",
             "url": "\(url)",
             "issuerKeys": serializedIssuerKeys,

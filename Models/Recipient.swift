@@ -26,5 +26,5 @@ struct Recipient {
     let isHashed : Bool
     
     /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
-    let publicKey : String
+    let publicAddress : String
 }

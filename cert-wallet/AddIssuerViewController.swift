@@ -41,9 +41,9 @@ class AddIssuerViewController: UIViewController {
                 return
         }
         
-        let newPublicKey = Keychain.shared.nextPublicKey()
+        let newPublicAddress = Keychain.shared.nextPublicAddress()
         
-        let recipient = Recipient(givenName: givenName, familyName: familyName, identity: email, identityType: "email", isHashed: false, publicKey: newPublicKey)
+        let recipient = Recipient(givenName: givenName, familyName: familyName, identity: email, identityType: "email", isHashed: false, publicAddress: newPublicAddress)
 
         createIssuer(from: issuerURL, for: recipient) { [weak self] (possibleIssuer) in
             if let issuer = possibleIssuer {

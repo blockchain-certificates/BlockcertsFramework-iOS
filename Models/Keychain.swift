@@ -40,11 +40,11 @@ class Keychain {
         accountKeychain = keychain.derivedKeychain(withPath: "m/44'/0'/0'")
     }
     
-    func nextPublicKey() -> String {
+    func nextPublicAddress() -> String {
         let key = accountKeychain.key(at: unusedKeyIndex)
         unusedKeyIndex += 1
         
-        return key?.publicKey.hex() ?? ""
+        return key?.address.string ?? ""
     }
     
     func has(publicKey : String) -> Bool {

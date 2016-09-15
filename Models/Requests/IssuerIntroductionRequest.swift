@@ -31,7 +31,7 @@ class IssuerIntroductionRequest : CommonRequest {
         }
         // Create JSON body
         let dataMap = [
-            "bitcoinAddress": recipient.publicKey,
+            "bitcoinAddress": recipient.publicAddress,
             "email": recipient.identity,
             "firstName": recipient.givenName,
             "lastName": recipient.familyName
@@ -44,6 +44,7 @@ class IssuerIntroductionRequest : CommonRequest {
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = data
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         currentTask = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,

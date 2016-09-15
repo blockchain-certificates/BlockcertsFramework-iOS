@@ -69,7 +69,7 @@ class CertificateV1_1Tests: XCTestCase {
         XCTAssertEqual(recipient.identity, "recipient@domain.com")
         XCTAssertEqual(recipient.identityType, "email")
         XCTAssertEqual(recipient.isHashed, false)
-        XCTAssertEqual(recipient.publicKey, "n1EduLzKsTL1pM8Roz9vEV16AQnBdg9JCx")
+        XCTAssertEqual(recipient.publicAddress, "n1EduLzKsTL1pM8Roz9vEV16AQnBdg9JCx")
     }
     
     func testImportAssertionProperties() {

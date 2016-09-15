@@ -37,16 +37,16 @@ class cert_walletTests: XCTestCase {
         XCTAssertEqual(mnemonic, expectedMnemonic, "0-seed should generate simple mnemonic phrase")
     }
     
-    func testKeychainKeyGeneration() {
+    func testKeychainAddressGeneration() {
         let seedPhrase = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
 
         let keychain = Keychain(seedPhrase: seedPhrase, unusedKeyIndex: 0)
         
-        let firstKey = keychain.nextPublicKey()
-        let secondKey = keychain.nextPublicKey()
+        let firstAddress = keychain.nextPublicAddress()
+        let secondAddress = keychain.nextPublicAddress()
         
-        XCTAssertEqual(firstKey, "03885da437c0c5b76d3afd29852acf78237d2341b8662cb2438e13d91845942764")
-        XCTAssertEqual(secondKey, "028b8f132faf5dbd659efdf80a5d18aa6b421f2f1e6d1f58dd57a4d3170688a306")
+        XCTAssertEqual(firstAddress, "1GJetgbaGvD3ztwF5bh8AKb2RCCkizxus")
+        XCTAssertEqual(secondAddress, "14YGtBBBxGdxkGN1XYM5yNPFAhy7TzGCMW")
     }
     
     func testKeychainSearch() {
