@@ -12,6 +12,11 @@ enum NotificationNames {
     static let allDataReset = Notification.Name(rawValue: "AllDataReset")
 }
 
+func certificatesDirectoryPath() -> String {
+    return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+//    FileManager.default.contentsOfDirectory
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private let resetKey = "nukeItFromOrbit"
@@ -60,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         // Delete everything in the Documents directory
-        let documents = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let documents = certificatesDirectoryPath()
         do {
             let allFiles = try FileManager.default.contentsOfDirectory(atPath: documents)
             allFiles.forEach { (fileName) in

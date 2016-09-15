@@ -69,7 +69,7 @@ class CertificatesViewController: UITableViewController {
         let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete") { [weak self] (action, indexPath) in
             let deletedCertificate : Certificate! = self?.certificates.remove(at: indexPath.row)
             
-            let documentsDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+            let documentsDirectoryPath = certificatesDirectoryPath()
             let documentsDirectory = URL(fileURLWithPath: documentsDirectoryPath)
             let certificateFilename = self?.filenameFor(certificate: deletedCertificate) ?? ""
             let filePath = URL(fileURLWithPath: certificateFilename, relativeTo: documentsDirectory)
@@ -89,12 +89,7 @@ class CertificatesViewController: UITableViewController {
     }
     
     func loadCertificates() {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        guard paths.count > 0 else {
-            // TODO: How to handle being unable to find the document Directory
-            return
-        }
-        let documentsDirectory = paths[0]
+        let documentsDirectory = certificatesDirectoryPath()
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
         
@@ -148,12 +143,7 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
     }
     
     @discardableResult func save(certificateData data: Data, withFilename filename: String) -> Bool {
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        guard paths.count > 0 else {
-            // TODO: How to handle being unable to find the document Directory
-            return false
-        }
-        let documentsDirectory = paths[0]
+        let documentsDirectory = certificatesDirectoryPath()
         let filePath = "\(documentsDirectory)/\(filename)"
         if FileManager.default.fileExists(atPath: filePath) {
             print("File \(filename) already exists")

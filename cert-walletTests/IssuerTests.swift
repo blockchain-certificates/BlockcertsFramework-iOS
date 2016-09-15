@@ -51,16 +51,16 @@ class IssuerTests: XCTestCase {
         let result = issuer.toDictionary()
         XCTAssertEqual(result["name"] as! String, nameValue)
         XCTAssertEqual(result["email"] as! String, emailValue)
-        XCTAssertEqual(result["image"] as! String, imageDataValue)
+        XCTAssertEqual(result["image"] as! String, "data:image/png;base64,\(imageDataValue)")
         XCTAssertEqual(result["id"] as! String, idValue)
         XCTAssertEqual(result["url"] as! String, urlValue)
         XCTAssertEqual(result["introductionURL"] as! String, introductionURLValue)
         
-        let issuerKeys = result["issuerKeys"] as! [[String: String]]
+        let issuerKeys = result["issuer_key"] as! [[String: String]]
         XCTAssertEqual(issuerKeys.count, 1)
         XCTAssertEqual(issuerKeys.first!, expectedIssuerKeys.first!)
         
-        let revocationKeys = result["revocationKeys"] as! [[String: String]]
+        let revocationKeys = result["revocation_key"] as! [[String: String]]
         XCTAssertEqual(revocationKeys.count, 1)
         XCTAssertEqual(revocationKeys.first!, expectedRevocationKeys.first!)
     }
