@@ -26,11 +26,12 @@ class IssuersViewController: UITableViewController {
     
     func saveIssuers() {
         let issuersCodingList: [[String : Any]] = issuers.map({ $0.toDictionary() })
-        NSKeyedArchiver.archiveRootObject(issuersCodingList, toFile: archiveURL.path)
+        let success = NSKeyedArchiver.archiveRootObject(issuersCodingList, toFile: archiveURL.path)
+        print("success: \(success)")
     }
     
     func loadIssuers() {
-        let codedIssuers : [[String : String]] = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? [[String: String]] ?? []
+        let codedIssuers = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? [[String: Any]] ?? []
         issuers = codedIssuers.flatMap({ Issuer(dictionary: $0) })
         tableView.reloadData()
     }

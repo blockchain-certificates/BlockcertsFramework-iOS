@@ -195,11 +195,11 @@ struct Issuer {
         var dictionary : [String: Any] = [
             "name": name,
             "email": email,
-            "image": image.base64EncodedString(),
+            "image": "data:image/png;base64,\(image.base64EncodedString())",
             "id": "\(id)",
             "url": "\(url)",
-            "issuerKeys": serializedIssuerKeys,
-            "revocationKeys": serializedRevocationKeys
+            "issuer_key": serializedIssuerKeys,
+            "revocation_key": serializedRevocationKeys
         ]
         if let introductionURL = introductionURL {
             dictionary["introductionURL"] = "\(introductionURL)"
