@@ -45,16 +45,23 @@ class AddIssuerViewController: UIViewController {
         
         let recipient = Recipient(givenName: givenName, familyName: familyName, identity: email, identityType: "email", isHashed: false, publicAddress: newPublicAddress)
 
+        
+        let alert = UIAlertController(title: "Adding issuer", message: "Contacting the Issuer at that URL...", preferredStyle: .alert)
+        present(alert, animated: true, completion: nil)
+        
         createIssuer(from: issuerURL, for: recipient) { [weak self] (possibleIssuer) in
             if let issuer = possibleIssuer {
                 self?.delegate?.created(issuer: issuer)
-                self?.dismiss(animated: true, completion: nil)
+                alert.dismiss(animated: true, completion: { 
+                    self?.dismiss(animated: true, completion: nil)
+                })
             } else {
-                let alertController = UIAlertController(title: "Failed to create the issuer", message: "Looks like there isn't a Blockchain Certificates issuer at this URL. Check the URL and try again", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self?.present(alertController, animated: true, completion: nil)
+                alert.title = "Failed to create the issuer"
+                alert.message = "Failed to introduce you to the issuer. Check the URL and try again"
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             }
         }
+
     }
     
     @IBAction func fieldChanged(_ sender: UITextField) {
