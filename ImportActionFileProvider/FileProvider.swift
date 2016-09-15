@@ -49,14 +49,12 @@ class FileProvider: NSFileProviderExtension {
     
     override func startProvidingItem(at url: URL, completionHandler: ((_ error: Error?) -> Void)?) {
         // Should ensure that the actual file is in the position returned by URLForItemWithIdentifier, then call the completion handler
-        
-        // TODO: get the contents of file at <url> from model
-        let fileData = NSData()
-        
         do {
+            // This is what the documentation says to do, but I can't understand why we'd read *then* write the URL. That data is already there!
+            let fileData = try Data(contentsOf: url)
             _ = try fileData.write(to: url, options: [])
         } catch {
-            // Handle error
+            // TODO: Handle error
         }
         
         completionHandler?(nil);

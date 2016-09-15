@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>ImportAction</string>
+	<string>BlockCerts Wallet</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -28,6 +28,7 @@
 			<array>
 				<string>UIDocumentPickerModeImport</string>
 				<string>UIDocumentPickerModeExportToService</string>
+				<string>UIDocumentPickerModeOpen</string>
 				<string>UIDocumentPickerModeMoveToService</string>
 			</array>
 			<key>UIDocumentPickerSupportedFileTypes</key>
