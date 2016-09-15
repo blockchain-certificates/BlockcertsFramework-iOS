@@ -13,8 +13,23 @@ enum NotificationNames {
 }
 
 func certificatesDirectoryPath() -> String {
-    return NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
-//    FileManager.default.contentsOfDirectory
+    let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+    
+    let appGroup = "group.org.blockcerts.cert-wallet"
+    guard let groupPath = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroup) else {
+        return documentDirectory
+    }
+    
+    let certsDirectory = groupPath.appendingPathComponent("Certificates")
+    if !FileManager.default.fileExists(atPath: certsDirectory.path) {
+        do {
+            try FileManager.default.createDirectory(at: certsDirectory, withIntermediateDirectories: false, attributes: nil)
+        } catch {
+            return documentDirectory
+        }
+    }
+    
+    return certsDirectory.absoluteString
 }
 
 @UIApplicationMain
