@@ -44,15 +44,13 @@
       "scale" : "3x"
     },
     {
-      "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "app-icon-ipad-1.png",
+      "size" : "20x20",
       "scale" : "1x"
     },
     {
-      "size" : "20x20",
       "idiom" : "ipad",
-      "filename" : "app-icon-ipad@2x-1.png",
+      "size" : "20x20",
       "scale" : "2x"
     },
     {
