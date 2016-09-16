@@ -110,7 +110,6 @@
 		83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF83381D8C6804006CA7AF /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF83371D8C6804006CA7AF /* ActionRequestHandler.swift */; };
-		83DF833A1D8C6804006CA7AF /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 83DF83391D8C6804006CA7AF /* Action.js */; };
 		83DF833E1D8C6804006CA7AF /* DownloadToCertWallet.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 83DF83351D8C6804006CA7AF /* DownloadToCertWallet.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
@@ -255,7 +254,6 @@
 		83DF831A1D8B3653006CA7AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		83DF83351D8C6804006CA7AF /* DownloadToCertWallet.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DownloadToCertWallet.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		83DF83371D8C6804006CA7AF /* ActionRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
-		83DF83391D8C6804006CA7AF /* Action.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		83DF833B1D8C6804006CA7AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -490,7 +488,6 @@
 			children = (
 				83C4A8B41D8C7E380012306D /* DownloadToCertWallet.entitlements */,
 				83DF83371D8C6804006CA7AF /* ActionRequestHandler.swift */,
-				83DF83391D8C6804006CA7AF /* Action.js */,
 				83DF833B1D8C6804006CA7AF /* Info.plist */,
 			);
 			path = DownloadToCertWallet;
@@ -786,7 +783,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83DF833A1D8C6804006CA7AF /* Action.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
