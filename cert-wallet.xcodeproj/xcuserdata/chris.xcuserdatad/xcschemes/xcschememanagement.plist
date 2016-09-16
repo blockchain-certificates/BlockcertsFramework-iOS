@@ -4,15 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>DownloadToCertWallet.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 		<key>ImportAction.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>13</integer>
+			<integer>11</integer>
 		</dict>
 		<key>ImportActionFileProvider.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>14</integer>
+			<integer>12</integer>
 		</dict>
 		<key>cert-wallet.xcscheme_^#shared#^_</key>
 		<dict>
@@ -53,6 +58,11 @@
 			<true/>
 		</dict>
 		<key>836A31C31D5933D800943801</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83DF83341D8C6804006CA7AF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
