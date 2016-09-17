@@ -338,23 +338,7 @@ private struct CertificateV1_1 : Certificate {
 // MARK: Certificate Version 1.2
 private enum MethodsForV1_2 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
-        guard let issuerData = issuerJSON as? [String : String],
-            let issuerURLString = issuerData["url"],
-            let issuerURL = URL(string: issuerURLString),
-            let logoURI = issuerData["image:logo"], // main difference from v1.1
-            let issuerEmail = issuerData["email"],
-            let issuerName = issuerData["name"],
-            let issuerId = issuerData["id"],
-            let issuerIdURL = URL(string: issuerId) else {
-                return nil
-        }
-        let logo = imageData(from: logoURI)
-        
-        return Issuer(name: issuerName,
-                      email: issuerEmail,
-                      image: logo,
-                      id: issuerIdURL,
-                      url: issuerURL)
+        return MethodsForV1_1.parse(issuerJSON: issuerJSON)
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
@@ -452,7 +436,7 @@ private struct CertificateV1_2 : Certificate {
         
         // Validate normal certificate data
         guard let title = certificateData["title"] as? String,
-            let certificateImageURI = certificateData["image:certificate"] as? String,
+            let certificateImageURI = certificateData["image"] as? String,
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),
             let description = certificateData["description"] as? String else {
