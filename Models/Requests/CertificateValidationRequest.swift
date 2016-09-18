@@ -212,9 +212,9 @@ class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Certificate didn't return valid JSON data from \(url)")
                 return
             }
-            guard let issuerKeys = json["issuer_key"] as? [[String : String]],
-                let revokationKeys = json["revocation_key"] as? [[String : String]] else {
-                    self?.state = .failure(reason: "Couldn't parse issuer_key or revokation_key from json: \n\(json)")
+            guard let issuerKeys = json["issuerKeys"] as? [[String : String]],
+                let revokationKeys = json["revocationKeys"] as? [[String : String]] else {
+                    self?.state = .failure(reason: "Couldn't parse issuerKeys or revokationKeys from json: \n\(json)")
                     return
             }
             guard let issuerKey = issuerKeys.first?["key"],
