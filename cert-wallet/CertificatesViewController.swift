@@ -40,11 +40,37 @@ class CertificatesViewController: UITableViewController {
 
 
     @IBAction func importTapped(_ sender: UIBarButtonItem) {
-        let controller = UIDocumentPickerViewController(documentTypes: ["public.content"], in: .import)
-        controller.delegate = self
-        controller.modalPresentationStyle = .formSheet
+        let whichImport = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        whichImport.addAction(UIAlertAction(title: "Import File", style: .default, handler: { (action) in
+            let controller = UIDocumentPickerViewController(documentTypes: ["public.json"], in: .import)
+            controller.delegate = self
+            controller.modalPresentationStyle = .formSheet
+            
+            self.present(controller, animated: true, completion: nil)
+        }))
         
-        present(controller, animated: true, completion: nil)
+        whichImport.addAction(UIAlertAction(title: "Import from URL", style: .default, handler: { (action) in
+            let urlPrompt = UIAlertController(title: nil, message: "Enter the URL to import from below", preferredStyle: .alert)
+            urlPrompt.addTextField(configurationHandler: { (textField) in
+                textField.placeholder = "URL"
+            })
+            
+            urlPrompt.addAction(UIAlertAction(title: "Import", style: .default, handler: { (_) in
+                guard let urlField = urlPrompt.textFields?.first,
+                    let trimmedText = urlField.text?.trimmingCharacters(in: CharacterSet.whitespaces),
+                    let url = URL(string: trimmedText) else {
+                    return
+                }
+
+                self.importCertificate(at: url)
+            }))
+
+            self.present(urlPrompt, animated: true, completion: nil)
+        }))
+        
+        whichImport.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(whichImport, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

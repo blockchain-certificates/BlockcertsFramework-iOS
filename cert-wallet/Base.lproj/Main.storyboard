@@ -254,7 +254,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Certificates" id="MQM-hu-Q0S">
-                        <barButtonItem key="rightBarButtonItem" title="Import" id="lBF-dv-lbs">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="lBF-dv-lbs">
                             <connections>
                                 <action selector="importTapped:" destination="CfM-7E-Px4" id="yBU-Zz-Ohm"/>
                             </connections>
