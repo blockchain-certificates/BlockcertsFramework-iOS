@@ -56,11 +56,11 @@ class IssuerTests: XCTestCase {
         XCTAssertEqual(result["url"] as! String, urlValue)
         XCTAssertEqual(result["introductionURL"] as! String, introductionURLValue)
         
-        let issuerKeys = result["issuer_key"] as! [[String: String]]
+        let issuerKeys = result["issuerKeys"] as! [[String: String]]
         XCTAssertEqual(issuerKeys.count, 1)
         XCTAssertEqual(issuerKeys.first!, expectedIssuerKeys.first!)
         
-        let revocationKeys = result["revocation_key"] as! [[String: String]]
+        let revocationKeys = result["revocationKeys"] as! [[String: String]]
         XCTAssertEqual(revocationKeys.count, 1)
         XCTAssertEqual(revocationKeys.first!, expectedRevocationKeys.first!)
     }
@@ -74,13 +74,13 @@ class IssuerTests: XCTestCase {
             "url": urlValue,
             "publicKey": publicKeyValue,
             "introductionURL": introductionURLValue,
-            "issuer_key": [
+            "issuerKeys": [
                 [
                     "date": dateFormatter.string(from: issuerKey.on),
                     "key": issuerKey.key
                 ]
             ],
-            "revocation_key": [
+            "revocationKeys": [
                 [
                     "date": dateFormatter.string(from: revocationKey.on),
                     "key": revocationKey.key
