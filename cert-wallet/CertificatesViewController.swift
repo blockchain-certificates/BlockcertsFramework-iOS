@@ -93,9 +93,18 @@ class CertificatesViewController: UITableViewController {
             // This is a developer failure. It means we sent the notification without a URL paylaod. No need to inform the user. 
             return
         }
-        
+        let existingCertificateCount = certificates.count
         importCertificate(at: fileURL)
         
+        if certificates.count > existingCertificateCount {
+            let lastRow = IndexPath(row: certificates.count - 1, section: 0)
+            tableView.selectRow(at: lastRow, animated: true, scrollPosition: .none)
+            performSegue(withIdentifier: detailSegueIdentifier, sender: nil)
+        } else {
+            let alertController = UIAlertController(title: "Import failed", message: "It doesn't look like that's a valid certificate", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        }
     }
     
     func importCertificate(at url: URL) {
