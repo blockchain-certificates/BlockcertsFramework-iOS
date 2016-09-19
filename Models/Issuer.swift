@@ -139,8 +139,8 @@ struct Issuer {
             self.introductionURL = nil
         }
         
-        guard let issuerKeyData = dictionary["issuer_key"] as? [[String: String]],
-            let revocationKeyData = dictionary["revocation_key"] as? [[String : String]] else {
+        guard let issuerKeyData = dictionary["issuerKeys"] as? [[String: String]],
+            let revocationKeyData = dictionary["revocationKeys"] as? [[String : String]] else {
                 return nil
         }
         
@@ -198,8 +198,8 @@ struct Issuer {
             "image": "data:image/png;base64,\(image.base64EncodedString())",
             "id": "\(id)",
             "url": "\(url)",
-            "issuer_key": serializedIssuerKeys,
-            "revocation_key": serializedRevocationKeys
+            "issuerKeys": serializedIssuerKeys,
+            "revocationKeys": serializedRevocationKeys
         ]
         if let introductionURL = introductionURL {
             dictionary["introductionURL"] = "\(introductionURL)"
