@@ -21,11 +21,6 @@ class CertificatesViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(loadCertificates), name: NotificationNames.allDataReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleImportNotification(_:)), name: NotificationNames.importCertificate, object: nil)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == detailSegueIdentifier {
@@ -72,7 +67,10 @@ class CertificatesViewController: UITableViewController {
         
         present(whichImport, animated: true, completion: nil)
     }
-    
+}
+
+// UITableViewDelegate
+extension CertificatesViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return certificates.count
     }
@@ -114,13 +112,19 @@ class CertificatesViewController: UITableViewController {
         return [ deleteAction ]
     }
     
+}
+
+// MARK - Import handling code.
+extension CertificatesViewController {
     func handleImportNotification(_ note: Notification) {
         guard let fileURL = note.object as? URL else {
             // This is a developer failure. It means we sent the notification without a URL paylaod. No need to inform the user. 
             return
         }
         let existingCertificateCount = certificates.count
-        importCertificate(at: fileURL)
+        let data = try? Data(contentsOf: fileURL)
+        
+        importCertificate(from: data)
         
         if certificates.count > existingCertificateCount {
             let lastRow = IndexPath(row: certificates.count - 1, section: 0)
@@ -133,8 +137,34 @@ class CertificatesViewController: UITableViewController {
         }
     }
     
+    /// Import from a URL. This may or may not be a known certificate, and we might need to send special query params in order to get it in the right JSON format.
+    ///
+    /// - parameter url: A URL where you hope a certificate resides.
     func importCertificate(at url: URL) {
-        guard let data = try? Data(contentsOf: url) else {
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        let formatQueryItem = URLQueryItem(name: "format", value: "json")
+        
+        if components?.queryItems == nil {
+            components?.queryItems = [
+                formatQueryItem
+            ]
+        } else {
+            components?.queryItems?.append(formatQueryItem)
+        }
+        
+        var data: Data? = nil
+        if let dataURL = components?.url {
+            data = try? Data(contentsOf: dataURL)
+        }
+        
+        importCertificate(from: data)
+    }
+    
+    /// This should be called when you're reasonably certain that `data` is a JSON file with Certificate data.
+    ///
+    /// - parameter data: JSON data representing the Certificate.
+    func importCertificate(from data: Data?) {
+        guard let data = data else {
             let alertController = UIAlertController(title: "Couldn't read file", message: "Something went wrong trying to open the file.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
                 alertController?.dismiss(animated: true, completion: nil)
@@ -142,7 +172,6 @@ class CertificatesViewController: UITableViewController {
             present(alertController, animated: true, completion: nil)
             return
         }
-        
         guard let certificate = CertificateParser.parse(data: data) else {
             let alertController = UIAlertController(title: "Invalid Certificate", message: "That doesn't appear to be a valid Certificate file.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
@@ -184,12 +213,6 @@ class CertificatesViewController: UITableViewController {
     func filenameFor(certificate : Certificate) -> String {
         return "\(certificate.id)".replacingOccurrences(of: "/", with: "_")
     }
-}
-
-extension CertificatesViewController : UIDocumentPickerDelegate {
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        importCertificate(at: url)
-    }
     
     @discardableResult func save(certificateData data: Data, withFilename filename: String) -> Bool {
         let documentsDirectory = Paths.certificateDirectory
@@ -202,5 +225,13 @@ extension CertificatesViewController : UIDocumentPickerDelegate {
             // TODO: What file attributes would be useful here?
             return FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
         }
+    }
+}
+
+extension CertificatesViewController : UIDocumentPickerDelegate {
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        let data = try? Data(contentsOf: url)
+        
+        importCertificate(from: data)
     }
 }
