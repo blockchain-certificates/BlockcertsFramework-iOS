@@ -10,6 +10,7 @@ import Foundation
 
 enum NotificationNames {
     static let allDataReset = Notification.Name(rawValue: "AllDataReset")
+    static let importCertificate = Notification.Name(rawValue: "OpenCertificateAtURL")
 }
 
 enum Paths {

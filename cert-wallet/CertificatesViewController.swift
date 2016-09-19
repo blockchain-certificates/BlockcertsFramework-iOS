@@ -19,6 +19,7 @@ class CertificatesViewController: UITableViewController {
         loadCertificates()
         
         NotificationCenter.default.addObserver(self, selector: #selector(loadCertificates), name: NotificationNames.allDataReset, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleImportNotification(_:)), name: NotificationNames.importCertificate, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,6 +88,47 @@ class CertificatesViewController: UITableViewController {
         return [ deleteAction ]
     }
     
+    func handleImportNotification(_ note: Notification) {
+        guard let fileURL = note.object as? URL else {
+            // This is a developer failure. It means we sent the notification without a URL paylaod. No need to inform the user. 
+            return
+        }
+        
+        importCertificate(at: fileURL)
+        
+    }
+    
+    func importCertificate(at url: URL) {
+        guard let data = try? Data(contentsOf: url) else {
+            let alertController = UIAlertController(title: "Couldn't read file", message: "Something went wrong trying to open the file.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
+                alertController?.dismiss(animated: true, completion: nil)
+                }))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        guard let certificate = CertificateParser.parse(data: data) else {
+            let alertController = UIAlertController(title: "Invalid Certificate", message: "That doesn't appear to be a valid Certificate file.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
+                alertController?.dismiss(animated: true, completion: nil)
+                }))
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
+        // At this point, data is totally a valid certificate. Let's save that to the documents directory.
+        let filename = filenameFor(certificate: certificate)
+        save(certificateData: data, withFilename: filename)
+        
+        // TODO: We should check and see if that cert is already in the array.
+        
+        certificates.append(certificate)
+        
+        // TODO: We should do an insert animation rather than a full table reload.
+        tableView.reloadData()
+    }
+
     func loadCertificates() {
         let documentsDirectory = Paths.certificateDirectory
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
@@ -111,34 +153,7 @@ class CertificatesViewController: UITableViewController {
 
 extension CertificatesViewController : UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        guard let data = try? Data(contentsOf: url) else {
-            let alertController = UIAlertController(title: "Couldn't read file", message: "Something went wrong trying to open the file.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
-                alertController?.dismiss(animated: true, completion: nil)
-            }))
-            present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-        guard let certificate = CertificateParser.parse(data: data) else {
-            let alertController = UIAlertController(title: "Invalid Certificate", message: "That doesn't appear to be a valid Certificate file.", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
-                alertController?.dismiss(animated: true, completion: nil)
-            }))
-            present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-        // At this point, data is totally a valid certificate. Let's save that to the documents directory.
-        let filename = filenameFor(certificate: certificate)
-        save(certificateData: data, withFilename: filename)
-
-        // TODO: We should check and see if that cert is already in the array.
-
-        certificates.append(certificate)
-        
-        // TODO: We should do an insert animation rather than a full table reload.
-        tableView.reloadData()
+        importCertificate(at: url)
     }
     
     @discardableResult func save(certificateData data: Data, withFilename filename: String) -> Bool {
