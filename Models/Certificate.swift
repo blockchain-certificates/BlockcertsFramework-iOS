@@ -457,15 +457,14 @@ private struct CertificateV1_2 : Certificate {
         guard let issuer = MethodsForV1_2.parse(issuerJSON: certificateData["issuer"]),
             let recipient = MethodsForV1_2.parse(recipientJSON: documentData["recipient"]),
             let assertion = MethodsForV1_2.parse(assertionJSON: documentData["assertion"]),
-            let verifyData = MethodsForV1_2.parse(verifyJSON: documentData["verify"]),
-            let receiptData = MethodsForV1_2.parse(receiptJSON: json["receipt"]) else {
+            let verifyData = MethodsForV1_2.parse(verifyJSON: documentData["verify"]) else {
                 return nil
         }
         self.issuer = issuer
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
-        self.receipt = receiptData
+        self.receipt = MethodsForV1_2.parse(receiptJSON: json["receipt"])
         self.signature = documentData["signature"] as? String
     }
 }
