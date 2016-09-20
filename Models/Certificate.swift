@@ -19,15 +19,28 @@ enum CertificateVersion {
 
 /// These are the errors that can be thrown during parsing:
 ///
-/// - notImplemented: This particular version of the parser hasn't been implemented. It's possible you're using the protocol directly rather than a concrete subclass.
-/// - genericError:   Something has gone wrong and I don't know exactly what
-/// - notValidJSON:   We were expecting JSON data, but it didn't pass deserialization
+/// - notImplemented:
+/// - genericError:
+/// - notValidJSON:
 /// - notSigned:      The format appears to be an unsigned certificate. This version of the parser doesn't recognize unsigned certificates.
+/// <#Description#>
+///
+/// - notImplemented:      This particular version of the parser hasn't been implemented. It's possible you're using the protocol directly rather than a concrete subclass.
+/// - genericError:        Something has gone wrong and I don't know exactly what
+///
+/// - notValidJSON:        We were expecting JSON data, but it didn't pass deserialization
+/// - notSigned:           This certificate isn't signed, and this certificate format version only validates signed certificates.
+/// - jsonLDError:         Problem in conforming to JSON LD format. http://json-ld.org
+/// - missingData:         A particular property was missing in the JSON data.
+/// - invalidData:         A property's value is invalid. For instance, a normal string when a URL should be present.
 enum CertificateParserError : Error {
     case notImplemented
     case genericError
     case notValidJSON
     case notSigned
+    case jsonLDError(description: String)
+    case missingData(description: String)
+    case invalidData(description: String)
 }
 
 /// CertificateParser should never be instantiated. Call one of its `parse` methods to turn a Data object into a Certificate.
@@ -444,35 +457,47 @@ private struct CertificateV1_2 : Certificate {
             throw CertificateParserError.notValidJSON
         }
         
-        guard let fileType = json["@type"] as? String,
-            var documentData = json["document"] as? [String: AnyObject],
-            var certificateData = documentData["certificate"] as? [String: AnyObject] else {
-                throw CertificateParserError.genericError
+        guard let fileType = json["@type"] as? String else {
+            throw CertificateParserError.jsonLDError(description: "Missing @type property")
+        }
+        guard var documentData = json["document"] as? [String: AnyObject] else {
+            throw CertificateParserError.missingData(description: "Missing root 'document' property.")
+        }
+        guard var certificateData = documentData["certificate"] as? [String: AnyObject] else {
+            throw CertificateParserError.missingData(description: "Missing 'document.certificate' property.")
         }
         
         switch fileType {
-        case "IssuedCertificate":
+        case "IssuedCertificate": // not sure this is valid anymore
             let possibleCertificateData = certificateData["certificate"] as? [String: AnyObject]
             json = certificateData
             if (possibleCertificateData != nil) {
                 certificateData = possibleCertificateData!
             } else {
-                throw CertificateParserError.genericError
+                throw CertificateParserError.missingData(description: "Missing 'document.certificate.certificate' property.")
             }
-        case "BlockchainCertificate": break // Nothing special to do in this case, as the normal validation is below.
+        case "BlockchainCertificate": break
         default:
-            throw CertificateParserError.genericError
+            throw CertificateParserError.jsonLDError(description: "Unknown file type \(fileType)")
         }
-        
         
         // Validate normal certificate data
-        guard let title = certificateData["title"] as? String,
-            let certificateImageURI = certificateData["image"] as? String,
-            let certificateIdString = certificateData["id"] as? String,
-            let certificateIdUrl = URL(string: certificateIdString),
-            let description = certificateData["description"] as? String else {
-                throw CertificateParserError.genericError
+        guard let title = certificateData["title"] as? String else {
+            throw CertificateParserError.missingData(description: "Missing certificate's title property.")
         }
+        guard let certificateImageURI = certificateData["image"] as? String else {
+            throw CertificateParserError.missingData(description: "Missing certificate's image property.")
+        }
+        guard let certificateIdString = certificateData["id"] as? String else {
+            throw CertificateParserError.missingData(description: "Missing certificate's id property.")
+        }
+        guard let description = certificateData["description"] as? String else {
+            throw CertificateParserError.missingData(description: "Missing certificate's description property.")
+        }
+        guard let certificateIdUrl = URL(string: certificateIdString) else {
+            throw CertificateParserError.invalidData(description: "Certificate ID should be a valid URL.")
+        }
+
         let certificateImage = imageData(from: certificateImageURI)
         let subtitle = certificateData["subtitle"] as? String
         
