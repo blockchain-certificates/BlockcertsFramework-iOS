@@ -43,7 +43,7 @@
 		836A31AE1D5933D800943801 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AC1D5933D800943801 /* Main.storyboard */; };
 		836A31B01D5933D800943801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AF1D5933D800943801 /* Assets.xcassets */; };
 		836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31B11D5933D800943801 /* LaunchScreen.storyboard */; };
-		836A31BE1D5933D800943801 /* cert_walletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31BD1D5933D800943801 /* cert_walletTests.swift */; };
+		836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31BD1D5933D800943801 /* KeychainTests.swift */; };
 		836B0CFC1D8B338E00A90254 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B21D88617B002E8921 /* Certificate.swift */; };
 		836B0CFD1D8B339E00A90254 /* Assertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B11D88617B002E8921 /* Assertion.swift */; };
 		836B0CFE1D8B339E00A90254 /* Issuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B31D88617B002E8921 /* Issuer.swift */; };
@@ -215,7 +215,7 @@
 		836A31B21D5933D800943801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		836A31B41D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836A31B91D5933D800943801 /* cert-walletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		836A31BD1D5933D800943801 /* cert_walletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = cert_walletTests.swift; sourceTree = "<group>"; };
+		836A31BD1D5933D800943801 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
 		836A31BF1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836A31C41D5933D800943801 /* cert-walletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -284,13 +284,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83DF83321D8C6804006CA7AF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +405,6 @@
 			isa = PBXGroup;
 			children = (
 				834F2EE71D624FCF008C9650 /* Resources */,
-				836A31BD1D5933D800943801 /* cert_walletTests.swift */,
 				835B62491D63C87200C95EB8 /* CertificateParserTests.swift */,
 				834F2EE51D624E80008C9650 /* CertificateV1_1Tests.swift */,
 				835B62471D63B39F00C95EB8 /* CertificateV1_2Tests.swift */,
@@ -421,10 +413,11 @@
 				8369CB0B1D6FA288006D603E /* IssuerTests.swift */,
 				83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */,
 				83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */,
+				836A31BD1D5933D800943801 /* KeychainTests.swift */,
 				834F2EE31D62280E008C9650 /* StringExtensions.swift */,
-				836A31BF1D5933D800943801 /* Info.plist */,
 				3BDF6EA91D75160E00EC005C /* ReceiptTests.swift */,
 				83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */,
+				836A31BF1D5933D800943801 /* Info.plist */,
 			);
 			path = "cert-walletTests";
 			sourceTree = "<group>";
@@ -554,7 +547,6 @@
 			dependencies = (
 				832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */,
 				832A0BC31D8B12D900BDCD59 /* PBXTargetDependency */,
-				83DF833D1D8C6804006CA7AF /* PBXTargetDependency */,
 			);
 			name = "cert-wallet";
 			productName = "cert-wallet";
@@ -651,16 +643,6 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 836A31A21D5933D800943801;
 					};
-					83DF83341D8C6804006CA7AF = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = CYEWR6MU44;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = 836A319E1D5933D800943801 /* Build configuration list for PBXProject "cert-wallet" */;
@@ -732,13 +714,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83DF83331D8C6804006CA7AF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,7 +926,7 @@
 				83DF11C91D88617B002E8921 /* Keychain.swift in Sources */,
 				83DF11E11D88617B002E8921 /* TransactionDataHandler.swift in Sources */,
 				836B0D081D8B33E700A90254 /* ReceiptVerifier.swift in Sources */,
-				836A31BE1D5933D800943801 /* cert_walletTests.swift in Sources */,
+				836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */,
 				83CD9CE11D788D480077D769 /* URLSession.swift in Sources */,
 				834910F21D5E6DC300872DAE /* String.swift in Sources */,
 				834F2EE41D62280E008C9650 /* StringExtensions.swift in Sources */,
@@ -999,13 +974,6 @@
 				83DF11DF1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */,
 				836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				83DF11E21D88617B002E8921 /* TransactionDataHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83DF83311D8C6804006CA7AF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,24 +9,7 @@
 import XCTest
 @testable import cert_wallet
 
-class cert_walletTests: XCTestCase {
-    
-    func testCertificateExport() {
-        // TODO: Fill out this test
-        // This should build a Certificate object, then export it to JSON and validate the expected output.
-    }
-    
-    func testCertificateVerify() {
-        // TODO: Fill out this test
-        // This should provide a few valid and invalid certificates. Validate each and compare the results with the expected.
-    }
-    
-    func testCertificateRevoke() {
-        // TODO: Fill out this test
-        // This should take valid & invalid certificates and revoke them. 
-        // Open question: how to mock out the HTTP requests that would spend the bitcoin to revoke it.
-    }
-    
+class KeychainTests: XCTestCase {
     func testKeychainSeedPhraseGeneration() {
         let seedData = Data(count: 32)
         let expectedMnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
