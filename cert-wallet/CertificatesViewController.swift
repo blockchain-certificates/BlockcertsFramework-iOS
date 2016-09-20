@@ -185,12 +185,12 @@ extension CertificatesViewController {
         let filename = filenameFor(certificate: certificate)
         save(certificateData: data, withFilename: filename)
         
-        // TODO: We should check and see if that cert is already in the array.
-        
-        certificates.append(certificate)
-        
-        // TODO: We should do an insert animation rather than a full table reload.
-        tableView.reloadData()
+        if !certificates.contains(where: { $0.id == certificate.id }) {
+            certificates.append(certificate)
+            
+            // TODO: We should do an insert animation rather than a full table reload.
+            tableView.reloadData()
+        }
     }
 
     func loadCertificates() {
