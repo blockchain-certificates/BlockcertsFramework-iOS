@@ -19,7 +19,7 @@ class CertificateRevocationRequestTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         
         let request = CertificateRevocationRequest(revoking: certificate!) { (success, error) in

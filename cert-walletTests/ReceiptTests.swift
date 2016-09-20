@@ -20,7 +20,7 @@ class ReceiptTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         XCTAssertEqual(certificate?.version, .oneDotTwo)
         

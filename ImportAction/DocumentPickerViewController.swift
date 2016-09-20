@@ -73,7 +73,7 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
         certificates = filenames.flatMap { (filename) in
             let fileURL = URL(fileURLWithPath: filename, relativeTo: directoryUrl)
             guard let data = try? Data(contentsOf: fileURL),
-                let certificate = CertificateParser.parse(data: data) else {
+                let certificate = try? CertificateParser.parse(data: data) else {
                     // Certificate is invalid. Don't load it.
                     return nil
             }
@@ -96,7 +96,7 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
         var certificate : Certificate?
         do {
             let data = try Data(contentsOf: url)
-            certificate = CertificateParser.parse(data: data)
+            certificate = try CertificateParser.parse(data: data)
         } catch {
             certificate = nil
         }

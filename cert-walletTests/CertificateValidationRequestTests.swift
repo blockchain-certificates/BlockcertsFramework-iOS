@@ -25,7 +25,7 @@ class CertificateValidationRequestTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         
         // Build mocked network request & response
@@ -63,7 +63,7 @@ class CertificateValidationRequestTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         
         // Build mocked network request & response
@@ -99,7 +99,7 @@ class CertificateValidationRequestTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         
         // Build mocked network request & response

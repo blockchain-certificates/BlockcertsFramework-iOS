@@ -36,7 +36,7 @@ class CertificateV1_2UnsignedTests: XCTestCase {
     func testImportProperties() {
         XCTAssertNotNil(file)
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -48,7 +48,7 @@ class CertificateV1_2UnsignedTests: XCTestCase {
     
     func testImportIssuerProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -62,7 +62,7 @@ class CertificateV1_2UnsignedTests: XCTestCase {
     
     func testImportRecipientProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -77,7 +77,7 @@ class CertificateV1_2UnsignedTests: XCTestCase {
     
     func testImportAssertionProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -91,7 +91,7 @@ class CertificateV1_2UnsignedTests: XCTestCase {
     
     func testImportVerifyProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -113,7 +113,7 @@ class CertificateV1_2UnsignedInvalidTests: XCTestCase {
                 return
         }
         
-        let cert = CertificateParser.parse(data: file)
+        let cert = try? CertificateParser.parse(data: file)
         
         XCTAssertNil(cert)
     }
@@ -140,7 +140,7 @@ class CertificateV1_2SignedTests: XCTestCase {
     func testImportProperties() {
         XCTAssertNotNil(file)
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -152,7 +152,7 @@ class CertificateV1_2SignedTests: XCTestCase {
     
     func testImportIssuerProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -166,7 +166,7 @@ class CertificateV1_2SignedTests: XCTestCase {
     
     func testImportRecipientProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -181,7 +181,7 @@ class CertificateV1_2SignedTests: XCTestCase {
     
     func testImportAssertionProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -195,7 +195,7 @@ class CertificateV1_2SignedTests: XCTestCase {
     
     func testImportVerifyProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }

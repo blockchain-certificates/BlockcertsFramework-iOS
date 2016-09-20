@@ -23,7 +23,7 @@ class CertificateParserTests: XCTestCase {
             return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         XCTAssertEqual(certificate?.version, .oneDotOne)
     }
@@ -35,7 +35,7 @@ class CertificateParserTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         XCTAssertEqual(certificate?.version, .oneDotOne)
     }
@@ -48,7 +48,7 @@ class CertificateParserTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNil(certificate)
     }
     
@@ -59,7 +59,7 @@ class CertificateParserTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         XCTAssertEqual(certificate?.version, .oneDotTwo)
     }
@@ -71,7 +71,7 @@ class CertificateParserTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file)
+        let certificate = try? CertificateParser.parse(data: file)
         XCTAssertNotNil(certificate)
         XCTAssertEqual(certificate?.version, .oneDotTwo)
     }
@@ -84,7 +84,7 @@ class CertificateParserTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file, asVersion: .oneDotTwo)
+        let certificate = try? CertificateParser.parse(data: file, asVersion: .oneDotTwo)
         XCTAssertNil(certificate)
     }
     
@@ -95,7 +95,7 @@ class CertificateParserTests: XCTestCase {
                 return
         }
         
-        let certificate = CertificateParser.parse(data: file, asVersion: .oneDotOne)
+        let certificate = try? CertificateParser.parse(data: file, asVersion: .oneDotOne)
         XCTAssertNil(certificate)
     }
 }

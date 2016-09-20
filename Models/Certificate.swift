@@ -17,6 +17,19 @@ enum CertificateVersion {
     case oneDotTwo
 }
 
+/// These are the errors that can be thrown during parsing:
+///
+/// - notImplemented: This particular version of the parser hasn't been implemented. It's possible you're using the protocol directly rather than a concrete subclass.
+/// - genericError:   Something has gone wrong and I don't know exactly what
+/// - notValidJSON:   We were expecting JSON data, but it didn't pass deserialization
+/// - notSigned:      The format appears to be an unsigned certificate. This version of the parser doesn't recognize unsigned certificates.
+enum CertificateParserError : Error {
+    case notImplemented
+    case genericError
+    case notValidJSON
+    case notSigned
+}
+
 /// CertificateParser should never be instantiated. Call one of its `parse` methods to turn a Data object into a Certificate.
 enum CertificateParser {
     /// This is the most general parse function. Pass it a data object representing the certificate, and it will
@@ -26,8 +39,8 @@ enum CertificateParser {
     /// - parameter data: A Data-representation of the Certificate. Usually, this is a JSON object.
     ///
     /// - returns: A certificate if the provided data passes any known version of the Certificate format. Nil otherwise.
-    static func parse(data: Data) -> Certificate? {
-        return CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
+    static func parse(data: Data) throws -> Certificate {
+        return try CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
     }
     
     /// This parses a data object as a specific version of the certificate format. Useful if you're expecting a 1.2
@@ -37,12 +50,12 @@ enum CertificateParser {
     /// - parameter version: Which version to parse the `data` parameter as.
     ///
     /// - returns: A Certificate if `data` is a valid Certificate at the specified version. Nil otherwise.
-    static func parse(data: Data, asVersion version: CertificateVersion) -> Certificate? {
+    static func parse(data: Data, asVersion version: CertificateVersion) throws -> Certificate {
         switch version {
         case .oneDotTwo:
-            return CertificateV1_2(data: data)
+            return try CertificateV1_2(data: data)
         case .oneDotOne:
-            return CertificateV1_1(data: data)
+            return try CertificateV1_1(data: data)
         }
     }
     
@@ -54,20 +67,38 @@ enum CertificateParser {
     /// - parameter version: The minimum version to parse `data` parameter as.
     ///
     /// - returns: A Certificate if `data` is a valid Certificate at the specified version or later. Nil otherwise.
-    static func parse(data: Data, withMinimumVersion version: CertificateVersion) -> Certificate? {
+    static func parse(data: Data, withMinimumVersion version: CertificateVersion) throws -> Certificate {
         var cert : Certificate?
+        var lastError : Error?
         switch version {
         case .oneDotOne:
             if cert == nil {
-                cert = CertificateV1_1(data: data)
+                do {
+                    cert = try CertificateV1_1(data: data)
+                } catch {
+                    cert = nil
+                    lastError = error
+                }
             }
             fallthrough
         case .oneDotTwo:
             if cert == nil {
-                cert = CertificateV1_2(data: data)
+                do {
+                    cert = try CertificateV1_2(data: data)
+                } catch {
+                    cert = nil
+                    lastError = error
+                }
             }
         }
-        return cert
+        
+        if cert != nil {
+            return cert!
+        } else if lastError != nil {
+            throw lastError!
+        } else {
+            throw CertificateParserError.genericError
+        }
     }
 }
 
@@ -128,8 +159,8 @@ protocol Certificate {
 // * Any version-specific or version-agnostic helper functions
 
 private extension Certificate {
-    init?(data: Data) {
-        return nil
+    init(data: Data) throws {
+        throw CertificateParserError.notImplemented
     }
 }
 
@@ -281,7 +312,7 @@ private struct CertificateV1_1 : Certificate {
     let verifyData : Verify
     let receipt: Receipt? = nil
     
-    init?(data: Data) {
+    init(data: Data) throws {
         self.file = data
         
         // Deserialize JSON
@@ -289,7 +320,7 @@ private struct CertificateV1_1 : Certificate {
         do {
             try json = JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
         } catch {
-            return nil
+            throw CertificateParserError.notValidJSON
         }
         
         // Get any key properties on the Certificate object
@@ -300,7 +331,7 @@ private struct CertificateV1_1 : Certificate {
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),
             let description = certificateData["description"] as? String else {
-            return nil
+            throw CertificateParserError.genericError
         }
         let certificateImage = imageData(from: certificateImageURI)
         var subtitle : String? = nil
@@ -325,7 +356,7 @@ private struct CertificateV1_1 : Certificate {
             let recipient = MethodsForV1_1.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV1_1.parse(assertionJSON: json["assertion"]),
             let verifyData = MethodsForV1_1.parse(verifyJSON: json["verify"]) else {
-                return nil
+                throw CertificateParserError.genericError
         }
         self.issuer = issuer
         self.recipient = recipient
@@ -402,7 +433,7 @@ private struct CertificateV1_2 : Certificate {
     
     let receipt : Receipt?
     
-    init?(data: Data) {
+    init(data: Data) throws {
         file = data
         
         // Deserialize JSON
@@ -410,13 +441,13 @@ private struct CertificateV1_2 : Certificate {
         do {
             try json = JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
         } catch {
-            return nil
+            throw CertificateParserError.notValidJSON
         }
         
         guard let fileType = json["@type"] as? String,
             var documentData = json["document"] as? [String: AnyObject],
             var certificateData = documentData["certificate"] as? [String: AnyObject] else {
-                return nil
+                throw CertificateParserError.genericError
         }
         
         switch fileType {
@@ -426,11 +457,11 @@ private struct CertificateV1_2 : Certificate {
             if (possibleCertificateData != nil) {
                 certificateData = possibleCertificateData!
             } else {
-                return nil
+                throw CertificateParserError.genericError
             }
         case "BlockchainCertificate": break // Nothing special to do in this case, as the normal validation is below.
         default:
-            return nil
+            throw CertificateParserError.genericError
         }
         
         
@@ -440,7 +471,7 @@ private struct CertificateV1_2 : Certificate {
             let certificateIdString = certificateData["id"] as? String,
             let certificateIdUrl = URL(string: certificateIdString),
             let description = certificateData["description"] as? String else {
-                return nil
+                throw CertificateParserError.genericError
         }
         let certificateImage = imageData(from: certificateImageURI)
         let subtitle = certificateData["subtitle"] as? String
@@ -459,7 +490,7 @@ private struct CertificateV1_2 : Certificate {
             let assertion = MethodsForV1_2.parse(assertionJSON: documentData["assertion"]),
             let verifyData = MethodsForV1_2.parse(verifyJSON: documentData["verify"]),
             let receiptData = MethodsForV1_2.parse(receiptJSON: json["receipt"]) else {
-                return nil
+                throw CertificateParserError.genericError
         }
         self.issuer = issuer
         self.recipient = recipient

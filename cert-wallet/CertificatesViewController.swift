@@ -172,7 +172,7 @@ extension CertificatesViewController {
             present(alertController, animated: true, completion: nil)
             return
         }
-        guard let certificate = CertificateParser.parse(data: data) else {
+        guard let certificate = try? CertificateParser.parse(data: data) else {
             let alertController = UIAlertController(title: "Invalid Certificate", message: "That doesn't appear to be a valid Certificate file.", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] action in
                 alertController?.dismiss(animated: true, completion: nil)
@@ -200,7 +200,7 @@ extension CertificatesViewController {
         
         certificates = filenames.flatMap { (filename) in
             guard let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
-                let certificate = CertificateParser.parse(data: data) else {
+                let certificate = try? CertificateParser.parse(data: data) else {
                     // Certificate is invalid. Don't load it.
                     return nil
             }

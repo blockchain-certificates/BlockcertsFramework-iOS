@@ -33,7 +33,7 @@ class CertificateV1_1Tests: XCTestCase {
     func testImportProperties() {
         XCTAssertNotNil(file)
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -45,7 +45,7 @@ class CertificateV1_1Tests: XCTestCase {
     
     func testImportIssuerProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -59,7 +59,7 @@ class CertificateV1_1Tests: XCTestCase {
     
     func testImportRecipientProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -74,7 +74,7 @@ class CertificateV1_1Tests: XCTestCase {
     
     func testImportAssertionProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
@@ -88,7 +88,7 @@ class CertificateV1_1Tests: XCTestCase {
     
     func testImportVerifyProperties() {
         guard let file = file,
-            let cert = CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
+            let cert = try? CertificateParser.parse(data: file, asVersion: .oneDotOne) else {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
