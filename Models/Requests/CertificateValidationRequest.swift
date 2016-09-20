@@ -21,7 +21,7 @@ enum ValidationState {
     case computingLocalHash, fetchingRemoteHash, comparingHashes, checkingIssuerSignature, checkingRevokedStatus
     case success
     case failure(reason : String)
-    // TODO: these are v1.2
+    // these are v1.2
     case checkingReceipt, checkingMerkleRoot
 }
 
@@ -127,11 +127,11 @@ class CertificateValidationRequest : CommonRequest {
         if certificate.version == .oneDotOne {
             self.localHash = sha256(data: certificate.file)
         } else {
-            /**
-             * TODO!! the local hash is computed differently in v2, but I can't find swift json ld libraries to support this.
-             * When available, this needs to be replaced with a call to jsonld.normalize(cert["document"]) and then hash
-             */
-            // TODO: implement behavior in comments when json ld libraries are available for swift
+            // Issue 14: 
+            // The local hash is computed differently in v2, but I can't find swift json ld libraries to support this.
+            // When available, this needs to be replaced with a call to jsonld.normalize(cert["document"]) and then hash
+            //
+            // https://github.com/blockchain-certificates/cert-wallet/issues/14
         }
         state = .fetchingRemoteHash
     }
@@ -187,8 +187,10 @@ class CertificateValidationRequest : CommonRequest {
             }
             state = .checkingIssuerSignature
         } else {
+            // Issue 14:
+            // https://github.com/blockchain-certificates/cert-wallet/issues/14
             /**
-             * TODO!! see above comment about json ld library
+             * See above comment about json ld library
              * Override v1 compareHashes comparison.
              *
              * Compare local hash to targetHash in receipt.
