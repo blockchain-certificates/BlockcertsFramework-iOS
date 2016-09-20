@@ -20,6 +20,16 @@
 		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8331A7DD1D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
+		8331A7DE1D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
+		8331A7DF1D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
+		8331A7E01D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
+		8331A7E11D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
+		8331A7E31D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
+		8331A7E41D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
+		8331A7E51D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
+		8331A7E61D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
+		8331A7E71D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
 		834910F11D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F21D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
 		834910F31D5E6DC300872DAE /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834910F01D5E6DC300872DAE /* String.swift */; };
@@ -189,6 +199,8 @@
 		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8331A7DC1D91FCF900D92610 /* jsonld.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsonld.js; sourceTree = "<group>"; };
+		8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLDValidator.swift; sourceTree = "<group>"; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -327,6 +339,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8331A7DB1D91FCF900D92610 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				8331A7DC1D91FCF900D92610 /* jsonld.js */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
 		834910F41D5E6DC900872DAE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +377,7 @@
 				83DF11B01D88617B002E8921 /* Models */,
 				83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */,
 				834910F41D5E6DC900872DAE /* Extensions */,
+				8331A7DB1D91FCF900D92610 /* External */,
 				836A31A51D5933D800943801 /* cert-wallet */,
 				836A31BC1D5933D800943801 /* cert-walletTests */,
 				836A31C71D5933D800943801 /* cert-walletUITests */,
@@ -393,6 +414,7 @@
 				836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */,
 				836A31AA1D5933D800943801 /* CertificatesViewController.swift */,
 				835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */,
+				8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */,
 				836A31AC1D5933D800943801 /* Main.storyboard */,
 				836A31AF1D5933D800943801 /* Assets.xcassets */,
 				836A31B11D5933D800943801 /* LaunchScreen.storyboard */,
@@ -672,6 +694,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8331A7E01D91FCF900D92610 /* jsonld.js in Resources */,
 				832A0BB21D8B12D900BDCD59 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -680,6 +703,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8331A7E11D91FCF900D92610 /* jsonld.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -687,6 +711,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8331A7DD1D91FCF900D92610 /* jsonld.js in Resources */,
 				83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 				836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */,
 				8369CB141D70D02C006D603E /* Settings.bundle in Resources */,
@@ -705,6 +730,7 @@
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
+				8331A7DE1D91FCF900D92610 /* jsonld.js in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -713,6 +739,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8331A7DF1D91FCF900D92610 /* jsonld.js in Resources */,
 				83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,6 +892,7 @@
 				836B0CFD1D8B339E00A90254 /* Assertion.swift in Sources */,
 				832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */,
 				83DF83191D8B35F0006CA7AF /* Receipt.swift in Sources */,
+				8331A7E61D91FD4400D92610 /* JSONLDValidator.swift in Sources */,
 				836B0CFE1D8B339E00A90254 /* Issuer.swift in Sources */,
 				83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */,
 				836B0D011D8B339E00A90254 /* Verify.swift in Sources */,
@@ -877,6 +905,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8331A7E71D91FD4400D92610 /* JSONLDValidator.swift in Sources */,
 				832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -905,6 +934,7 @@
 				836B0D071D8B33E700A90254 /* ReceiptVerifier.swift in Sources */,
 				836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				83DF11D71D88617B002E8921 /* CommonRequest.swift in Sources */,
+				8331A7E31D91FD4400D92610 /* JSONLDValidator.swift in Sources */,
 				83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */,
 				83DF11BF1D88617B002E8921 /* Assertion.swift in Sources */,
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
@@ -916,6 +946,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8331A7E41D91FD4400D92610 /* JSONLDValidator.swift in Sources */,
 				83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */,
 				83258E3C1D79E944002D78FC /* IssuerIntroductionRequestTests.swift in Sources */,
 				83DF11C61D88617B002E8921 /* Issuer.swift in Sources */,
@@ -965,6 +996,7 @@
 				83DF11D61D88617B002E8921 /* CertificateValidationRequest.swift in Sources */,
 				83DF11CA1D88617B002E8921 /* Keychain.swift in Sources */,
 				83CD9CE21D788D480077D769 /* URLSession.swift in Sources */,
+				8331A7E51D91FD4400D92610 /* JSONLDValidator.swift in Sources */,
 				83CD9CDF1D788D1B0077D769 /* MockURLSession.swift in Sources */,
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
 				83DF11DC1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */,
