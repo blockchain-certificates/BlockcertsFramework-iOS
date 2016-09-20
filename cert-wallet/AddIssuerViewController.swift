@@ -101,9 +101,10 @@ class AddIssuerViewController: UIViewController {
     }
     
     private func isLastNameValid() -> Bool {
-        guard let nameString = lastNameField.text else {
+        guard var nameString = lastNameField.text else {
             return false
         }
+        nameString = nameString.trimmingCharacters(in: .whitespaces)
         guard nameString.characters.count > 0 else {
             return false
         }
@@ -111,14 +112,20 @@ class AddIssuerViewController: UIViewController {
     }
     
     private func isEmailAddressValid() -> Bool {
-        guard let nameString = emailAddressField.text else {
+        guard var emailString = emailAddressField.text else {
             return false
         }
-        guard nameString.characters.count > 0 else {
+        emailString = emailString.trimmingCharacters(in: .whitespaces)
+        guard emailString.characters.count > 0 else {
             return false
         }
-        // TODO: Check that this is a valid email.
-        return true
+        
+        // Check that this is a valid email.
+        let emailRegex = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b"
+        let regex = try! NSRegularExpression(pattern: emailRegex, options: [.caseInsensitive])
+        let range = NSRange(location: 0, length: emailString.characters.count)
+        
+        return nil != regex.firstMatch(in: emailString, options: [], range: range)
     }
     
     // MARK: - Contacting the issuer
