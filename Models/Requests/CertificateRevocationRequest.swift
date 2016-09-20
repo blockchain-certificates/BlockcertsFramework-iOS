@@ -19,7 +19,8 @@ class CertificateRevocationRequest : CommonRequest {
     }
     
     func start() {
-        // TODO: This should actually do something
+        // Issue #16: The revocation request should actually revoke the certificate.
+        // https://github.com/blockchain-certificates/cert-wallet/issues/16
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
             self?.reportFailure("Not implemented")
         }

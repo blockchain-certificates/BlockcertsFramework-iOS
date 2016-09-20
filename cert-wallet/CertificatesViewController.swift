@@ -188,7 +188,8 @@ extension CertificatesViewController {
         if !certificates.contains(where: { $0.id == certificate.id }) {
             certificates.append(certificate)
             
-            // TODO: We should do an insert animation rather than a full table reload.
+            // Issue #20: We should do an insert animation rather than a full table reload.
+            // https://github.com/blockchain-certificates/cert-wallet/issues/20
             tableView.reloadData()
         }
     }
@@ -214,16 +215,21 @@ extension CertificatesViewController {
         return "\(certificate.id)".replacingOccurrences(of: "/", with: "_")
     }
     
+    /// Saves the certificate data to the specified file name. If the file already exists, then data is not overwritten. In theory, since all certificates have unique IDs, then writing data to disk that's already there.
+    ///
+    /// - parameter data:     Data to write to disk. This *should* be the JSON-encoded data for a certificate
+    /// - parameter filename: The filename to write the data to.
+    ///
+    /// - returns: True if the write succeeds. False otherwise.
     @discardableResult func save(certificateData data: Data, withFilename filename: String) -> Bool {
         let documentsDirectory = Paths.certificateDirectory
         let filePath = "\(documentsDirectory)/\(filename)"
         if FileManager.default.fileExists(atPath: filePath) {
             print("File \(filename) already exists")
-            // TODO: Should we make a copy? Check if it's equal?
             return false
         } else {
             // TODO: What file attributes would be useful here?
-            return FileManager.default.createFile(atPath: filePath, contents: data, attributes: nil)
+            return FileManager.default.createFile(atPath: filePath, contents: data, attributes: [ FileAttributeKey.immutable.rawValue : true ])
         }
     }
 }
