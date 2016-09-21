@@ -49,10 +49,10 @@ class CertificateV1_2SignedTests: XCTestCase {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
-        XCTAssertEqual(cert.title, "Certificate title")
-        XCTAssertEqual(cert.subtitle, "2016")
-        XCTAssertEqual(cert.description, "Certificate description")
-        XCTAssertEqual(cert.id, URL(string: "https://www.theissuer.edu/criteria/2016/05/certificate-type.json"))
+        XCTAssertEqual(cert.title, "Game of Thrones Character")
+        XCTAssertEqual(cert.subtitle, nil)
+        XCTAssertEqual(cert.description, "This certifies that the named character is an official Game of Thrones character.")
+        XCTAssertEqual(cert.id, URL(string: "http://certificates.gamoeofthronesxyz.org/criteria/2016/08/got.json"))
     }
     
     func testImportIssuerProperties() {
@@ -65,8 +65,8 @@ class CertificateV1_2SignedTests: XCTestCase {
         
         XCTAssertEqual(issuer.name, "Game of thrones issuer")
         XCTAssertEqual(issuer.email, "fakeEmail@gamoeofthronesxyz.org")
-        XCTAssertEqual(issuer.id, URL(string: "https://www.theissuer.edu/issuer/the-issuer.json"))
-        XCTAssertEqual(issuer.url, URL(string: "http://www.theissuer.edu"))
+        XCTAssertEqual(issuer.id, URL(string: "http://www.blockcerts.org/mockissuer/issuer/got-issuer.json"))
+        XCTAssertEqual(issuer.url, URL(string: "http://www.blockcerts.org/mockissuer/"))
     }
     
     func testImportRecipientProperties() {
@@ -93,9 +93,9 @@ class CertificateV1_2SignedTests: XCTestCase {
         let assertion = cert.assertion
         
 //        XCTAssertEqual(assertion.issuedOn, Date(timeIntervalSinceReferenceDate: 485978400))
-        XCTAssertEqual(assertion.evidence, "https://www.theissuer.edu/issuer/the-issuer.json")
-        XCTAssertEqual(assertion.uid, "68656c6c6f636f6d7077ffff")
-        XCTAssertEqual(assertion.id, URL(string: "http://www.theissuer.edu/68656c6c6f636f6d7077ffff"))
+        XCTAssertEqual(assertion.evidence, "")
+        XCTAssertEqual(assertion.uid, "4119a68e-e31a-4508-8b07-3bf9ab968089")
+        XCTAssertEqual(assertion.id, URL(string: "http://certificates.gamoeofthronesxyz.org/4119a68e-e31a-4508-8b07-3bf9ab968089"))
     }
     
     func testImportVerifyProperties() {
@@ -108,6 +108,6 @@ class CertificateV1_2SignedTests: XCTestCase {
         
         XCTAssertEqual(verifyData.type, "ECDSA(secp256k1)")
         XCTAssertEqual(verifyData.signedAttribute, "uid")
-        XCTAssertEqual(verifyData.signer, URL(string: "https://www.theissuer.edu/keys/signing-public-key.asc"))
+        XCTAssertEqual(verifyData.signer, URL(string: "http://www.blockcerts.org/mockissuer/keys/got_public_key.asc"))
     }
 }
