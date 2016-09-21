@@ -17,8 +17,7 @@ class ReceiptVerifier {
      :return:
      */
     func validate(receipt : Receipt, chain: String) -> Bool {
-        
-        if receipt.proof == nil {
+        guard let proof = receipt.proof else {
             // no siblings, single item tree, so the hash should also be the root
             return receipt.targetHash == receipt.merkleRoot
         }
@@ -27,16 +26,18 @@ class ReceiptVerifier {
         let merkleRoot = receipt.merkleRoot.asHexData()
         
         var proofHash = targetHash
-        for x in receipt.proof! {
-            if let xLeft : String? = x["left"] as? String? {
-                let xLeftBuffer = xLeft?.asHexData()
+        for x in proof {
+            if let xLeft = x["left"] as? String {
+                let xLeftBuffer = xLeft.asHexData()
                 let appendedBuffer = xLeftBuffer! + proofHash!
                 proofHash = sha256(data: appendedBuffer)
-            } else {
-                let xRight : String? = (x["right"] as? String?)!
-                let xRightBuffer = xRight?.asHexData()
+            } else if let xRight = x["right"] as? String {
+                let xRightBuffer = xRight.asHexData()
                 let appendedBuffer = proofHash! + xRightBuffer!
                 proofHash = sha256(data: appendedBuffer)
+            } else {
+                print("Not sure what to do here.")
+                break;
             }
         }
         return proofHash == merkleRoot
