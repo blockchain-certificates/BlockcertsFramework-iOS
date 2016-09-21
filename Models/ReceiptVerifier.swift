@@ -22,24 +22,32 @@ class ReceiptVerifier {
             return receipt.targetHash == receipt.merkleRoot
         }
         
-        let targetHash = receipt.targetHash.asHexData()
-        let merkleRoot = receipt.merkleRoot.asHexData()
+        guard let targetHash = receipt.targetHash.asHexData(),
+            let merkleRoot = receipt.merkleRoot.asHexData() else {
+                // Receipt's target hash and merkle root should both be hex strings.
+                return false
+        }
         
         var proofHash = targetHash
         for x in proof {
-            if let xLeft = x["left"] as? String {
-                let xLeftBuffer = xLeft.asHexData()
-                let appendedBuffer = xLeftBuffer! + proofHash!
+            if let xLeft = x["left"] as? String,
+                let xLeftBuffer = xLeft.asHexData() {
+                let appendedBuffer = xLeftBuffer + proofHash
                 proofHash = sha256(data: appendedBuffer)
-            } else if let xRight = x["right"] as? String {
-                let xRightBuffer = xRight.asHexData()
-                let appendedBuffer = proofHash! + xRightBuffer!
+            } else if let xRight = x["right"] as? String,
+                let xRightBuffer = xRight.asHexData() {
+                let appendedBuffer = proofHash + xRightBuffer
                 proofHash = sha256(data: appendedBuffer)
             } else {
-                print("Not sure what to do here.")
-                break;
+                // Either:
+                // 1. There's no left or right key.
+                // 2. There is, but it's not properly formatted hex data.
+                //
+                // In either case, we can't correctly compute the hash. This receipt is clearly invalid.
+                return false
             }
         }
+        
         return proofHash == merkleRoot
     }
 }
