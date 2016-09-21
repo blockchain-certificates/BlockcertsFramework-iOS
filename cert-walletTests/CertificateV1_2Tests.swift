@@ -158,8 +158,8 @@ class CertificateV1_2SignedTests: XCTestCase {
         }
         let issuer = cert.issuer
         
-        XCTAssertEqual(issuer.name, "Issuing Institution")
-        XCTAssertEqual(issuer.email, "issuer@theissuer.edu")
+        XCTAssertEqual(issuer.name, "Game of thrones issuer")
+        XCTAssertEqual(issuer.email, "fakeEmail@gamoeofthronesxyz.org")
         XCTAssertEqual(issuer.id, URL(string: "https://www.theissuer.edu/issuer/the-issuer.json"))
         XCTAssertEqual(issuer.url, URL(string: "http://www.theissuer.edu"))
     }
@@ -171,12 +171,12 @@ class CertificateV1_2SignedTests: XCTestCase {
                 return
         }
         let recipient = cert.recipient
-        XCTAssertEqual(recipient.givenName, "RecipientFirstName")
-        XCTAssertEqual(recipient.familyName, "RecipientLastName")
-        XCTAssertEqual(recipient.identity, "recipient@domain.com")
+        XCTAssertEqual(recipient.givenName, "Arya")
+        XCTAssertEqual(recipient.familyName, "Stark")
+        XCTAssertEqual(recipient.identity, "aryaxyz@starkxyz.com")
         XCTAssertEqual(recipient.identityType, "email")
         XCTAssertEqual(recipient.isHashed, false)
-        XCTAssertEqual(recipient.publicAddress, "n1EduLzKsTL1pM8Roz9vEV16AQnBdg9JCx")
+        XCTAssertEqual(recipient.publicAddress, "mgCNaPM3TFhh8Yn6U6VcEM9jWLhQbizy1x")
     }
     
     func testImportAssertionProperties() {

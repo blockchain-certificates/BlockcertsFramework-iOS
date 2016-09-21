@@ -472,14 +472,6 @@ private struct CertificateV1_2 : Certificate {
         }
         
         switch fileType {
-        case "IssuedCertificate": // not sure this is valid anymore
-            let possibleCertificateData = certificateData["certificate"] as? [String: AnyObject]
-            json = certificateData
-            if (possibleCertificateData != nil) {
-                certificateData = possibleCertificateData!
-            } else {
-                throw CertificateParserError.missingData(description: "Missing 'document.certificate.certificate' property.")
-            }
         case "BlockchainCertificate": break
         default:
             throw CertificateParserError.jsonLDError(description: "Unknown file type \(fileType)")
