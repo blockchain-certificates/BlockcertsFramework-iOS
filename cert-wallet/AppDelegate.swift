@@ -16,11 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         // Override point for customization after application launch.
         resetStateIfNeeded()
+        registerJSONLDValidator()
         
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        resetStateIfNeeded()
+        registerJSONLDValidator()
         // See if the URL points to a cert file.
         print(url)
         
@@ -89,5 +92,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Keychain.destroyShared()
     }
 
+    private func registerJSONLDValidator() {
+        
+        // Set up JSONLDValidator.
+        self.window?.rootViewController?.view.addSubview(JSONLDValidator.shared.webView)
+        
+        JSONLDValidator.shared.ping1()
+        
+        JSONLDValidator.shared.ping2()
+    }
 }
 

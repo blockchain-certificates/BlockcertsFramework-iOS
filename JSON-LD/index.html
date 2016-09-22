@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JSON-LD Bridge</title>
+  </head>
+  <body>
+
+  </body>
+  <!-- WKWebView shouldn't need this, as it has native support for promises (I think) -->
+  <!-- <script src="//cdn.jsdelivr.net/g/es6-promise@1.0.0"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsonld/0.3.15/jsonld.js"></script>
+  <script>
+    function ping1() {
+      return "pong1"
+    }
+    function ping2() {
+      setTimeout(function() {
+        window.webkit.messageHandlers.pong.postMessage("pong2")
+      }, 1000)
+    }
+  </script>
+</html>
