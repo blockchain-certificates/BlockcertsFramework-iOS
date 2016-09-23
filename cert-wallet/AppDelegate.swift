@@ -93,13 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func registerJSONLDValidator() {
-        
-        // Set up JSONLDValidator.
         self.window?.rootViewController?.view.addSubview(JSONLDValidator.shared.webView)
-        
-//        JSONLDValidator.shared.ping1()
-//        
-//        JSONLDValidator.shared.ping2()
     }
 }
 

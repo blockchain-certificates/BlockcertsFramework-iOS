@@ -457,11 +457,6 @@ private struct CertificateV1_2 : Certificate {
             throw CertificateParserError.notValidJSON
         }
         
-        // TODO: Inject this so we can test certificate validation in isolation.
-//        guard JSONLDValidator.shared.isValid(json: json) else {
-//            throw CertificateParserError.jsonLDError(description: "File is not valid in a valid JSON-LD format.")
-//        }
-
         guard let fileType = json["@type"] as? String else {
             throw CertificateParserError.jsonLDError(description: "Missing @type property")
         }
