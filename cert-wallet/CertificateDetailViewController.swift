@@ -175,15 +175,15 @@ extension CertificateDetailViewController {
             switch section.actions[indexPath.row] {
             case "Validate":
                 // TODO: This is just to try things out. Please remove asap.
-                do {
-                    let json = try JSONSerialization.jsonObject(with: certificate!.file, options: []) as! [String: Any]
-                    JSONLDValidator.shared.compact(doc: json, context: nil) { (error, result) in
-                        print("Holy crap we did it. \(error), \(result)")
-                    }
-
-                } catch {
-                    print("ohhhh nooooooooo")
+//                do {
+//                    let json = try JSONSerialization.jsonObject(with: certificate!.file, options: []) as! [String: Any]
+                JSONLDValidator.shared.compact(docData: certificate!.file, context: nil) { (error, result) in
+                    print("Holy crap we did it. \(error), \(result)")
                 }
+//
+//                } catch {
+//                    print("ohhhh nooooooooo")
+//                }
                 
                 let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
                 prompt.addTextField(configurationHandler: nil)

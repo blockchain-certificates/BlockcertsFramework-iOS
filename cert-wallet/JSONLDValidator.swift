@@ -91,6 +91,13 @@ class JSONLDValidator : NSObject {
 
 extension JSONLDValidator : JSONLD {
     func compact(doc: [String : Any], context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?) {
+        let serializedData = try? JSONSerialization.data(withJSONObject: doc, options: [])
+
+        return compact(docData: serializedData!, context: context, callback: callback)
+    }
+    
+    func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?) {
+        let serializedDoc = String(data: docData, encoding: .utf8)!
         let newID = uniqueId
         let jsResultHandler = "function (err, result) {"
             + "var response = {"
@@ -100,9 +107,7 @@ extension JSONLDValidator : JSONLD {
             + "};"
             + "window.webkit.messageHandlers.respond.postMessage(response);"
             + "}"
-
-        let serializedData = try? JSONSerialization.data(withJSONObject: doc, options: [])
-        let serializedDoc = String(data: serializedData!, encoding: .utf8)!
+        
         
         let jsString : String!
         if let context = context {
@@ -116,11 +121,13 @@ extension JSONLDValidator : JSONLD {
         
         savedCallbacks[newID] = callback
         
-//        webView.evaluateJavaScript(jsString, completionHandler: nil)
+        //        webView.evaluateJavaScript(jsString, completionHandler: nil)
         webView.evaluateJavaScript(jsString) { (any, err) in
             print("SOmething happened yeapppp")
         }
     }
+
+    
 }
 
 
