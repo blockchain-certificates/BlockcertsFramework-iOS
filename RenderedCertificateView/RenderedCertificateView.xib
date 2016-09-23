@@ -64,9 +64,9 @@
                     <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="S0P-0d-H0H" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="CYh-fu-eJh"/>
-                        <constraint firstAttribute="bottom" secondItem="S0P-0d-H0H" secondAttribute="bottom" constant="8" id="Lqa-XR-WwD"/>
-                        <constraint firstItem="S0P-0d-H0H" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" constant="-16" id="OlJ-g6-NR2"/>
-                        <constraint firstItem="S0P-0d-H0H" firstAttribute="top" secondItem="Bsm-eO-oQu" secondAttribute="bottom" constant="8" id="Vck-hY-CxH"/>
+                        <constraint firstAttribute="bottom" secondItem="S0P-0d-H0H" secondAttribute="bottom" constant="10" id="Lqa-XR-WwD"/>
+                        <constraint firstItem="S0P-0d-H0H" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" constant="-30" id="OlJ-g6-NR2"/>
+                        <constraint firstItem="S0P-0d-H0H" firstAttribute="top" secondItem="Bsm-eO-oQu" secondAttribute="bottom" constant="10" id="Vck-hY-CxH"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="dJC-ue-SWo"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="top" secondItem="BE0-5T-0Gz" secondAttribute="top" constant="8" id="lad-s5-HmQ"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" id="u98-Nq-Ecj"/>
