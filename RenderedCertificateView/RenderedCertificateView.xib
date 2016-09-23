@@ -34,17 +34,17 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S0P-0d-H0H">
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Johnny Appleseed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNx-h0-VU1">
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o3u-9w-6AQ">
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEM-VC-Z6k">
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEM-VC-Z6k">
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -55,18 +55,19 @@
                     </subviews>
                     <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="b7T-0s-q9R" firstAttribute="leading" secondItem="BE0-5T-0Gz" secondAttribute="leading" constant="20" id="6Wa-Il-p1C"/>
-                        <constraint firstAttribute="bottom" secondItem="b7T-0s-q9R" secondAttribute="bottom" constant="20" id="JZO-Fb-rzz"/>
-                        <constraint firstAttribute="height" constant="93" id="N9K-rk-BnX"/>
-                        <constraint firstAttribute="trailing" secondItem="b7T-0s-q9R" secondAttribute="trailing" constant="20" id="i7h-bh-295"/>
-                        <constraint firstItem="b7T-0s-q9R" firstAttribute="top" secondItem="BE0-5T-0Gz" secondAttribute="top" constant="20" id="rTr-H1-R73"/>
+                        <constraint firstItem="b7T-0s-q9R" firstAttribute="leading" secondItem="BE0-5T-0Gz" secondAttribute="leading" constant="8" id="6Wa-Il-p1C"/>
+                        <constraint firstAttribute="bottom" secondItem="b7T-0s-q9R" secondAttribute="bottom" constant="8" id="JZO-Fb-rzz"/>
+                        <constraint firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="height" multiplier="279:110" id="T85-X5-5pI"/>
+                        <constraint firstAttribute="trailing" secondItem="b7T-0s-q9R" secondAttribute="trailing" constant="8" id="i7h-bh-295"/>
+                        <constraint firstItem="b7T-0s-q9R" firstAttribute="top" secondItem="BE0-5T-0Gz" secondAttribute="top" constant="8" id="rTr-H1-R73"/>
                     </constraints>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="BE0-5T-0Gz" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" priority="750" constant="-20" id="0vK-Qv-c0S"/>
                 <constraint firstItem="BE0-5T-0Gz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="CXm-mL-zDR"/>
-                <constraint firstAttribute="bottom" secondItem="BE0-5T-0Gz" secondAttribute="bottom" constant="37" id="LxS-mj-AS0"/>
+                <constraint firstAttribute="bottom" secondItem="BE0-5T-0Gz" secondAttribute="bottom" constant="20" id="LxS-mj-AS0"/>
                 <constraint firstItem="BE0-5T-0Gz" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="b1v-lG-eiF"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
