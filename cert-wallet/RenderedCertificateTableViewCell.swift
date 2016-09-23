@@ -45,6 +45,16 @@ class RenderedCertificateTableViewCell: UITableViewCell {
             renderedView?.certificateIcon.image = newValue
         }
     }
+    
+    var descriptionText : String? {
+        get {
+            return renderedView?.descriptionLabel.text
+        }
+        set {
+            renderedView?.descriptionLabel.text = newValue
+        }
+    }
+    
 //    var issuerIcon: UIImage? {
 //        get {
 //            return renderedView?.issuerIcon.image

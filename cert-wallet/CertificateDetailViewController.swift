@@ -142,6 +142,7 @@ extension CertificateDetailViewController {
                 renderedViewCell.titleText = certificate.title
                 renderedViewCell.subtitleText = certificate.subtitle
                 renderedViewCell.certificateIcon = UIImage(data: certificate.image)
+                renderedViewCell.descriptionText = certificate.description
 //                renderedViewCell.issuerIcon = UIImage(data: certificate.issuer.image)
 //                renderedViewCell.sealIcon = UIImage(data: certificate.image)
 //                renderedViewCell.leftSignature = UIImage(data: certificate.assertion.signatureImage)
