@@ -141,9 +141,10 @@ extension CertificateDetailViewController {
                 renderedViewCell.nameText = "\(certificate.recipient.givenName) \(certificate.recipient.familyName)"
                 renderedViewCell.titleText = certificate.title
                 renderedViewCell.subtitleText = certificate.subtitle
-                renderedViewCell.issuerIcon = UIImage(data: certificate.issuer.image)
-                renderedViewCell.sealIcon = UIImage(data: certificate.image)
-                renderedViewCell.leftSignature = UIImage(data: certificate.assertion.signatureImage)
+                renderedViewCell.certificateIcon = UIImage(data: certificate.image)
+//                renderedViewCell.issuerIcon = UIImage(data: certificate.issuer.image)
+//                renderedViewCell.sealIcon = UIImage(data: certificate.image)
+//                renderedViewCell.leftSignature = UIImage(data: certificate.assertion.signatureImage)
             }
         } else if let section = section as? CertificateActions {
             let action = section.actions[indexPath.row]
@@ -191,14 +192,14 @@ extension CertificateDetailViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let section = sections[indexPath.section]
-        if section is CertificateDisplay {
-            return 220
-        } else {
-            return 44
-        }
-    }
+//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let section = sections[indexPath.section]
+//        if section is CertificateDisplay {
+//            return 220
+//        } else {
+//            return 44
+//        }
+//    }
     
     func promptForTransactionIDThenValidate() {
         let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)

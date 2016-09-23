@@ -37,38 +37,46 @@ class RenderedCertificateTableViewCell: UITableViewCell {
             renderedView?.subtitleLabel.text = newValue
         }
     }
-    var issuerIcon: UIImage? {
+    var certificateIcon : UIImage? {
         get {
-            return renderedView?.issuerIcon.image
+            return renderedView?.certificateIcon.image
         }
         set {
-            renderedView?.issuerIcon.image = newValue
+            renderedView?.certificateIcon.image = newValue
         }
     }
-    var leftSignature: UIImage? {
-        get {
-            return renderedView?.leftSignature.image
-        }
-        set {
-            renderedView?.leftSignature.image = newValue
-        }
-    }
-    var sealIcon: UIImage? {
-        get {
-            return renderedView?.sealIcon.image
-        }
-        set {
-            renderedView?.sealIcon.image = newValue
-        }
-    }
-    var rightSignature: UIImage? {
-        get {
-            return renderedView?.rightSignature.image
-        }
-        set {
-            renderedView?.rightSignature.image = newValue
-        }
-    }
+//    var issuerIcon: UIImage? {
+//        get {
+//            return renderedView?.issuerIcon.image
+//        }
+//        set {
+//            renderedView?.issuerIcon.image = newValue
+//        }
+//    }
+//    var leftSignature: UIImage? {
+//        get {
+//            return renderedView?.leftSignature.image
+//        }
+//        set {
+//            renderedView?.leftSignature.image = newValue
+//        }
+//    }
+//    var sealIcon: UIImage? {
+//        get {
+//            return renderedView?.sealIcon.image
+//        }
+//        set {
+//            renderedView?.sealIcon.image = newValue
+//        }
+//    }
+//    var rightSignature: UIImage? {
+//        get {
+//            return renderedView?.rightSignature.image
+//        }
+//        set {
+//            renderedView?.rightSignature.image = newValue
+//        }
+//    }
     
     // MARK: Initialization of the Rendered certificate view.
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -86,6 +94,13 @@ class RenderedCertificateTableViewCell: UITableViewCell {
     private func commonInit() {
         let renderedView = RenderedCertificateView(frame: contentView.bounds)
         contentView.addSubview(renderedView)
+        renderedView.translatesAutoresizingMaskIntoConstraints = false
+        
+        contentView.addConstraint(NSLayoutConstraint(item: renderedView, attribute: .top, relatedBy: NSLayoutRelation.equal, toItem: contentView, attribute: .top, multiplier: 1, constant: 0))
+        contentView.addConstraint(NSLayoutConstraint(item: renderedView, attribute: .bottom, relatedBy: NSLayoutRelation.equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: 0))
+        contentView.addConstraint(NSLayoutConstraint(item: renderedView, attribute: .left, relatedBy: NSLayoutRelation.equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 0))
+        contentView.addConstraint(NSLayoutConstraint(item: renderedView, attribute: .right, relatedBy: NSLayoutRelation.equal, toItem: contentView, attribute: .right, multiplier: 1, constant: 0))
+        
         self.renderedView = renderedView
     }
 }
