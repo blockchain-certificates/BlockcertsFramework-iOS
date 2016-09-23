@@ -17,6 +17,7 @@ class RenderedCertificateView: UIView {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     
     @IBOutlet weak var certificateIcon: UIImageView!
     
