@@ -10,6 +10,9 @@ import Foundation
 //import JavaScriptCore
 import WebKit
 
+// This protocol will let us test any dependent components is isolation by mocking out the JSONLDValidator.
+// It will also mean we can switch from this awkward WKWebKit bridge to a Swift-native JSONLD validator
+// once it's built.
 protocol JSONLD {
     func compact(doc: [String: Any],
                  context: [String:Any]?,
@@ -45,8 +48,6 @@ class JSONLDValidator : NSObject {
     
     override init() {
         userContentController = WKUserContentController()
-        userContentController.add(PongMessageHandler(), name: "pong")
-        
         
         let configuration = WKWebViewConfiguration()
         configuration.userContentController = userContentController
@@ -78,15 +79,6 @@ class JSONLDValidator : NSObject {
         }
         queuedCalls = []
     }
-    
-//    func isValid(json: [String: Any]) -> Bool {
-//        guard webView.superview != nil else {
-//            print("Warning: JSONLDValidator used before being setup. AppDelegate should attach the web view to the root view controller.")
-//            return false
-//        }
-//        return true
-//        // TODO: Call the appropriate method in that context.
-//    }
 }
 
 extension JSONLDValidator : JSONLD {
@@ -115,64 +107,17 @@ extension JSONLDValidator : JSONLD {
         } else {
             jsString = "jsonld.compact(\(serializedDoc), null, \(jsResultHandler))"
         }
-        print()
-        print(jsString)
-        print()
         
         savedCallbacks[newID] = callback
         
-        //        webView.evaluateJavaScript(jsString, completionHandler: nil)
-        webView.evaluateJavaScript(jsString) { (any, err) in
-            print("SOmething happened yeapppp")
-        }
+        webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
-
-    
 }
 
 
 extension JSONLDValidator : WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         drainQueue()
-    }
-}
-
-// Demo -- delete this soon.
-extension JSONLDValidator {
-    
-    func ping1() {
-        func execute() {
-            webView.evaluateJavaScript("ping1()") { (result, error) in
-                print("result: \(result), error: \(error)")
-            }
-        }
-        
-        if webView.isLoading {
-            queuedCalls.append(execute)
-        } else {
-            execute()
-        }
-    }
-    
-    func ping2() {
-        func execute() {
-            webView.evaluateJavaScript("ping2()") { (result, error) in
-                print("result: \(result), error: \(error)")
-            }
-        }
-        
-        if webView.isLoading {
-            queuedCalls.append(execute)
-        } else {
-            execute()
-        }
-    }
-}
-
-
-fileprivate class PongMessageHandler : NSObject, WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        print("\(#function): got \(message.body)")
     }
 }
 
