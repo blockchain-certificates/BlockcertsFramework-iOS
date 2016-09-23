@@ -174,15 +174,12 @@ extension CertificateDetailViewController {
         if let section = section as? CertificateActions {
             switch section.actions[indexPath.row] {
             case "Validate":
-                let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
-                prompt.addTextField(configurationHandler: nil)
-                
-                prompt.addAction(UIAlertAction(title: "Validate", style: .default, handler: { [weak self, weak prompt] (action) in
-                    let transactionId = prompt?.textFields?.first?.text ?? ""
-                    self?.validateCertificate(with: transactionId)
-                    }))
-                
-                present(prompt, animated: true, completion: nil)
+                switch certificate?.version {
+                case .some(.oneDotOne):
+                    promptForTransactionIDThenValidate()
+                default:
+                    validateCertificate()
+                }
             case "Revoke":
                 promptToRevokeCertificate()
             default:
@@ -203,7 +200,19 @@ extension CertificateDetailViewController {
         }
     }
     
-    func validateCertificate(with transactionId: String) {
+    func promptForTransactionIDThenValidate() {
+        let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
+        prompt.addTextField(configurationHandler: nil)
+        let action = UIAlertAction(title: "Validate", style: .default, handler: { [weak self, weak prompt] (action) in
+            let transactionId = prompt?.textFields?.first?.text ?? ""
+            self?.validateCertificate(with: transactionId)
+        })
+        prompt.addAction(action)
+        
+        present(prompt, animated: true, completion: nil)
+    }
+    
+    func validateCertificate(with transactionId: String? = nil) {
         let dismissAction = UIAlertAction(title: "OK", style: .default) { [weak self] (action) in
             if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
                 self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
@@ -219,8 +228,8 @@ extension CertificateDetailViewController {
             return
         }
         
-        inProgressRequest?.abort()
-        inProgressRequest = CertificateValidationRequest(for: certificate, with: transactionId, starting: false) { [weak self] (success, errorMessage) in
+        
+        let completionHandler : (Bool, String?) -> Void = { [weak self] (success, errorMessage) in
             if success {
                 completeAlert.title = "Success"
                 completeAlert.message = "This is a valid certificate!"
@@ -245,6 +254,13 @@ extension CertificateDetailViewController {
             } else {
                 showCompleteAlert()
             }
+        }
+        
+        inProgressRequest?.abort()
+        if let transactionId = transactionId {
+            inProgressRequest = CertificateValidationRequest(for: certificate, with: transactionId, completionHandler: completionHandler)
+        } else {
+            inProgressRequest = CertificateValidationRequest(for: certificate, completionHandler: completionHandler)
         }
         
         inProgressRequest?.start()
