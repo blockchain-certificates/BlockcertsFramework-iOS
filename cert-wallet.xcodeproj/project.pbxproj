@@ -20,11 +20,6 @@
 		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		8331A7DD1D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
-		8331A7DE1D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
-		8331A7DF1D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
-		8331A7E01D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
-		8331A7E11D91FCF900D92610 /* jsonld.js in Resources */ = {isa = PBXBuildFile; fileRef = 8331A7DC1D91FCF900D92610 /* jsonld.js */; };
 		8331A7E31D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
 		8331A7E41D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
 		8331A7E51D91FD4400D92610 /* JSONLDValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */; };
@@ -204,7 +199,6 @@
 		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8331A7DC1D91FCF900D92610 /* jsonld.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = jsonld.js; sourceTree = "<group>"; };
 		8331A7E21D91FD4400D92610 /* JSONLDValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLDValidator.swift; sourceTree = "<group>"; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -345,14 +339,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8331A7DB1D91FCF900D92610 /* External */ = {
-			isa = PBXGroup;
-			children = (
-				8331A7DC1D91FCF900D92610 /* jsonld.js */,
-			);
-			path = External;
-			sourceTree = "<group>";
-		};
 		834910F41D5E6DC900872DAE /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -384,7 +370,6 @@
 				83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */,
 				834910F41D5E6DC900872DAE /* Extensions */,
 				83F327EF1D94634200D8046E /* JSON-LD */,
-				8331A7DB1D91FCF900D92610 /* External */,
 				836A31A51D5933D800943801 /* cert-wallet */,
 				836A31BC1D5933D800943801 /* cert-walletTests */,
 				836A31C71D5933D800943801 /* cert-walletUITests */,
@@ -710,7 +695,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F327F41D94634200D8046E /* index.html in Resources */,
-				8331A7E01D91FCF900D92610 /* jsonld.js in Resources */,
 				832A0BB21D8B12D900BDCD59 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -719,7 +703,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8331A7E11D91FCF900D92610 /* jsonld.js in Resources */,
 				83F327F51D94634200D8046E /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,7 +712,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F327F11D94634200D8046E /* index.html in Resources */,
-				8331A7DD1D91FCF900D92610 /* jsonld.js in Resources */,
 				83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 				836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */,
 				8369CB141D70D02C006D603E /* Settings.bundle in Resources */,
@@ -749,7 +731,6 @@
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
-				8331A7DE1D91FCF900D92610 /* jsonld.js in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -759,7 +740,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				83F327F31D94634200D8046E /* index.html in Resources */,
-				8331A7DF1D91FCF900D92610 /* jsonld.js in Resources */,
 				83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
