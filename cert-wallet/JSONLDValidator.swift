@@ -86,13 +86,13 @@ class JSONLDValidator : NSObject {
 }
 
 extension JSONLDValidator : JSONLD {
-    func compact(doc: [String : Any], context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?) {
+    func compact(doc: [String : Any], context: [String : Any]? = nil, callback: ((Error?, [String : Any]?) -> Void)?) {
         let serializedData = try? JSONSerialization.data(withJSONObject: doc, options: [])
 
         return compact(docData: serializedData!, context: context, callback: callback)
     }
     
-    func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?) {
+    func compact(docData: Data, context: [String : Any]? = nil, callback: ((Error?, [String : Any]?) -> Void)?) {
         let serializedDoc = String(data: docData, encoding: .utf8)!
         let newID = uniqueId
         let jsResultHandler = "function (err, result) {"

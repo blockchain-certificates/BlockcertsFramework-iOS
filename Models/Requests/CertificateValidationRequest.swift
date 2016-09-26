@@ -127,11 +127,24 @@ class CertificateValidationRequest : CommonRequest {
         if certificate.version == .oneDotOne {
             self.localHash = sha256(data: certificate.file)
         } else {
-            // Issue 14: 
-            // The local hash is computed differently in v2, but I can't find swift json ld libraries to support this.
-            // When available, this needs to be replaced with a call to jsonld.normalize(cert["document"]) and then hash
-            //
-            // https://github.com/blockchain-certificates/cert-wallet/issues/14
+            JSONLDValidator.shared.compact(docData: certificate.file, context: nil, callback: { (error, resultObject) in
+                guard error == nil else {
+                    self.state = .failure(reason: "Failed JSON-LD compact with \(error!)")
+                    return
+                }
+                guard let resultObject = resultObject else {
+                    self.state = .failure(reason: "There's no error, but the resultData is nil.")
+                    return
+                }
+                
+                // Stringify that data!
+                guard let standardizedData = try? JSONSerialization.data(withJSONObject: resultObject, options: []) else {
+                    self.state = .failure(reason: "JSON-LD result didn't stringify into a Data object")
+                    return
+                }
+                
+                self.localHash = sha256(data: standardizedData)
+            })
         }
         state = .fetchingRemoteHash
     }

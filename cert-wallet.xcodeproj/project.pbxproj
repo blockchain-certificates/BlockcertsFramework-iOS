@@ -13,6 +13,7 @@
 		3BDF6EAA1D75160E00EC005C /* ReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA91D75160E00EC005C /* ReceiptTests.swift */; };
 		3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */; };
 		53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */; };
+		831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */; };
 		83258E351D78D8A7002D78FC /* IssuerCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */; };
 		83258E3C1D79E944002D78FC /* IssuerIntroductionRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */; };
 		832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BAE1D8B12D900BDCD59 /* DocumentPickerViewController.swift */; };
@@ -188,6 +189,7 @@
 		3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
 		4577D4DA579179516CE8C7E7 /* Pods-cert-wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.release.xcconfig"; sourceTree = "<group>"; };
 		63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
 		83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequestTests.swift; sourceTree = "<group>"; };
 		83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequestTests.swift; sourceTree = "<group>"; };
 		832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImportAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -351,6 +353,7 @@
 		834F2EE71D624FCF008C9650 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */,
 				3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */,
 				3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */,
 				835B62451D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json */,
@@ -730,6 +733,7 @@
 				83F327F21D94634200D8046E /* index.html in Resources */,
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
+				831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
 			);
