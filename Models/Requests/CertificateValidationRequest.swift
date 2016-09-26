@@ -126,6 +126,7 @@ class CertificateValidationRequest : CommonRequest {
     internal func computeLocalHash() {
         if certificate.version == .oneDotOne {
             self.localHash = sha256(data: certificate.file)
+            state = .fetchingRemoteHash
         } else {
             JSONLDValidator.shared.compact(docData: certificate.file, context: nil, callback: { (error, resultObject) in
                 guard error == nil else {
@@ -144,9 +145,9 @@ class CertificateValidationRequest : CommonRequest {
                 }
                 
                 self.localHash = sha256(data: standardizedData)
+                self.state = .fetchingRemoteHash
             })
         }
-        state = .fetchingRemoteHash
     }
     
     internal func fetchRemoteHash() {
@@ -187,27 +188,20 @@ class CertificateValidationRequest : CommonRequest {
     }
     
     internal func compareHashes() {
-        if certificate.version == .oneDotOne {
-            guard let localHash = self.localHash,
-                let remoteHash = self.remoteHash?.asHexData() else {
-                    state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
-                    return
-            }
-            
-            guard localHash == remoteHash else {
-                state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+        guard let localHash = self.localHash,
+            let remoteHash = self.remoteHash?.asHexData() else {
+                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
                 return
-            }
+        }
+        
+        guard localHash == remoteHash else {
+            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+            return
+        }
+        
+        if certificate.version == .oneDotOne {
             state = .checkingIssuerSignature
         } else {
-            // Issue 14:
-            // https://github.com/blockchain-certificates/cert-wallet/issues/14
-            /**
-             * See above comment about json ld library
-             * Override v1 compareHashes comparison.
-             *
-             * Compare local hash to targetHash in receipt.
-             */
             state = .checkingMerkleRoot
         }
     }
@@ -294,7 +288,7 @@ class CertificateValidationRequest : CommonRequest {
         }
         
         guard merkleRoot == remoteHash else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+            state = .failure(reason: "MerkleRoot does not match remote hash:\n Merkle:\(merkleRoot)\nRemote:\(remoteHash)")
             return
         }
         

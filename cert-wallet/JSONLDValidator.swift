@@ -140,8 +140,11 @@ extension JSONLDValidator : WKScriptMessageHandler {
             return
         }
         let errorObject = response["err"] as? [String : Any] ?? [:]
-        let errorMessage = errorObject["message"] as? String ?? "Unknown javascript error in response."
-        let error = JSONLDValidatorError.javascriptError(message: errorMessage)
+        
+        var error : Error? = nil
+        if let errorMessage = errorObject["message"] as? String {
+            error = JSONLDValidatorError.javascriptError(message: errorMessage)
+        }
         
         let result = response["result"] as? [String : Any]
         callback(error, result)
