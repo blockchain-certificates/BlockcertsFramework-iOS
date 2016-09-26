@@ -176,6 +176,14 @@ extension CertificateDetailViewController {
         if let section = section as? CertificateActions {
             switch section.actions[indexPath.row] {
             case "Validate":
+                // DEBUG HOOK
+//                JSONLDValidator.shared.compact(docData: certificate!.file, context: nil, callback: { (err, result) in
+//                    print()
+//                    print("err: \(err)")
+//                    print()
+//                    print("result: \(result)")
+//                })
+                
                 switch certificate?.version {
                 case .some(.oneDotOne):
                     promptForTransactionIDThenValidate()
