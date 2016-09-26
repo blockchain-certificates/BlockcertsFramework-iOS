@@ -37,6 +37,7 @@ extension CertificateValidationRequestDelegate {
 
 class CertificateValidationRequest : CommonRequest {
     let session : URLSessionProtocol
+    let jsonld : JSONLD
     let certificate : Certificate
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
@@ -84,9 +85,11 @@ class CertificateValidationRequest : CommonRequest {
          with transactionId: String,
          chain: String = "mainnet",
          starting : Bool = false,
+         jsonld : JSONLD = JSONLDValidator.shared,
          session : URLSessionProtocol = URLSession.shared,
          completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.session = session
+        self.jsonld = jsonld
         self.certificate = certificate
         self.transactionId = transactionId
         self.completionHandler = completionHandler
@@ -100,6 +103,7 @@ class CertificateValidationRequest : CommonRequest {
     convenience init?(for certificate: Certificate,
                      chain: String = "mainnet",
                      starting : Bool = false,
+                     jsonld : JSONLD = JSONLDValidator.shared,
                      session: URLSessionProtocol = URLSession.shared,
                      completionHandler: ((Bool, String?) -> Void)? = nil) {
         guard let transactionId = certificate.receipt?.transactionId else {
@@ -111,6 +115,7 @@ class CertificateValidationRequest : CommonRequest {
                   with: transactionId,
                   chain: chain,
                   starting: starting,
+                  jsonld: jsonld,
                   session: session,
                   completionHandler: completionHandler)
     }
@@ -128,7 +133,7 @@ class CertificateValidationRequest : CommonRequest {
             self.localHash = sha256(data: certificate.file)
             state = .fetchingRemoteHash
         } else {
-            JSONLDValidator.shared.compact(docData: certificate.file, context: nil, callback: { (error, resultObject) in
+            jsonld.compact(docData: certificate.file, context: nil, callback: { (error, resultObject) in
                 guard error == nil else {
                     self.state = .failure(reason: "Failed JSON-LD compact with \(error!)")
                     return

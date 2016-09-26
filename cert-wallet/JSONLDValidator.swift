@@ -13,16 +13,13 @@ import WebKit
 // This protocol will let us test any dependent components is isolation by mocking out the JSONLDValidator.
 // It will also mean we can switch from this awkward WKWebKit bridge to a Swift-native JSONLD validator
 // once it's built.
-enum JSONLDValidatorError : Error {
+enum JSONLDError : Error {
     case javascriptError(message: String)
 }
 
 protocol JSONLD {
-    func compact(doc: [String: Any],
-                 context: [String:Any]?,
-                 callback: ((_ error: Error?, _ result: [String: Any]?) -> Void)?
-        ) -> Void
-    
+    func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?)
+
     // As time allows, it may make sense to add:
     // * expand
     // * flatten
@@ -143,7 +140,7 @@ extension JSONLDValidator : WKScriptMessageHandler {
         
         var error : Error? = nil
         if let errorMessage = errorObject["message"] as? String {
-            error = JSONLDValidatorError.javascriptError(message: errorMessage)
+            error = JSONLDError.javascriptError(message: errorMessage)
         }
         
         let result = response["result"] as? [String : Any]

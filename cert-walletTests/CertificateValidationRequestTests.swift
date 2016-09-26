@@ -117,8 +117,19 @@ class CertificateValidationRequestTests: XCTestCase {
                               response: HTTPURLResponse(url: issuerURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
                               error: nil)
         
+        class MockJSONLD : JSONLD {
+            func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?) {
+                if let reformatted = try? JSONSerialization.jsonObject(with: docData, options: []),
+                    let result = reformatted as? [String: Any] {
+                    callback?(nil, result)
+                } else {
+                    callback?(nil, nil)
+                }
+            }
+        }
+        
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, chain: "testnet", session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, chain: "testnet", jsonld: MockJSONLD(), session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
