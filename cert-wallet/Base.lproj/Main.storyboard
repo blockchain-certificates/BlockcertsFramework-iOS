@@ -347,7 +347,7 @@
         <scene sceneID="k9a-D2-VXj">
             <objects>
                 <navigationController title="Certificates" id="S79-nS-LVS" customClass="CertificatesNavigationController" customModule="cert_wallet" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Certificates" image="second" id="YPO-Nr-cvT"/>
+                    <tabBarItem key="tabBarItem" title="Certificates" image="Certificate" id="YPO-Nr-cvT"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="I46-gL-fKK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -381,8 +381,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Certificate" width="22" height="22"/>
         <image name="Pen" width="22" height="22"/>
         <image name="first" width="30" height="30"/>
-        <image name="second" width="30" height="30"/>
     </resources>
 </document>
