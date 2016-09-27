@@ -107,6 +107,11 @@
                BlueprintName = "cert-walletTests"
                ReferencedContainer = "container:cert-wallet.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "CertificateValidationRequestTests/testValidV1_2Certificate()">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
             skipped = "NO">
