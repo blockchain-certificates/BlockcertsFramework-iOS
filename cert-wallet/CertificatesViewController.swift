@@ -97,15 +97,28 @@ extension CertificatesViewController {
             let documentsDirectory = URL(fileURLWithPath: Paths.certificateDirectory)
             let certificateFilename = self?.filenameFor(certificate: deletedCertificate) ?? ""
             let filePath = URL(fileURLWithPath: certificateFilename, relativeTo: documentsDirectory)
-            do {
-                try FileManager.default.removeItem(at: filePath)
-                tableView.reloadData()
-            } catch {
-                self?.certificates.insert(deletedCertificate, at: indexPath.row)
+            
+            let coordinator = NSFileCoordinator()
+            var coordinationError : NSError?
+            coordinator.coordinate(writingItemAt: filePath, options: [.forDeleting], error: &coordinationError, byAccessor: { (file) in
                 
-                let alertController = UIAlertController(title: "Couldn't delete file", message: "Something went wrong deleting that certificate.", preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                self?.present(alertController, animated: true, completion: nil)
+                do {
+                    try FileManager.default.removeItem(at: filePath)
+                    tableView.reloadData()
+                } catch {
+                    print(error)
+                    self?.certificates.insert(deletedCertificate, at: indexPath.row)
+                    
+                    let alertController = UIAlertController(title: "Couldn't delete file", message: "Something went wrong deleting that certificate.", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self?.present(alertController, animated: true, completion: nil)
+                }
+            })
+            
+            if let error = coordinationError {
+                print("Coordination failed with \(error)")
+            } else {
+                print("Coordinatoin went fine.")
             }
             
         }
@@ -228,8 +241,16 @@ extension CertificatesViewController {
             print("File \(filename) already exists")
             return false
         } else {
-            // TODO: What file attributes would be useful here?
-            return FileManager.default.createFile(atPath: filePath, contents: data, attributes: [ FileAttributeKey.immutable.rawValue : true ])
+            let url = URL(fileURLWithPath: filePath)
+            var success = true
+            do {
+                try data.write(to: url)
+            } catch {
+                print("Failed to save file with error : \(error)")
+                success = false
+            }
+            
+            return success
         }
     }
 }

@@ -109,7 +109,16 @@ class CertificateDetailViewController: UITableViewController {
         // Moving the file to a temporary directory. Sharing a file URL seems to be better than sharing the file's contents directly.
         let filePath = "\(NSTemporaryDirectory())/certificate.json"
         let url = URL(fileURLWithPath: filePath)
-        FileManager.default.createFile(atPath: filePath, contents: certificate.file, attributes: nil)
+        do {
+            try certificate.file.write(to: url)
+        } catch {
+            print("Failed to write temporary URL")
+            
+            let errorAlert = UIAlertController(title: "Couldn't share certificate.", message: "Something went wrong preparing that file for sharing. Try again later.", preferredStyle: .alert)
+            errorAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(errorAlert, animated: true, completion: nil)
+            return
+        }
 
         let items : [Any] = [ url ]
 
