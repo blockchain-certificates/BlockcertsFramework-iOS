@@ -270,10 +270,17 @@ class CertificateValidationRequest : CommonRequest {
     }
     
     internal func checkRevokedStatus() {
-        let revoked : Bool = (revokedAddresses?.contains(self.revokationKey!))!
-        if revoked {
-            self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.revokationKey!)")
+        let batchRevoked : Bool = (revokedAddresses?.contains(self.revokationKey!))!
+        if batchRevoked {
+            self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(self.revokationKey!)")
             return
+        }
+        if self.certificate.recipient.revocationAddress != nil {
+            let certificateRevoked : Bool = (revokedAddresses?.contains(self.certificate.recipient.revocationAddress!))!
+            if certificateRevoked {
+                self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.certificate.recipient.revocationAddress!)")
+                return
+            }
         }
         // Success
         state = .success

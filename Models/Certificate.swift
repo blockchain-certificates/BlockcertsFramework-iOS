@@ -246,7 +246,8 @@ private enum MethodsForV1_1 {
                          identity: identity,
                          identityType: identityType,
                          isHashed: hashed,
-                         publicAddress: publicKey)
+                         publicAddress: publicKey,
+                         revocationAddress: nil)
     }
     
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
@@ -390,8 +391,9 @@ private enum MethodsForV1_2 {
             let identityType = recipientData["type"] as? String,
             let familyName = recipientData["familyName"] as? String,
             let givenName = recipientData["givenName"] as? String,
-            let isHashed = recipientData["hashed"] as? Bool, // main difference from v1.1
-            let publicKey = recipientData["pubkey"] as? String,
+            let isHashed = recipientData["hashed"] as? Bool,        // difference from v1.1
+            let publicKey = recipientData["publicKey"] as? String,  // difference from v1.1
+            let revocationKey = recipientData["revocationKey"] as? String,  // difference from v1.1
             let identity = recipientData["identity"] as? String else {
                 return nil
         }
@@ -401,7 +403,8 @@ private enum MethodsForV1_2 {
                          identity: identity,
                          identityType: identityType,
                          isHashed: isHashed,
-                         publicAddress: publicKey)
+                         publicAddress: publicKey,
+                         revocationAddress: revocationKey)
 
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
@@ -457,8 +460,8 @@ private struct CertificateV1_2 : Certificate {
             throw CertificateParserError.notValidJSON
         }
         
-        guard let fileType = json["@type"] as? String else {
-            throw CertificateParserError.jsonLDError(description: "Missing @type property")
+        guard let fileType = json["type"] as? String else {
+            throw CertificateParserError.jsonLDError(description: "Missing type property")
         }
         guard var documentData = json["document"] as? [String: AnyObject] else {
             throw CertificateParserError.missingData(description: "Missing root 'document' property.")
@@ -474,7 +477,7 @@ private struct CertificateV1_2 : Certificate {
         }
         
         // Validate normal certificate data
-        guard let title = certificateData["title"] as? String else {
+        guard let title = certificateData["name"] as? String else {
             throw CertificateParserError.missingData(description: "Missing certificate's title property.")
         }
         guard let certificateImageURI = certificateData["image"] as? String else {
