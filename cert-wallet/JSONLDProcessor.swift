@@ -1,5 +1,5 @@
 //
-//  JSONLDValidator.swift
+//  JSONLDProcessor.swift
 //  cert-wallet
 //
 //  Created by Chris Downie on 9/20/16.
@@ -10,7 +10,7 @@ import Foundation
 //import JavaScriptCore
 import WebKit
 
-// This protocol will let us test any dependent components is isolation by mocking out the JSONLDValidator.
+// This protocol will let us test any dependent components is isolation by mocking out the JSONLDProcessor.
 // It will also mean we can switch from this awkward WKWebKit bridge to a Swift-native JSONLD validator
 // once it's built.
 enum JSONLDError : Error {
@@ -30,8 +30,8 @@ protocol JSONLD {
     // ...and whatever else to make this a full JSONLD client.
 }
 
-class JSONLDValidator : NSObject {
-    static let shared = JSONLDValidator()
+class JSONLDProcessor : NSObject {
+    static let shared = JSONLDProcessor()
 
     // JSContext is not sufficient. We need web access 
     let webView : WKWebView
@@ -82,7 +82,7 @@ class JSONLDValidator : NSObject {
     }
 }
 
-extension JSONLDValidator : JSONLD {
+extension JSONLDProcessor : JSONLD {
     func compact(doc: [String : Any], context: [String : Any]? = nil, callback: ((Error?, [String : Any]?) -> Void)?) {
         let serializedData = try? JSONSerialization.data(withJSONObject: doc, options: [])
 
@@ -115,13 +115,13 @@ extension JSONLDValidator : JSONLD {
 }
 
 
-extension JSONLDValidator : WKNavigationDelegate {
+extension JSONLDProcessor : WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         drainQueue()
     }
 }
 
-extension JSONLDValidator : WKScriptMessageHandler {
+extension JSONLDProcessor : WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let response = message.body as? [String: Any] else {
             print("Something went wrong, the response wasn't what I expected in \(#function)")

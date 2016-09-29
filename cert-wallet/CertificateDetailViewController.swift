@@ -186,7 +186,7 @@ extension CertificateDetailViewController {
             switch section.actions[indexPath.row] {
             case "Validate":
                 // DEBUG HOOK
-//                JSONLDValidator.shared.compact(docData: certificate!.file, context: nil, callback: { (err, result) in
+//                JSONLDProcessor.shared.compact(docData: certificate!.file, context: nil, callback: { (err, result) in
 //                    print()
 //                    print("err: \(err)")
 //                    print()

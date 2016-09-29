@@ -85,7 +85,7 @@ class CertificateValidationRequest : CommonRequest {
          with transactionId: String,
          chain: String = "mainnet",
          starting : Bool = false,
-         jsonld : JSONLD = JSONLDValidator.shared,
+         jsonld : JSONLD = JSONLDProcessor.shared,
          session : URLSessionProtocol = URLSession.shared,
          completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.session = session
@@ -103,7 +103,7 @@ class CertificateValidationRequest : CommonRequest {
     convenience init?(for certificate: Certificate,
                      chain: String = "mainnet",
                      starting : Bool = false,
-                     jsonld : JSONLD = JSONLDValidator.shared,
+                     jsonld : JSONLD = JSONLDProcessor.shared,
                      session: URLSessionProtocol = URLSession.shared,
                      completionHandler: ((Bool, String?) -> Void)? = nil) {
         guard let transactionId = certificate.receipt?.transactionId else {
