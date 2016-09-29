@@ -36,7 +36,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
                                   identity: expectedEmail,
                                   identityType: "email",
                                   isHashed: false,
-                                  publicAddress: expectedAddress)
+                                  publicAddress: expectedAddress,
+                                  revocationAddress: nil)
         
         // Mock out the network
         let session = MockURLSession()

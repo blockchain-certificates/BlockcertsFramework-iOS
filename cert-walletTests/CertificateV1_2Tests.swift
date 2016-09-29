@@ -94,8 +94,8 @@ class CertificateV1_2SignedTests: XCTestCase {
         
 //        XCTAssertEqual(assertion.issuedOn, Date(timeIntervalSinceReferenceDate: 485978400))
         XCTAssertEqual(assertion.evidence, "")
-        XCTAssertEqual(assertion.uid, "4119a68e-e31a-4508-8b07-3bf9ab968089")
-        XCTAssertEqual(assertion.id, URL(string: "http://certificates.gamoeofthronesxyz.org/4119a68e-e31a-4508-8b07-3bf9ab968089"))
+        XCTAssertEqual(assertion.uid, "f813349f-1385-487f-8d89-38a092411fa5")
+        XCTAssertEqual(assertion.id, URL(string: "http://certificates.gamoeofthronesxyz.org/f813349f-1385-487f-8d89-38a092411fa5"))
     }
     
     func testImportVerifyProperties() {

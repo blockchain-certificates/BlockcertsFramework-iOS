@@ -27,4 +27,7 @@ struct Recipient {
     
     /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
     let publicAddress : String
+    
+    /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
+    let revocationAddress : String?
 }
