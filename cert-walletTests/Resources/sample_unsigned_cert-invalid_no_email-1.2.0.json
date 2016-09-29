@@ -23,7 +23,7 @@
     "id": "https://www.theissuer.edu/criteria/2016/05/certificate-type.json",
     "email": "issuer@theissuer.edu",
     "issuer": {
-      "@type": "Issuer",
+      "type": "Issuer",
       "url": "http://www.theissuer.edu",
       "name": "Issuing Institution",
       "id": "https://www.theissuer.edu/issuer/the-issuer.json",

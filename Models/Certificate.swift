@@ -460,8 +460,8 @@ private struct CertificateV1_2 : Certificate {
             throw CertificateParserError.notValidJSON
         }
         
-        guard let fileType = json["@type"] as? String else {
-            throw CertificateParserError.jsonLDError(description: "Missing @type property")
+        guard let fileType = json["type"] as? String else {
+            throw CertificateParserError.jsonLDError(description: "Missing type property")
         }
         guard var documentData = json["document"] as? [String: AnyObject] else {
             throw CertificateParserError.missingData(description: "Missing root 'document' property.")
