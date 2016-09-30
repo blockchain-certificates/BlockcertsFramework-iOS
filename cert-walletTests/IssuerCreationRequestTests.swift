@@ -18,7 +18,7 @@ class IssuerCreationRequestTests: XCTestCase {
         let expectedIntroductionURLString = "https://blockcerts.org/intro/"
         let expectedName = "BlockCerts Issuer"
         let expectedEmail = "issuer@blockcerts.org"
-        let rawImageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "second"))!.base64EncodedString()
+        let rawImageData = UIImagePNGRepresentation(#imageLiteral(resourceName: "Pen"))!.base64EncodedString()
         let expectedImageData = "data:image/png;base64,\(rawImageData)"
 
         // Mock out the network
