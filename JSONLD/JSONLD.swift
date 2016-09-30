@@ -13,11 +13,11 @@ import WebKit
 // This protocol will let us test any dependent components is isolation by mocking out the JSONLDProcessor.
 // It will also mean we can switch from this awkward WKWebKit bridge to a Swift-native JSONLD validator
 // once it's built.
-enum JSONLDError : Error {
+public enum JSONLDError : Error {
     case javascriptError(message: String)
 }
 
-protocol JSONLD {
+public protocol JSONLD {
     func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?)
 
     // As time allows, it may make sense to add:
@@ -30,7 +30,7 @@ protocol JSONLD {
     // ...and whatever else to make this a full JSONLD client.
 }
 
-class JSONLDProcessor : NSObject {
+public class JSONLDProcessor : NSObject {
     static let shared = JSONLDProcessor()
 
     // JSContext is not sufficient. We need web access 
@@ -89,7 +89,7 @@ extension JSONLDProcessor : JSONLD {
         return compact(docData: serializedData!, context: context, callback: callback)
     }
     
-    func compact(docData: Data, context: [String : Any]? = nil, callback: ((Error?, [String : Any]?) -> Void)?) {
+    public func compact(docData: Data, context: [String : Any]? = nil, callback: ((Error?, [String : Any]?) -> Void)?) {
         let serializedDoc = String(data: docData, encoding: .utf8)!
         let newID = uniqueId
         let jsResultHandler = "function (err, result) {"
@@ -116,13 +116,13 @@ extension JSONLDProcessor : JSONLD {
 
 
 extension JSONLDProcessor : WKNavigationDelegate {
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         drainQueue()
     }
 }
 
 extension JSONLDProcessor : WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+    public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let response = message.body as? [String: Any] else {
             print("Something went wrong, the response wasn't what I expected in \(#function)")
             return

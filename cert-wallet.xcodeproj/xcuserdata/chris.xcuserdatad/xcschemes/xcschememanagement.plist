@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>12</integer>
 		</dict>
+		<key>JSONLD.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>13</integer>
+		</dict>
 		<key>cert-wallet.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -38,6 +43,11 @@
 			<true/>
 		</dict>
 		<key>832A0BB71D8B12D900BDCD59</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8354F30F1D9F13840008DB09</key>
 		<dict>
 			<key>primary</key>
 			<true/>
