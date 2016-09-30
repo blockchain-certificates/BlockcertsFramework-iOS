@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import JSONLD
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

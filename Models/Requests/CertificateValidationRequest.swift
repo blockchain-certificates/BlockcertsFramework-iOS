@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONLD
 
 // From the example web verifier here:
 //

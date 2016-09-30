@@ -31,10 +31,9 @@ public protocol JSONLD {
 }
 
 public class JSONLDProcessor : NSObject {
-    static let shared = JSONLDProcessor()
-
-    // JSContext is not sufficient. We need web access 
-    let webView : WKWebView
+    public static let shared = JSONLDProcessor()
+    public let webView : WKWebView
+    
     let userContentController : WKUserContentController
     
     var queuedCalls = [() -> Void]()
