@@ -55,7 +55,8 @@ public class JSONLDProcessor : NSObject {
         webView = WKWebView(frame: .zero, configuration: configuration)
 
         // Load our JSON-LD/index.html file for calling jsonld.js functions
-        guard let path = Bundle.main.path(forResource: "index", ofType: "html") else {
+        let frameworkBundle = Bundle(for: type(of: self))
+        guard let path = frameworkBundle.path(forResource: "index", ofType: "html") else {
             fatalError("Couldn't find `index.html` file in \(#file)")
         }
         let pathURL = URL(fileURLWithPath: path)
