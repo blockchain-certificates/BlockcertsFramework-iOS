@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import JSONLD
 
 class CertificateValidationRequestTests: XCTestCase {
     
@@ -117,7 +118,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               response: HTTPURLResponse(url: issuerURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
                               error: nil)
         
-        class MockJSONLD : JSONLD {
+        class MockJSONLD : JSONLDProcessor {
             func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?) {
                 if let reformatted = try? JSONSerialization.jsonObject(with: docData, options: []),
                     let result = reformatted as? [String: Any] {
