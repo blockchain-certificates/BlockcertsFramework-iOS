@@ -38,7 +38,7 @@ extension CertificateValidationRequestDelegate {
 
 class CertificateValidationRequest : CommonRequest {
     let session : URLSessionProtocol
-    let jsonld : JSONLD
+    let jsonld : JSONLDProcessor
     let certificate : Certificate
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
@@ -86,7 +86,7 @@ class CertificateValidationRequest : CommonRequest {
          with transactionId: String,
          chain: String = "mainnet",
          starting : Bool = false,
-         jsonld : JSONLD = JSONLDProcessor.shared,
+         jsonld : JSONLDProcessor = JSONLD.shared,
          session : URLSessionProtocol = URLSession.shared,
          completionHandler: ((Bool, String?) -> Void)? = nil) {
         self.session = session
@@ -104,7 +104,7 @@ class CertificateValidationRequest : CommonRequest {
     convenience init?(for certificate: Certificate,
                      chain: String = "mainnet",
                      starting : Bool = false,
-                     jsonld : JSONLD = JSONLDProcessor.shared,
+                     jsonld : JSONLDProcessor = JSONLD.shared,
                      session: URLSessionProtocol = URLSession.shared,
                      completionHandler: ((Bool, String?) -> Void)? = nil) {
         guard let transactionId = certificate.receipt?.transactionId else {

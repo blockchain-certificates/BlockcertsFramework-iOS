@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     private func registerJSONLDProcessor() {
-        self.window?.rootViewController?.view.addSubview(JSONLDProcessor.shared.webView)
+        self.window?.rootViewController?.view.addSubview(JSONLD.shared.webView)
     }
 }
 

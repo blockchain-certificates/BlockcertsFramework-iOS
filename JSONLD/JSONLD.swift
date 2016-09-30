@@ -17,7 +17,7 @@ public enum JSONLDError : Error {
     case javascriptError(message: String)
 }
 
-public protocol JSONLD {
+public protocol JSONLDProcessor {
     func compact(docData: Data, context: [String : Any]?, callback: ((Error?, [String : Any]?) -> Void)?)
 
     // As time allows, it may make sense to add:
@@ -30,8 +30,8 @@ public protocol JSONLD {
     // ...and whatever else to make this a full JSONLD client.
 }
 
-public class JSONLDProcessor : NSObject {
-    public static let shared = JSONLDProcessor()
+public class JSONLD : NSObject {
+    public static let shared = JSONLD()
     public let webView : WKWebView
     
     let userContentController : WKUserContentController
@@ -54,7 +54,7 @@ public class JSONLDProcessor : NSObject {
         
         webView = WKWebView(frame: .zero, configuration: configuration)
 
-        // Load our JSON-LD/index.html file for calling jsonld.js functions
+        // Load our JSONLD/index.html file for calling jsonld.js functions
         let frameworkBundle = Bundle(for: type(of: self))
         guard let path = frameworkBundle.path(forResource: "index", ofType: "html") else {
             fatalError("Couldn't find `index.html` file in \(#file)")
@@ -82,7 +82,7 @@ public class JSONLDProcessor : NSObject {
     }
 }
 
-extension JSONLDProcessor : JSONLD {
+extension JSONLD : JSONLDProcessor {
     func compact(doc: [String : Any], context: [String : Any]? = nil, callback: ((Error?, [String : Any]?) -> Void)?) {
         let serializedData = try? JSONSerialization.data(withJSONObject: doc, options: [])
 
@@ -115,13 +115,13 @@ extension JSONLDProcessor : JSONLD {
 }
 
 
-extension JSONLDProcessor : WKNavigationDelegate {
+extension JSONLD : WKNavigationDelegate {
     public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         drainQueue()
     }
 }
 
-extension JSONLDProcessor : WKScriptMessageHandler {
+extension JSONLD : WKScriptMessageHandler {
     public func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
         guard let response = message.body as? [String: Any] else {
             print("Something went wrong, the response wasn't what I expected in \(#function)")
