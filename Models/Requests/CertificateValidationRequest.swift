@@ -202,13 +202,20 @@ class CertificateValidationRequest : CommonRequest {
     }
     
     internal func compareHashes() {
+        let compareToHash : String?
+        if certificate.version == .oneDotOne {
+            compareToHash = self.remoteHash
+        } else {
+            compareToHash = self.certificate.receipt?.targetHash
+        }
+        
         guard let localHash = self.localHash,
-            let remoteHash = self.remoteHash?.asHexData() else {
+            let correctHashResult = compareToHash?.asHexData() else {
                 state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
                 return
         }
         
-        guard localHash == remoteHash else {
+        guard localHash == correctHashResult else {
             state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
             return
         }
@@ -308,7 +315,8 @@ class CertificateValidationRequest : CommonRequest {
                 return
         }
         
-        guard merkleRoot == remoteHash else {
+        let opReturnPrefixedMerkleRoot = "6a20" + merkleRoot
+        guard opReturnPrefixedMerkleRoot == remoteHash else {
             state = .failure(reason: "MerkleRoot does not match remote hash:\n Merkle:\(merkleRoot)\nRemote:\(remoteHash)")
             return
         }
