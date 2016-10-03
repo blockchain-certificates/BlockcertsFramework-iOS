@@ -28,6 +28,8 @@ public protocol JSONLDProcessor {
     // * toRDF
     // * fromRDF
     // ...and whatever else to make this a full JSONLD client.
+    
+    func normalize(docData: Data, callback: @escaping (Error?, [String: Any]?) -> Void)
 }
 
 public class JSONLD : NSObject {
@@ -101,7 +103,6 @@ extension JSONLD : JSONLDProcessor {
             + "window.webkit.messageHandlers.respond.postMessage(response);"
             + "}"
         
-        
         let jsString : String!
         if let context = context {
             jsString = "jsonld.compact(\(serializedDoc), \(context), \(jsResultHandler))"
@@ -109,6 +110,25 @@ extension JSONLD : JSONLDProcessor {
             jsString = "jsonld.compact(\(serializedDoc), {}, \(jsResultHandler))"
         }
         
+        savedCallbacks[newID] = callback
+        webView.evaluateJavaScript(jsString, completionHandler: nil)
+    }
+    
+    public func normalize(docData: Data, callback: @escaping (Error?, [String : Any]?) -> Void) {
+        let serializedDoc = String(data: docData, encoding: .utf8)
+        let newID = uniqueId
+        
+        let jsResultHandler = "function (err, result) {"
+            + "var response = {"
+            + "  id: \(newID),"
+            + "  err: err,"
+            + "  result: result"
+            + "};"
+            + "window.webkit.messageHandlers.respond.postMessage(response);"
+            + "}"
+        let options = "{algorithm: 'URDNA2015', format: 'application/nquads'}"
+        
+        let jsString = "jsonld.compact(\(serializedDoc), \(options), \(jsResultHandler))"
         savedCallbacks[newID] = callback
         webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
