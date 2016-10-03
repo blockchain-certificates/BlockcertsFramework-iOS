@@ -29,7 +29,7 @@ public protocol JSONLDProcessor {
     // * fromRDF
     // ...and whatever else to make this a full JSONLD client.
     
-    func normalize(docData: Data, callback: @escaping (Error?, [String: Any]?) -> Void)
+    func normalize(docData: Data, callback: @escaping (Error?, String?) -> Void)
 }
 
 public class JSONLD : NSObject {
@@ -46,7 +46,8 @@ public class JSONLD : NSObject {
         return lastUsedId
     }
     
-    var savedCallbacks = [Int: ((Error?, [String: Any]?) -> Void)]()
+    var objectCallbacks = [Int: ((Error?, [String: Any]?) -> Void)]()
+    var stringCallbacks = [Int: ((Error?, String?) -> Void)]()
     
     override init() {
         userContentController = WKUserContentController()
@@ -110,12 +111,12 @@ extension JSONLD : JSONLDProcessor {
             jsString = "jsonld.compact(\(serializedDoc), {}, \(jsResultHandler))"
         }
         
-        savedCallbacks[newID] = callback
+        objectCallbacks[newID] = callback
         webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
     
-    public func normalize(docData: Data, callback: @escaping (Error?, [String : Any]?) -> Void) {
-        let serializedDoc = String(data: docData, encoding: .utf8)
+    public func normalize(docData: Data, callback: @escaping (Error?, String?) -> Void) {
+        let serializedDoc = String(data: docData, encoding: .utf8)!
         let newID = uniqueId
         
         let jsResultHandler = "function (err, result) {"
@@ -128,8 +129,8 @@ extension JSONLD : JSONLDProcessor {
             + "}"
         let options = "{algorithm: 'URDNA2015', format: 'application/nquads'}"
         
-        let jsString = "jsonld.compact(\(serializedDoc), \(options), \(jsResultHandler))"
-        savedCallbacks[newID] = callback
+        let jsString = "jsonld.normalize(\(serializedDoc), \(options), \(jsResultHandler))"
+        stringCallbacks[newID] = callback
         webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
 }
@@ -152,18 +153,24 @@ extension JSONLD : WKScriptMessageHandler {
             print("There wasn't an ID in the response")
             return
         }
-        guard let callback = savedCallbacks[responseForID] else {
-            print("Something went wrong. We don't have a callback for that ID: \(responseForID)")
-            return
-        }
-        let errorObject = response["err"] as? [String : Any] ?? [:]
         
+        let errorObject = response["err"] as? [String : Any] ?? [:]
         var error : Error? = nil
         if let errorMessage = errorObject["message"] as? String {
             error = JSONLDError.javascriptError(message: errorMessage)
         }
         
-        let result = response["result"] as? [String : Any]
-        callback(error, result)
+        let stringCallback = stringCallbacks[responseForID]
+        let dictionaryCallback = objectCallbacks[responseForID]
+        
+        if let stringCallback = stringCallback {
+            let result = response["result"] as? String
+            stringCallback(error, result)
+        } else if let dictionaryCallback = dictionaryCallback {
+            let result = response["result"] as? [String: Any]
+            dictionaryCallback(error, result)
+        } else {
+            print("Something went wrong. We don't have a string callback for that ID: \(responseForID)")
+        }
     }
 }

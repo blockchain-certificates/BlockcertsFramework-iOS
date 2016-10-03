@@ -134,23 +134,31 @@ class CertificateValidationRequest : CommonRequest {
             self.localHash = sha256(data: certificate.file)
             state = .fetchingRemoteHash
         } else {
-            jsonld.compact(docData: certificate.file, context: nil, callback: { (error, resultObject) in
+            let docData : Data!
+            do {
+                let json = try JSONSerialization.jsonObject(with: certificate.file, options: []) as! [String: Any]
+                let document = json["document"] as! [String: Any]
+                docData = try JSONSerialization.data(withJSONObject: document, options: [])
+            } catch {
+                state = .failure(reason: "Failed to re-parse the document node out of the certificate's file.")
+                return
+            }
+            
+            jsonld.normalize(docData: docData, callback: { (error, resultString) in
                 guard error == nil else {
                     self.state = .failure(reason: "Failed JSON-LD compact with \(error!)")
                     return
                 }
-                guard let resultObject = resultObject else {
+                guard let resultString = resultString else {
                     self.state = .failure(reason: "There's no error, but the resultData is nil.")
                     return
                 }
-                
-                // Stringify that data!
-                guard let standardizedData = try? JSONSerialization.data(withJSONObject: resultObject, options: []) else {
-                    self.state = .failure(reason: "JSON-LD result didn't stringify into a Data object")
+                guard let stringData = resultString.data(using: .utf8) else {
+                    self.state = .failure(reason: "Result could not be translated into raw data: \(resultString)")
                     return
                 }
                 
-                self.localHash = sha256(data: standardizedData)
+                self.localHash = sha256(data: stringData)
                 self.state = .fetchingRemoteHash
             })
         }
