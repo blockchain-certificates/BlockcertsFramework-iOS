@@ -95,7 +95,7 @@ extension CertificatesViewController {
             let deletedCertificate : Certificate! = self?.certificates.remove(at: indexPath.row)
             
             let documentsDirectory = URL(fileURLWithPath: Paths.certificateDirectory)
-            let certificateFilename = self?.filenameFor(certificate: deletedCertificate) ?? ""
+            let certificateFilename = deletedCertificate.assertion.uid
             let filePath = URL(fileURLWithPath: certificateFilename, relativeTo: documentsDirectory)
             
             let coordinator = NSFileCoordinator()
@@ -195,10 +195,19 @@ extension CertificatesViewController {
         }
         
         // At this point, data is totally a valid certificate. Let's save that to the documents directory.
-        let filename = filenameFor(certificate: certificate)
-        save(certificateData: data, withFilename: filename)
-        
-        if !certificates.contains(where: { $0.id == certificate.id }) {
+        let filename = certificate.assertion.uid
+        let success = save(certificateData: data, withFilename: filename)
+        let isCertificateInList = certificates.contains(where: { $0.assertion.uid == certificate.assertion.uid })
+            
+        if isCertificateInList {
+            let alertController = UIAlertController(title: "File already imported", message: "You've already imported that file.", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        } else if !success {
+            let alertController = UIAlertController(title: "Failed to save file", message: "Try importing the file again. ", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertController, animated: true, completion: nil)
+        } else {
             certificates.append(certificate)
             
             // Issue #20: We should do an insert animation rather than a full table reload.
@@ -222,10 +231,6 @@ extension CertificatesViewController {
         }
         
         tableView.reloadData()
-    }
-    
-    func filenameFor(certificate : Certificate) -> String {
-        return "\(certificate.id)".replacingOccurrences(of: "/", with: "_")
     }
     
     /// Saves the certificate data to the specified file name. If the file already exists, then data is not overwritten. In theory, since all certificates have unique IDs, then writing data to disk that's already there.
