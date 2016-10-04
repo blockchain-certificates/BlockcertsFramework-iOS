@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BlockchainCertificates
 
 class ReceiptVerifier {
     

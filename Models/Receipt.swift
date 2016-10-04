@@ -8,9 +8,16 @@
 
 import Foundation
 
-struct Receipt {
-    let merkleRoot : String
-    let targetHash : String
-    let proof : [[String : AnyObject]]?
-    let transactionId : String
+public struct Receipt {
+    public let merkleRoot : String
+    public let targetHash : String
+    public let proof : [[String : AnyObject]]?
+    public let transactionId : String
+    
+    public init(merkleRoot: String, targetHash: String, proof:[[String: AnyObject]]?, transactionId: String) {
+        self.merkleRoot = merkleRoot
+        self.targetHash = targetHash
+        self.proof = proof
+        self.transactionId = transactionId
+    }
 }
