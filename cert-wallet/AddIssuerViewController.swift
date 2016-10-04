@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BlockchainCertificates
+
 protocol AddIssuerViewControllerDelegate : class {
     func created(issuer: Issuer)
 }
