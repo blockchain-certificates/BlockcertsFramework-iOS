@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlockchainCertificates
 
 class CertificatesViewController: UITableViewController {
     var certificates = [Certificate]()

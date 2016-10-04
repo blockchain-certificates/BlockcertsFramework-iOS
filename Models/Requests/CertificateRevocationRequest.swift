@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BlockchainCertificates
 
 class CertificateRevocationRequest : CommonRequest {
     var callback : ((Bool, String?) -> Void)?

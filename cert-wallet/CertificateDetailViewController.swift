@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlockchainCertificates
 
 protocol TableSection {
     var identifier: String { get }

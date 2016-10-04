@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import BlockchainCertificates
 
 /// These are versionf of the CertificateFormat that the CertificateParser understands. It will also be prsent on the resulting Certificate object
 ///
 /// - oneDotOne: This is a v1.1 certificate
 /// - oneDotTwo: This is a v1.2 certificate
-enum CertificateVersion {
+public enum CertificateVersion {
     case oneDotOne
     case oneDotTwo
 }
@@ -34,7 +33,7 @@ enum CertificateVersion {
 /// - jsonLDError:         Problem in conforming to JSON LD format. http://json-ld.org
 /// - missingData:         A particular property was missing in the JSON data.
 /// - invalidData:         A property's value is invalid. For instance, a normal string when a URL should be present.
-enum CertificateParserError : Error {
+public enum CertificateParserError : Error {
     case notImplemented
     case genericError
     case notValidJSON
@@ -45,7 +44,7 @@ enum CertificateParserError : Error {
 }
 
 /// CertificateParser should never be instantiated. Call one of its `parse` methods to turn a Data object into a Certificate.
-enum CertificateParser {
+public enum CertificateParser {
     /// This is the most general parse function. Pass it a data object representing the certificate, and it will
     /// auto-detect which version of the Certificate format to use. It will always use the latest version that
     /// passes a valid parse
@@ -53,7 +52,7 @@ enum CertificateParser {
     /// - parameter data: A Data-representation of the Certificate. Usually, this is a JSON object.
     ///
     /// - returns: A certificate if the provided data passes any known version of the Certificate format. Nil otherwise.
-    static func parse(data: Data) throws -> Certificate {
+    public static func parse(data: Data) throws -> Certificate {
         return try CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
     }
     
@@ -64,7 +63,7 @@ enum CertificateParser {
     /// - parameter version: Which version to parse the `data` parameter as.
     ///
     /// - returns: A Certificate if `data` is a valid Certificate at the specified version. Nil otherwise.
-    static func parse(data: Data, asVersion version: CertificateVersion) throws -> Certificate {
+    public static func parse(data: Data, asVersion version: CertificateVersion) throws -> Certificate {
         switch version {
         case .oneDotTwo:
             return try CertificateV1_2(data: data)
@@ -119,7 +118,7 @@ enum CertificateParser {
 // MARK: - Certificate Protocol definition
 //
 /// An abstract definition of a Certificate. Private concrete subclasses will conform to this protocol.
-protocol Certificate {
+public protocol Certificate {
     /// Which version of the Certificate format this was parsed as.
     var version : CertificateVersion { get }
     

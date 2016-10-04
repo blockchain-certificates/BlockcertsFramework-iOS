@@ -8,6 +8,7 @@
 
 import Foundation
 import JSONLD
+import BlockchainCertificates
 
 // From the example web verifier here:
 //

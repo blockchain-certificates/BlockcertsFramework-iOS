@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlockchainCertificates
 
 class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
     var certificates = [(URL, Certificate)]()
