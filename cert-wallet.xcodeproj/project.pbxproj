@@ -13,6 +13,11 @@
 		3BDF6EAA1D75160E00EC005C /* ReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA91D75160E00EC005C /* ReceiptTests.swift */; };
 		3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */; };
 		53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */; };
+		83111BAC1DA42087006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
+		83111BB31DA42087006B058D /* BlockchainCertificatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83111BB21DA42087006B058D /* BlockchainCertificatesTests.swift */; };
+		83111BB51DA42087006B058D /* BlockchainCertificates.h in Headers */ = {isa = PBXBuildFile; fileRef = 83111BA51DA42086006B058D /* BlockchainCertificates.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		83111BB81DA42087006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
+		83111BB91DA42087006B058D /* BlockchainCertificates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */; };
 		83258E351D78D8A7002D78FC /* IssuerCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */; };
 		83258E3C1D79E944002D78FC /* IssuerIntroductionRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */; };
@@ -130,6 +135,27 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
+		83111BAD1DA42087006B058D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83111BA21DA42086006B058D;
+			remoteInfo = BlockchainCertificates;
+		};
+		83111BAF1DA42087006B058D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 836A31A21D5933D800943801;
+			remoteInfo = "cert-wallet";
+		};
+		83111BB61DA42087006B058D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83111BA21DA42086006B058D;
+			remoteInfo = BlockchainCertificates;
+		};
 		832A0BBF1D8B12D900BDCD59 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 836A319B1D5933D800943801 /* Project object */;
@@ -186,6 +212,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				83111BB91DA42087006B058D /* BlockchainCertificates.framework in Embed Frameworks */,
 				8354F3181D9F13840008DB09 /* JSONLD.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -202,6 +229,12 @@
 		3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
 		4577D4DA579179516CE8C7E7 /* Pods-cert-wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.release.xcconfig"; sourceTree = "<group>"; };
 		63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		83111BA31DA42086006B058D /* BlockchainCertificates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlockchainCertificates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		83111BA51DA42086006B058D /* BlockchainCertificates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BlockchainCertificates.h; sourceTree = "<group>"; };
+		83111BA61DA42086006B058D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockchainCertificatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		83111BB21DA42087006B058D /* BlockchainCertificatesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainCertificatesTests.swift; sourceTree = "<group>"; };
+		83111BB41DA42087006B058D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
 		83258E341D78D8A6002D78FC /* IssuerCreationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequestTests.swift; sourceTree = "<group>"; };
 		83258E3B1D79E944002D78FC /* IssuerIntroductionRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequestTests.swift; sourceTree = "<group>"; };
@@ -279,6 +312,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		83111B9F1DA42086006B058D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83111BA81DA42087006B058D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83111BAC1DA42087006B058D /* BlockchainCertificates.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		832A0BA71D8B12D900BDCD59 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -305,6 +353,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */,
+				83111BB81DA42087006B058D /* BlockchainCertificates.framework in Frameworks */,
 				321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +377,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83111BA41DA42086006B058D /* BlockchainCertificates */ = {
+			isa = PBXGroup;
+			children = (
+				83111BA51DA42086006B058D /* BlockchainCertificates.h */,
+				83111BA61DA42086006B058D /* Info.plist */,
+			);
+			path = BlockchainCertificates;
+			sourceTree = "<group>";
+		};
+		83111BB11DA42087006B058D /* BlockchainCertificatesTests */ = {
+			isa = PBXGroup;
+			children = (
+				83111BB21DA42087006B058D /* BlockchainCertificatesTests.swift */,
+				83111BB41DA42087006B058D /* Info.plist */,
+			);
+			path = BlockchainCertificatesTests;
+			sourceTree = "<group>";
+		};
 		832A0BAB1D8B12D900BDCD59 /* ImportAction */ = {
 			isa = PBXGroup;
 			children = (
@@ -407,13 +474,11 @@
 				83DF11B01D88617B002E8921 /* Models */,
 				83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */,
 				834910F41D5E6DC900872DAE /* Extensions */,
-				83F327EF1D94634200D8046E /* JSON-LD */,
 				836A31A51D5933D800943801 /* cert-wallet */,
 				836A31BC1D5933D800943801 /* cert-walletTests */,
 				836A31C71D5933D800943801 /* cert-walletUITests */,
 				832A0BAB1D8B12D900BDCD59 /* ImportAction */,
 				832A0BB91D8B12D900BDCD59 /* ImportActionFileProvider */,
-				8354F3111D9F13840008DB09 /* JSONLD */,
 				836A31A41D5933D800943801 /* Products */,
 				FB7ABE3E3FD88A725A13B911 /* Pods */,
 				BA06BCAA0680E083B5A63088 /* Frameworks */,
@@ -432,6 +497,8 @@
 				832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */,
 				832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */,
 				8354F3101D9F13840008DB09 /* JSONLD.framework */,
+				83111BA31DA42086006B058D /* BlockchainCertificates.framework */,
+				83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -522,16 +589,12 @@
 			name = RenderedCertificateView;
 			sourceTree = "<group>";
 		};
-		83F327EF1D94634200D8046E /* JSON-LD */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "JSON-LD";
-			sourceTree = "<group>";
-		};
 		BA06BCAA0680E083B5A63088 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8354F3111D9F13840008DB09 /* JSONLD */,
+				83111BA41DA42086006B058D /* BlockchainCertificates */,
+				83111BB11DA42087006B058D /* BlockchainCertificatesTests */,
 				D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */,
 				2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */,
 				63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */,
@@ -555,6 +618,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		83111BA01DA42086006B058D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83111BB51DA42087006B058D /* BlockchainCertificates.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8354F30D1D9F13840008DB09 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -566,6 +637,43 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		83111BA21DA42086006B058D /* BlockchainCertificates */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83111BBE1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificates" */;
+			buildPhases = (
+				83111B9E1DA42086006B058D /* Sources */,
+				83111B9F1DA42086006B058D /* Frameworks */,
+				83111BA01DA42086006B058D /* Headers */,
+				83111BA11DA42086006B058D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlockchainCertificates;
+			productName = BlockchainCertificates;
+			productReference = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		83111BAA1DA42087006B058D /* BlockchainCertificatesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 83111BBF1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificatesTests" */;
+			buildPhases = (
+				83111BA71DA42087006B058D /* Sources */,
+				83111BA81DA42087006B058D /* Frameworks */,
+				83111BA91DA42087006B058D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				83111BAE1DA42087006B058D /* PBXTargetDependency */,
+				83111BB01DA42087006B058D /* PBXTargetDependency */,
+			);
+			name = BlockchainCertificatesTests;
+			productName = BlockchainCertificatesTests;
+			productReference = 83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		832A0BA91D8B12D900BDCD59 /* ImportAction */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 832A0BC81D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportAction" */;
@@ -638,6 +746,7 @@
 				832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */,
 				832A0BC31D8B12D900BDCD59 /* PBXTargetDependency */,
 				8354F3161D9F13840008DB09 /* PBXTargetDependency */,
+				83111BB71DA42087006B058D /* PBXTargetDependency */,
 			);
 			name = "cert-wallet";
 			productName = "cert-wallet";
@@ -696,6 +805,17 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Digital Certificates Project";
 				TargetAttributes = {
+					83111BA21DA42086006B058D = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CYEWR6MU44;
+						ProvisioningStyle = Automatic;
+					};
+					83111BAA1DA42087006B058D = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = CYEWR6MU44;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 836A31A21D5933D800943801;
+					};
 					832A0BA91D8B12D900BDCD59 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = CYEWR6MU44;
@@ -761,11 +881,27 @@
 				832A0BA91D8B12D900BDCD59 /* ImportAction */,
 				832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */,
 				8354F30F1D9F13840008DB09 /* JSONLD */,
+				83111BA21DA42086006B058D /* BlockchainCertificates */,
+				83111BAA1DA42087006B058D /* BlockchainCertificatesTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		83111BA11DA42086006B058D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83111BA91DA42087006B058D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		832A0BA81D8B12D900BDCD59 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -965,6 +1101,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		83111B9E1DA42086006B058D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		83111BA71DA42087006B058D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				83111BB31DA42087006B058D /* BlockchainCertificatesTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		832A0BA61D8B12D900BDCD59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1095,6 +1246,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		83111BAE1DA42087006B058D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83111BA21DA42086006B058D /* BlockchainCertificates */;
+			targetProxy = 83111BAD1DA42087006B058D /* PBXContainerItemProxy */;
+		};
+		83111BB01DA42087006B058D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 836A31A21D5933D800943801 /* cert-wallet */;
+			targetProxy = 83111BAF1DA42087006B058D /* PBXContainerItemProxy */;
+		};
+		83111BB71DA42087006B058D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83111BA21DA42086006B058D /* BlockchainCertificates */;
+			targetProxy = 83111BB61DA42087006B058D /* PBXContainerItemProxy */;
+		};
 		832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */;
@@ -1150,6 +1316,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		83111BBA1DA42087006B058D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BlockchainCertificates/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificates;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		83111BBB1DA42087006B058D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = BlockchainCertificates/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificates;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		83111BBC1DA42087006B058D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = BlockchainCertificatesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificatesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
+			};
+			name = Debug;
+		};
+		83111BBD1DA42087006B058D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = BlockchainCertificatesTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificatesTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
+			};
+			name = Release;
+		};
 		832A0BC61D8B12D900BDCD59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1472,6 +1716,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		83111BBE1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificates" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83111BBA1DA42087006B058D /* Debug */,
+				83111BBB1DA42087006B058D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		83111BBF1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificatesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83111BBC1DA42087006B058D /* Debug */,
+				83111BBD1DA42087006B058D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		832A0BC51D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportActionFileProvider" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
