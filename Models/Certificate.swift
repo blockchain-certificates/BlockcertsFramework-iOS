@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BlockchainCertificates
 
 /// These are versionf of the CertificateFormat that the CertificateParser understands. It will also be prsent on the resulting Certificate object
 ///
