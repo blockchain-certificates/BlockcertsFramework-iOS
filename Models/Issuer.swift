@@ -9,44 +9,44 @@
 import Foundation
 
 /// Signifies when a new key was rotated in for a given purpose.
-struct KeyRotation {
+public struct KeyRotation {
     /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
-    let on : Date
+    public let on : Date
     /// A base64-encoded string representing the data of the key.
-    let key : String
+    public let key : String
 }
 
-struct Issuer {
+public struct Issuer {
     // MARK: - Properties
     // MARK: Required properties
     /// The name of the issuer.
-    let name : String
+    public let name : String
     
     /// The email address where you can contact the issuer
-    let email : String
+    public let email : String
     
     /// Image data for the issuer. This can be used to populate a UIImage object
-    let image : Data
+    public let image : Data
     
     /// Unique identifier for an Issuer. Also, the URL where you can re-request data. This is useful if an instance of this struct only has partial data, or if you want to see that the keys are still valid.
-    let id : URL
+    public let id : URL
     
     /// Where you can go to check a list of certificates issued by this issuer.
-    let url : URL
+    public let url : URL
     
     // MARK: Optional Properties
     /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to issue certificates during specific date ranges
-    let issuerKeys : [KeyRotation]
+    public let issuerKeys : [KeyRotation]
     
     /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to revoke certificates.
-    let revocationKeys : [KeyRotation]
+    public let revocationKeys : [KeyRotation]
     
     /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`
-    let introductionURL : URL?
+    public let introductionURL : URL?
     
     // MARK: Convenience Properties
     /// A convenience method for the most recent (and theoretically only valid) issuerKey.
-    var publicKey : String? {
+    public var publicKey : String? {
         return issuerKeys.first?.key
     }
     
@@ -63,11 +63,11 @@ struct Issuer {
     /// - parameter url:   URL to list all certificates issued by identifier
     ///
     /// - returns: An initialized Issuer object.
-    init(name: String,
-         email: String,
-         image: Data,
-         id: URL,
-         url: URL) {
+    public init(name: String,
+                email: String,
+                image: Data,
+                id: URL,
+                url: URL) {
         self.name = name
         self.email = email
         self.image = image
@@ -91,14 +91,14 @@ struct Issuer {
     /// - parameter introductionURL:      URL to introduce a recipient to this issuer.
     ///
     /// - returns: An initialized Issuer object.
-    init(name: String,
-         email: String,
-         image: Data,
-         id: URL,
-         url: URL,
-         publicIssuerKeys: [KeyRotation],
-         publicRevocationKeys: [KeyRotation],
-         introductionURL: URL) {
+    public init(name: String,
+                email: String,
+                image: Data,
+                id: URL,
+                url: URL,
+                publicIssuerKeys: [KeyRotation],
+                publicRevocationKeys: [KeyRotation],
+                introductionURL: URL) {
         self.name = name
         self.email = email
         self.image = image
@@ -113,7 +113,7 @@ struct Issuer {
     /// This is the inverse of `toDictionary`
     ///
     /// - parameter dictionary: A set of key-value pairs with data used to create the Issuer object
-    init?(dictionary: [String: Any]) {
+    public init?(dictionary: [String: Any]) {
         guard let name = dictionary["name"] as? String,
             let email = dictionary["email"] as? String,
             let imageString = dictionary["image"] as? String,
@@ -174,7 +174,7 @@ struct Issuer {
     /// Convert this Issuer structure into a dictionary format.
     ///
     /// - returns: The dictionary representing this Issuer.
-    func toDictionary() -> [String: Any] {
+    public func toDictionary() -> [String: Any] {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
         dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
@@ -212,7 +212,7 @@ struct Issuer {
 // MARK: - Equatable & Comparable conformance
 extension Issuer : Equatable {}
 
-func ==(lhs: Issuer, rhs: Issuer) -> Bool {
+public func ==(lhs: Issuer, rhs: Issuer) -> Bool {
     return lhs.name == rhs.name
         && lhs.email == rhs.email
         && lhs.image == rhs.image
@@ -224,10 +224,10 @@ func ==(lhs: Issuer, rhs: Issuer) -> Bool {
 
 extension KeyRotation : Comparable {}
 
-func ==(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
+public func ==(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
     return lhs.on == rhs.on && lhs.key == rhs.key
 }
 
-func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
+public func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
     return lhs.on < rhs.on
 }

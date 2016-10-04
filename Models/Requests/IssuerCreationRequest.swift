@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BlockchainCertificates
 
 class IssuerCreationRequest : CommonRequest {
     var callback : ((Issuer?) -> Void)?
