@@ -9,28 +9,28 @@
 import Foundation
 
 
-struct TransactionData {
-    let opReturnScript : String?
-    let revokedAddresses : Set<String>?
+public struct TransactionData {
+    public let opReturnScript : String?
+    public let revokedAddresses : Set<String>?
 }
 
-class TransactionDataHandler {
-    let transactionId : String?
-    let transactionUrlAsString : String?
-    var failureReason : String?
-    var transactionData : TransactionData?
+public class TransactionDataHandler {
+    public let transactionId : String?
+    public let transactionUrlAsString : String?
+    public var failureReason : String?
+    public var transactionData : TransactionData?
     
-    init(transactionId: String, transactionUrlAsString: String) {
+    public init(transactionId: String, transactionUrlAsString: String) {
         self.transactionId = transactionId
         self.transactionUrlAsString = transactionUrlAsString
     }
     
-    func parseResponse(json: [String : AnyObject]) {
+    public func parseResponse(json: [String : AnyObject]) {
         // TODO: this actually is intended as a abstract method, which means this should be
         // done differently....
     }
     
-    static func create(chain: String, transactionId: String) -> TransactionDataHandler {
+    public static func create(chain: String, transactionId: String) -> TransactionDataHandler {
         if chain == "testnet" {
             return BlockcypherHandler(transactionId: transactionId)
         } else {
@@ -39,12 +39,12 @@ class TransactionDataHandler {
     }
 }
 
-class BlockchainInfoHandler : TransactionDataHandler {
-    init(transactionId: String) {
+public class BlockchainInfoHandler : TransactionDataHandler {
+    public init(transactionId: String) {
         super.init(transactionId: transactionId, transactionUrlAsString: "https://blockchain.info/rawtx/\(transactionId)?cors=true")
     }
     
-    override func parseResponse(json: [String : AnyObject]) {
+    override public func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["out"] as? [[String: AnyObject]] else {
             super.failureReason = "Missing 'out' property in response:\n\(json)"
             return
@@ -73,11 +73,11 @@ class BlockchainInfoHandler : TransactionDataHandler {
     }
 }
 
-class BlockcypherHandler : TransactionDataHandler {
-    init(transactionId: String) {
+public class BlockcypherHandler : TransactionDataHandler {
+    public init(transactionId: String) {
         super.init(transactionId: transactionId, transactionUrlAsString: "http://api.blockcypher.com/v1/btc/test3/txs/\(transactionId)")
     }
-    override func parseResponse(json: [String : AnyObject]) {
+    override public func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["outputs"] as? [[String: AnyObject]] else {
             super.failureReason = "Missing 'out' property in response:\n\(json)"
             return
