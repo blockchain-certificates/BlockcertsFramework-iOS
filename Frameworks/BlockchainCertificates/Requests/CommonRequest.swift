@@ -9,7 +9,7 @@
 import Foundation
 
 /// Represents a request for data or processing that might take some time. Classes that implement this protocol are expected to also implement some means of conveying progress or completion -- either a delegate or a completion handler.
-protocol CommonRequest {
+public protocol CommonRequest {
     /// Begin executing the request.
     func start()
     
