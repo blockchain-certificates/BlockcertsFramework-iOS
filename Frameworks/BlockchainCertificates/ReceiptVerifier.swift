@@ -7,9 +7,10 @@
 //
 
 import Foundation
+import CommonCrypto
 
 public class ReceiptVerifier {
-    
+    public init() {}
     /**
      Takes a receipt
      Checks the validity of the proof and return true or false
