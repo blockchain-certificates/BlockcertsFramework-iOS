@@ -1,46 +1,51 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
       "size" : "20x20",
+      "idiom" : "iphone",
+      "filename" : "square copy-notification@2x.png",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
       "size" : "20x20",
+      "idiom" : "iphone",
+      "filename" : "square copy-notification@3x-1.png",
       "scale" : "3x"
     },
     {
-      "idiom" : "iphone",
       "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "square copy-settings@2x-1.png",
       "scale" : "2x"
     },
     {
-      "idiom" : "iphone",
       "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "square copy-settings@3x-1.png",
       "scale" : "3x"
     },
     {
-      "idiom" : "iphone",
       "size" : "40x40",
+      "idiom" : "iphone",
+      "filename" : "square copy-spotlight@2x-1.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "app-icon-spotlight@3x.png",
+      "filename" : "square copy-spotlight@3x.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "app-icon-iphone@2x-1.png",
+      "filename" : "square copy-iphone-icon@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "app-icon-iphone@3x.png",
+      "filename" : "square copy-iphone-icon@3x.png",
       "scale" : "3x"
     },
     {
@@ -64,27 +69,23 @@
       "scale" : "2x"
     },
     {
-      "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "app-icon-spotlight.png",
+      "size" : "40x40",
       "scale" : "1x"
     },
     {
-      "size" : "40x40",
       "idiom" : "ipad",
-      "filename" : "app-icon-spotlight@2x.png",
+      "size" : "40x40",
       "scale" : "2x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "app-icon-ipad.png",
+      "size" : "76x76",
       "scale" : "1x"
     },
     {
-      "size" : "76x76",
       "idiom" : "ipad",
-      "filename" : "app-icon-ipad@2x.png",
+      "size" : "76x76",
       "scale" : "2x"
     },
     {
@@ -93,9 +94,8 @@
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "car",
-      "filename" : "app-icon-iphone@2x.png",
+      "size" : "60x60",
       "scale" : "2x"
     },
     {
@@ -120,20 +120,20 @@
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "app-icon-setting@2x.png",
       "role" : "companionSettings",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "app-icon-setting@3x.png",
+      "filename" : "square copy-settings@3x.png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "watch",
+      "filename" : "square copy-spotlight@2x.png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "38mm"
@@ -200,8 +200,16 @@
     {
       "size" : "512x512",
       "idiom" : "mac",
-      "filename" : "app-icon-app-store.png",
+      "filename" : "square copy-app-store.png",
       "scale" : "2x"
+    },
+    {
+      "filename" : "square copy-notification@3x.png",
+      "unassigned" : true
+    },
+    {
+      "filename" : "square copy.png",
+      "unassigned" : true
     }
   ],
   "info" : {
