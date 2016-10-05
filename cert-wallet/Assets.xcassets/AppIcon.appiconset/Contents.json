@@ -9,7 +9,7 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "square copy-notification@3x-1.png",
+      "filename" : "square copy-notification@3x.png",
       "scale" : "3x"
     },
     {
@@ -202,14 +202,6 @@
       "idiom" : "mac",
       "filename" : "square copy-app-store.png",
       "scale" : "2x"
-    },
-    {
-      "filename" : "square copy-notification@3x.png",
-      "unassigned" : true
-    },
-    {
-      "filename" : "square copy.png",
-      "unassigned" : true
     }
   ],
   "info" : {
