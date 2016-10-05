@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import BlockchainCertificates
 
 class CertificateV1_2UnsignedInvalidTests: XCTestCase {
     func testMissingIssuerEmail() {

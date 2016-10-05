@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import BlockchainCertificates
 
 class CertificateRevocationRequestTests: XCTestCase {
     func testUnsuccessfulV1_1Request() {

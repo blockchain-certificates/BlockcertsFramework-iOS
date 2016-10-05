@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import BlockchainCertificates
 
 class ReceiptTests: XCTestCase {
     

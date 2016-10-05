@@ -14,6 +14,11 @@ public struct KeyRotation {
     public let on : Date
     /// A base64-encoded string representing the data of the key.
     public let key : String
+    
+    public init(on: Date, key: String) {
+        self.on = on
+        self.key = key
+    }
 }
 
 public struct Issuer {

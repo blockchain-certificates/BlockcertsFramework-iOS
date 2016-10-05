@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import BlockchainCertificates
 
 class IssuerIntroductionRequestTests: XCTestCase {
     func testSuccessfulIntroductionRequest() {

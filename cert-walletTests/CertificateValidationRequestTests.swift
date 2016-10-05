@@ -8,6 +8,7 @@
 
 import XCTest
 import JSONLD
+import BlockchainCertificates
 
 class CertificateValidationRequestTests: XCTestCase {
     
