@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import BlockchainCertificates
 
-class ReceiptVerifier {
+public class ReceiptVerifier {
     
     /**
      Takes a receipt
@@ -17,7 +16,7 @@ class ReceiptVerifier {
      :param receipt:
      :return:
      */
-    func validate(receipt : Receipt, chain: String) -> Bool {
+    public func validate(receipt : Receipt, chain: String) -> Bool {
         guard let proof = receipt.proof else {
             // no siblings, single item tree, so the hash should also be the root
             return receipt.targetHash == receipt.merkleRoot
@@ -52,3 +51,12 @@ class ReceiptVerifier {
         return proofHash == merkleRoot
     }
 }
+
+fileprivate func sha256(data : Data) -> Data {
+    var hash = [UInt8](repeating: 0,  count: Int(CC_SHA256_DIGEST_LENGTH))
+    data.withUnsafeBytes {
+        _ = CC_SHA256($0, CC_LONG(data.count), &hash)
+    }
+    return Data(bytes: hash)
+}
+
