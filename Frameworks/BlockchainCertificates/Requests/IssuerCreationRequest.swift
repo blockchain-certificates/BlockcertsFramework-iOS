@@ -7,22 +7,21 @@
 //
 
 import Foundation
-import BlockchainCertificates
 
-class IssuerCreationRequest : CommonRequest {
-    var callback : ((Issuer?) -> Void)?
-    let url : URL
+public class IssuerCreationRequest : CommonRequest {
+    public var callback : ((Issuer?) -> Void)?
+    public let url : URL
     
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    init(id: URL, session: URLSessionProtocol = URLSession.shared, callback: ((Issuer?) -> Void)?) {
+    public init(id: URL, session: URLSessionProtocol = URLSession.shared, callback: ((Issuer?) -> Void)?) {
         self.callback = callback
         self.session = session
         url = id
     }
     
-    func start() {
+    public func start() {
         currentTask = session.dataTask(with: url) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
@@ -50,7 +49,7 @@ class IssuerCreationRequest : CommonRequest {
         currentTask?.resume()
     }
     
-    func abort() {
+    public func abort() {
         currentTask?.cancel()
         reportFailure()
     }

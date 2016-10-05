@@ -7,9 +7,8 @@
 //
 
 import Foundation
-import BlockchainCertificates
 
-class IssuerIntroductionRequest : CommonRequest {
+public class IssuerIntroductionRequest : CommonRequest {
     var callback : ((Bool, String?) -> Void)?
     let url : URL?
     
@@ -17,7 +16,7 @@ class IssuerIntroductionRequest : CommonRequest {
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
+    public init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
         self.callback = callback
         self.session = session
         self.recipient = recipient
@@ -25,7 +24,7 @@ class IssuerIntroductionRequest : CommonRequest {
         url = issuer.introductionURL
     }
     
-    func start() {
+    public func start() {
         guard let url = url else {
             reportFailure("Issuer does not have an introductionURL. Try refreshing the data.")
             return
@@ -59,7 +58,7 @@ class IssuerIntroductionRequest : CommonRequest {
         currentTask?.resume()
     }
     
-    func abort() {
+    public func abort() {
         currentTask?.cancel()
         reportFailure("Aborted")
     }

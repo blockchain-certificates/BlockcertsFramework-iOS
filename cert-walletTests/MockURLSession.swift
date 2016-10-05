@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import BlockchainCertificates
 
-class MockURLSession : URLSessionProtocol {
+public class MockURLSession : URLSessionProtocol {
     private var responseData = [URL : (data: Data?, response: URLResponse?, error: Error?)]()
     private var responseCallbacks = [URL : (request: URLRequest) -> (data: Data?, response: URLResponse?, error: Error?)]()
     
@@ -26,7 +27,7 @@ class MockURLSession : URLSessionProtocol {
     
     
     // Conform to URLSessionProtocol
-    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+    public func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
         let callback = responseCallbacks[url]
         let data = responseData[url]
         let task : MockURLSessionDataTask!
@@ -46,7 +47,7 @@ class MockURLSession : URLSessionProtocol {
         return task
     }
     
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+    public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
         guard let url = request.url else {
             fatalError("MockURLSession saw request that had no URL.")
         }
@@ -68,8 +69,6 @@ class MockURLSession : URLSessionProtocol {
         
         return task
     }
-    
-
 }
 
 class MockURLSessionDataTask : URLSessionDataTaskProtocol {
@@ -98,7 +97,7 @@ class MockURLSessionDataTask : URLSessionDataTaskProtocol {
         completionHandler = callback
     }
     
-    func resume() {
+    public func resume() {
         // TODO: Maybe delay a bit?
         if let serverCallback = serverCallback,
             let request = request {
@@ -109,5 +108,5 @@ class MockURLSessionDataTask : URLSessionDataTaskProtocol {
         }
     }
     
-    func cancel() {}
+    public func cancel() {}
 }

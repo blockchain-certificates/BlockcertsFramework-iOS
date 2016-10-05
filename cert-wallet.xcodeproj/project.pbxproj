@@ -73,15 +73,15 @@
 		839174741DA56EFB00CB6E54 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 8391746B1DA56B9500CB6E54 /* CommonCrypto.h */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
 		83B0A84E1DA5A80B00E5ECFA /* CommonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A84D1DA5A80300E5ECFA /* CommonRequest.swift */; };
+		83B0A8511DA5A87D00E5ECFA /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A84F1DA5A87D00E5ECFA /* IssuerCreationRequest.swift */; };
+		83B0A8521DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A8501DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift */; };
+		83B0A8541DA5A90E00E5ECFA /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A8531DA5A90E00E5ECFA /* URLSession.swift */; };
 		83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
 		83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
 		83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
 		83B383601D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
 		83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */; };
 		83CD9CDF1D788D1B0077D769 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */; };
-		83CD9CE11D788D480077D769 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CE01D788D480077D769 /* URLSession.swift */; };
-		83CD9CE21D788D480077D769 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CE01D788D480077D769 /* URLSession.swift */; };
-		83CD9CE31D788E390077D769 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CE01D788D480077D769 /* URLSession.swift */; };
 		83DF11C81D88617B002E8921 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B41D88617B002E8921 /* Keychain.swift */; };
 		83DF11C91D88617B002E8921 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B41D88617B002E8921 /* Keychain.swift */; };
 		83DF11CA1D88617B002E8921 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B41D88617B002E8921 /* Keychain.swift */; };
@@ -91,12 +91,6 @@
 		83DF11D41D88617B002E8921 /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B91D88617B002E8921 /* CertificateValidationRequest.swift */; };
 		83DF11D51D88617B002E8921 /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B91D88617B002E8921 /* CertificateValidationRequest.swift */; };
 		83DF11D61D88617B002E8921 /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B91D88617B002E8921 /* CertificateValidationRequest.swift */; };
-		83DF11DA1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11BB1D88617B002E8921 /* IssuerCreationRequest.swift */; };
-		83DF11DB1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11BB1D88617B002E8921 /* IssuerCreationRequest.swift */; };
-		83DF11DC1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11BB1D88617B002E8921 /* IssuerCreationRequest.swift */; };
-		83DF11DD1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11BC1D88617B002E8921 /* IssuerIntroductionRequest.swift */; };
-		83DF11DE1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11BC1D88617B002E8921 /* IssuerIntroductionRequest.swift */; };
-		83DF11DF1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11BC1D88617B002E8921 /* IssuerIntroductionRequest.swift */; };
 		83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
@@ -298,15 +292,15 @@
 		839174711DA56DDC00CB6E54 /* macosx.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = macosx.modulemap; path = Frameworks/CommonCrypto/macosx.modulemap; sourceTree = SOURCE_ROOT; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
 		83B0A84D1DA5A80300E5ECFA /* CommonRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonRequest.swift; sourceTree = "<group>"; };
+		83B0A84F1DA5A87D00E5ECFA /* IssuerCreationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequest.swift; sourceTree = "<group>"; };
+		83B0A8501DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequest.swift; sourceTree = "<group>"; };
+		83B0A8531DA5A90E00E5ECFA /* URLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateView.xib; path = RenderedCertificateView/RenderedCertificateView.xib; sourceTree = "<group>"; };
 		83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenderedCertificateView.swift; path = RenderedCertificateView/RenderedCertificateView.swift; sourceTree = "<group>"; };
 		83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
-		83CD9CE01D788D480077D769 /* URLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = URLSession.swift; path = Extensions/URLSession.swift; sourceTree = "<group>"; };
 		83DF11B41D88617B002E8921 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		83DF11B81D88617B002E8921 /* CertificateRevocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateRevocationRequest.swift; sourceTree = "<group>"; };
 		83DF11B91D88617B002E8921 /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CertificateValidationRequest.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		83DF11BB1D88617B002E8921 /* IssuerCreationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequest.swift; sourceTree = "<group>"; };
-		83DF11BC1D88617B002E8921 /* IssuerIntroductionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequest.swift; sourceTree = "<group>"; };
 		83DF831A1D8B3653006CA7AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -459,7 +453,6 @@
 			isa = PBXGroup;
 			children = (
 				834910F01D5E6DC300872DAE /* String.swift */,
-				83CD9CE01D788D480077D769 /* URLSession.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +570,7 @@
 		839174341DA563E800CB6E54 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				83B0A8531DA5A90E00E5ECFA /* URLSession.swift */,
 				839174351DA563E800CB6E54 /* String.swift */,
 			);
 			name = Extensions;
@@ -600,6 +594,8 @@
 			isa = PBXGroup;
 			children = (
 				83B0A84D1DA5A80300E5ECFA /* CommonRequest.swift */,
+				83B0A84F1DA5A87D00E5ECFA /* IssuerCreationRequest.swift */,
+				83B0A8501DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift */,
 			);
 			name = Requests;
 			path = Frameworks/BlockchainCertificates/Requests;
@@ -620,8 +616,6 @@
 			children = (
 				83DF11B81D88617B002E8921 /* CertificateRevocationRequest.swift */,
 				83DF11B91D88617B002E8921 /* CertificateValidationRequest.swift */,
-				83DF11BB1D88617B002E8921 /* IssuerCreationRequest.swift */,
-				83DF11BC1D88617B002E8921 /* IssuerIntroductionRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1199,11 +1193,14 @@
 				839174311DA5610600CB6E54 /* TransactionDataHandler.swift in Sources */,
 				838DA1B61DA45CBB00E85326 /* Recipient.swift in Sources */,
 				839174361DA563E800CB6E54 /* String.swift in Sources */,
+				83B0A8521DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift in Sources */,
 				838DA1B51DA45CBB00E85326 /* Receipt.swift in Sources */,
 				838DA1B21DA45CBB00E85326 /* Assertion.swift in Sources */,
 				838DA1B31DA45CBB00E85326 /* Certificate.swift in Sources */,
+				83B0A8541DA5A90E00E5ECFA /* URLSession.swift in Sources */,
 				838DA1B71DA45CBB00E85326 /* Verify.swift in Sources */,
 				83B0A84E1DA5A80B00E5ECFA /* CommonRequest.swift in Sources */,
+				83B0A8511DA5A87D00E5ECFA /* IssuerCreationRequest.swift in Sources */,
 				838DA1B41DA45CBB00E85326 /* Issuer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1246,15 +1243,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				834910F11D5E6DC300872DAE /* String.swift in Sources */,
-				83CD9CE31D788E390077D769 /* URLSession.swift in Sources */,
 				83DF11C81D88617B002E8921 /* Keychain.swift in Sources */,
 				83DF11D41D88617B002E8921 /* CertificateValidationRequest.swift in Sources */,
-				83DF11DA1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */,
 				836A31AB1D5933D800943801 /* CertificatesViewController.swift in Sources */,
 				836A31A71D5933D800943801 /* AppDelegate.swift in Sources */,
 				836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */,
 				83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
-				83DF11DD1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */,
 				8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */,
 				836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */,
@@ -1273,19 +1267,16 @@
 				836B857C1D7F575D00B2130B /* CertificateRevocationRequestTests.swift in Sources */,
 				83DF11C91D88617B002E8921 /* Keychain.swift in Sources */,
 				836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */,
-				83CD9CE11D788D480077D769 /* URLSession.swift in Sources */,
 				834910F21D5E6DC300872DAE /* String.swift in Sources */,
 				834F2EE41D62280E008C9650 /* StringExtensions.swift in Sources */,
 				835B62481D63B39F00C95EB8 /* CertificateV1_2Tests.swift in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
 				834F2EE61D624E80008C9650 /* CertificateV1_1Tests.swift in Sources */,
 				8369CB0C1D6FA288006D603E /* IssuerTests.swift in Sources */,
-				83DF11DB1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */,
 				83258E351D78D8A7002D78FC /* IssuerCreationRequestTests.swift in Sources */,
 				83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */,
 				83DF11D21D88617B002E8921 /* CertificateRevocationRequest.swift in Sources */,
 				835B624A1D63C87200C95EB8 /* CertificateParserTests.swift in Sources */,
-				83DF11DE1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */,
 				83DF11D51D88617B002E8921 /* CertificateValidationRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1299,13 +1290,10 @@
 				83DF11D31D88617B002E8921 /* CertificateRevocationRequest.swift in Sources */,
 				83DF11D61D88617B002E8921 /* CertificateValidationRequest.swift in Sources */,
 				83DF11CA1D88617B002E8921 /* Keychain.swift in Sources */,
-				83CD9CE21D788D480077D769 /* URLSession.swift in Sources */,
 				83CD9CDF1D788D1B0077D769 /* MockURLSession.swift in Sources */,
 				834910F31D5E6DC300872DAE /* String.swift in Sources */,
-				83DF11DC1D88617B002E8921 /* IssuerCreationRequest.swift in Sources */,
 				83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */,
 				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
-				83DF11DF1D88617B002E8921 /* IssuerIntroductionRequest.swift in Sources */,
 				836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

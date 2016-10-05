@@ -17,25 +17,25 @@ import Foundation
 //
 
 /// A common protocol for a URLSession. We can use this to mock out the network during tests
-protocol URLSessionProtocol {
+public protocol URLSessionProtocol {
     func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
     func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol
 }
 
 /// A common protocol for handling URLSessionDataTasks. We can use this to mock out the network during tests.
-protocol URLSessionDataTaskProtocol {
+public protocol URLSessionDataTaskProtocol {
     func resume()
     func cancel()
 }
 
 
 extension URLSession : URLSessionProtocol {
-    func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+    public func dataTask(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
         let result : URLSessionDataTask = dataTask(with: url, completionHandler: completionHandler)
         return result as URLSessionDataTaskProtocol
     }
     
-    func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
+    public func dataTask(with request: URLRequest, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
         let result : URLSessionDataTask = dataTask(with: request, completionHandler: completionHandler)
         return result as URLSessionDataTaskProtocol
     }
