@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import BlockchainCertificates
 
 class String_Extensions: XCTestCase {
 

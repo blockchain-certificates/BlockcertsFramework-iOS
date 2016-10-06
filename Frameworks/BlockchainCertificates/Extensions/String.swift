@@ -12,7 +12,7 @@ extension String {
     /// Turns a string of hexidecimal characters into a Data representation with the same value.
     ///
     /// - returns: Data representing that hexidecimal sequence if the string is valid. Nil otherwise.
-    func asHexData() -> Data? {
+    public func asHexData() -> Data? {
         let adjustedString = self.characters.count % 2 == 1 ? "0" + self : self
         
         let (pairs, _) = adjustedString.characters.reduce((Array<String>(), nil)) { (partialResult, char) -> (Array<String>, Character?) in
