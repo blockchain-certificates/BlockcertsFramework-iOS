@@ -30,6 +30,10 @@
 		830AB9E61DA6B44B00185E19 /* IssuerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E31DA6B44B00185E19 /* IssuerTests.swift */; };
 		830AB9E81DA6B5C400185E19 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E71DA6B5C400185E19 /* MockURLSession.swift */; };
 		830AB9EA1DA6B63400185E19 /* ReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E91DA6B63400185E19 /* ReceiptTests.swift */; };
+		830ABA7B1DA84DA300185E19 /* BitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */; };
+		830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
+		830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
+		830ABA7F1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		83111BAC1DA42087006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
 		83111BB81DA42087006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
 		83111BB91DA42087006B058D /* BlockchainCertificates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -243,6 +247,8 @@
 		830AB9E31DA6B44B00185E19 /* IssuerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IssuerTests.swift; path = Frameworks/BlockchainCertificatesTests/IssuerTests.swift; sourceTree = SOURCE_ROOT; };
 		830AB9E71DA6B5C400185E19 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockURLSession.swift; path = Frameworks/BlockchainCertificatesTests/MockURLSession.swift; sourceTree = SOURCE_ROOT; };
 		830AB9E91DA6B63400185E19 /* ReceiptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceiptTests.swift; path = Frameworks/BlockchainCertificatesTests/ReceiptTests.swift; sourceTree = SOURCE_ROOT; };
+		830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BitcoinManager.swift; path = Frameworks/CoreBitcoin/BitcoinManager.swift; sourceTree = SOURCE_ROOT; };
+		830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreBitcoinManager.swift; sourceTree = "<group>"; };
 		83111BA31DA42086006B058D /* BlockchainCertificates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlockchainCertificates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockchainCertificatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
@@ -427,6 +433,7 @@
 				838DA1AC1DA45CBB00E85326 /* Assertion.swift */,
 				839174321DA5637600CB6E54 /* ReceiptVerifier.swift */,
 				838DA1AD1DA45CBB00E85326 /* Certificate.swift */,
+				830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */,
 				838DA1AE1DA45CBB00E85326 /* Issuer.swift */,
 				838DA1AF1DA45CBB00E85326 /* Receipt.swift */,
 				838DA1B01DA45CBB00E85326 /* Recipient.swift */,
@@ -631,6 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				83DF831A1D8B3653006CA7AF /* Globals.swift */,
+				830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */,
 				83DF11B41D88617B002E8921 /* Keychain.swift */,
 				83DF11B71D88617B002E8921 /* Requests */,
 			);
@@ -1234,6 +1242,7 @@
 				838DA1B31DA45CBB00E85326 /* Certificate.swift in Sources */,
 				83B0A8541DA5A90E00E5ECFA /* URLSession.swift in Sources */,
 				838DA1B71DA45CBB00E85326 /* Verify.swift in Sources */,
+				830ABA7B1DA84DA300185E19 /* BitcoinManager.swift in Sources */,
 				83B0A84E1DA5A80B00E5ECFA /* CommonRequest.swift in Sources */,
 				83B0A8511DA5A87D00E5ECFA /* IssuerCreationRequest.swift in Sources */,
 				838DA1B41DA45CBB00E85326 /* Issuer.swift in Sources */,
@@ -1297,6 +1306,7 @@
 				83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */,
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				83DF11D11D88617B002E8921 /* CertificateRevocationRequest.swift in Sources */,
+				830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1309,6 +1319,7 @@
 				83DF11C91D88617B002E8921 /* Keychain.swift in Sources */,
 				836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
+				830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
 				83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */,
 				83DF11D21D88617B002E8921 /* CertificateRevocationRequest.swift in Sources */,
 				83DF11D51D88617B002E8921 /* CertificateValidationRequest.swift in Sources */,
@@ -1320,6 +1331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B383601D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
+				830ABA7F1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
 				8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */,
 				83DF11D31D88617B002E8921 /* CertificateRevocationRequest.swift in Sources */,
 				83DF11D61D88617B002E8921 /* CertificateValidationRequest.swift in Sources */,

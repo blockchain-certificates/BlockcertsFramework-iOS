@@ -40,6 +40,7 @@ extension CertificateValidationRequestDelegate {
 class CertificateValidationRequest : CommonRequest {
     let session : URLSessionProtocol
     let jsonld : JSONLDProcessor
+    let bitcoinManager : BitcoinManager
     let certificate : Certificate
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
@@ -96,6 +97,7 @@ class CertificateValidationRequest : CommonRequest {
         self.transactionId = transactionId
         self.completionHandler = completionHandler
         self.chain = chain
+        self.bitcoinManager = CoreBitcoinManager()
         
         if (starting) {
             self.start()
@@ -262,19 +264,16 @@ class CertificateValidationRequest : CommonRequest {
             //    - it returns a matching BTCKey if found
             // 3. we still have to check that the BTCKey returned above matches the issuer's public key that we looked up
             
-            // base64 decode the signature on the certificate
-            let decodedData = NSData.init(base64Encoded: (self?.certificate.signature)!, options: NSData.Base64DecodingOptions(rawValue: 0))
-            // derive the key that produced this signature
-            let btcKey = BTCKey.verifySignature(decodedData as Data!, forMessage: self?.certificate.assertion.uid)
-            // if this succeeds, we successfully derived a key, but still have to check that it matches the issuerKey
-            
-            
-            let address : String?
-            if self?.chain == "testnet" {
-                address = btcKey?.addressTestnet?.string
-            } else {
-                address = btcKey?.address?.string
+            let chain = self?.chain ?? "mainnet"
+            guard let bitcoinManager = self?.bitcoinManager else {
+                self?.state = .failure(reason: "Incorrect configuration. ValidationRequest needs to have a bitcoin manager specified.")
+                return
             }
+            guard let certificate = self?.certificate else {
+                self?.state = .failure(reason: "Certificate is missing.")
+                return
+            }
+            let address = bitcoinManager.address(for: certificate, on: chain)
             
             guard address == issuerKey else {
                 self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address\(address)\n issuerKey\(issuerKey)")
