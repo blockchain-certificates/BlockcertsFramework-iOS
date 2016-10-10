@@ -7,19 +7,18 @@
 //
 
 import Foundation
-import BlockchainCertificates
 
-class CertificateRevocationRequest : CommonRequest {
+public class CertificateRevocationRequest : CommonRequest {
     var callback : ((Bool, String?) -> Void)?
     
     private var certificate : Certificate
     
-    init(revoking certificate: Certificate, callback: ((Bool, String?) -> Void)?) {
+    public init(revoking certificate: Certificate, callback: ((Bool, String?) -> Void)?) {
         self.certificate = certificate
         self.callback = callback
     }
     
-    func start() {
+    public func start() {
         // Issue #16: The revocation request should actually revoke the certificate.
         // https://github.com/blockchain-certificates/cert-wallet/issues/16
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
@@ -27,7 +26,7 @@ class CertificateRevocationRequest : CommonRequest {
         }
     }
     
-    func abort() {
+    public func abort() {
         reportFailure("Aborted")
     }
     
