@@ -257,13 +257,6 @@ class CertificateValidationRequest : CommonRequest {
             }
             self?.revokationKey = revokeKey
             
-            // Check the issuer key: here's how it works:
-            // 1. base64 decode the signature that's on the certificate ('signature') field
-            // 2. use the CoreBitcoin library method BTCKey.verifySignature to derive the key used to create this signature:
-            //    - it takes as input the signature on the certificate and the message (the assertion uid) that we expect it to be the signature of.
-            //    - it returns a matching BTCKey if found
-            // 3. we still have to check that the BTCKey returned above matches the issuer's public key that we looked up
-            
             let chain = self?.chain ?? "mainnet"
             guard let bitcoinManager = self?.bitcoinManager else {
                 self?.state = .failure(reason: "Incorrect configuration. ValidationRequest needs to have a bitcoin manager specified.")
