@@ -8,7 +8,7 @@
 
 import Foundation
 import JSONLD
-import BlockchainCertificates
+import CommonCrypto
 
 // From the example web verifier here:
 //
@@ -18,7 +18,7 @@ import BlockchainCertificates
 //Step 4 of 5... Checking Media Lab signature [PASS]
 //Step 5 of 5... Checking not revoked by issuer [PASS]
 //Success! The certificate has been verified.
-enum ValidationState {
+public enum ValidationState {
     case notStarted
     case computingLocalHash, fetchingRemoteHash, comparingHashes, checkingIssuerSignature, checkingRevokedStatus
     case success
@@ -27,7 +27,7 @@ enum ValidationState {
     case checkingReceipt, checkingMerkleRoot
 }
 
-protocol CertificateValidationRequestDelegate : class {
+public protocol CertificateValidationRequestDelegate : class {
     func certificateValidationStateChanged(from: ValidationState, to: ValidationState)
 }
 
@@ -37,7 +37,7 @@ extension CertificateValidationRequestDelegate {
     }
 }
 
-class CertificateValidationRequest : CommonRequest {
+public class CertificateValidationRequest : CommonRequest {
     let session : URLSessionProtocol
     let jsonld : JSONLDProcessor
     let bitcoinManager : BitcoinManager
@@ -47,7 +47,7 @@ class CertificateValidationRequest : CommonRequest {
     weak var delegate : CertificateValidationRequestDelegate?
     let chain : String
 
-    var state = ValidationState.notStarted {
+    public var state = ValidationState.notStarted {
         didSet {
             // Notify the delegate
             delegate?.certificateValidationStateChanged(from: oldValue, to: state)
@@ -84,8 +84,9 @@ class CertificateValidationRequest : CommonRequest {
     private var revokationKey : String?
     private var revokedAddresses : Set<String>?
     
-    init(for certificate: Certificate,
+    public init(for certificate: Certificate,
          with transactionId: String,
+         bitcoinManager: BitcoinManager,
          chain: String = "mainnet",
          starting : Bool = false,
          jsonld : JSONLDProcessor = JSONLD.shared,
@@ -97,14 +98,15 @@ class CertificateValidationRequest : CommonRequest {
         self.transactionId = transactionId
         self.completionHandler = completionHandler
         self.chain = chain
-        self.bitcoinManager = CoreBitcoinManager()
+        self.bitcoinManager = bitcoinManager
         
         if (starting) {
             self.start()
         }
     }
     
-    convenience init?(for certificate: Certificate,
+    public convenience init?(for certificate: Certificate,
+                      bitcoinManager: BitcoinManager,
                      chain: String = "mainnet",
                      starting : Bool = false,
                      jsonld : JSONLDProcessor = JSONLD.shared,
@@ -117,6 +119,7 @@ class CertificateValidationRequest : CommonRequest {
         
         self.init(for: certificate,
                   with: transactionId,
+                  bitcoinManager: bitcoinManager,
                   chain: chain,
                   starting: starting,
                   jsonld: jsonld,
@@ -124,11 +127,11 @@ class CertificateValidationRequest : CommonRequest {
                   completionHandler: completionHandler)
     }
     
-    func start() {
+    public func start() {
         state = .computingLocalHash
     }
     
-    func abort() {
+    public func abort() {
         state = .failure(reason: "Aborted")
     }
     

@@ -278,9 +278,14 @@ extension CertificateDetailViewController {
         
         inProgressRequest?.abort()
         if let transactionId = transactionId {
-            inProgressRequest = CertificateValidationRequest(for: certificate, with: transactionId, completionHandler: completionHandler)
+            inProgressRequest = CertificateValidationRequest(for: certificate,
+                                                             with: transactionId,
+                                                             bitcoinManager: CoreBitcoinManager(),
+                                                             completionHandler: completionHandler)
         } else {
-            inProgressRequest = CertificateValidationRequest(for: certificate, completionHandler: completionHandler)
+            inProgressRequest = CertificateValidationRequest(for: certificate,
+                                                             bitcoinManager: CoreBitcoinManager(),
+                                                             completionHandler: completionHandler)
         }
         
         inProgressRequest?.start()
