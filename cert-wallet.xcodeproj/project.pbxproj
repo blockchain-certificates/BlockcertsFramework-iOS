@@ -40,6 +40,8 @@
 		83111BC11DA4212C006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
 		8318FC451DAC0BC2006A8FD5 /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318FC441DAC0BC2006A8FD5 /* CertificateValidationRequest.swift */; };
 		8318FC471DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318FC461DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift */; };
+		8318FC4E1DAC4BBB006A8FD5 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
+		8318FC4F1DAC4BC1006A8FD5 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; };
 		831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */; };
 		832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BAE1D8B12D900BDCD59 /* DocumentPickerViewController.swift */; };
 		832A0BB21D8B12D900BDCD59 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 832A0BB01D8B12D900BDCD59 /* MainInterface.storyboard */; };
@@ -332,6 +334,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8318FC4F1DAC4BC1006A8FD5 /* CommonCrypto.framework in Frameworks */,
+				8318FC4E1DAC4BBB006A8FD5 /* JSONLD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
