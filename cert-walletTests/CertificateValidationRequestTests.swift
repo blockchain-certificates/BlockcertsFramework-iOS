@@ -42,7 +42,7 @@ class CertificateValidationRequestTests: XCTestCase {
                         error: nil)
         
         // Issue the validation request
-        let request = CertificateValidationRequest(for: certificate!, with: v1_1transactionId, session: session) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, with: v1_1transactionId, bitcoinManager: CoreBitcoinManager(), session: session) { (success, errorMessage) in
             XCTAssertFalse(success)
             XCTAssertNotNil(errorMessage)
             
@@ -82,7 +82,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               error: nil)
         
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, with:v1_1ValidTransactionId, chain: "testnet", session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, with:v1_1ValidTransactionId, bitcoinManager: CoreBitcoinManager(), chain: "testnet", session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
@@ -134,7 +134,7 @@ class CertificateValidationRequestTests: XCTestCase {
         }
         
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, chain: "testnet", jsonld: MockJSONLD(), session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(), session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
