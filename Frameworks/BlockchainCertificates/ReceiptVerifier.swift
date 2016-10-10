@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CommonCrypto
+//import CommonCrypto
 
 public class ReceiptVerifier {
     public init() {}
