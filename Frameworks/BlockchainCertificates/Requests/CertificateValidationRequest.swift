@@ -209,8 +209,16 @@ public class CertificateValidationRequest : CommonRequest {
     
     internal func compareHashes() {
         let compareToHash : String?
-        if certificate.version == .oneDotOne {
-            compareToHash = self.remoteHash
+        if certificate.version == .oneDotOne,
+            let remoteHash = self.remoteHash {
+            
+            let prefix = "6a20"
+            if remoteHash.hasPrefix(prefix) {
+                let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: prefix.characters.count)
+                compareToHash = remoteHash.substring(from: startIndex)
+            } else {
+                compareToHash = remoteHash
+            }
         } else {
             compareToHash = self.certificate.receipt?.targetHash
         }
@@ -222,7 +230,7 @@ public class CertificateValidationRequest : CommonRequest {
         }
         
         guard localHash == correctHashResult else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(remoteHash)")
+            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(correctHashResult)")
             return
         }
         
