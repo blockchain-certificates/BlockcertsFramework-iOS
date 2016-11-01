@@ -165,11 +165,8 @@ public struct Issuer {
         issuerKeys = issuerKeyData.flatMap(keyRotationSchedule).sorted(by: <)
         revocationKeys = revocationKeyData.flatMap(keyRotationSchedule).sorted(by: <)
 
-        // This is only valid if we have at least 1 issuerKey and 1 revocation key.
         // Also, if the `flatMap` returned nil from any of the keyData items, then fail. We may be able to relax this constraint, but since it would have an impact on valid public key date ranges, I figure we should just fail the parse.
-        guard issuerKeys.count > 0,
-            issuerKeys.count == issuerKeyData.count,
-            revocationKeys.count > 0,
+        guard issuerKeys.count == issuerKeyData.count,
             revocationKeys.count == revocationKeyData.count else {
                 return nil
         }
