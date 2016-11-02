@@ -1,5 +1,5 @@
 //
-//  IssuerCreationRequestTests.swift
+//  IssuerIdentificationRequestTests.swift
 //  cert-wallet
 //
 //  Created by Chris Downie on 9/1/16.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import BlockchainCertificates
 
-class IssuerCreationRequestTests: XCTestCase {
+class IssuerIdentificationRequestTests: XCTestCase {
     func testSuccessfulIssuerResponse() {
         let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
         
@@ -53,7 +53,7 @@ class IssuerCreationRequestTests: XCTestCase {
                         error: nil)
         
         // Create the request
-        let request = IssuerCreationRequest(id: url, session: session) { (issuer) in
+        let request = IssuerIdentificationRequest(id: url, session: session) { (issuer) in
             XCTAssertNotNil(issuer)
             XCTAssertEqual(issuer!.name, expectedName)
             XCTAssertEqual(issuer!.email, expectedEmail)

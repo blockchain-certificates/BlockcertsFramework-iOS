@@ -12,14 +12,16 @@ public class IssuerIntroductionRequest : CommonRequest {
     var callback : ((Bool, String?) -> Void)?
     let url : URL?
     
+    private var extraJSONData : [String: Any]?
     private var recipient : Recipient
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    public init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
+    public init(introduce recipient: Recipient, to issuer: Issuer, with jsonData: [String : Any]? = nil, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
         self.callback = callback
         self.session = session
         self.recipient = recipient
+        self.extraJSONData = jsonData
 
         url = issuer.introductionURL
     }
@@ -29,13 +31,19 @@ public class IssuerIntroductionRequest : CommonRequest {
             reportFailure("Issuer does not have an introductionURL. Try refreshing the data.")
             return
         }
-        // Create JSON body
-        let dataMap = [
-            "bitcoinAddress": recipient.publicAddress,
-            "email": recipient.identity,
-            "firstName": recipient.givenName,
-            "lastName": recipient.familyName
-        ]
+        
+        // Create JSON body. Start with the provided extra data parameters if they're present.
+        var dataMap = [String: Any]()
+        if let extraJSONData = extraJSONData {
+            dataMap = extraJSONData
+        }
+        
+        // Required data. If this is passed in the extra data, then it's overwritten
+        dataMap["bitcoinAddress"] = recipient.publicAddress
+        dataMap["email"] = recipient.identity
+        dataMap["firstName"] = recipient.givenName
+        dataMap["lastName"] = recipient.familyName
+
         guard let data = try? JSONSerialization.data(withJSONObject: dataMap, options: []) else {
             reportFailure("Failed to create the body for the request.")
             return

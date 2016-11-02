@@ -12,6 +12,7 @@ public class IssuerIdentificationRequest : CommonRequest {
     public var callback : ((Issuer?) -> Void)?
     public let url : URL
     
+    
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
