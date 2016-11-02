@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class IssuerCreationRequest : CommonRequest {
+public class IssuerIdentificationRequest : CommonRequest {
     public var callback : ((Issuer?) -> Void)?
     public let url : URL
     
