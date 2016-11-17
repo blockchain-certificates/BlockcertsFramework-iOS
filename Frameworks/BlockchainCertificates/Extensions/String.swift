@@ -45,3 +45,14 @@ extension String {
         return data
     }
 }
+
+extension Data {
+    public func asHexString() -> String {
+        var hexString = ""
+        for byte in self {
+            hexString += String(format: "%02X", byte)
+        }
+        
+        return hexString
+    }
+}
