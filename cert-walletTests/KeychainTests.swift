@@ -42,4 +42,16 @@ class KeychainTests: XCTestCase {
         XCTAssertTrue(keychain.has(publicKey: firstKey))
         XCTAssertTrue(keychain.has(publicKey: secondKey))
     }
+    
+    func testKeychainValidPhrase() {
+        let seedPhrase = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
+        
+        XCTAssertTrue(Keychain.isValidPassphrase(seedPhrase))
+    }
+    
+    func testKeychainInvalidPhrase() {
+        let invalidPhrase = "This phrase is too short and not random enough"
+        
+        XCTAssertFalse(Keychain.isValidPassphrase(invalidPhrase))
+    }
 }

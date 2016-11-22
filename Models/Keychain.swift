@@ -11,6 +11,11 @@ import Security
 import BlockchainCertificates
 
 private var unusedKeyIndexKey = "org.blockcerts.unused-key-index"
+
+public enum KeychainErrors : Error {
+    case invalidPassphrase
+}
+
 class Keychain {
     public var seedPhrase : String {
         return mnemonic.words.flatMap({ $0 as? String}).joined(separator: " ")
@@ -107,7 +112,7 @@ extension Keychain {
         
         guard result == noErr,
             let dataType = dataTypeRef as? Data else {
-            return nil
+                return nil
         }
         
         return String(data:dataType, encoding: .utf8)
@@ -133,6 +138,12 @@ extension Keychain {
         UserDefaults.standard.set(unusedKeyIndex, forKey: unusedKeyIndexKey)
     }
     
+    public static func isValidPassphrase(_ passphrase: String) -> Bool {
+        let words = passphrase.components(separatedBy: " ")
+        let mnemonic = BTCMnemonic(words: words, password: "", wordListType: .english)
+        return (mnemonic != nil)
+    }
+    
     @discardableResult static func destroyShared() -> Bool {
         // Delete the seed phrase
         let query = [
@@ -144,20 +155,22 @@ extension Keychain {
         // Reset the unusedKeyIndex
         UserDefaults.standard.removeObject(forKey: unusedKeyIndexKey)
         UserDefaults.standard.synchronize()
-
+        
         return result == noErr
     }
     
-    @discardableResult static func updateShared(with seedPhrase: String, unusedIndex index: Int = 0) {
+    @discardableResult static func updateShared(with seedPhrase: String, unusedIndex index: Int = 0) throws {
         // TODO: Do I need some kind of semaphore or something to make sure these two lines run one at a time?
         // If they don't, then it's possible we'll delete the key, the singleton will be recreated
         // with a random seed phrase, and the new seed phrase will be saved to the keychain. This will correct
         // itself when the app dies & is re-launched, but in the meantime the user might issue public keys
         // for a seed phrase he doesn't actually know.
+        guard isValidPassphrase(seedPhrase) else {
+            throw KeychainErrors.invalidPassphrase
+        }
         destroyShared()
         save(seedPhrase: seedPhrase)
         save(unusedKeyIndex: index)
     }
-    
-
 }
+
