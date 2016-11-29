@@ -34,107 +34,70 @@
                                 <constraint firstAttribute="height" constant="125" id="jO2-Nv-qAM"/>
                             </constraints>
                         </imageView>
-                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S0P-0d-H0H">
-                            <rect key="frame" x="15" y="155" width="270" height="682"/>
-                            <subviews>
-                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uBO-AD-hYT" userLabel="Divider Container">
-                                    <rect key="frame" x="0.0" y="0.0" width="270" height="31"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ljH-Vo-Ifq" userLabel="Divider">
-                                            <rect key="frame" x="85" y="15" width="100" height="1"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="8n2-IW-gOT"/>
-                                                <constraint firstAttribute="height" constant="1" id="Kh6-Wd-WyV"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="31" id="Pcn-Hm-Lee"/>
-                                        <constraint firstItem="ljH-Vo-Ifq" firstAttribute="centerX" secondItem="uBO-AD-hYT" secondAttribute="centerX" id="Sm7-uC-uzY"/>
-                                        <constraint firstItem="ljH-Vo-Ifq" firstAttribute="centerY" secondItem="uBO-AD-hYT" secondAttribute="centerY" id="VC7-al-Bqp"/>
-                                    </constraints>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Johnny Appleseed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNx-h0-VU1">
-                                    <rect key="frame" x="0.0" y="31" width="270" height="33.5"/>
-                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="30"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="Khg-SK-lKM" userLabel="Spacer">
-                                    <rect key="frame" x="0.0" y="64.5" width="270" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="VZs-Xq-sgF"/>
-                                    </constraints>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o3u-9w-6AQ">
-                                    <rect key="frame" x="0.0" y="74.5" width="270" height="27"/>
-                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="24"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="fOb-nG-8OZ" userLabel="Spacer">
-                                    <rect key="frame" x="0.0" y="101.5" width="270" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="ZOO-Zp-uwe"/>
-                                    </constraints>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEM-VC-Z6k">
-                                    <rect key="frame" x="0.0" y="111.5" width="270" height="22.5"/>
-                                    <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="20"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="AVr-0h-mza" userLabel="Divider Container">
-                                    <rect key="frame" x="0.0" y="134" width="270" height="31"/>
-                                    <subviews>
-                                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="N5x-PV-g6y" userLabel="Divider">
-                                            <rect key="frame" x="85" y="15" width="100" height="1"/>
-                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="100" id="1Ng-1g-OM6"/>
-                                                <constraint firstAttribute="height" constant="1" id="mRP-M6-d83"/>
-                                            </constraints>
-                                        </view>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="N5x-PV-g6y" firstAttribute="centerX" secondItem="AVr-0h-mza" secondAttribute="centerX" id="00m-RJ-zsr"/>
-                                        <constraint firstAttribute="height" constant="31" id="qWq-eT-e83"/>
-                                        <constraint firstItem="N5x-PV-g6y" firstAttribute="centerY" secondItem="AVr-0h-mza" secondAttribute="centerY" id="uqi-ES-HiO"/>
-                                    </constraints>
-                                </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E31-VE-tZS">
-                                    <rect key="frame" x="0.0" y="165" width="270" height="172"/>
-                                    <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor sapien finibus turpis tristique tincidunt. In augue tortor, tincidunt et arcu non, lobortis interdum dolor. Proin bibendum leo at nibh feugiat, ac bibendum lorem tempus. Praesent in urna nisi. Suspendisse at risus quis nunc aliquet ultricies. Etiam a dapibus lorem. Fusce dolor nisi, tristique quis condimentum id, porta ac elit. Maecenas non metus dignissim, tristique ligula ut, sollicitudin elit. Cras vestibulum ac magna eu varius. Vivamus purus urna, porta at imperdiet nec, venenatis et dui. Fusce sem dui, commodo at massa vel, ultrices maximus enim. Duis ultricies aliquet nunc.</string>
-                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                    <nil key="textColor"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="bdz-JI-DMV" userLabel="Spacer">
-                                    <rect key="frame" x="0.0" y="337" width="270" height="10"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="10" id="iMd-n0-fdm"/>
-                                    </constraints>
-                                </view>
-                                <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uoE-pK-jAP">
-                                    <rect key="frame" x="0.0" y="347" width="270" height="335"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="Qb3-Lj-gxe"/>
-                                    </constraints>
-                                </view>
-                            </subviews>
-                        </stackView>
+                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ljH-Vo-Ifq" userLabel="Divider">
+                            <rect key="frame" x="99.5" y="165" width="100" height="1"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="8n2-IW-gOT"/>
+                                <constraint firstAttribute="height" constant="1" id="Kh6-Wd-WyV"/>
+                            </constraints>
+                        </view>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Johnny Appleseed" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNx-h0-VU1">
+                            <rect key="frame" x="9.5" y="186" width="280" height="33.5"/>
+                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="30"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="o3u-9w-6AQ">
+                            <rect key="frame" x="9.5" y="229.5" width="280" height="27"/>
+                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E31-VE-tZS">
+                            <rect key="frame" x="9.5" y="337" width="280" height="171"/>
+                            <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor sapien finibus turpis tristique tincidunt. In augue tortor, tincidunt et arcu non, lobortis interdum dolor. Proin bibendum leo at nibh feugiat, ac bibendum lorem tempus. Praesent in urna nisi. Suspendisse at risus quis nunc aliquet ultricies. Etiam a dapibus lorem. Fusce dolor nisi, tristique quis condimentum id, porta ac elit. Maecenas non metus dignissim, tristique ligula ut, sollicitudin elit. Cras vestibulum ac magna eu varius. Vivamus purus urna, porta at imperdiet nec, venenatis et dui. Fusce sem dui, commodo at massa vel, ultrices maximus enim. Duis ultricies aliquet nunc.</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subtitle" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEM-VC-Z6k">
+                            <rect key="frame" x="10" y="266.5" width="280" height="22.5"/>
+                            <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="eeB-L8-leV" userLabel="Divider">
+                            <rect key="frame" x="99.5" y="319" width="100" height="1"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="100" id="PC2-1W-9yB"/>
+                                <constraint firstAttribute="height" constant="1" id="joy-3b-ohQ"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="S0P-0d-H0H" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="CYh-fu-eJh"/>
-                        <constraint firstAttribute="bottom" secondItem="S0P-0d-H0H" secondAttribute="bottom" constant="10" id="Lqa-XR-WwD"/>
-                        <constraint firstItem="S0P-0d-H0H" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" constant="-30" id="OlJ-g6-NR2"/>
+                        <constraint firstItem="OEM-VC-Z6k" firstAttribute="width" secondItem="pNx-h0-VU1" secondAttribute="width" id="278-Tf-MCQ"/>
+                        <constraint firstItem="o3u-9w-6AQ" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="2fw-S9-PkZ"/>
+                        <constraint firstItem="eeB-L8-leV" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="4Ai-nP-qrb"/>
+                        <constraint firstItem="o3u-9w-6AQ" firstAttribute="width" secondItem="pNx-h0-VU1" secondAttribute="width" id="61M-nl-C0K"/>
+                        <constraint firstItem="eeB-L8-leV" firstAttribute="top" secondItem="OEM-VC-Z6k" secondAttribute="bottom" constant="30" id="6us-an-CuM"/>
+                        <constraint firstItem="E31-VE-tZS" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="8Hd-D4-2VO"/>
+                        <constraint firstItem="pNx-h0-VU1" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="KVy-q3-SC5"/>
                         <constraint firstAttribute="width" constant="300" id="QjO-QO-UwX"/>
-                        <constraint firstItem="S0P-0d-H0H" firstAttribute="top" secondItem="Bsm-eO-oQu" secondAttribute="bottom" constant="10" id="Vck-hY-CxH"/>
+                        <constraint firstItem="pNx-h0-VU1" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" constant="-20" id="SFu-tw-tNc"/>
+                        <constraint firstItem="E31-VE-tZS" firstAttribute="top" secondItem="eeB-L8-leV" secondAttribute="bottom" constant="17" id="Waj-UB-VFj"/>
+                        <constraint firstItem="E31-VE-tZS" firstAttribute="width" secondItem="pNx-h0-VU1" secondAttribute="width" id="ZZk-j9-znD"/>
+                        <constraint firstItem="ljH-Vo-Ifq" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="ZnE-Bf-86F"/>
+                        <constraint firstItem="o3u-9w-6AQ" firstAttribute="top" secondItem="pNx-h0-VU1" secondAttribute="bottom" constant="10" id="dBq-MZ-TJk"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="dJC-ue-SWo"/>
+                        <constraint firstItem="OEM-VC-Z6k" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="gyz-1p-M5g"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="top" secondItem="BE0-5T-0Gz" secondAttribute="top" constant="20" id="lad-s5-HmQ"/>
+                        <constraint firstItem="pNx-h0-VU1" firstAttribute="top" secondItem="ljH-Vo-Ifq" secondAttribute="bottom" constant="20" id="sWN-hS-1NF"/>
+                        <constraint firstItem="ljH-Vo-Ifq" firstAttribute="top" secondItem="Bsm-eO-oQu" secondAttribute="bottom" constant="20" id="tki-XZ-b4T"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" id="u98-Nq-Ecj"/>
+                        <constraint firstItem="OEM-VC-Z6k" firstAttribute="top" secondItem="o3u-9w-6AQ" secondAttribute="bottom" constant="10" id="vZh-tm-012"/>
                     </constraints>
                 </view>
             </subviews>
