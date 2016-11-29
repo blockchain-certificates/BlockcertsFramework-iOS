@@ -71,14 +71,14 @@ class RenderedCertificateTableViewCell: UITableViewCell {
 //            renderedView?.leftSignature.image = newValue
 //        }
 //    }
-//    var sealIcon: UIImage? {
-//        get {
-//            return renderedView?.sealIcon.image
-//        }
-//        set {
-//            renderedView?.sealIcon.image = newValue
-//        }
-//    }
+    var sealIcon: UIImage? {
+        get {
+            return renderedView?.sealIcon.image
+        }
+        set {
+            renderedView?.sealIcon.image = newValue
+        }
+    }
 //    var rightSignature: UIImage? {
 //        get {
 //            return renderedView?.rightSignature.image

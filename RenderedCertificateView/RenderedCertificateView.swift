@@ -21,10 +21,11 @@ class RenderedCertificateView: UIView {
     
     @IBOutlet weak var certificateIcon: UIImageView!
     
-//    @IBOutlet weak var leftSignature: UIImageView!
-//    @IBOutlet weak var sealIcon: UIImageView!
-//    @IBOutlet weak var rightSignature: UIImageView!
+    @IBOutlet weak var signatureStack: UIStackView!
+    
+    @IBOutlet weak var sealIcon: UIImageView!
 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
