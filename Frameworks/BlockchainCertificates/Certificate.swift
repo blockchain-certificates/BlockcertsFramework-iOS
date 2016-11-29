@@ -407,8 +407,62 @@ private enum MethodsForV1_2 {
                          revocationAddress: revocationKey)
 
     }
-    static func parse(assertionJSON: AnyObject?) -> Assertion? {
-        return MethodsForV1_1.parse(assertionJSON: assertionJSON)
+    static func parse(assertionJSON: AnyObject?) -> Assertion? {        // TODO: the json schema allowed datetime, which inclues yyyy-MM-dd and TBD others. How can we make date formatter
+        // accept multiple string formats?
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "yyyy-MM-dd"
+        
+        guard let assertionData = assertionJSON as? [String : Any],
+            let issuedOnString = assertionData["issuedOn"] as? String,
+            let assertionID = assertionData["id"] as? String,
+            let assertionIDURL = URL(string: assertionID),
+            let assertionUID = assertionData["uid"] as? String else {
+                return nil
+        }
+        
+        var issuedOnDate : Date?
+        
+        if let iod = dateFormatter.date(from: issuedOnString) as Date? {
+            issuedOnDate = iod
+        } else {
+            issuedOnDate = dateFormatter2.date(from: issuedOnString)
+        }
+        
+        if issuedOnDate == nil {
+            // issuedOnDate didn't match either format
+            return nil
+        }
+        
+        // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a
+        // hosting requirement, which is why I made it optional. But it is required for OBI compliance. Still on the fence.
+        let evidenceObj : AnyObject? = assertionData["evidence"] as AnyObject?
+        var evidence : String = ""
+        if ((evidenceObj as? String) != nil) {
+            evidence = evidenceObj as! String
+        }
+        
+        var signatureImages = [SignatureImage]()
+        let signatureImageData = assertionData["image:signature"]
+        if let signatureImageURI = signatureImageData as? String {
+            signatureImages.append(SignatureImage(image: imageData(from: signatureImageURI), title: nil))
+        } else if let signatureImageArray = signatureImageData as? [[String : Any]] {
+            for var datum in signatureImageArray {
+                guard let imageURI = datum["image"] as? String else {
+                        return nil
+                }
+                let title = datum["jobTitle"] as? String
+                
+                signatureImages.append(SignatureImage(image: imageData(from: imageURI), title: title))
+            }
+        }
+
+        return Assertion(issuedOn: issuedOnDate!,
+                         signatureImages: signatureImages,
+                         evidence: evidence,
+                         uid: assertionUID,
+                         id: assertionIDURL)
     }
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         return MethodsForV1_1.parse(verifyJSON: verifyJSON)

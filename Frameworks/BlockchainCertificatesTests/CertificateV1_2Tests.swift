@@ -112,3 +112,19 @@ class CertificateV1_2SignedTests: XCTestCase {
         XCTAssertEqual(verifyData.signer, URL(string: "http://www.blockcerts.org/mockissuer/keys/got_public_key.asc"))
     }
 }
+
+class CertificateV1_2UnsignedValidTests : XCTestCase {
+    func testMultiImageAssertion() {
+        let filename = "multiimage_1.2"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
+            let file = try? Data(contentsOf: fileUrl) else {
+                XCTFail("Failed to load \(filename) in \(#function)")
+                return
+        }
+        
+        let cert = try? CertificateParser.parse(data: file)
+
+        XCTAssertNotNil(cert)
+    }
+}
