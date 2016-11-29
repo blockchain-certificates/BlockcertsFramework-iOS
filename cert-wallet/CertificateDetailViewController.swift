@@ -153,6 +153,7 @@ extension CertificateDetailViewController {
                 renderedViewCell.subtitleText = certificate.subtitle
                 renderedViewCell.certificateIcon = UIImage(data: certificate.image)
                 renderedViewCell.descriptionText = certificate.description
+                renderedViewCell.sealIcon = UIImage(data: certificate.issuer.image)
             }
         } else if let section = section as? CertificateActions {
             let action = section.actions[indexPath.row]
