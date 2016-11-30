@@ -59,5 +59,18 @@ class RenderedCertificateView: UIView {
         paperView.layer.borderColor = UIColor.black.cgColor
         paperView.layer.borderWidth = 0.5
     }
-
+    
+    func clearSignatures() {
+        signatureStack.subviews.forEach { (view) in
+            view.removeFromSuperview()
+        }
+    }
+    
+    func addSignature(image: UIImage, title: String?) {
+        if title == nil {
+            let subview = UIImageView(image: image)
+            signatureStack.addArrangedSubview(subview)
+        }
+        updateConstraints()
+    }
 }

@@ -154,6 +154,13 @@ extension CertificateDetailViewController {
                 renderedViewCell.certificateIcon = UIImage(data: certificate.image)
                 renderedViewCell.descriptionText = certificate.description
                 renderedViewCell.sealIcon = UIImage(data: certificate.issuer.image)
+                
+                certificate.assertion.signatureImages.forEach { (signatureData) in
+                    guard let image = UIImage(data: signatureData.image) else {
+                        return
+                    }
+                    renderedViewCell.addSignature(image: image, title: signatureData.title)
+                }
             }
         } else if let section = section as? CertificateActions {
             let action = section.actions[indexPath.row]

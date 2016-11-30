@@ -113,4 +113,8 @@ class RenderedCertificateTableViewCell: UITableViewCell {
         
         self.renderedView = renderedView
     }
+    
+    func addSignature(image: UIImage, title: String?) {
+        renderedView?.addSignature(image: image, title: title)
+    }
 }
