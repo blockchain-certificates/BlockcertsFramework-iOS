@@ -78,10 +78,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H3W-hi-2ZZ">
-                            <rect key="frame" x="10" y="471" width="280" height="225"/>
+                            <rect key="frame" x="10" y="491" width="280" height="181"/>
                         </stackView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p4p-P2-ZPu" userLabel="Seal Image">
-                            <rect key="frame" x="-0.5" y="712" width="300" height="125"/>
+                            <rect key="frame" x="-0.5" y="702" width="300" height="125"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" red="0.99215686274509807" green="0.99215686274509807" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -92,9 +92,9 @@
                         <constraint firstItem="o3u-9w-6AQ" firstAttribute="width" secondItem="pNx-h0-VU1" secondAttribute="width" id="61M-nl-C0K"/>
                         <constraint firstItem="eeB-L8-leV" firstAttribute="top" secondItem="OEM-VC-Z6k" secondAttribute="bottom" constant="20" id="6us-an-CuM"/>
                         <constraint firstItem="E31-VE-tZS" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="8Hd-D4-2VO"/>
-                        <constraint firstItem="p4p-P2-ZPu" firstAttribute="top" secondItem="H3W-hi-2ZZ" secondAttribute="bottom" constant="16" id="Ccr-fy-JX5"/>
+                        <constraint firstItem="p4p-P2-ZPu" firstAttribute="top" secondItem="H3W-hi-2ZZ" secondAttribute="bottom" constant="30" id="Ccr-fy-JX5"/>
                         <constraint firstItem="pNx-h0-VU1" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="KVy-q3-SC5"/>
-                        <constraint firstItem="H3W-hi-2ZZ" firstAttribute="top" secondItem="E31-VE-tZS" secondAttribute="bottom" constant="10" id="O2n-GQ-kq0"/>
+                        <constraint firstItem="H3W-hi-2ZZ" firstAttribute="top" secondItem="E31-VE-tZS" secondAttribute="bottom" constant="30" id="O2n-GQ-kq0"/>
                         <constraint firstAttribute="width" constant="300" id="QjO-QO-UwX"/>
                         <constraint firstItem="pNx-h0-VU1" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" constant="-20" id="SFu-tw-tNc"/>
                         <constraint firstItem="E31-VE-tZS" firstAttribute="top" secondItem="eeB-L8-leV" secondAttribute="bottom" constant="17" id="Waj-UB-VFj"/>
@@ -108,7 +108,7 @@
                         <constraint firstItem="OEM-VC-Z6k" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="gyz-1p-M5g"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="top" secondItem="BE0-5T-0Gz" secondAttribute="top" constant="20" id="lad-s5-HmQ"/>
                         <constraint firstItem="p4p-P2-ZPu" firstAttribute="centerX" secondItem="BE0-5T-0Gz" secondAttribute="centerX" id="mzk-AE-FHZ"/>
-                        <constraint firstAttribute="bottom" secondItem="p4p-P2-ZPu" secondAttribute="bottom" constant="10" id="qUb-rZ-MQQ"/>
+                        <constraint firstAttribute="bottom" secondItem="p4p-P2-ZPu" secondAttribute="bottom" constant="20" id="qUb-rZ-MQQ"/>
                         <constraint firstItem="pNx-h0-VU1" firstAttribute="top" secondItem="ljH-Vo-Ifq" secondAttribute="bottom" constant="20" id="sWN-hS-1NF"/>
                         <constraint firstItem="ljH-Vo-Ifq" firstAttribute="top" secondItem="Bsm-eO-oQu" secondAttribute="bottom" constant="20" id="tki-XZ-b4T"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" id="u98-Nq-Ecj"/>
