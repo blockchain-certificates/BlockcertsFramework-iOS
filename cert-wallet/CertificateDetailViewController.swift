@@ -191,14 +191,6 @@ extension CertificateDetailViewController {
         if let section = section as? CertificateActions {
             switch section.actions[indexPath.row] {
             case "Validate":
-                // DEBUG HOOK
-//                JSONLDProcessor.shared.compact(docData: certificate!.file, context: nil, callback: { (err, result) in
-//                    print()
-//                    print("err: \(err)")
-//                    print()
-//                    print("result: \(result)")
-//                })
-                
                 switch certificate?.version {
                 case .some(.oneDotOne):
                     promptForTransactionIDThenValidate()
@@ -215,15 +207,6 @@ extension CertificateDetailViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }
-    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let section = sections[indexPath.section]
-//        if section is CertificateDisplay {
-//            return 220
-//        } else {
-//            return 44
-//        }
-//    }
     
     func promptForTransactionIDThenValidate() {
         let prompt = UIAlertController(title: "Transaction ID?", message: "What's the transaction ID for this certificate?", preferredStyle: .alert)
