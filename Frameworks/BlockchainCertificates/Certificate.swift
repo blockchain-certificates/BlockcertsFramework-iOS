@@ -298,14 +298,17 @@ private enum MethodsForV1_1 {
     
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         guard let verifyData = verifyJSON as? [String : String],
-            let signer = verifyData["signer"],
             let signedAttribute = verifyData["attribute-signed"],
-            let type = verifyData["type"],
-            let signerUrl = URL(string: signer) else {
+            let type = verifyData["type"] else {
                 return nil
         }
         
-        return Verify(signer: signerUrl, signedAttribute: signedAttribute, type: type)
+        var signerURL : URL? = nil
+        if let signer = verifyData["signer"] {
+            signerURL = URL(string: signer)
+        }
+        
+        return Verify(signer: signerURL, signedAttribute: signedAttribute, type: type)
     }
 }
 
