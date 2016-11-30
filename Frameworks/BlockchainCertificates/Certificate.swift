@@ -139,7 +139,7 @@ public protocol Certificate {
     var language : String { get }
     
     /// Link to a JSON that details the issuer's issuing and recovation keys.
-    var id : URL { get }
+    var id : URL? { get }
     
     /// The raw, unedited file representation of the certificate.
     var file : Data { get }
@@ -316,7 +316,7 @@ private struct CertificateV1_1 : Certificate {
     let description: String
     let image : Data
     let language : String
-    let id : URL
+    let id : URL?
     let file : Data
     let signature: String?
     
@@ -492,7 +492,7 @@ private struct CertificateV1_2 : Certificate {
     let description: String
     let image : Data
     let language : String
-    let id : URL
+    let id : URL?
     let file : Data
     let signature: String?
     
@@ -537,14 +537,14 @@ private struct CertificateV1_2 : Certificate {
         guard let certificateImageURI = certificateData["image"] as? String else {
             throw CertificateParserError.missingData(description: "Missing certificate's image property.")
         }
-        guard let certificateIdString = certificateData["id"] as? String else {
-            throw CertificateParserError.missingData(description: "Missing certificate's id property.")
-        }
         guard let description = certificateData["description"] as? String else {
             throw CertificateParserError.missingData(description: "Missing certificate's description property.")
         }
-        guard let certificateIdUrl = URL(string: certificateIdString) else {
-            throw CertificateParserError.invalidData(description: "Certificate ID should be a valid URL.")
+        if let certificateIdString = certificateData["id"] as? String,
+            let certificateIDURL = URL(string: certificateIdString) {
+            id = certificateIDURL
+        } else {
+            id = nil
         }
 
         let certificateImage = imageData(from: certificateImageURI)
@@ -555,8 +555,6 @@ private struct CertificateV1_2 : Certificate {
         self.description = description
         self.image = certificateImage
         language = ""
-        id = certificateIdUrl
-        
         
         // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.
         guard let issuer = MethodsForV1_2.parse(issuerJSON: certificateData["issuer"]),
