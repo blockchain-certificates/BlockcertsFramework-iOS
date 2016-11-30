@@ -117,4 +117,9 @@ class RenderedCertificateTableViewCell: UITableViewCell {
     func addSignature(image: UIImage, title: String?) {
         renderedView?.addSignature(image: image, title: title)
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        renderedView?.clearSignatures()
+    }
 }
