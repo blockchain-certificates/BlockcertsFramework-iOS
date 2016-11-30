@@ -194,6 +194,39 @@ private func imageData(from dataURI: String?) -> Data {
     }
 }
 
+private func parseDate(from dateString: String) -> Date? {
+    var date : Date?
+    
+    // ISO8601 Format
+    if #available(iOSApplicationExtension 10.0, *) {
+        let isoFormatter = ISO8601DateFormatter()
+        date = isoFormatter.date(from: dateString)
+    }
+    
+    if date == nil {
+        let isoFormats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSS",
+            "yyyy-MM-dd"
+        ]
+        let formatter = DateFormatter()
+        
+        for format in isoFormats {
+            formatter.dateFormat = format
+            date = formatter.date(from: dateString)
+            
+            if date != nil {
+                break
+            }
+        }
+    }
+    
+    // Unix Timestamp
+    if date == nil, let milliseconds = Double(dateString) {
+        date = Date(timeIntervalSince1970: milliseconds)
+    }
+    
+    return date
+}
 
 // MARK: Certificate Version 1.1
 private enum MethodsForV1_1 {
@@ -251,33 +284,14 @@ private enum MethodsForV1_1 {
     }
     
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
-        // TODO: the json schema allowed datetime, which inclues yyyy-MM-dd and TBD others. How can we make date formatter
-        // accept multiple string formats?
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "yyyy-MM-dd"
-        
         guard let assertionData = assertionJSON as? [String : String],
             let issuedOnString = assertionData["issuedOn"],
+            let issuedOnDate = parseDate(from: issuedOnString),
             let signatureImageURI = assertionData["image:signature"],
             let assertionId = assertionData["id"],
             let assertionIdUrl = URL(string: assertionId),
-            let assertionUid = assertionData["uid"] else {
+            let assertionUid = assertionData["uid"]else {
                 return nil
-        }
-        
-        var issuedOnDate : Date?
-        
-        if let iod = dateFormatter.date(from: issuedOnString) as Date? {
-            issuedOnDate = iod
-        } else {
-            issuedOnDate = dateFormatter2.date(from: issuedOnString)
-        }
-        
-        if issuedOnDate == nil {
-            // issuedOnDate didn't match either format
-            return nil
         }
         
         // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a 
@@ -289,7 +303,7 @@ private enum MethodsForV1_1 {
         }
         
         let signatureImage = imageData(from: signatureImageURI)
-        return Assertion(issuedOn: issuedOnDate!,
+        return Assertion(issuedOn: issuedOnDate,
                          signatureImage: signatureImage,
                          evidence: evidence,
                          uid: assertionUid,
@@ -410,32 +424,14 @@ private enum MethodsForV1_2 {
                          revocationAddress: revocationKey)
 
     }
-    static func parse(assertionJSON: AnyObject?) -> Assertion? {        // TODO: the json schema allowed datetime, which inclues yyyy-MM-dd and TBD others. How can we make date formatter
-        // accept multiple string formats?
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "yyyy-MM-dd"
-        
+    static func parse(assertionJSON: AnyObject?) -> Assertion? {
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
+            let issuedOnDate = parseDate(from: issuedOnString),
             let assertionID = assertionData["id"] as? String,
             let assertionIDURL = URL(string: assertionID),
             let assertionUID = assertionData["uid"] as? String else {
                 return nil
-        }
-        
-        var issuedOnDate : Date?
-        
-        if let iod = dateFormatter.date(from: issuedOnString) as Date? {
-            issuedOnDate = iod
-        } else {
-            issuedOnDate = dateFormatter2.date(from: issuedOnString)
-        }
-        
-        if issuedOnDate == nil {
-            // issuedOnDate didn't match either format
-            return nil
         }
         
         // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a
@@ -461,7 +457,7 @@ private enum MethodsForV1_2 {
             }
         }
 
-        return Assertion(issuedOn: issuedOnDate!,
+        return Assertion(issuedOn: issuedOnDate,
                          signatureImages: signatureImages,
                          evidence: evidence,
                          uid: assertionUID,
