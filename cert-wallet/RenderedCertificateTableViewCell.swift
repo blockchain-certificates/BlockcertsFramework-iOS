@@ -55,22 +55,6 @@ class RenderedCertificateTableViewCell: UITableViewCell {
         }
     }
     
-//    var issuerIcon: UIImage? {
-//        get {
-//            return renderedView?.issuerIcon.image
-//        }
-//        set {
-//            renderedView?.issuerIcon.image = newValue
-//        }
-//    }
-//    var leftSignature: UIImage? {
-//        get {
-//            return renderedView?.leftSignature.image
-//        }
-//        set {
-//            renderedView?.leftSignature.image = newValue
-//        }
-//    }
     var sealIcon: UIImage? {
         get {
             return renderedView?.sealIcon.image
@@ -79,14 +63,6 @@ class RenderedCertificateTableViewCell: UITableViewCell {
             renderedView?.sealIcon.image = newValue
         }
     }
-//    var rightSignature: UIImage? {
-//        get {
-//            return renderedView?.rightSignature.image
-//        }
-//        set {
-//            renderedView?.rightSignature.image = newValue
-//        }
-//    }
     
     // MARK: Initialization of the Rendered certificate view.
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
