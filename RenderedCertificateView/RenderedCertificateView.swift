@@ -70,7 +70,53 @@ class RenderedCertificateView: UIView {
         if title == nil {
             let subview = UIImageView(image: image)
             signatureStack.addArrangedSubview(subview)
+        } else {
+            let subview = createTitledSignature(signature: image, title: title!)
+            signatureStack.addArrangedSubview(subview)
         }
         updateConstraints()
+    }
+    
+    func createTitledSignature(signature: UIImage, title: String) -> UIView {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Configure all the subviews
+        let signature = UIImageView(image: signature)
+        signature.translatesAutoresizingMaskIntoConstraints = false
+        
+        let divider = UIView()
+        divider.translatesAutoresizingMaskIntoConstraints = false
+        divider.backgroundColor = UIColor.gray
+
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.font = UIFont.systemFont(ofSize: 14)
+        
+        view.addSubview(signature)
+        view.addSubview(divider)
+        view.addSubview(title)
+
+        
+        // Now do all the auto-layout.
+        let namedViews = [
+            "signature": signature,
+            "divider": divider,
+            "title": title
+        ]
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[signature]-[divider]-[title]|", options: .alignAllCenterX, metrics: nil, views: namedViews)
+        let dividerConstraints = [
+            NSLayoutConstraint(item: divider, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 1),
+            NSLayoutConstraint(item: divider, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 0)
+        ]
+        let centerConstraints = [
+            NSLayoutConstraint(item: signature, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
+        ]
+        
+        NSLayoutConstraint.activate(verticalConstraints)
+        NSLayoutConstraint.activate(dividerConstraints)
+        NSLayoutConstraint.activate(centerConstraints)
+        
+        return view
     }
 }
