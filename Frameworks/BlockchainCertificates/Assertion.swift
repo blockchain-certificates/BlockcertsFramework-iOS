@@ -17,10 +17,6 @@ public struct Assertion {
     /// Date the the certificate JSON was created.
     public let issuedOn : Date
     
-    /// A base-64 encoded png image of the issuer's signature.
-    public var signatureImage : Data? {
-        return signatureImages.first?.image
-    }
     /// An array of base-64 encoded png images, paired with a title for each signature.
     public let signatureImages : [ SignatureImage ]
     
