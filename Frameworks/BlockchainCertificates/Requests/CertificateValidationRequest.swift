@@ -44,7 +44,7 @@ public class CertificateValidationRequest : CommonRequest {
     let certificate : Certificate
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
-    weak var delegate : CertificateValidationRequestDelegate?
+    public weak var delegate : CertificateValidationRequestDelegate?
     let chain : String
 
     public var state = ValidationState.notStarted {
