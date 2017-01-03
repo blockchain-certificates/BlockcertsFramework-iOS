@@ -52,12 +52,12 @@ class RenderedCertificateView: UIView {
     }
     
     private func styleize() {
-        paperView.layer.shadowColor = UIColor.black.cgColor
-        paperView.layer.shadowOffset = CGSize(width: 0, height: 5)
-        paperView.layer.shadowRadius = 3.0
-        paperView.layer.shadowOpacity = 0.2
-        paperView.layer.borderColor = UIColor.black.cgColor
-        paperView.layer.borderWidth = 0.5
+//        paperView.layer.shadowColor = UIColor.black.cgColor
+//        paperView.layer.shadowOffset = CGSize(width: 0, height: 5)
+//        paperView.layer.shadowRadius = 3.0
+//        paperView.layer.shadowOpacity = 0.2
+//        paperView.layer.borderColor = UIColor.black.cgColor
+//        paperView.layer.borderWidth = 0.5
     }
     
     func clearSignatures() {
