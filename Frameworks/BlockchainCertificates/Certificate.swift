@@ -205,6 +205,7 @@ private func parseDate(from dateString: String) -> Date? {
     
     if date == nil {
         let isoFormats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
             "yyyy-MM-dd'T'HH:mm:ss.SSS",
             "yyyy-MM-dd"
         ]
