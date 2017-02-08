@@ -20,6 +20,7 @@ import CommonCrypto
 //Success! The certificate has been verified.
 public enum ValidationState {
     case notStarted
+    case assertingChain
     case computingLocalHash, fetchingRemoteHash, comparingHashes, checkingIssuerSignature, checkingRevokedStatus
     case success
     case failure(reason : String)
@@ -60,6 +61,8 @@ public class CertificateValidationRequest : CommonRequest {
                 completionHandler?(true, nil)
             case .failure(let reason):
                 completionHandler?(false, reason)
+            case .assertingChain:
+                self.assertChain()
             case .computingLocalHash:
                 self.computeLocalHash()
             case .fetchingRemoteHash:
@@ -128,11 +131,33 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     public func start() {
-        state = .computingLocalHash
+        state = .assertingChain
     }
     
     public func abort() {
         state = .failure(reason: "Aborted")
+    }
+    
+    internal func assertChain() {
+        guard chain == "mainnet" else {
+            // We only need to assert mainnet if the chain is set to mainnet. If it's any other value, then we can't be held responsible for how you're validating.
+            state = .computingLocalHash
+            return
+        }
+        
+        let targetAddress = certificate.recipient.publicAddress
+        
+        // All mainnet addresses start with 1.
+        guard targetAddress.hasPrefix("1") else {
+            if targetAddress.hasPrefix("m") {
+                state = .failure(reason: "This is a testnet certificate. It cannot be validated.")
+            } else {
+                state = .failure(reason: "This certificate is from an unknown blockchain and cannot be validated.")
+            }
+            return
+        }
+        
+        state = .computingLocalHash
     }
     
     internal func computeLocalHash() {
