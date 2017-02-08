@@ -151,9 +151,9 @@ extension CertificateDetailViewController {
                 renderedViewCell.nameText = "\(certificate.recipient.givenName) \(certificate.recipient.familyName)"
                 renderedViewCell.titleText = certificate.title
                 renderedViewCell.subtitleText = certificate.subtitle
-                renderedViewCell.certificateIcon = UIImage(data: certificate.image)
+                renderedViewCell.certificateIcon = UIImage(data: certificate.issuer.image)
                 renderedViewCell.descriptionText = certificate.description
-                renderedViewCell.sealIcon = UIImage(data: certificate.issuer.image)
+                renderedViewCell.sealIcon = UIImage(data: certificate.image)
                 
                 certificate.assertion.signatureImages.forEach { (signatureData) in
                     guard let image = UIImage(data: signatureData.image) else {
