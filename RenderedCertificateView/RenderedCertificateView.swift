@@ -80,27 +80,21 @@ class RenderedCertificateView: UIView {
         signature.contentMode = .scaleAspectFit
         signature.translatesAutoresizingMaskIntoConstraints = false
         
-        let divider = UIView()
-        divider.translatesAutoresizingMaskIntoConstraints = false
-        divider.backgroundColor = UIColor.gray
-
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.font = UIFont.systemFont(ofSize: 11)
         title.text = titleString
         
         view.addSubview(signature)
-        view.addSubview(divider)
         view.addSubview(title)
 
         
         // Now do all the auto-layout.
         let namedViews = [
             "signature": signature,
-            "divider": divider,
             "title": title
         ]
-        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[signature][divider]-[title]|", options: .alignAllCenterX, metrics: nil, views: namedViews)
+        let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[signature]-[title]|", options: .alignAllCenterX, metrics: nil, views: namedViews)
         let maxWidth : CGFloat = 150
         var signatureConstraints = [
             NSLayoutConstraint(item: signature, attribute: .width, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: maxWidth)
@@ -109,17 +103,12 @@ class RenderedCertificateView: UIView {
             let expectedHeight = signature.bounds.height * maxWidth / signature.bounds.width
             signatureConstraints.append(NSLayoutConstraint(item: signature, attribute: .height, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: expectedHeight))
         }
-        let dividerConstraints = [
-            NSLayoutConstraint(item: divider, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 1),
-            NSLayoutConstraint(item: divider, attribute: .width, relatedBy: .equal, toItem: title, attribute: .width, multiplier: 1, constant: 0)
-        ]
         let centerConstraints = [
             NSLayoutConstraint(item: signature, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
         ]
 
         NSLayoutConstraint.activate(signatureConstraints)
         NSLayoutConstraint.activate(verticalConstraints)
-        NSLayoutConstraint.activate(dividerConstraints)
         NSLayoutConstraint.activate(centerConstraints)
         
         return view
