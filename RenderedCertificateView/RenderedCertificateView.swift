@@ -52,12 +52,6 @@ class RenderedCertificateView: UIView {
     }
     
     private func styleize() {
-//        paperView.layer.shadowColor = UIColor.black.cgColor
-//        paperView.layer.shadowOffset = CGSize(width: 0, height: 5)
-//        paperView.layer.shadowRadius = 3.0
-//        paperView.layer.shadowOpacity = 0.2
-//        paperView.layer.borderColor = UIColor.black.cgColor
-//        paperView.layer.borderWidth = 0.5
     }
     
     func clearSignatures() {
@@ -80,12 +74,11 @@ class RenderedCertificateView: UIView {
     func createTitledSignature(signature: UIImage, title titleString: String) -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.red
         
         // Configure all the subviews
         let signature = UIImageView(image: signature)
+        signature.contentMode = .scaleAspectFit
         signature.translatesAutoresizingMaskIntoConstraints = false
-        signature.backgroundColor = UIColor.green
         
         let divider = UIView()
         divider.translatesAutoresizingMaskIntoConstraints = false
@@ -108,6 +101,14 @@ class RenderedCertificateView: UIView {
             "title": title
         ]
         let verticalConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[signature][divider]-[title]|", options: .alignAllCenterX, metrics: nil, views: namedViews)
+        let maxWidth : CGFloat = 150
+        var signatureConstraints = [
+            NSLayoutConstraint(item: signature, attribute: .width, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: maxWidth)
+        ]
+        if signature.bounds.width > maxWidth {
+            let expectedHeight = signature.bounds.height * maxWidth / signature.bounds.width
+            signatureConstraints.append(NSLayoutConstraint(item: signature, attribute: .height, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: expectedHeight))
+        }
         let dividerConstraints = [
             NSLayoutConstraint(item: divider, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: 1),
             NSLayoutConstraint(item: divider, attribute: .width, relatedBy: .equal, toItem: title, attribute: .width, multiplier: 1, constant: 0)
@@ -115,7 +116,8 @@ class RenderedCertificateView: UIView {
         let centerConstraints = [
             NSLayoutConstraint(item: signature, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0)
         ]
-        
+
+        NSLayoutConstraint.activate(signatureConstraints)
         NSLayoutConstraint.activate(verticalConstraints)
         NSLayoutConstraint.activate(dividerConstraints)
         NSLayoutConstraint.activate(centerConstraints)
