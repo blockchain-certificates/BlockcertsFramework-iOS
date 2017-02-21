@@ -57,6 +57,12 @@ extension Data {
     }
 }
 
+fileprivate let isoFormats = [
+    "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
+    "yyyy-MM-dd'T'HH:mm:ss.SSS",
+    "yyyy-MM-dd"
+]
+
 extension String {
     public func toDate() -> Date? {
         var date : Date?
@@ -69,11 +75,6 @@ extension String {
         }
         
         if date == nil {
-            let isoFormats = [
-                "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
-                "yyyy-MM-dd'T'HH:mm:ss.SSS",
-                "yyyy-MM-dd"
-            ]
             let formatter = DateFormatter()
             
             for format in isoFormats {
@@ -92,5 +93,24 @@ extension String {
         }
         
         return date
+    }
+}
+
+extension Date {
+    public func toString() -> String {
+        if #available(iOSApplicationExtension 10.0, *) {
+            let isoFormatter = ISO8601DateFormatter()
+            return isoFormatter.string(from: self)
+        }
+        
+        let isoFormats = [
+            "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
+            "yyyy-MM-dd'T'HH:mm:ss.SSS",
+            "yyyy-MM-dd"
+        ]
+        let formatter = DateFormatter()
+        formatter.dateFormat = isoFormats.first!
+        
+        return formatter.string(from: self)
     }
 }

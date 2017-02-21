@@ -19,11 +19,8 @@ class IssuerTests: XCTestCase {
     let introductionURLValue = "https://example.com/request"
     let issuerKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")
     let revocationKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "REVOCATION_KEY")
-    let dateFormatter = DateFormatter()
     
     override func setUp() {
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
     }
 
     func testDictionaryConversion() {
@@ -38,13 +35,13 @@ class IssuerTests: XCTestCase {
         
         let expectedIssuerKeys : [[String: String]] = [
             [
-                "date": dateFormatter.string(from: issuerKey.on),
+                "date": issuerKey.on.toString(),
                 "key": issuerKey.key
             ]
         ]
         let expectedRevocationKeys : [[String: String]] = [
             [
-                "date": dateFormatter.string(from: revocationKey.on),
+                "date": revocationKey.on.toString(),
                 "key": revocationKey.key
             ]
         ]
@@ -77,13 +74,13 @@ class IssuerTests: XCTestCase {
             "introductionURL": introductionURLValue,
             "issuerKeys": [
                 [
-                    "date": dateFormatter.string(from: issuerKey.on),
+                    "date": issuerKey.on.toString(),
                     "key": issuerKey.key
                 ]
             ],
             "revocationKeys": [
                 [
-                    "date": dateFormatter.string(from: revocationKey.on),
+                    "date": revocationKey.on.toString(),
                     "key": revocationKey.key
                 ]
             ]

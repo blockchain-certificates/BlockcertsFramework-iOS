@@ -57,6 +57,7 @@
 		835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B624D1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json */; };
 		835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
 		835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
+		836031BE1E5D088C005B2D2E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839174351DA563E800CB6E54 /* String.swift */; };
 		8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
 		8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
 		8369CB141D70D02C006D603E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8369CB131D70D02C006D603E /* Settings.bundle */; };
@@ -1252,6 +1253,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				830AB9E51DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift in Sources */,
+				836031BE1E5D088C005B2D2E /* String.swift in Sources */,
 				830AB9E41DA6B44B00185E19 /* IssuerCreationRequestTests.swift in Sources */,
 				830AB9E61DA6B44B00185E19 /* IssuerTests.swift in Sources */,
 				830AB9C71DA6B0F200185E19 /* StringExtensions.swift in Sources */,

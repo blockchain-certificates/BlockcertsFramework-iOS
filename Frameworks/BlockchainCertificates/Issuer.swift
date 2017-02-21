@@ -150,12 +150,8 @@ public struct Issuer {
         }
         
         func keyRotationSchedule(from dictionary: [String : String]) -> KeyRotation? {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "YYYY-MM-dd"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            
             guard let dateString = dictionary["date"],
-                let date = dateFormatter.date(from: dateString),
+                let date = dateString.toDate(),
                 let key = dictionary["key"] else {
                     return nil
             }
@@ -177,19 +173,15 @@ public struct Issuer {
     ///
     /// - returns: The dictionary representing this Issuer.
     public func toDictionary() -> [String: Any] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        
         let serializedIssuerKeys = issuerKeys.map { (keyRotation) -> [String : String] in
             return [
-                "date": dateFormatter.string(from: keyRotation.on),
+                "date": keyRotation.on.toString(),
                 "key": keyRotation.key
             ]
         }
         let serializedRevocationKeys = revocationKeys.map { (keyRotation) -> [String : String] in
             return [
-                "date": dateFormatter.string(from: keyRotation.on),
+                "date": keyRotation.on.toString(),
                 "key": keyRotation.key
             ]
         }
