@@ -56,3 +56,41 @@ extension Data {
         return hexString
     }
 }
+
+extension String {
+    public func toDate() -> Date? {
+        var date : Date?
+        let dateString = self
+        
+        // ISO8601 Format
+        if #available(iOSApplicationExtension 10.0, *) {
+            let isoFormatter = ISO8601DateFormatter()
+            date = isoFormatter.date(from: dateString)
+        }
+        
+        if date == nil {
+            let isoFormats = [
+                "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
+                "yyyy-MM-dd'T'HH:mm:ss.SSS",
+                "yyyy-MM-dd"
+            ]
+            let formatter = DateFormatter()
+            
+            for format in isoFormats {
+                formatter.dateFormat = format
+                date = formatter.date(from: dateString)
+                
+                if date != nil {
+                    break
+                }
+            }
+        }
+        
+        // Unix Timestamp
+        if date == nil, let milliseconds = Double(dateString) {
+            date = Date(timeIntervalSince1970: milliseconds)
+        }
+        
+        return date
+    }
+}

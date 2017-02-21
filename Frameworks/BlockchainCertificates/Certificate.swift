@@ -194,41 +194,6 @@ private func imageData(from dataURI: String?) -> Data {
     }
 }
 
-private func parseDate(from dateString: String) -> Date? {
-    var date : Date?
-    
-    // ISO8601 Format
-    if #available(iOSApplicationExtension 10.0, *) {
-        let isoFormatter = ISO8601DateFormatter()
-        date = isoFormatter.date(from: dateString)
-    }
-    
-    if date == nil {
-        let isoFormats = [
-            "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
-            "yyyy-MM-dd'T'HH:mm:ss.SSS",
-            "yyyy-MM-dd"
-        ]
-        let formatter = DateFormatter()
-        
-        for format in isoFormats {
-            formatter.dateFormat = format
-            date = formatter.date(from: dateString)
-            
-            if date != nil {
-                break
-            }
-        }
-    }
-    
-    // Unix Timestamp
-    if date == nil, let milliseconds = Double(dateString) {
-        date = Date(timeIntervalSince1970: milliseconds)
-    }
-    
-    return date
-}
-
 // MARK: Certificate Version 1.1
 private enum MethodsForV1_1 {
     static func parse(issuerJSON: AnyObject?) -> Issuer? {
@@ -287,7 +252,7 @@ private enum MethodsForV1_1 {
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
         guard let assertionData = assertionJSON as? [String : String],
             let issuedOnString = assertionData["issuedOn"],
-            let issuedOnDate = parseDate(from: issuedOnString),
+            let issuedOnDate = issuedOnString.toDate(),
             let signatureImageURI = assertionData["image:signature"],
             let assertionId = assertionData["id"],
             let assertionIdUrl = URL(string: assertionId),
@@ -428,7 +393,7 @@ private enum MethodsForV1_2 {
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
-            let issuedOnDate = parseDate(from: issuedOnString),
+            let issuedOnDate = issuedOnString.toDate(),
             let assertionID = assertionData["id"] as? String,
             let assertionIDURL = URL(string: assertionID),
             let assertionUID = assertionData["uid"] as? String else {
