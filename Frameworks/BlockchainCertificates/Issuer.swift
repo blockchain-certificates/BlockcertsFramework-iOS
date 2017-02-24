@@ -21,6 +21,11 @@ public struct KeyRotation {
     }
 }
 
+public enum IssuerError : Error {
+    case genericError
+    case missingProperty(String)
+}
+
 public struct Issuer {
     // MARK: - Properties
     // MARK: Required properties
@@ -118,17 +123,23 @@ public struct Issuer {
     /// This is the inverse of `toDictionary`
     ///
     /// - parameter dictionary: A set of key-value pairs with data used to create the Issuer object
-    public init?(dictionary: [String: Any]) {
-        guard let name = dictionary["name"] as? String,
-            let email = dictionary["email"] as? String,
-            let imageString = dictionary["image"] as? String,
-            let imageURL = URL(string: imageString),
+    public init(dictionary: [String: Any]) throws {
+        guard let name = dictionary["name"] as? String else {
+            throw IssuerError.missingProperty("name")
+        }
+        guard let email = dictionary["email"] as? String else {
+            throw IssuerError.missingProperty("email")
+        }
+        guard let imageString = dictionary["image"] as? String else {
+            throw IssuerError.missingProperty("image")
+        }
+        guard let imageURL = URL(string: imageString),
             let image = try? Data(contentsOf: imageURL),
             let idString = dictionary["id"] as? String,
             let id = URL(string: idString),
             let urlString = dictionary["url"] as? String,
             let url = URL(string: urlString) else {
-            return nil
+            throw IssuerError.genericError
         }
         
         self.name = name
@@ -146,7 +157,7 @@ public struct Issuer {
         
         guard let issuerKeyData = dictionary["issuerKeys"] as? [[String: String]],
             let revocationKeyData = dictionary["revocationKeys"] as? [[String : String]] else {
-                return nil
+                throw IssuerError.genericError
         }
         
         func keyRotationSchedule(from dictionary: [String : String]) -> KeyRotation? {
@@ -164,7 +175,7 @@ public struct Issuer {
         // Also, if the `flatMap` returned nil from any of the keyData items, then fail. We may be able to relax this constraint, but since it would have an impact on valid public key date ranges, I figure we should just fail the parse.
         guard issuerKeys.count == issuerKeyData.count,
             revocationKeys.count == revocationKeyData.count else {
-                return nil
+                throw IssuerError.genericError
         }
     }
     

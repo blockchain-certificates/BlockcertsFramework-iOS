@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// These are versionf of the CertificateFormat that the CertificateParser understands. It will also be prsent on the resulting Certificate object
+/// These are versions of the CertificateFormat that the CertificateParser understands. It will also be prsent on the resulting Certificate object
 ///
 /// - oneDotOne: This is a v1.1 certificate
 /// - oneDotTwo: This is a v1.2 certificate
@@ -18,12 +18,7 @@ public enum CertificateVersion {
 }
 
 /// These are the errors that can be thrown during parsing:
-///
-/// - notImplemented:
-/// - genericError:
-/// - notValidJSON:
-/// - notSigned:      The format appears to be an unsigned certificate. This version of the parser doesn't recognize unsigned certificates.
-/// <#Description#>
+
 ///
 /// - notImplemented:      This particular version of the parser hasn't been implemented. It's possible you're using the protocol directly rather than a concrete subclass.
 /// - genericError:        Something has gone wrong and I don't know exactly what
