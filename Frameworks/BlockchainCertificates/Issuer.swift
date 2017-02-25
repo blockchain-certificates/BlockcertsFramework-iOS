@@ -23,7 +23,8 @@ public struct KeyRotation {
 
 public enum IssuerError : Error {
     case genericError
-    case missingProperty(String)
+    case missing(property: String)
+    case invalid(property: String)
 }
 
 public struct Issuer {
@@ -124,22 +125,79 @@ public struct Issuer {
     ///
     /// - parameter dictionary: A set of key-value pairs with data used to create the Issuer object
     public init(dictionary: [String: Any]) throws {
+        // Required properties first
         guard let name = dictionary["name"] as? String else {
-            throw IssuerError.missingProperty("name")
+            throw IssuerError.missing(property: "name")
         }
         guard let email = dictionary["email"] as? String else {
-            throw IssuerError.missingProperty("email")
+            throw IssuerError.missing(property: "email")
         }
         guard let imageString = dictionary["image"] as? String else {
-            throw IssuerError.missingProperty("image")
+            throw IssuerError.missing(property: "image")
         }
         guard let imageURL = URL(string: imageString),
-            let image = try? Data(contentsOf: imageURL),
-            let idString = dictionary["id"] as? String,
-            let id = URL(string: idString),
-            let urlString = dictionary["url"] as? String,
-            let url = URL(string: urlString) else {
-            throw IssuerError.genericError
+            let image = try? Data(contentsOf: imageURL) else {
+            throw IssuerError.invalid(property: "image")
+        }
+        guard let idString = dictionary["id"] as? String else {
+            throw IssuerError.invalid(property: "id")
+        }
+        guard let id = URL(string: idString) else {
+            throw IssuerError.invalid(property: "id")
+        }
+        guard let urlString = dictionary["url"] as? String else {
+            throw IssuerError.missing(property: "url")
+        }
+        guard let url = URL(string: urlString) else {
+            throw IssuerError.invalid(property: "url")
+        }
+        guard let issuerKeyProperty = dictionary["issuerKeys"] else {
+            throw IssuerError.missing(property: "issuerKeys")
+        }
+        guard let issuerKeyData = issuerKeyProperty as? [[String: String]] else {
+            throw IssuerError.invalid(property: "issuerKeys")
+        }
+        guard let revocationKeyProperty = dictionary["revocationKeys"] else {
+            throw IssuerError.missing(property: "revocationKeys")
+        }
+        guard let revocationKeyData = revocationKeyProperty as? [[String : String]] else {
+            throw IssuerError.invalid(property: "revocationKeys")
+        }
+        
+        func keyRotationSchedule(from dictionary: [String : String]) throws -> KeyRotation {
+            guard let dateString = dictionary["date"] else {
+                throw IssuerError.missing(property: "date")
+            }
+            guard let key = dictionary["key"] else {
+                throw IssuerError.missing(property: "key")
+            }
+            guard let date = dateString.toDate() else {
+                throw IssuerError.invalid(property: "date")
+            }
+            
+            return KeyRotation(on: date, key: key)
+        }
+        
+        let parsedIssuerKeys = try issuerKeyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
+            do {
+                let rotation = try keyRotationSchedule(from: dictionary)
+                return rotation
+            } catch IssuerError.missing(let prop) {
+                throw IssuerError.missing(property: "issuerKeys.\(index).\(prop)")
+            } catch IssuerError.invalid(let prop) {
+                throw IssuerError.invalid(property: "issuerKeys.\(index).\(prop)")
+            }
+        }
+        
+        let parsedRevocationKeys = try revocationKeyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
+            do {
+                let rotation = try keyRotationSchedule(from: dictionary)
+                return rotation
+            } catch IssuerError.missing(let prop) {
+                throw IssuerError.missing(property: "revocationKeys.\(index).\(prop)")
+            } catch IssuerError.invalid(let prop) {
+                throw IssuerError.invalid(property: "revocationKeys.\(index).\(prop)")
+            }
         }
         
         self.name = name
@@ -147,35 +205,15 @@ public struct Issuer {
         self.image = image
         self.id = id
         self.url = url
+        issuerKeys = parsedIssuerKeys.sorted(by: <)
+        revocationKeys = parsedRevocationKeys.sorted(by: <)
         
+        // Optional Properties.
         if let introductionString = dictionary["introductionURL"] as? String,
             let introductionURL = URL(string: introductionString) {
             self.introductionURL = introductionURL
         } else {
             self.introductionURL = nil
-        }
-        
-        guard let issuerKeyData = dictionary["issuerKeys"] as? [[String: String]],
-            let revocationKeyData = dictionary["revocationKeys"] as? [[String : String]] else {
-                throw IssuerError.genericError
-        }
-        
-        func keyRotationSchedule(from dictionary: [String : String]) -> KeyRotation? {
-            guard let dateString = dictionary["date"],
-                let date = dateString.toDate(),
-                let key = dictionary["key"] else {
-                    return nil
-            }
-            
-            return KeyRotation(on: date, key: key)
-        }
-        issuerKeys = issuerKeyData.flatMap(keyRotationSchedule).sorted(by: <)
-        revocationKeys = revocationKeyData.flatMap(keyRotationSchedule).sorted(by: <)
-
-        // Also, if the `flatMap` returned nil from any of the keyData items, then fail. We may be able to relax this constraint, but since it would have an impact on valid public key date ranges, I figure we should just fail the parse.
-        guard issuerKeys.count == issuerKeyData.count,
-            revocationKeys.count == revocationKeyData.count else {
-                throw IssuerError.genericError
         }
     }
     

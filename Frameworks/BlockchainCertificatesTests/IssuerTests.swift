@@ -94,9 +94,9 @@ class IssuerTests: XCTestCase {
                                     publicIssuerKeys: [issuerKey],
                                     publicRevocationKeys: [revocationKey],
                                     introductionURL: URL(string: introductionURLValue)!)
-        let result = Issuer(dictionary: input)
+        let result = try! Issuer(dictionary: input)
         
         XCTAssertNotNil(result)
-        XCTAssertEqual(result!, expectedResult)
+        XCTAssertEqual(result, expectedResult)
     }
 }

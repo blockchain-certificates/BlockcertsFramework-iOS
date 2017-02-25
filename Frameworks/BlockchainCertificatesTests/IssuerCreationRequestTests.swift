@@ -53,7 +53,7 @@ class IssuerIdentificationRequestTests: XCTestCase {
                         error: nil)
         
         // Create the request
-        let request = IssuerIdentificationRequest(id: url, session: session) { (issuer) in
+        let request = IssuerIdentificationRequest(id: url, session: session) { (issuer, error) in
             XCTAssertNotNil(issuer)
             XCTAssertEqual(issuer!.name, expectedName)
             XCTAssertEqual(issuer!.email, expectedEmail)
