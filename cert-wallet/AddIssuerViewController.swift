@@ -139,8 +139,8 @@ class AddIssuerViewController: UIViewController {
                 return
             }
 
-            let introductionRequest = IssuerIntroductionRequest(introduce: recipient, to: issuer, callback: { (success, error) in
-                if success {
+            let introductionRequest = IssuerIntroductionRequest(introduce: recipient, to: issuer, callback: { (error) in
+                if error == nil {
                     DispatchQueue.main.async { callback?(issuer) }
                 } else {
                     DispatchQueue.main.async { callback?(nil) }

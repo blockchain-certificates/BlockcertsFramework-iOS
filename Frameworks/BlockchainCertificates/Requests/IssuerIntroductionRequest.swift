@@ -8,8 +8,12 @@
 
 import Foundation
 
+public enum IssuerIntroductionRequestError : Error {
+    case genericError(message: String)
+}
+
 public class IssuerIntroductionRequest : CommonRequest {
-    var callback : ((Bool, String?) -> Void)?
+    var callback : ((IssuerIntroductionRequestError?) -> Void)?
     let url : URL?
     
     private var extraJSONData : [String: Any]?
@@ -17,7 +21,7 @@ public class IssuerIntroductionRequest : CommonRequest {
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    public init(introduce recipient: Recipient, to issuer: Issuer, with jsonData: [String : Any]? = nil, session: URLSessionProtocol = URLSession.shared, callback: ((Bool, String?) -> Void)?) {
+    public init(introduce recipient: Recipient, to issuer: Issuer, with jsonData: [String : Any]? = nil, session: URLSessionProtocol = URLSession.shared, callback: ((IssuerIntroductionRequestError?) -> Void)?) {
         self.callback = callback
         self.session = session
         self.recipient = recipient
@@ -28,7 +32,7 @@ public class IssuerIntroductionRequest : CommonRequest {
     
     public func start() {
         guard let url = url else {
-            reportFailure("Issuer does not have an introductionURL. Try refreshing the data.")
+            reportFailure(.genericError(message: "Issuer does not have an introductionURL. Try refreshing the data."))
             return
         }
         
@@ -45,7 +49,7 @@ public class IssuerIntroductionRequest : CommonRequest {
         dataMap["lastName"] = recipient.familyName
 
         guard let data = try? JSONSerialization.data(withJSONObject: dataMap, options: []) else {
-            reportFailure("Failed to create the body for the request.")
+            reportFailure(.genericError(message: "Failed to create the body for the request."))
             return
         }
         
@@ -57,7 +61,7 @@ public class IssuerIntroductionRequest : CommonRequest {
         currentTask = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200 else {
-                    self?.reportFailure("Server responded with non-200 status.")
+                    self?.reportFailure(.genericError(message: "Server responded with non-200 status."))
                     return
             }
             
@@ -68,16 +72,16 @@ public class IssuerIntroductionRequest : CommonRequest {
     
     public func abort() {
         currentTask?.cancel()
-        reportFailure("Aborted")
+        reportFailure(.genericError(message: "Aborted"))
     }
     
-    private func reportFailure(_ reason: String) {
-        callback?(false, reason)
+    private func reportFailure(_ reason: IssuerIntroductionRequestError) {
+        callback?(reason)
         callback = nil
     }
     
     private func reportSuccess() {
-        callback?(true, nil)
+        callback?(nil)
         callback = nil
     }
 }

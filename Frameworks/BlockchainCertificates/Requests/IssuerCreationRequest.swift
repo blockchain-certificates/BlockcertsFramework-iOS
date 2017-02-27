@@ -14,7 +14,6 @@ public enum IssuerIdentificationRequestError : Error {
     case httpFailure(status: Int, response: HTTPURLResponse)
     case missingJSONData
     case jsonSerializationFailure(data : Data)
-//    case issuerParseFailure(error: IssuerError)
     case issuerMissing(property: String)
     case issuerInvalid(property: String)
 }
