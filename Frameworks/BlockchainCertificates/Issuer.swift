@@ -22,7 +22,6 @@ public struct KeyRotation {
 }
 
 public enum IssuerError : Error {
-    case genericError
     case missing(property: String)
     case invalid(property: String)
 }

@@ -14,7 +14,9 @@ public enum IssuerIdentificationRequestError : Error {
     case httpFailure(status: Int, response: HTTPURLResponse)
     case missingJSONData
     case jsonSerializationFailure(data : Data)
-    case issuerParseFailure(error: IssuerError)
+//    case issuerParseFailure(error: IssuerError)
+    case issuerMissing(property: String)
+    case issuerInvalid(property: String)
 }
 
 public class IssuerIdentificationRequest : CommonRequest {
@@ -55,12 +57,12 @@ public class IssuerIdentificationRequest : CommonRequest {
             do {
                 let issuer = try Issuer(dictionary: json)
                 self?.reportSuccess(with: issuer)
+            } catch IssuerError.missing(let property) {
+                self?.report(failure: .issuerMissing(property: property))
+            } catch IssuerError.invalid(let property) {
+                self?.report(failure: .issuerInvalid(property: property))
             } catch {
-                if let issuerError = error as? IssuerError {
-                    self?.report(failure: .issuerParseFailure(error: issuerError))
-                } else {
-                    self?.report(failure: .unknownResponse)
-                }
+                self?.report(failure: .unknownResponse)
             }
         }
         currentTask?.resume()
