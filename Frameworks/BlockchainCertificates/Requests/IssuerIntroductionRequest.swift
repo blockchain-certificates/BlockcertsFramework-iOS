@@ -17,45 +17,56 @@ public enum IssuerIntroductionRequestError : Error {
 }
 
 public protocol IssuerIntroductionRequestDelegate : class {
+    func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL?
+    func postData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
+}
+
+public extension IssuerIntroductionRequestDelegate {
+    func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL? {
+        return issuer.introductionURL
+    }
+    
+    public func postData(for issuer: Issuer, from recipient: Recipient) -> [String: Any] {
+        var dataMap = [String: Any]()
+        dataMap["email"] = recipient.identity
+        dataMap["firstName"] = recipient.givenName
+        dataMap["lastName"] = recipient.familyName
+        return dataMap
+    }
+}
+
+private class DefaultDelegate : IssuerIntroductionRequestDelegate {
     
 }
 
 public class IssuerIntroductionRequest : CommonRequest {
     var callback : ((IssuerIntroductionRequestError?) -> Void)?
-    var delegate : IssuerIntroductionRequestDelegate?
+    var delegate : IssuerIntroductionRequestDelegate
     
-    private var extraJSONData : [String: Any]?
     private var recipient : Recipient
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     private var issuer : Issuer
     
-    public init(introduce recipient: Recipient, to issuer: Issuer, with jsonData: [String : Any]? = nil, session: URLSessionProtocol = URLSession.shared, callback: ((IssuerIntroductionRequestError?) -> Void)?) {
+    public init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((IssuerIntroductionRequestError?) -> Void)?) {
         self.callback = callback
         self.session = session
         self.recipient = recipient
-        self.extraJSONData = jsonData
         self.issuer = issuer
+        
+        delegate = DefaultDelegate()
     }
     
     public func start() {
-        guard let url = issuer.introductionURL else {
+        guard let url = delegate.introductionURL(for: issuer, introducing: recipient) else {
             reportFailure(.issuerMissingIntroductionURL)
             return
         }
         
         // Create JSON body. Start with the provided extra data parameters if they're present.
-        var dataMap = [String: Any]()
-        if let extraJSONData = extraJSONData {
-            dataMap = extraJSONData
-        }
-        
-        // Required data. If this is passed in the extra data, then it's overwritten
+        var dataMap = delegate.postData(for: issuer, from: recipient)
         dataMap["bitcoinAddress"] = recipient.publicAddress
-        dataMap["email"] = recipient.identity
-        dataMap["firstName"] = recipient.givenName
-        dataMap["lastName"] = recipient.familyName
-
+        
         guard let data = try? JSONSerialization.data(withJSONObject: dataMap, options: []) else {
             reportFailure(.cannotSerializePostData)
             return

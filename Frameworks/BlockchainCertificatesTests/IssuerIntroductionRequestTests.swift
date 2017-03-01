@@ -86,8 +86,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         let expectedLastName = "Strong"
         let extraDataKey = "favoriteEmoji"
         let extraDataValue = "🐼"
-        let extraData = [ extraDataKey : extraDataValue ]
-        
+
         let issuer = Issuer(name: "BlockCerts Issuer",
                             email: "issuer@blockcerts.org",
                             image: "data:image/png;base64,".data(using: .utf8)!,
@@ -109,6 +108,18 @@ class IssuerIntroductionRequestTests: XCTestCase {
                                   publicAddress: expectedAddress,
                                   revocationAddress: nil)
         
+        class TestDelegate : IssuerIntroductionRequestDelegate {
+            let extraDataKey = "favoriteEmoji"
+            let extraDataValue = "🐼"
+
+            public func postData(for issuer: Issuer, from recipient: Recipient) -> [String : Any] {
+                var data = [String: Any]()
+                data["email"] = recipient.identity
+                data[extraDataKey] = extraDataValue
+
+                return data
+            }
+        }
         // Mock out the network
         let session = MockURLSession()
         let url = issuer.introductionURL!
@@ -124,8 +135,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
             
             XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
             XCTAssertEqual(map!["email"], expectedEmail)
-            XCTAssertEqual(map!["firstName"], expectedFirstName)
-            XCTAssertEqual(map!["lastName"], expectedLastName)
+            XCTAssertNil(map!["firstName"], expectedFirstName)
+            XCTAssertNil(map!["lastName"], expectedLastName)
             XCTAssertNotNil(map![extraDataKey])
             XCTAssertEqual(map![extraDataKey], extraDataValue)
             
@@ -138,10 +149,11 @@ class IssuerIntroductionRequestTests: XCTestCase {
         }
         
         // Create the request
-        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, with: extraData, session: session) { (error) in
+        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, session: session) { (error) in
             XCTAssertNil(error)
             itShouldCallTheCallback.fulfill()
         }
+        request.delegate = TestDelegate()
         request.start()
         
         waitForExpectations(timeout: 20.0, handler: nil)
