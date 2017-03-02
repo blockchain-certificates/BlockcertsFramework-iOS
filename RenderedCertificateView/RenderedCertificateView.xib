@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -58,7 +58,7 @@
                             <rect key="frame" x="9.5" y="262" width="533" height="110"/>
                             <attributedString key="attributedText">
                                 <fragment>
-                                    <mutableString key="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor sapien finibus turpis tristique tincidunt. In augue tortor, tincidunt et arcu non, lobortis interdum dolor. Proin bibendum leo at nibh feugiat, ac bibendum lorem tempus. Praesent in urna nisi. Suspendisse at risus quis nunc aliquet ultricies. Etiam a dapibus lorem. Fusce dolor nisi, tristique quis condimentum id, porta ac elit. Maecenas non metus dignissim, tristique ligula ut, sollicitudin elit. Cras vestibulum ac magna eu varius. Vivamus purus urna, porta at imperdiet nec, venenatis et dui. Fusce sem dui, commodo at massa vel, ultrices maximus enim. Duis ultricies aliquet nunc.</mutableString>
+                                    <string key="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor sapien finibus turpis tristique tincidunt. In augue tortor, tincidunt et arcu non, lobortis interdum dolor. Proin bibendum leo at nibh feugiat, ac bibendum lorem tempus. Praesent in urna nisi. Suspendisse at risus quis nunc aliquet ultricies. Etiam a dapibus lorem. Fusce dolor nisi, tristique quis condimentum id, porta ac elit. Maecenas non metus dignissim, tristique ligula ut, sollicitudin elit. Cras vestibulum ac magna eu varius. Vivamus purus urna, porta at imperdiet nec, venenatis et dui. Fusce sem dui, commodo at massa vel, ultrices maximus enim. Duis ultricies aliquet nunc.</string>
                                     <attributes>
                                         <font key="NSFont" size="11" name="TimesNewRomanPS-ItalicMT"/>
                                         <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineHeightMultiple="1.5" tighteningFactorForTruncation="0.0"/>
@@ -68,10 +68,13 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="H3W-hi-2ZZ">
-                            <rect key="frame" x="10" y="402" width="533" height="310"/>
+                            <rect key="frame" x="10" y="402" width="533" height="350"/>
                         </stackView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p4p-P2-ZPu" userLabel="Seal Image">
-                            <rect key="frame" x="-0.5" y="742" width="553" height="125"/>
+                            <rect key="frame" x="-0.5" y="782" width="553" height="85"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="85" id="8qm-4j-mtk"/>
+                            </constraints>
                         </imageView>
                     </subviews>
                     <constraints>
@@ -97,7 +100,6 @@
                         <constraint firstAttribute="bottom" secondItem="p4p-P2-ZPu" secondAttribute="bottom" constant="20" id="qUb-rZ-MQQ"/>
                         <constraint firstItem="Bsm-eO-oQu" firstAttribute="width" secondItem="BE0-5T-0Gz" secondAttribute="width" id="u98-Nq-Ecj"/>
                         <constraint firstItem="OEM-VC-Z6k" firstAttribute="top" secondItem="o3u-9w-6AQ" secondAttribute="bottom" constant="10" id="vZh-tm-012"/>
-                        <constraint firstItem="p4p-P2-ZPu" firstAttribute="height" secondItem="Bsm-eO-oQu" secondAttribute="height" id="x5a-z3-GjQ"/>
                     </constraints>
                 </view>
             </subviews>
