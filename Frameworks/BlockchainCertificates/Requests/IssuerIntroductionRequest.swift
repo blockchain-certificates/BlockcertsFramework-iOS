@@ -40,8 +40,8 @@ private class DefaultDelegate : IssuerIntroductionRequestDelegate {
 }
 
 public class IssuerIntroductionRequest : CommonRequest {
-    var callback : ((IssuerIntroductionRequestError?) -> Void)?
-    var delegate : IssuerIntroductionRequestDelegate
+    public var callback : ((IssuerIntroductionRequestError?) -> Void)?
+    public var delegate : IssuerIntroductionRequestDelegate
     
     private var recipient : Recipient
     private var session : URLSessionProtocol
