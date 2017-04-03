@@ -72,7 +72,7 @@ class CertificateDetailViewController: UITableViewController {
                 "Subtitle": certificate.subtitle ?? "",
                 "Description": certificate.description,
                 "Language": certificate.language,
-                "ID": "\(certificate.id)"
+                "ID": "\(String(describing: certificate.id))"
             ]),
             CertificateProperty(title: "Issuer", values: [
                 "Name": certificate.issuer.name,
@@ -95,7 +95,7 @@ class CertificateDetailViewController: UITableViewController {
                 "ID": "\(certificate.assertion.id)"
             ]),
             CertificateProperty(title: "Verify", values: [
-                "Signer": "\(certificate.verifyData.signer)",
+                "Signer": "\(String(describing: certificate.verifyData.signer))",
                 "Signed Attribute": certificate.verifyData.signedAttribute,
                 "Type": certificate.verifyData.type
             ])

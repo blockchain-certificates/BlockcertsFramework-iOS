@@ -305,7 +305,7 @@ public class CertificateValidationRequest : CommonRequest {
             let address = bitcoinManager.address(for: certificate, on: chain)
             
             guard address == issuerKey else {
-                self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address\(address)\n issuerKey\(issuerKey)")
+                self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address\(address!)\n issuerKey\(issuerKey)")
                 return
             }
             

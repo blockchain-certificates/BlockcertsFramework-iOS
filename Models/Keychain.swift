@@ -159,7 +159,7 @@ extension Keychain {
         return result == noErr
     }
     
-    @discardableResult static func updateShared(with seedPhrase: String, unusedIndex index: Int = 0) throws {
+    static func updateShared(with seedPhrase: String, unusedIndex index: Int = 0) throws {
         // TODO: Do I need some kind of semaphore or something to make sure these two lines run one at a time?
         // If they don't, then it's possible we'll delete the key, the singleton will be recreated
         // with a random seed phrase, and the new seed phrase will be saved to the keychain. This will correct
