@@ -50,6 +50,7 @@
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832F2A4C1E955FAF00A65C3A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F2A4A1E955E0900A65C3A /* Metadata.swift */; };
+		832F2A4E1E9564FF00A65C3A /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */; };
 		834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */; };
 		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
 		8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
@@ -266,6 +267,7 @@
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		832F2A4A1E955E0900A65C3A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = Frameworks/BlockchainCertificates/Metadata.swift; sourceTree = SOURCE_ROOT; };
+		832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataTests.swift; path = Frameworks/BlockchainCertificatesTests/MetadataTests.swift; sourceTree = SOURCE_ROOT; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -457,6 +459,7 @@
 				830AB9CA1DA6B34400185E19 /* CertificateV1_1Tests.swift */,
 				830AB9CB1DA6B34400185E19 /* CertificateV1_2Tests.swift */,
 				830AB9E91DA6B63400185E19 /* ReceiptTests.swift */,
+				832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */,
 				830AB9E11DA6B44B00185E19 /* IssuerCreationRequestTests.swift */,
 				830AB9E21DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift */,
 				830AB9E31DA6B44B00185E19 /* IssuerTests.swift */,
@@ -1258,6 +1261,7 @@
 			files = (
 				830AB9E51DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift in Sources */,
 				836031BE1E5D088C005B2D2E /* String.swift in Sources */,
+				832F2A4E1E9564FF00A65C3A /* MetadataTests.swift in Sources */,
 				830AB9E41DA6B44B00185E19 /* IssuerCreationRequestTests.swift in Sources */,
 				830AB9E61DA6B44B00185E19 /* IssuerTests.swift in Sources */,
 				830AB9C71DA6B0F200185E19 /* StringExtensions.swift in Sources */,
