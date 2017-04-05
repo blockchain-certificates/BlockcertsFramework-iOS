@@ -157,6 +157,9 @@ public protocol Certificate {
     
     /// Represents any reciept data to help verify the certificate. See `Reciept` for more details
     var receipt : Receipt? { get }
+    
+    /// Contains all the metadata associated with the certificate. See `Metadata` for more details
+    var metadata : Metadata { get }
 }
 
 //
@@ -303,6 +306,7 @@ private struct CertificateV1_1 : Certificate {
     let assertion : Assertion
     let verifyData : Verify
     let receipt: Receipt? = nil
+    let metadata: Metadata
     
     init(data: Data) throws {
         self.file = data
@@ -355,6 +359,8 @@ private struct CertificateV1_1 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.signature = json["signature"] as? String
+        // TODO: Parse this out of the assertion.
+        self.metadata = Metadata(json: [:])
     }
 }
 
@@ -445,7 +451,6 @@ private enum MethodsForV1_2 {
 }
 
 private struct CertificateV1_2 : Certificate {
-
     let version = CertificateVersion.oneDotTwo
     let title : String
     let subtitle : String?
@@ -462,6 +467,7 @@ private struct CertificateV1_2 : Certificate {
     let verifyData : Verify
     
     let receipt : Receipt?
+    let metadata: Metadata
     
     init(data: Data) throws {
         file = data
@@ -530,6 +536,9 @@ private struct CertificateV1_2 : Certificate {
         self.verifyData = verifyData
         self.receipt = receiptData
         self.signature = documentData["signature"] as? String
+        
+        // TODO: Parse this out of the assertion.
+        self.metadata = Metadata(json: [:])
     }
 }
 
