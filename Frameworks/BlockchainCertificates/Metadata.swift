@@ -45,15 +45,15 @@ public struct Metadata {
         var stringValue : String = ""
         
         switch (value) {
-        case let typedValue as Bool:
-            type = .boolean
-            stringValue = typedValue ? "true" : "false"
-            
         case is Int:
             fallthrough
         case is Double:
             type = .number
             stringValue = "\(value)"
+            
+        case let typedValue as Bool:
+            type = .boolean
+            stringValue = typedValue ? "true" : "false"
             
         case let typedValue as String:
             type = Metadata.getType(from: typedValue)
