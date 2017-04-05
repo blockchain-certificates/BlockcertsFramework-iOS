@@ -10,6 +10,8 @@ import Foundation
 
 
 public struct Metadata {
+    public static let visiblePathsKey = "displayOrder"
+    
     let groups : [String]
     
     
@@ -40,7 +42,7 @@ public struct Metadata {
 
 public enum MetadatumType {
     // Basic types
-    case number, string, date
+    case number, string, date, boolean
     
     // String-ish types
     case email, uri, phoneNumber
@@ -48,5 +50,6 @@ public enum MetadatumType {
 
 public struct Metadatum {
     let type : MetadatumType
+    let label : String
     let value : String
 }
