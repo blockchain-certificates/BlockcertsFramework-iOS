@@ -32,24 +32,52 @@ public struct Metadata {
                 return
             }
             
-            groupedMetadata[key] = pairedValues.map { (key: String, value: Any) -> Metadatum in
-                var type = MetadatumType.unknown
-                var stringValue : String = ""
-                switch (value) {
-                case let typedValue as String:
-                    type = .string
-                    stringValue = typedValue
-                default:
-                    stringValue = "\(value)"
-                    break;
-                }
-                return Metadatum(type: type, label: key, value: stringValue)
-            }
+            groupedMetadata[key] = pairedValues.map(Metadata.parseMetadatum)
         }
         
         visiblePaths = json[Metadata.visiblePathsKey] as? [String] ?? []
 
         self.groupedMetadata = groupedMetadata
+    }
+    
+    private static func parseMetadatum(key: String, value: Any) -> Metadatum {
+        var type = MetadatumType.unknown
+        var stringValue : String = ""
+        
+        switch (value) {
+        case let typedValue as Bool:
+            type = .boolean
+            stringValue = typedValue ? "true" : "false"
+            
+        case is Int:
+            fallthrough
+        case is Double:
+            type = .number
+            stringValue = "\(value)"
+            
+        case let typedValue as String:
+            type = Metadata.getType(from: typedValue)
+            stringValue = typedValue
+        default:
+            stringValue = "\(value)"
+            break;
+        }
+        
+        return Metadatum(type: type, label: key, value: stringValue)
+    }
+    
+    private static func getType(from string: String) -> MetadatumType {
+        var type = MetadatumType.string
+        let emailRegex = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b"
+        
+        if string.toDate() != nil {
+            type = .date
+        } else if string.range(of: emailRegex, options: [.regularExpression, .caseInsensitive], range: nil, locale: nil) != nil {
+            type = .email
+        } else if let url = URL(string: string), url.host != nil {
+            type = .uri
+        }
+        return type
     }
     
     func metadataFor(group: String) -> [Metadatum] {
