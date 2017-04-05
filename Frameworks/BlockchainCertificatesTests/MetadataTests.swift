@@ -45,6 +45,9 @@ class MetadataTests: XCTestCase {
         let groupMetadata = data.metadataFor(group: group)
         XCTAssertFalse(groupMetadata.isEmpty)
         XCTAssertEqual(groupMetadata.count, 1)
+        
+        XCTAssertEqual(groupMetadata.first?.value, value)
+        XCTAssertEqual(groupMetadata.first?.label, key)
     }
     
     func testMetadatumForSingleDotPath() {

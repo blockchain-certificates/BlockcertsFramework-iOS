@@ -12,8 +12,9 @@ import Foundation
 public struct Metadata {
     public static let visiblePathsKey = "displayOrder"
     
-    // TODO: This should just be a getter for the keys on groupedMetadata.
-    let groups : [String]
+    var groups : [String] {
+        return Array(groupedMetadata.keys)
+    }
     private let groupedMetadata : [String: [Metadatum]]
 
     
@@ -53,7 +54,6 @@ public struct Metadata {
         // Now go through `displayOrder`:
         
 
-        groups = Array(groupedMetadata.keys)
         self.groupedMetadata = groupedMetadata
     }
     
