@@ -62,7 +62,19 @@ public struct Metadata {
     }
     
     func metadatumFor(dotPath: String) -> Metadatum? {
-        return nil
+        let components = dotPath.components(separatedBy: ".")
+        guard components.count == 2 else {
+            print("\(#function) called without a 2-part dotpath: \(dotPath)")
+            return nil
+        }
+        
+        let groupName = components.first!
+        let key = components.last!
+        
+        let group = groupedMetadata[groupName]
+        return group?.first(where: { (datum) -> Bool in
+            datum.label == key
+        })
     }
     
     var visibleMetadata : [Metadatum] {
