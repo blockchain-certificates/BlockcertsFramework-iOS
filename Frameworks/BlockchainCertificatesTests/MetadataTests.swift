@@ -31,7 +31,7 @@ class MetadataTests: XCTestCase {
         XCTAssertNil(data.metadatumFor(dotPath: "anything.else"))
     }
     
-    func testSingleGroupWithNoVisibleData() {
+    func testMetadataForSingleGroup() {
         let group = "group1"
         let key = "key1"
         let value = "value1"
@@ -45,12 +45,22 @@ class MetadataTests: XCTestCase {
         let groupMetadata = data.metadataFor(group: group)
         XCTAssertFalse(groupMetadata.isEmpty)
         XCTAssertEqual(groupMetadata.count, 1)
+    }
+    
+    func testMetadatumForSingleDotPath() {
+        let group = "group1"
+        let key = "key1"
+        let value = "value1"
+        let json : [String: Any] = [
+            group: [
+                key: value
+            ]
+        ]
+        let data = Metadata(json: json)
         
         let metadataum = data.metadatumFor(dotPath: "\(group).\(key)")
         XCTAssertNotNil(metadataum)
         XCTAssertEqual(metadataum?.value, value)
-        
-        XCTAssert(data.visibleMetadata.isEmpty)
     }
     
     func testMultipleGroupsWithNoVisibleData() {
