@@ -359,8 +359,8 @@ private struct CertificateV1_1 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.signature = json["signature"] as? String
-        // TODO: Parse this out of the assertion.
-        self.metadata = Metadata(json: [:])
+
+        self.metadata = assertion.metadata
     }
 }
 
@@ -424,11 +424,23 @@ private enum MethodsForV1_2 {
             }
         }
 
+        var metadataJson : [String : Any] = [:]
+        if let metadataString = assertionData["metadataJson"] as? String {
+            do {
+                let data = metadataString.data(using: .utf8)
+                metadataJson = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+            } catch {
+                print("Failed to parse metadata json:")
+                print(metadataString)
+            }
+        }
+        
         return Assertion(issuedOn: issuedOnDate,
                          signatureImages: signatureImages,
                          evidence: evidence,
                          uid: assertionUID,
-                         id: assertionIDURL)
+                         id: assertionIDURL,
+                         metadata: Metadata(json: metadataJson))
     }
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         return MethodsForV1_1.parse(verifyJSON: verifyJSON)
@@ -536,9 +548,7 @@ private struct CertificateV1_2 : Certificate {
         self.verifyData = verifyData
         self.receipt = receiptData
         self.signature = documentData["signature"] as? String
-        
-        // TODO: Parse this out of the assertion.
-        self.metadata = Metadata(json: [:])
+        self.metadata = assertion.metadata
     }
 }
 

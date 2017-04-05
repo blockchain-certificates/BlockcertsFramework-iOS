@@ -12,6 +12,7 @@ public struct SignatureImage {
     public let image : Data
     public let title : String?
 }
+
 /// This represents the assertion made by the certificate. It may contain proof (see `evidence` below) and any signatures/titles of the issuing authority
 public struct Assertion {
     /// Date the the certificate JSON was created.
@@ -29,14 +30,17 @@ public struct Assertion {
     /// URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
     public let id : URL
     
+    public let metadata : Metadata
+    
     /// Public memberwise initializer. See above documentation for an explanation of each argument
     ///
     /// - returns: an initialized Assertion object.
-    public init(issuedOn: Date, signatureImage: Data, evidence: String, uid: String, id: URL) {
+    public init(issuedOn: Date, signatureImage: Data, evidence: String, uid: String, id: URL, metadata: Metadata = Metadata(json: [:])) {
         self.issuedOn = issuedOn
         self.evidence = evidence
         self.uid = uid
         self.id = id
+        self.metadata = metadata
         signatureImages = [SignatureImage(image: signatureImage, title: nil)]
     }
     
@@ -48,11 +52,13 @@ public struct Assertion {
     ///   - evidence: Text, uri, etc. that shows evidence of the recipient's learning that the certificate represents. Can be left as an empty string if not used.
     ///   - uid: Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
     ///   - id: URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
-    public init(issuedOn: Date, signatureImages: [SignatureImage], evidence: String, uid: String, id: URL) {
+    ///   - metadata: Metadata object that contains all anscillary data associated with this certificate.
+    public init(issuedOn: Date, signatureImages: [SignatureImage], evidence: String, uid: String, id: URL, metadata: Metadata = Metadata(json: [:])) {
         self.issuedOn = issuedOn
         self.evidence = evidence
         self.uid = uid
         self.id = id
         self.signatureImages = signatureImages
+        self.metadata = metadata
     }
 }
