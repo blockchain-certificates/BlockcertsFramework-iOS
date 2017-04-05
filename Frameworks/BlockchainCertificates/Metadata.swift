@@ -16,6 +16,7 @@ public struct Metadata {
         return Array(groupedMetadata.keys)
     }
     private let groupedMetadata : [String: [Metadatum]]
+    private let visiblePaths : [String]
 
     
     init(json : [String: Any]) {
@@ -45,14 +46,8 @@ public struct Metadata {
                 return Metadatum(type: type, label: key, value: stringValue)
             }
         }
-        // Go through all the keys
-        // `displayOrder` is special -- save that for last
-        // Everything else:
-        //   1. Add it to the 'groups' list.
-        //   2. Create a Metadatum object for each child
         
-        // Now go through `displayOrder`:
-        
+        visiblePaths = json[Metadata.visiblePathsKey] as? [String] ?? []
 
         self.groupedMetadata = groupedMetadata
     }
@@ -78,7 +73,7 @@ public struct Metadata {
     }
     
     var visibleMetadata : [Metadatum] {
-        return []
+        return visiblePaths.flatMap(metadatumFor)
     }
 }
 
