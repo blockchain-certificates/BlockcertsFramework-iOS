@@ -128,3 +128,31 @@ class CertificateV1_2UnsignedValidTests : XCTestCase {
         XCTAssertNotNil(cert)
     }
 }
+
+class CertificateV1_2WithMetadataTests : XCTestCase {
+    func testMetadata() {
+        let filename = "sample_unsigned_cert_with_metadata-1.2.0"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
+            let file = try? Data(contentsOf: fileUrl) else {
+                XCTFail("Failed to load \(filename) in \(#function)")
+                return
+        }
+        
+        let cert = try? CertificateParser.parse(data: file)
+        
+        XCTAssertNotNil(cert)
+
+        let visibleMetadata = cert?.metadata.visibleMetadata
+        XCTAssertEqual(visibleMetadata?.count, 2)
+        
+        let firstMetadata = visibleMetadata?.first
+        XCTAssertEqual(firstMetadata?.label, "level")
+        XCTAssertEqual(firstMetadata?.value, "3")
+        
+        let secondMetadata = visibleMetadata?.last
+        XCTAssertEqual(secondMetadata?.label, "gpa")
+        XCTAssertEqual(secondMetadata?.value, "3.75")
+
+    }
+}
