@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */; };
+		3B57280D1E958DC900B56821 /* sample_signed_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */; };
+		3B57280E1E958DCF00B56821 /* sample_signed_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */; };
+		3B5728151E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */; };
+		3B5728161E95A4A200B56821 /* sample_signed_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */; };
 		3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */; };
 		3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */; };
 		3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */; };
@@ -224,6 +228,10 @@
 /* Begin PBXFileReference section */
 		2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC550FD5CE48EBC6F6DB6F5 /* Pods-cert-walletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-revoked-2.0.json"; sourceTree = "<group>"; };
+		3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-revoked-2.0.json"; sourceTree = "<group>"; };
+		3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-2.0.json"; sourceTree = "<group>"; };
 		3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.1.0.json"; sourceTree = "<group>"; };
 		3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.2.0.json"; sourceTree = "<group>"; };
 		3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
@@ -412,6 +420,8 @@
 		830AB9CE1DA6B3BC00185E19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */,
+				3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */,
 				830AB9CF1DA6B3BC00185E19 /* index.html */,
 				830AB9D01DA6B3BC00185E19 /* modified_1.2_jsonld.json */,
 				830E707C1DEE2912009BAB30 /* multiimage_1.2.json */,
@@ -506,6 +516,8 @@
 		834F2EE71D624FCF008C9650 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */,
+				3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */,
 				831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */,
 				3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */,
 				3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */,
@@ -1006,10 +1018,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B57280D1E958DC900B56821 /* sample_signed_cert-valid-2.0.json in Resources */,
 				830AB9DD1DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				830E707D1DEE2912009BAB30 /* multiimage_1.2.json in Resources */,
 				830AB9DC1DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				830AB9D91DA6B3BC00185E19 /* modified_1.2_jsonld.json in Resources */,
+				3B57280E1E958DCF00B56821 /* sample_signed_cert-revoked-2.0.json in Resources */,
 				830AB9E01DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				830AB9DB1DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json in Resources */,
 				830AB9DA1DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json in Resources */,
@@ -1060,12 +1074,14 @@
 			files = (
 				3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */,
 				835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */,
+				3B5728151E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json in Resources */,
 				3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
+				3B5728161E95A4A200B56821 /* sample_signed_cert-valid-2.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

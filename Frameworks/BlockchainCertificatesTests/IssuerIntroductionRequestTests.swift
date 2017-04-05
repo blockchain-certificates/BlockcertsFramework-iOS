@@ -16,8 +16,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         let expectedAddress = "FakeRecipientPublicKey"
         let expectedEmail = "johnny@blockcerts.org"
-        let expectedFirstName = "Johnny"
-        let expectedLastName = "Strong"
+        let expectedName = "Johnny Strong"
         
         let issuer = Issuer(name: "BlockCerts Issuer",
                             email: "issuer@blockcerts.org",
@@ -32,8 +31,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             ],
                             introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
 
-        let recipient = Recipient(givenName: expectedFirstName,
-                                  familyName: expectedLastName,
+        let recipient = Recipient(name: expectedName,
                                   identity: expectedEmail,
                                   identityType: "email",
                                   isHashed: false,
@@ -55,8 +53,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
             
             XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
             XCTAssertEqual(map!["email"], expectedEmail)
-            XCTAssertEqual(map!["firstName"], expectedFirstName)
-            XCTAssertEqual(map!["lastName"], expectedLastName)
+            XCTAssertEqual(map!["aame"], expectedName)
 
             itShouldCallTheServer.fulfill()
             return (
@@ -82,8 +79,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         let expectedAddress = "FakeRecipientPublicKey"
         let expectedEmail = "johnny@blockcerts.org"
-        let expectedFirstName = "Johnny"
-        let expectedLastName = "Strong"
+        let expectedName = "Johnny Strong"
         let extraDataKey = "favoriteEmoji"
         let extraDataValue = "🐼"
 
@@ -100,8 +96,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             ],
                             introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
         
-        let recipient = Recipient(givenName: expectedFirstName,
-                                  familyName: expectedLastName,
+        let recipient = Recipient(name: expectedName,
                                   identity: expectedEmail,
                                   identityType: "email",
                                   isHashed: false,
@@ -135,8 +130,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
             
             XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
             XCTAssertEqual(map!["email"], expectedEmail)
-            XCTAssertNil(map!["firstName"], expectedFirstName)
-            XCTAssertNil(map!["lastName"], expectedLastName)
+            XCTAssertNil(map!["name"], expectedName)
             XCTAssertNotNil(map![extraDataKey])
             XCTAssertEqual(map![extraDataKey], extraDataValue)
             

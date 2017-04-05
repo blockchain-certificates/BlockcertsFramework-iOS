@@ -10,11 +10,8 @@ import Foundation
 
 /// This represents who a certificate is issued to. It also more abstractly represents the user, but they may choose to use different names with differing institutions.
 public struct Recipient {
-    /// The recipient's given name.
-    public let givenName : String
-    
-    /// The recipient's family name
-    public let familyName : String
+    /// The recipient's name.
+    public let name : String
     
     /// A unique string identifying the recipient. Currently, only an email address is supported
     public let identity : String
@@ -31,9 +28,8 @@ public struct Recipient {
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
     public let revocationAddress : String?
     
-    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
-        self.givenName = givenName
-        self.familyName = familyName
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
+        self.name = name
         self.identity = identity
         self.identityType = identityType
         self.isHashed = isHashed
