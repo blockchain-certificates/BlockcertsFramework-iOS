@@ -117,7 +117,7 @@ public enum MetadatumType {
 }
 
 public struct Metadatum {
-    let type : MetadatumType
-    let label : String
-    let value : String
+    public let type : MetadatumType
+    public let label : String
+    public let value : String
 }
