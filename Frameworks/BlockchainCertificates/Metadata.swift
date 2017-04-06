@@ -100,7 +100,7 @@ public struct Metadata {
         })
     }
     
-    var visibleMetadata : [Metadatum] {
+    public var visibleMetadata : [Metadatum] {
         return visiblePaths.flatMap(metadatumFor)
     }
 }
