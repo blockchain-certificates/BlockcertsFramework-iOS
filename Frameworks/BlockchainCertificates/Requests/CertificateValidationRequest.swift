@@ -218,6 +218,13 @@ public class CertificateValidationRequest : CommonRequest {
                 }
                 
                 self.localHash = sha256(data: stringData)
+                
+                // TODO
+                let lh1 = String(data: stringData, encoding: String.Encoding.utf8) as String!
+                print(lh1)
+                print(resultString)
+                let lh = String(data: self.localHash!, encoding: String.Encoding.utf8) as String!
+                print(lh)
                 self.state = .fetchingRemoteHash
             })
             
@@ -276,6 +283,9 @@ public class CertificateValidationRequest : CommonRequest {
         } else {
             compareToHash = self.certificate.receipt?.targetHash
         }
+        
+        let lh = String(data: self.localHash!, encoding: String.Encoding.utf8) as String!
+        print(lh)
         
         guard let localHash = self.localHash,
             let correctHashResult = compareToHash?.asHexData() else {
@@ -373,8 +383,7 @@ public class CertificateValidationRequest : CommonRequest {
                 return
         }
         
-        let opReturnPrefixedMerkleRoot = "6a20" + merkleRoot
-        guard opReturnPrefixedMerkleRoot == remoteHash else {
+        guard merkleRoot == remoteHash else {
             state = .failure(reason: "MerkleRoot does not match remote hash:\n Merkle:\(merkleRoot)\nRemote:\(remoteHash)")
             return
         }
