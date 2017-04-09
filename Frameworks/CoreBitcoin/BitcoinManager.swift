@@ -11,9 +11,10 @@ import Foundation
 public protocol BitcoinManager {
     /// Derives the address for a certificate on a specific chain.
     ///
-    /// - parameter certificate: The certificate to query the address from
-    /// - parameter chain:       Which chain this certificate was issued on.
+    /// - parameter message:    The message to verify
+    /// - parameter signature:  The signature
+    /// - parameter chain:      Which chain this certificate was issued on.
     ///
     /// - returns: A string representing the address if it exists, nil otherwise.
-    func address(for certificate: Certificate, on chain: String) -> String?
+    func address(for message: String, for signature: String, on chain: String) -> String?
 }
