@@ -18,13 +18,13 @@ class CertificateValidationRequestTests: XCTestCase {
     let v1_1ValidTransactionId = "1703d2f5d706d495c1c65b40a086991ab755cc0a02bef51cd4aff9ed7a8586aa"
     let v1_1txFilename = "tx-valid-1.1.0"
     let v1_2ValidFilename = "sample_signed_cert-valid-1.2.0"
-    let v1_2normalized = "v1_2-normalized"
+    let v1_2normalized = "normalized-1.2.0"
     let v1_2txFilename = "tx-valid-1.2.0"
     let gotIssuerFilename = "got-issuer"
     let v2ValidFilename = "sample_signed_cert-valid-2.0"
     let v2txFilename = "tx-valid-2.0"
     let sampleIssuerFilename = "sample-issuer"
-    let v2normalized = "v2-normalized"
+    let v2normalized = "normalized-2.0"
     
     func testTamperedV1_1Certificate() {
         let testExpectation = expectation(description: "Validation will call the completion handler")

@@ -12,6 +12,13 @@
 		3B57280E1E958DCF00B56821 /* sample_signed_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */; };
 		3B5728151E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */; };
 		3B5728161E95A4A200B56821 /* sample_signed_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */; };
+		3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */; };
+		3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */; };
+		3B90A0541E999E4000C027B7 /* tx-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0531E999E4000C027B7 /* tx-valid-1.2.0.json */; };
+		3B90A0561E999F4F00C027B7 /* got-issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got-issuer.json */; };
+		3B90A0581E99A05400C027B7 /* tx-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0571E99A05400C027B7 /* tx-valid-1.1.0.json */; };
+		3B90A05B1E99A4BC00C027B7 /* sample-issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0591E99A4BC00C027B7 /* sample-issuer.json */; };
+		3B90A05C1E99A4BC00C027B7 /* tx-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A05A1E99A4BC00C027B7 /* tx-valid-2.0.json */; };
 		3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */; };
 		3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */; };
 		3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */; };
@@ -232,6 +239,13 @@
 		3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-2.0.json"; sourceTree = "<group>"; };
 		3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-revoked-2.0.json"; sourceTree = "<group>"; };
 		3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized-1.2.0.txt"; sourceTree = "<group>"; };
+		3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized-2.0.txt"; sourceTree = "<group>"; };
+		3B90A0531E999E4000C027B7 /* tx-valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx-valid-1.2.0.json"; sourceTree = "<group>"; };
+		3B90A0551E999F4F00C027B7 /* got-issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "got-issuer.json"; sourceTree = "<group>"; };
+		3B90A0571E99A05400C027B7 /* tx-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx-valid-1.1.0.json"; sourceTree = "<group>"; };
+		3B90A0591E99A4BC00C027B7 /* sample-issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample-issuer.json"; sourceTree = "<group>"; };
+		3B90A05A1E99A4BC00C027B7 /* tx-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx-valid-2.0.json"; sourceTree = "<group>"; };
 		3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.1.0.json"; sourceTree = "<group>"; };
 		3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.2.0.json"; sourceTree = "<group>"; };
 		3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
@@ -516,6 +530,13 @@
 		834F2EE71D624FCF008C9650 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */,
+				3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */,
+				3B90A0591E99A4BC00C027B7 /* sample-issuer.json */,
+				3B90A05A1E99A4BC00C027B7 /* tx-valid-2.0.json */,
+				3B90A0571E99A05400C027B7 /* tx-valid-1.1.0.json */,
+				3B90A0551E999F4F00C027B7 /* got-issuer.json */,
+				3B90A0531E999E4000C027B7 /* tx-valid-1.2.0.json */,
 				3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */,
 				3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */,
 				831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */,
@@ -1072,14 +1093,21 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B90A0581E99A05400C027B7 /* tx-valid-1.1.0.json in Resources */,
 				3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */,
+				3B90A05B1E99A4BC00C027B7 /* sample-issuer.json in Resources */,
 				835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */,
 				3B5728151E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json in Resources */,
+				3B90A05C1E99A4BC00C027B7 /* tx-valid-2.0.json in Resources */,
 				3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */,
+				3B90A0541E999E4000C027B7 /* tx-valid-1.2.0.json in Resources */,
+				3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */,
+				3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
+				3B90A0561E999F4F00C027B7 /* got-issuer.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
 				3B5728161E95A4A200B56821 /* sample_signed_cert-valid-2.0.json in Resources */,
 			);

@@ -219,12 +219,6 @@ public class CertificateValidationRequest : CommonRequest {
                 
                 self.localHash = sha256(data: stringData)
                 
-                // TODO
-                let lh1 = String(data: stringData, encoding: String.Encoding.utf8) as String!
-                print(lh1)
-                print(resultString)
-                let lh = String(data: self.localHash!, encoding: String.Encoding.utf8) as String!
-                print(lh)
                 self.state = .fetchingRemoteHash
             })
             
@@ -284,17 +278,16 @@ public class CertificateValidationRequest : CommonRequest {
             compareToHash = self.certificate.receipt?.targetHash
         }
         
-        let lh = String(data: self.localHash!, encoding: String.Encoding.utf8) as String!
-        print(lh)
-        
-        guard let localHash = self.localHash,
-            let correctHashResult = compareToHash?.asHexData() else {
-                state = .failure(reason: "Can't compare hashes: at least one hash is still nil")
+        guard let localHash1 = self.localHash,
+            let correctHashResult = compareToHash else {
+                state = .failure(reason: "Can't compare hashes: one of the hashes is still nil")
                 return
         }
+
+        let localHash = hexStringFromData(input: localHash1 as NSData)
         
         guard localHash == correctHashResult else {
-            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote\(correctHashResult)")
+            state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote:\(correctHashResult)")
             return
         }
         
@@ -371,7 +364,7 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     func checkMerkleRoot() {
-        guard certificate.version == .oneDotTwo else {
+        guard certificate.version != .oneDotOne else {
             state = .failure(reason: "Invalid state. Shouldn't need to check merkle root for this version of the cert format")
             return
         }
@@ -392,7 +385,7 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     func checkReceipt() {
-        guard certificate.version == .oneDotTwo else {
+        guard certificate.version != .oneDotOne else {
             state = .failure(reason: "Invalid state. Shouldn't need to check receipt for this version of the cert format")
             return
         }
@@ -404,6 +397,25 @@ public class CertificateValidationRequest : CommonRequest {
         }
         state = .checkingIssuerSignature
     }
+}
+
+private func digest(input : NSData) -> NSData {
+    let digestLength = Int(CC_SHA256_DIGEST_LENGTH)
+    var hash = [UInt8](repeating: 0, count: digestLength)
+    CC_SHA256(input.bytes, UInt32(input.length), &hash)
+    return NSData(bytes: hash, length: digestLength)
+}
+
+private  func hexStringFromData(input: NSData) -> String {
+    var bytes = [UInt8](repeating: 0, count: input.length)
+    input.getBytes(&bytes, length: input.length)
+    
+    var hexString = ""
+    for byte in bytes {
+        hexString += String(format:"%02x", UInt8(byte))
+    }
+    
+    return hexString
 }
 
 // MARK: helper functions

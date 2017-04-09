@@ -34,4 +34,3 @@ _:c14n4 <http://schema.org/name> "Arya Stark" .
 _:c14n4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.blockcerts.org/blockcerts_v2_alpha/vocab/blockcerts#RecipientProfile> .
 _:c14n4 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <https://w3id.org/openbadges#Extension> .
 _:c14n4 <https://w3id.org/security#publicKey> <ecdsa-koblitz-pubkey:1AAGG6jirbu9XwikFpkHokbbiYpjVtFe1G> .
-
