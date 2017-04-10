@@ -65,6 +65,9 @@
 		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		832F2A4C1E955FAF00A65C3A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F2A4A1E955E0900A65C3A /* Metadata.swift */; };
+		832F2A4E1E9564FF00A65C3A /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */; };
+		832F2A501E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 832F2A4F1E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json */; };
 		834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */; };
 		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
 		8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
@@ -294,6 +297,9 @@
 		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832F2A4A1E955E0900A65C3A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = Frameworks/BlockchainCertificates/Metadata.swift; sourceTree = SOURCE_ROOT; };
+		832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataTests.swift; path = Frameworks/BlockchainCertificatesTests/MetadataTests.swift; sourceTree = SOURCE_ROOT; };
+		832F2A4F1E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert_with_metadata-1.2.0.json"; sourceTree = "<group>"; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -453,6 +459,7 @@
 				830AB9D41DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json */,
 				830AB9D51DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json */,
 				830AB9D61DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json */,
+				832F2A4F1E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json */,
 				830AB9D71DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */,
 			);
 			name = Resources;
@@ -472,6 +479,7 @@
 				838DA1AD1DA45CBB00E85326 /* Certificate.swift */,
 				830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */,
 				838DA1AE1DA45CBB00E85326 /* Issuer.swift */,
+				832F2A4A1E955E0900A65C3A /* Metadata.swift */,
 				838DA1AF1DA45CBB00E85326 /* Receipt.swift */,
 				838DA1B01DA45CBB00E85326 /* Recipient.swift */,
 				838DA1B11DA45CBB00E85326 /* Verify.swift */,
@@ -487,6 +495,7 @@
 				830AB9CA1DA6B34400185E19 /* CertificateV1_1Tests.swift */,
 				830AB9CB1DA6B34400185E19 /* CertificateV1_2Tests.swift */,
 				830AB9E91DA6B63400185E19 /* ReceiptTests.swift */,
+				832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */,
 				830AB9E11DA6B44B00185E19 /* IssuerCreationRequestTests.swift */,
 				830AB9E21DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift */,
 				830AB9E31DA6B44B00185E19 /* IssuerTests.swift */,
@@ -1059,6 +1068,7 @@
 				830AB9E01DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				830AB9DB1DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json in Resources */,
 				830AB9DA1DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json in Resources */,
+				832F2A501E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */,
 				830AB9DE1DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json in Resources */,
 				830AB9DF1DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				830AB9D81DA6B3BC00185E19 /* index.html in Resources */,
@@ -1291,6 +1301,7 @@
 				838DA1B61DA45CBB00E85326 /* Recipient.swift in Sources */,
 				839174361DA563E800CB6E54 /* String.swift in Sources */,
 				83B0A8521DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift in Sources */,
+				832F2A4C1E955FAF00A65C3A /* Metadata.swift in Sources */,
 				838DA1B51DA45CBB00E85326 /* Receipt.swift in Sources */,
 				838DA1B21DA45CBB00E85326 /* Assertion.swift in Sources */,
 				8318FC451DAC0BC2006A8FD5 /* CertificateValidationRequest.swift in Sources */,
@@ -1313,6 +1324,7 @@
 			files = (
 				830AB9E51DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift in Sources */,
 				836031BE1E5D088C005B2D2E /* String.swift in Sources */,
+				832F2A4E1E9564FF00A65C3A /* MetadataTests.swift in Sources */,
 				830AB9E41DA6B44B00185E19 /* IssuerCreationRequestTests.swift in Sources */,
 				830AB9E61DA6B44B00185E19 /* IssuerTests.swift in Sources */,
 				830AB9C71DA6B0F200185E19 /* StringExtensions.swift in Sources */,
@@ -1493,11 +1505,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CYEWR6MU44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26;
+				DYLIB_CURRENT_VERSION = 28;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/BlockchainCertificates/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1520,11 +1532,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CYEWR6MU44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26;
+				DYLIB_CURRENT_VERSION = 28;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/BlockchainCertificates/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1639,11 +1651,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CYEWR6MU44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26;
+				DYLIB_CURRENT_VERSION = 28;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/JSONLD/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1666,11 +1678,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CYEWR6MU44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26;
+				DYLIB_CURRENT_VERSION = 28;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/JSONLD/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1710,7 +1722,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -1761,7 +1773,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1900,11 +1912,11 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CYEWR6MU44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26;
+				DYLIB_CURRENT_VERSION = 28;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/CommonCrypto/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1926,11 +1938,11 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 26;
+				CURRENT_PROJECT_VERSION = 28;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = CYEWR6MU44;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 26;
+				DYLIB_CURRENT_VERSION = 28;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/CommonCrypto/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";

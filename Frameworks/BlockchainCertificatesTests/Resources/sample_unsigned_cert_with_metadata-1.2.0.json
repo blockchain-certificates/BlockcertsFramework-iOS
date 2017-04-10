@@ -17,7 +17,8 @@
             "id": "http://certificates.gamoeofthronesxyz.org/f813349f-1385-487f-8d89-38a092411fa5",
             "image:signature": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJcAAABVBAMAAAC2kWv1AAAAMFBMVEX///8AAAC/v79/f39fX1+fn5/f398/Pz8fHx/Dw8NTU1Onp6cvLy93d3cnJydvb28isqiqAAAACXBIWXMAAA7EAAAOxAGVKw4bAAADQElEQVRYhe2WS27bMBCGp5RIudsCRbasX8iqUJ3Y3hIO7HZJSJayKAqw8StLIYnTLpNFnCv0BL1NT9MLdEhJzkNSEkfaFNAPmKQl6tNwNDMkQK1atV4nyqtjsbPqWODwCmF+hSyIKmTZvELYvEIWXFbIIgJgaUZMlobZwfAiphwHZVnz6/NuPCJRqyyMvE8G7HQpCC8HY1dJvx5Pg7AcCyy5AgihvyDrbkkUqAb0gbwjG26rkijyY9NiETSuaADOawD3Az5siEtLwoFrS5i9BnYRdwxWiqr9ZdQA0ubfOcKY2hFFJI8HCzYEDw6p24aFA4f4JSA3Zslhv5A1lEL3S3BPOkxQz1EjkDZs8JqfZxgb62+dKxYCucK+9ZOFXDiqKxzYULCnoujtU3xDgTc7uBoXf/zYXjB3yrhowWYAbwuDVc+GVcYms0hM6AYH5sL5SlpqfeLJHgwVtHpFsAPdtHVD77HWutVR8UvfpP1P3IE93lFYsjlWjgIW0YbFe4RpkmQx99CZXR/ob5Cjc0SO0BsRMF5cueNANtXTbBRJspirF+i0Hnx1KUQc+lgRW0RgSOBDKh9mls80hwpy+zlMksXowxEHYa1CCREL/jQ5tagEd2tBVkI3li6dTXk9sFtJshjRPfzOkzc3wG48OAM3pDa3tFFFJda4rIE/0lFH4KTJYjTf1y1RzMdZRxBw6iwHW4cUwbTrmzbWvVmaLGbxkzieiGchff/bANjHvypdSJ6autnorcbC1YltsuhnvHixIejaRTS5oYzFBSzQZZy6Oti9UzwrZZMFWXcOjz/jg/uPhVMw2Mc+monJwh4ki37RnSkmwCz1FKxtVjueoJXDRxOpcfj26xn04CkWTPRZkK572R2CjZIJ6f/oOcMwJAcw+6JY9s5BMmF7wU9sLRRzfWgP8qrQnJuOiLu5z+6VvmrLPE/QBGLxZwAPNJO6aGWULHK3XY1Nct1qpfydDijaXZ3s5Wk6mGTvFcuFvFWy6PHgRZK5hm0r4G7+X7JOzvxVZvAyNVXOxW0OjXaD5SqFEVEBLE2JSs79VtLvFBhFSqKl9Akx1kxjWCWGoQIOpPC0tbM6gVcZq1atWrVq1fqP9Q9Wkn4v31JdhQAAAABJRU5ErkJggg==",
             "type": "Assertion",
-            "uid": "f813349f-1385-487f-8d89-38a092411fa5"
+            "uid": "f813349f-1385-487f-8d89-38a092411fa5",
+            "metadataJson": "{\"displayOrder\":[\"issuer.level\",\"recipient.gpa\"],\"certificate\":{},\"recipient\":{\"gpa\":3.75,\"phone\":\"555-1212\"},\"issuer\":{\"level\":3}}",
         },
         "certificate": {
             "language": "en-US",

@@ -171,6 +171,9 @@ public protocol Certificate {
     
     /// Represents any reciept data to help verify the certificate. See `Reciept` for more details
     var receipt : Receipt? { get }
+    
+    /// Contains all the metadata associated with the certificate. See `Metadata` for more details
+    var metadata : Metadata { get }
 }
 
 //
@@ -319,6 +322,7 @@ private struct CertificateV1_1 : Certificate {
     let assertion : Assertion
     let verifyData : Verify
     let receipt: Receipt? = nil
+    let metadata: Metadata
     
     init(data: Data) throws {
         self.file = data
@@ -372,6 +376,7 @@ private struct CertificateV1_1 : Certificate {
         self.verifyData = verifyData
         let signatureValue = json["signature"] as? String
         self.signature = Signature(value: signatureValue, created: nil, creator: nil)
+        self.metadata = assertion.metadata
     }
 }
 
@@ -437,11 +442,23 @@ private enum MethodsForV1_2 {
             }
         }
 
+        var metadataJson : [String : Any] = [:]
+        if let metadataString = assertionData["metadataJson"] as? String {
+            do {
+                let data = metadataString.data(using: .utf8)
+                metadataJson = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+            } catch {
+                print("Failed to parse metadata json:")
+                print(metadataString)
+            }
+        }
+        
         return Assertion(issuedOn: issuedOnDate,
                          signatureImages: signatureImages,
                          evidence: evidence,
                          uid: assertionUID,
-                         id: assertionIDURL)
+                         id: assertionIDURL,
+                         metadata: Metadata(json: metadataJson))
     }
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         return MethodsForV1_1.parse(verifyJSON: verifyJSON)
@@ -582,7 +599,6 @@ private enum MethodsForV2 {
 }
 
 private struct CertificateV1_2 : Certificate {
-
     let version = CertificateVersion.oneDotTwo
     let title : String
     let subtitle : String?
@@ -599,6 +615,7 @@ private struct CertificateV1_2 : Certificate {
     let verifyData : Verify
     
     let receipt : Receipt?
+    let metadata: Metadata
     
     init(data: Data) throws {
         file = data
@@ -666,10 +683,9 @@ private struct CertificateV1_2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        
-        
         let signatureValue = documentData["signature"] as? String
         self.signature = Signature(value: signatureValue, created: nil, creator: nil)
+        self.metadata = assertion.metadata
     }
 }
 
@@ -691,6 +707,8 @@ private struct CertificateV2 : Certificate {
     let verifyData : Verify
     
     let receipt : Receipt?
+    let metadata: Metadata
+
     
     init(data: Data) throws {
         file = data
@@ -764,6 +782,8 @@ private struct CertificateV2 : Certificate {
         let created = signatureData["created"] as? String
         let creator = signatureData["creator"] as? String
         self.signature = Signature(value: signatureValue, created: created, creator: creator)
+        self.metadata = assertion.metadata
+
     }
 }
 
