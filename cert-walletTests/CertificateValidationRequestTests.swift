@@ -16,15 +16,18 @@ class CertificateValidationRequestTests: XCTestCase {
     let v1_1transactionId = "d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d"
     let v1_1ValidFilename = "sample_signed_cert-valid-1.1.0"
     let v1_1ValidTransactionId = "1703d2f5d706d495c1c65b40a086991ab755cc0a02bef51cd4aff9ed7a8586aa"
-    let v1_1txFilename = "tx-valid-1.1.0"
+    let v1_1txFilename = "tx_valid-1.1.0"
     let v1_2ValidFilename = "sample_signed_cert-valid-1.2.0"
     let v1_2normalized = "normalized-1.2.0"
-    let v1_2txFilename = "tx-valid-1.2.0"
-    let gotIssuerFilename = "got-issuer"
+    let v1_2txFilename = "tx_valid-1.2.0"
+    let gotIssuerFilename = "got_issuer"
     let v2ValidFilename = "sample_signed_cert-valid-2.0"
-    let v2txFilename = "tx-valid-2.0"
-    let sampleIssuerFilename = "sample-issuer"
+    let v2txFilename = "tx_valid-2.0"
+    let v2RevokedFilename = "sample_signed_cert-revoked-2.0"
+    let sampleIssuerFilename = "sample_issuer"
     let v2normalized = "normalized-2.0"
+    let v2normalizedRevoked = "normalized_revoked-2.0"
+    let v2revocationList = "revocation_list-2.0"
     
     func testTamperedV1_1Certificate() {
         let testExpectation = expectation(description: "Validation will call the completion handler")
@@ -178,9 +181,78 @@ class CertificateValidationRequestTests: XCTestCase {
                 return
         }
         
-        
         guard let normalizedUrl = testBundle.url(forResource: v2normalized, withExtension: "txt") ,
             let normalizedFile = try? Data(contentsOf: normalizedUrl) else {
+                return
+        }
+        
+        guard let revocationUrl = testBundle.url(forResource: v2revocationList, withExtension: "json") ,
+            let revocationFile = try? Data(contentsOf: revocationUrl) else {
+                return
+        }
+        
+        let normalizedString = String(data: normalizedFile, encoding: String.Encoding.utf8)! as String
+        let certificate = try? CertificateParser.parse(data: file)
+        XCTAssertNotNil(certificate)
+        
+        // Build mocked network request & response
+        let mockedSession = MockURLSession()
+        let id = certificate?.receipt?.transactionId
+        let transactionURL = URL(string: "http://api.blockcypher.com/v1/btc/test3/txs/\(id!)")!
+        let transactionResponse = HTTPURLResponse(url: transactionURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        let transactionData = txFile
+        mockedSession.respond(to: transactionURL, with: transactionData, response: transactionResponse, error: nil)
+        
+        let issuerURL = URL(string: "https://www.blockcerts.org/blockcerts_v2_alpha/samples/issuer_testnet.json")!
+        mockedSession.respond(to: issuerURL,
+                              with: issuerFile,
+                              response: HTTPURLResponse(url: issuerURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
+                              error: nil)
+
+        let revocationURL = URL(string: "https://www.blockcerts.org/blockcerts_v2_alpha/samples/revocation_list.json")!
+        mockedSession.respond(to: revocationURL,
+                              with: revocationFile,
+                              response: HTTPURLResponse(url: revocationURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
+                              error: nil)
+        
+        // Make the validation request.
+        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
+            XCTAssertTrue(success)
+            XCTAssertNil(errorMessage)
+            testExpectation.fulfill()
+        }
+        XCTAssertNotNil(request)
+        request!.start()
+        
+        waitForExpectations(timeout: 2000.0, handler: nil)
+    }
+    
+    func testRevokedV2Certificate() {
+        let testExpectation = expectation(description: "Validation will call the completion handler")
+        
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v2RevokedFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        guard let txUrl = testBundle.url(forResource: v2txFilename, withExtension: "json") ,
+            let txFile = try? Data(contentsOf: txUrl) else {
+                return
+        }
+        
+        guard let issuerUrl = testBundle.url(forResource: sampleIssuerFilename, withExtension: "json") ,
+            let issuerFile = try? Data(contentsOf: issuerUrl) else {
+                return
+        }
+        
+        guard let normalizedUrl = testBundle.url(forResource: v2normalizedRevoked, withExtension: "txt") ,
+            let normalizedFile = try? Data(contentsOf: normalizedUrl) else {
+                return
+        }
+        
+        guard let revocationUrl = testBundle.url(forResource: v2revocationList, withExtension: "json") ,
+            let revocationFile = try? Data(contentsOf: revocationUrl) else {
                 return
         }
         
@@ -202,10 +274,16 @@ class CertificateValidationRequestTests: XCTestCase {
                               response: HTTPURLResponse(url: issuerURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
                               error: nil)
         
+        let revocationURL = URL(string: "https://www.blockcerts.org/blockcerts_v2_alpha/samples/revocation_list.json")!
+        mockedSession.respond(to: revocationURL,
+                              with: revocationFile,
+                              response: HTTPURLResponse(url: revocationURL, statusCode: 200, httpVersion: nil, headerFields:nil)!,
+                              error: nil)
+        
         // Make the validation request.
         let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
-            XCTAssertTrue(success)
-            XCTAssertNil(errorMessage)
+            XCTAssertFalse(success)
+            XCTAssertEqual(errorMessage, "Certificate has been revoked by issuer. Revoked assertion uid  is urn:uuid:93019408-acd8-4420-be5e-0400d643954a and reason is Honor code violation")
             testExpectation.fulfill()
         }
         XCTAssertNotNil(request)

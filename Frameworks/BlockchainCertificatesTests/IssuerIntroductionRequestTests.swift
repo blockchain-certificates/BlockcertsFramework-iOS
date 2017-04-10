@@ -23,6 +23,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             image: "data:image/png;base64,".data(using: .utf8)!,
                             id: URL(string: "https://blockcerts.org/issuer.json")!,
                             url: URL(string: "https://blockcerts.org")!,
+                            revocationURL: nil,
                             publicIssuerKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
                             ],
@@ -53,7 +54,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
             
             XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
             XCTAssertEqual(map!["email"], expectedEmail)
-            XCTAssertEqual(map!["aame"], expectedName)
+            XCTAssertEqual(map!["name"], expectedName)
 
             itShouldCallTheServer.fulfill()
             return (
@@ -88,6 +89,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             image: "data:image/png;base64,".data(using: .utf8)!,
                             id: URL(string: "https://blockcerts.org/issuer.json")!,
                             url: URL(string: "https://blockcerts.org")!,
+                            revocationURL: nil,
                             publicIssuerKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
                             ],

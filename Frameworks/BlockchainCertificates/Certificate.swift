@@ -154,7 +154,7 @@ public protocol Certificate {
     var file : Data { get }
     
     /// String of signature created when the Bitcoin private key signs the value in the attribute-signed field.
-    var signature : String? { get }
+    var signature : Signature? { get }
 
     
     /// Represents the entity that issued this certifiate. See `Issuer` for more details
@@ -222,7 +222,8 @@ private enum MethodsForV1_1 {
                       email: issuerEmail,
                       image: logo,
                       id: issuerIdURL,
-                      url: issuerURL)
+                      url: issuerURL,
+                      revocationURL: nil)
     }
 
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
@@ -311,7 +312,7 @@ private struct CertificateV1_1 : Certificate {
     let language : String
     let id : URL?
     let file : Data
-    let signature: String?
+    let signature: Signature?
     
     let issuer : Issuer
     let recipient : Recipient
@@ -369,7 +370,8 @@ private struct CertificateV1_1 : Certificate {
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
-        self.signature = json["signature"] as? String
+        let signatureValue = json["signature"] as? String
+        self.signature = Signature(value: signatureValue, created: nil, creator: nil)
     }
 }
 
@@ -463,6 +465,32 @@ private enum MethodsForV1_2 {
 
 // MARK: Certificate Version 2.0
 private enum MethodsForV2 {
+    
+    static func parse(issuerJSON: AnyObject?) -> Issuer? {
+        guard let issuerData = issuerJSON as? [String : String],
+            let issuerURLString = issuerData["url"],
+            let issuerURL = URL(string: issuerURLString),
+            let logoURI = issuerData["image"],
+            let issuerEmail = issuerData["email"],
+            let issuerName = issuerData["name"],
+            let issuerId = issuerData["id"],
+            let issuerIdURL = URL(string: issuerId) else {
+                return nil
+        }
+        let logo = imageData(from: logoURI)
+        var revocationURL : URL? = nil
+        
+        if issuerData["revocationList"] != nil {
+            revocationURL = URL(string: issuerData["revocationList"]!)
+        }
+
+        return Issuer(name: issuerName,
+                      email: issuerEmail,
+                      image: logo,
+                      id: issuerIdURL,
+                      url: issuerURL,
+                      revocationURL: revocationURL)
+    }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
         guard let recipientData = recipientJSON as? [String : AnyObject],
@@ -563,7 +591,7 @@ private struct CertificateV1_2 : Certificate {
     let language : String
     let id : URL?
     let file : Data
-    let signature: String?
+    let signature: Signature?
     
     let issuer : Issuer
     let recipient : Recipient
@@ -638,7 +666,10 @@ private struct CertificateV1_2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        self.signature = documentData["signature"] as? String
+        
+        
+        let signatureValue = documentData["signature"] as? String
+        self.signature = Signature(value: signatureValue, created: nil, creator: nil)
     }
 }
 
@@ -652,7 +683,7 @@ private struct CertificateV2 : Certificate {
     let language : String
     let id : URL?
     let file : Data
-    let signature: String?
+    let signature: Signature?
     
     let issuer : Issuer
     let recipient : Recipient
@@ -672,9 +703,7 @@ private struct CertificateV2 : Certificate {
             throw CertificateParserError.notValidJSON
         }
         
-        guard let assertionVal = json as? [String: AnyObject] else {
-            throw CertificateParserError.missingData(description: "Missing 'assertion' property.")
-        }
+        let assertionVal = json
         guard let fileType = json["type"] as? String else {
             throw CertificateParserError.jsonLDError(description: "Missing type property")
         }
@@ -718,7 +747,7 @@ private struct CertificateV2 : Certificate {
         language = ""
         
         // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.
-        guard let issuer = MethodsForV1_2.parse(issuerJSON: certificateData["issuer"]),
+        guard let issuer = MethodsForV2.parse(issuerJSON: certificateData["issuer"]),
             let recipient = MethodsForV2.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV2.parse(assertionJSON: assertionVal as AnyObject?),
             let verifyData = MethodsForV2.parse(verifyJSON: json["verification"]),
@@ -730,7 +759,11 @@ private struct CertificateV2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        self.signature = signatureData["signatureValue"] as! String
+        
+        let signatureValue = signatureData["signatureValue"] as? String
+        let created = signatureData["created"] as? String
+        let creator = signatureData["creator"] as? String
+        self.signature = Signature(value: signatureValue, created: created, creator: creator)
     }
 }
 

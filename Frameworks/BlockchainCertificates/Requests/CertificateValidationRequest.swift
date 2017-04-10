@@ -82,7 +82,7 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     // Private state built up over the validation sequence
-    var localHash : Data? // or String?
+    var localHash : String?
     var remoteHash : String?
     private var revocationKey : String?
     private var revokedAddresses : Set<String>?
@@ -163,7 +163,7 @@ public class CertificateValidationRequest : CommonRequest {
     
     internal func computeLocalHash() {
         if certificate.version == .oneDotOne {
-            self.localHash = sha256(data: certificate.file)
+            self.localHash = hexStringFromData(input: sha256(data: certificate.file) as NSData)
             state = .fetchingRemoteHash
         } else if certificate.version == .oneDotTwo {
             let docData : Data!
@@ -190,7 +190,8 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
                 
-                self.localHash = sha256(data: stringData)
+                self.localHash = hexStringFromData(input: sha256(data: stringData) as NSData)
+
                 self.state = .fetchingRemoteHash
             })
         } else {
@@ -220,7 +221,7 @@ public class CertificateValidationRequest : CommonRequest {
                 
                 self.normalizedCertificate = resultString
                 
-                self.localHash = sha256(data: stringData)
+                self.localHash = hexStringFromData(input: sha256(data: stringData) as NSData)
                 
                 self.state = .fetchingRemoteHash
             })
@@ -281,13 +282,11 @@ public class CertificateValidationRequest : CommonRequest {
             compareToHash = self.certificate.receipt?.targetHash
         }
         
-        guard let localHash1 = self.localHash,
+        guard let localHash = self.localHash,
             let correctHashResult = compareToHash else {
                 state = .failure(reason: "Can't compare hashes: one of the hashes is still nil")
                 return
         }
-
-        let localHash = hexStringFromData(input: localHash1 as NSData)
         
         guard localHash == correctHashResult else {
             state = .failure(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote:\(correctHashResult)")
@@ -317,16 +316,48 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            var issuerKey : String?
-            var message : String?
+            let chain = self?.chain ?? "mainnet"
+            guard let bitcoinManager = self?.bitcoinManager else {
+                self?.state = .failure(reason: "Incorrect configuration. ValidationRequest needs to have a bitcoin manager specified.")
+                return
+            }
+            guard (self?.certificate) != nil else {
+                self?.state = .failure(reason: "Certificate is missing.")
+                return
+            }
+            
+            guard let signature = self?.certificate.signature?.value else {
+                self?.state = .failure(reason: "Signature is missing")
+                return
+            }
+            
             if self?.certificate.version == .two {
-                issuerKey = json["publicKey"] as? String
-                // TODO!!!
+                guard let issuerKey = json["publicKey"] as? String else {
+                    self?.state = .failure(reason: "Couldn't parse issuerKey")
+                    return
+                }
                 guard let normalizedCertificate = self?.normalizedCertificate else {
                     self?.state = .failure(reason: "Missing normalized certificate")
                     return
                 }
-                message = _getDataToHash(input: normalizedCertificate, date: "2017-04-05T18:21:55Z")
+                // TODO: date is hard-coded
+                guard let created = self?.certificate.signature?.created else {
+                    self?.state = .failure(reason: "Missing signature date")
+                    return
+                }
+                let messageTemp : String? = _getDataToHash(input: normalizedCertificate, date: created)
+                guard let message = messageTemp else {
+                    self?.state = .failure(reason: "Couldn't parse message")
+                    return
+                }
+                
+                let address = bitcoinManager.address(for: message, for: signature, on: chain)
+                
+                guard address == issuerKey else {
+                    self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
+                    return
+                }
+                
             } else {
                 guard let issuerKeys = json["issuerKeys"] as? [[String : String]],
                     let revocationKeys = json["revocationKeys"] as? [[String : String]] else {
@@ -338,39 +369,21 @@ public class CertificateValidationRequest : CommonRequest {
                         return
                 }
                 self?.revocationKey = revokeKey
-                issuerKey = issuerKeys.first?["key"]
-                message = self?.certificate.assertion.uid
-            }
-            
-            guard let issuerKeyFinal = issuerKey else {
-                self?.state = .failure(reason: "Couldn't parse issuerKey")
-                return
-            }
-            
-            guard let messageFinal = message else {
-                self?.state = .failure(reason: "Couldn't parse message")
-                return
-            }
-            
-            let chain = self?.chain ?? "mainnet"
-            guard let bitcoinManager = self?.bitcoinManager else {
-                self?.state = .failure(reason: "Incorrect configuration. ValidationRequest needs to have a bitcoin manager specified.")
-                return
-            }
-            guard (self?.certificate) != nil else {
-                self?.state = .failure(reason: "Certificate is missing.")
-                return
-            }
-            
-            guard let signature = self?.certificate.signature else {
-                self?.state = .failure(reason: "Signature is missing")
-                return
-            }
-            let address = bitcoinManager.address(for: messageFinal, for: signature, on: chain)
-            
-            guard address == issuerKeyFinal else {
-                self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKeyFinal)")
-                return
+                guard let issuerKey = issuerKeys.first?["key"] else {
+                    self?.state = .failure(reason: "Couldn't parse issuerKey")
+                    return
+                }
+                guard let message = self?.certificate.assertion.uid else {
+                    self?.state = .failure(reason: "Couldn't parse message")
+                    return
+                }
+                
+                let address = bitcoinManager.address(for: message, for: signature, on: chain)
+                
+                guard address == issuerKey else {
+                    self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
+                    return
+                }
             }
             
             self?.state = .checkingRevokedStatus
@@ -379,20 +392,62 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     internal func checkRevokedStatus() {
-        let batchRevoked : Bool = (revokedAddresses?.contains(self.revocationKey!))!
-        if batchRevoked {
-            self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(self.revocationKey!)")
-            return
-        }
-        if self.certificate.recipient.revocationAddress != nil {
-            let certificateRevoked : Bool = (revokedAddresses?.contains(self.certificate.recipient.revocationAddress!))!
-            if certificateRevoked {
-                self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.certificate.recipient.revocationAddress!)")
+        if certificate.version == .two {
+            guard let url = certificate.issuer.revocationURL else {
+                // Issuer does not revoke certificates
+                // Success
+                self.state = .success
                 return
             }
+            let request = session.dataTask(with: url) { [weak self] (data, response, error) in
+                guard let response = response as? HTTPURLResponse,
+                    response.statusCode == 200 else {
+                        self?.state = .failure(reason: "Got invalid response from \(url)")
+                        return
+                }
+                guard let data = data else {
+                    self?.state = .failure(reason: "Got a valid response, but no data from \(url)")
+                    return
+                }
+                guard let json = try? JSONSerialization.jsonObject(with: data) as! [String: AnyObject] else {
+                    self?.state = .failure(reason: "Certificate didn't return valid JSON data from \(url)")
+                    return
+                }
+                
+                guard let revokedAssertions = json["revokedAssertions"] as? Array<[String: String]> else {
+                    self?.state = .failure(reason: "Couldn't parse revoked assertions")
+                    return
+                }
+                
+                for ra in revokedAssertions {
+                    let id = ra["id"]
+                    let reason = ra["revocationReason"]
+                    if id == self?.certificate.assertion.uid {
+                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid  is \(id!) and reason is \(reason!)")
+                        return
+                    }
+                }
+            
+                // Success
+                self?.state = .success
+            }
+            request.resume()
+        } else {
+            let batchRevoked : Bool = (revokedAddresses?.contains(self.revocationKey!))!
+            if batchRevoked {
+                self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(self.revocationKey!)")
+                return
+            }
+            if self.certificate.recipient.revocationAddress != nil {
+                let certificateRevoked : Bool = (revokedAddresses?.contains(self.certificate.recipient.revocationAddress!))!
+                if certificateRevoked {
+                    self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.certificate.recipient.revocationAddress!)")
+                    return
+                }
+            }
+            // Success
+            state = .success
         }
-        // Success
-        state = .success
     }
     
     func checkMerkleRoot() {
@@ -431,6 +486,10 @@ public class CertificateValidationRequest : CommonRequest {
     }
 }
 
+/// This is a simplified adaptation of the _getDataToHash function from
+/// https://github.com/digitalbazaar/jsonld-signatures. 
+/// This function prefixes the normalized json-ld with optional headers. Blockcerts only uses the 
+/// created date header for now.
 private func _getDataToHash(input: String, date: String) -> String {
     let toHash = "http://purl.org/dc/elements/1.1/created: " + date + "\n" + input
     return toHash

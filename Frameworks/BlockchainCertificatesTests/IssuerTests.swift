@@ -29,6 +29,7 @@ class IssuerTests: XCTestCase {
                             image: Data(),
                             id: URL(string: idValue)!,
                             url: URL(string: urlValue)!,
+                            revocationURL: nil,
                             publicIssuerKeys: [issuerKey],
                             publicRevocationKeys: [revocationKey],
                             introductionURL: URL(string: introductionURLValue)!)
@@ -91,6 +92,7 @@ class IssuerTests: XCTestCase {
                                     image: Data(),
                                     id: URL(string: idValue)!,
                                     url: URL(string: urlValue)!,
+                                    revocationURL: nil,
                                     publicIssuerKeys: [issuerKey],
                                     publicRevocationKeys: [revocationKey],
                                     introductionURL: URL(string: introductionURLValue)!)

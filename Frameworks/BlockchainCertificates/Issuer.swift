@@ -54,6 +54,9 @@ public struct Issuer {
     /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`
     public let introductionURL : URL?
     
+    /// v2+ only; url where revocation list is located
+    public let revocationURL : URL?
+    
     // MARK: Convenience Properties
     /// A convenience method for the most recent (and theoretically only valid) issuerKey.
     public var publicKey : String? {
@@ -77,12 +80,14 @@ public struct Issuer {
                 email: String,
                 image: Data,
                 id: URL,
-                url: URL) {
+                url: URL,
+                revocationURL: URL?) {
         self.name = name
         self.email = email
         self.image = image
         self.id = id
         self.url = url
+        self.revocationURL = revocationURL
         
         issuerKeys = []
         revocationKeys = []
@@ -106,6 +111,7 @@ public struct Issuer {
                 image: Data,
                 id: URL,
                 url: URL,
+                revocationURL: URL?,
                 publicIssuerKeys: [KeyRotation],
                 publicRevocationKeys: [KeyRotation],
                 introductionURL: URL) {
@@ -114,6 +120,7 @@ public struct Issuer {
         self.image = image
         self.id = id
         self.url = url
+        self.revocationURL = revocationURL
         issuerKeys = publicIssuerKeys.sorted(by: <)
         revocationKeys = publicRevocationKeys.sorted(by: <)
         self.introductionURL = introductionURL
@@ -213,6 +220,13 @@ public struct Issuer {
             self.introductionURL = introductionURL
         } else {
             self.introductionURL = nil
+        }
+        
+        if let revocationString = dictionary["revocationList"] as? String,
+            let revocationURL = URL(string: revocationString) {
+            self.revocationURL = revocationURL
+        } else {
+            self.revocationURL = nil
         }
     }
     
