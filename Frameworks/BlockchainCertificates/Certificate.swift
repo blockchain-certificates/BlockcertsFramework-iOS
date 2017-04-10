@@ -12,7 +12,7 @@ import Foundation
 ///
 /// - oneDotOne: This is a v1.1 certificate
 /// - oneDotTwo: This is a v1.2 certificate
-/// - twoDotAlpha: This is a v2 certificate
+/// - two: This is a v2 certificate
 public enum CertificateVersion {
     case oneDotOne
     case oneDotTwo
