@@ -10,6 +10,15 @@ import Foundation
 
 /// This represents who a certificate is issued to. It also more abstractly represents the user, but they may choose to use different names with differing institutions.
 public struct Recipient {
+    
+    /// The recipient's given name.
+    @available(*, deprecated)
+    public let givenName : String
+    
+    /// The recipient's family name
+    @available(*, deprecated)
+    public let familyName : String
+    
     /// The recipient's name.
     public let name : String
     
@@ -28,6 +37,18 @@ public struct Recipient {
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
     public let revocationAddress : String?
     
+    @available(*, deprecated)
+    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
+        self.givenName = givenName
+        self.familyName = familyName
+        self.identity = identity
+        self.identityType = identityType
+        self.isHashed = isHashed
+        self.publicAddress = publicAddress
+        self.revocationAddress = revocationAddress
+        self.name = "\(givenName) \(familyName)"
+    }
+    
     public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
         self.name = name
         self.identity = identity
@@ -35,5 +56,25 @@ public struct Recipient {
         self.isHashed = isHashed
         self.publicAddress = publicAddress
         self.revocationAddress = revocationAddress
+        
+        // Backcompat to allow givenName and familyName to be non-null
+        let fullNameArr = name.components(separatedBy: " ")
+        let componentCount = fullNameArr.count
+        if componentCount == 0 {
+            // This shouldn't happen, but do something sane
+            self.givenName = name
+            self.familyName = "" // backcompat: must be non-null
+        } else {
+            self.givenName = fullNameArr[0]
+            if componentCount == 1 {
+                self.familyName = "" // backcompat: must be non-null
+            } else if fullNameArr.count == 2 {
+                self.familyName = fullNameArr[1]
+            } else {
+                // This could happen, so take a sane guess. But we've deprecated givenName and familyName.
+                let subarray = fullNameArr[1...fullNameArr.count]
+                self.familyName = subarray.joined(separator: " ")
+            }
+        }
     }
 }

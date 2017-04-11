@@ -16,5 +16,5 @@ public protocol BitcoinManager {
     /// - parameter chain:      Which chain this certificate was issued on.
     ///
     /// - returns: A string representing the address if it exists, nil otherwise.
-    func address(for message: String, for signature: String, on chain: String) -> String?
+    func address(for message: String, with signature: String, on chain: String) -> String?
 }

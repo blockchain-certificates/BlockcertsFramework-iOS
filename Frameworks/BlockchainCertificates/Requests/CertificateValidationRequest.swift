@@ -164,6 +164,8 @@ public class CertificateValidationRequest : CommonRequest {
     internal func computeLocalHash() {
         if certificate.version == .oneDotOne {
             self.localHash = hexStringFromData(input: sha256(data: certificate.file) as NSData)
+            // TODO: doesn't work. Error: value of type 'Data' has no member asHex()
+            // self.localHash = sha256(data:certificate.file).asHex()
             state = .fetchingRemoteHash
         } else if certificate.version == .oneDotTwo {
             let docData : Data!
@@ -345,13 +347,13 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.state = .failure(reason: "Missing signature date")
                     return
                 }
-                let messageTemp : String? = _getDataToHash(input: normalizedCertificate, date: created)
+                let messageTemp : String? = getDataToHash(input: normalizedCertificate, date: created)
                 guard let message = messageTemp else {
                     self?.state = .failure(reason: "Couldn't parse message")
                     return
                 }
                 
-                let address = bitcoinManager.address(for: message, for: signature, on: chain)
+                let address = bitcoinManager.address(for: message, with: signature, on: chain)
                 
                 guard address == issuerKey else {
                     self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
@@ -378,7 +380,7 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
                 
-                let address = bitcoinManager.address(for: message, for: signature, on: chain)
+                let address = bitcoinManager.address(for: message, with: signature, on: chain)
                 
                 guard address == issuerKey else {
                     self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
@@ -451,6 +453,8 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     func checkMerkleRoot() {
+        // TODO: here and everywhere affected
+        // Would like "version is after 1.1". Perhaps via comparator support on the version enum
         guard certificate.version != .oneDotOne else {
             state = .failure(reason: "Invalid state. Shouldn't need to check merkle root for this version of the cert format")
             return
@@ -486,17 +490,18 @@ public class CertificateValidationRequest : CommonRequest {
     }
 }
 
-/// This is a simplified adaptation of the _getDataToHash function from
+/// This is a simplified adaptation of the getDataToHash function from
 /// https://github.com/digitalbazaar/jsonld-signatures. 
 /// This function prefixes the normalized json-ld with optional headers. Blockcerts only uses the 
 /// created date header for now.
-private func _getDataToHash(input: String, date: String) -> String {
+private func getDataToHash(input: String, date: String) -> String {
     let toHash = "http://purl.org/dc/elements/1.1/created: " + date + "\n" + input
     return toHash
 }
 
 
 private  func hexStringFromData(input: NSData) -> String {
+    
     var bytes = [UInt8](repeating: 0, count: input.length)
     input.getBytes(&bytes, length: input.length)
     

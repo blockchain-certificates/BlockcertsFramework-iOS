@@ -12,11 +12,4 @@ public struct Signature {
     public let value : String?
     public let created : String?
     public let creator: String?
-
-    
-    public init(value: String?, created: String?, creator: String?) {
-        self.value = value
-        self.created = created
-        self.creator = creator
-    }
 }

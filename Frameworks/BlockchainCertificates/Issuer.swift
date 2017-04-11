@@ -81,7 +81,7 @@ public struct Issuer {
                 image: Data,
                 id: URL,
                 url: URL,
-                revocationURL: URL?) {
+                revocationURL: URL? = nil) {
         self.name = name
         self.email = email
         self.image = image
@@ -111,7 +111,7 @@ public struct Issuer {
                 image: Data,
                 id: URL,
                 url: URL,
-                revocationURL: URL?,
+                revocationURL: URL? = nil,
                 publicIssuerKeys: [KeyRotation],
                 publicRevocationKeys: [KeyRotation],
                 introductionURL: URL) {

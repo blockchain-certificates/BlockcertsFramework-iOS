@@ -10,7 +10,7 @@ import Foundation
 import BlockchainCertificates
 
 class CoreBitcoinManager : BitcoinManager {
-    func address(for message: String, for signature: String, on chain: String) -> String? {
+    func address(for message: String, with signature: String, on chain: String) -> String? {
         
         // Check the issuer key: here's how it works:
         // 1. base64 decode the signature that's on the certificate ('signature') field

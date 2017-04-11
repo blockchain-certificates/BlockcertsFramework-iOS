@@ -225,8 +225,7 @@ private enum MethodsForV1_1 {
                       email: issuerEmail,
                       image: logo,
                       id: issuerIdURL,
-                      url: issuerURL,
-                      revocationURL: nil)
+                      url: issuerURL)
     }
 
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
@@ -242,8 +241,6 @@ private enum MethodsForV1_1 {
         }
         
         var hashed : Bool = false
-        let name : String = givenName + " " + familyName
-
     
         switch isHashedObj {
         case let value as Bool:
@@ -255,7 +252,8 @@ private enum MethodsForV1_1 {
             return nil
         }
         
-        return Recipient(name: name,
+        return Recipient(givenName: givenName,
+                         familyName: familyName,
                          identity: identity,
                          identityType: identityType,
                          isHashed: hashed,
@@ -397,11 +395,9 @@ private enum MethodsForV1_2 {
             let identity = recipientData["identity"] as? String else {
                 return nil
         }
-        
-        let name : String = givenName + " " + familyName
 
-        
-        return Recipient(name: name,
+        return Recipient(givenName: givenName,
+                         familyName: familyName,
                          identity: identity,
                          identityType: identityType,
                          isHashed: isHashed,

@@ -16,14 +16,14 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         let expectedAddress = "FakeRecipientPublicKey"
         let expectedEmail = "johnny@blockcerts.org"
-        let expectedName = "Johnny Strong"
+        let expectedFirstName = "Johnny"
+        let expectedLastName = "Strong"
         
         let issuer = Issuer(name: "BlockCerts Issuer",
                             email: "issuer@blockcerts.org",
                             image: "data:image/png;base64,".data(using: .utf8)!,
                             id: URL(string: "https://blockcerts.org/issuer.json")!,
                             url: URL(string: "https://blockcerts.org")!,
-                            revocationURL: nil,
                             publicIssuerKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
                             ],
@@ -32,7 +32,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             ],
                             introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
 
-        let recipient = Recipient(name: expectedName,
+        let recipient = Recipient(givenName: expectedFirstName,
+                                  familyName: expectedLastName,
                                   identity: expectedEmail,
                                   identityType: "email",
                                   isHashed: false,
@@ -54,7 +55,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
             
             XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
             XCTAssertEqual(map!["email"], expectedEmail)
-            XCTAssertEqual(map!["name"], expectedName)
+            XCTAssertEqual(map!["firstName"], expectedFirstName)
+            XCTAssertEqual(map!["lastName"], expectedLastName)
 
             itShouldCallTheServer.fulfill()
             return (
@@ -80,7 +82,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
         
         let expectedAddress = "FakeRecipientPublicKey"
         let expectedEmail = "johnny@blockcerts.org"
-        let expectedName = "Johnny Strong"
+        let expectedFirstName = "Johnny"
+        let expectedLastName = "Strong"
         let extraDataKey = "favoriteEmoji"
         let extraDataValue = "🐼"
 
@@ -89,7 +92,6 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             image: "data:image/png;base64,".data(using: .utf8)!,
                             id: URL(string: "https://blockcerts.org/issuer.json")!,
                             url: URL(string: "https://blockcerts.org")!,
-                            revocationURL: nil,
                             publicIssuerKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
                             ],
@@ -98,7 +100,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
                             ],
                             introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
         
-        let recipient = Recipient(name: expectedName,
+        let recipient = Recipient(givenName: expectedFirstName,
+                                  familyName: expectedLastName,
                                   identity: expectedEmail,
                                   identityType: "email",
                                   isHashed: false,
@@ -132,7 +135,8 @@ class IssuerIntroductionRequestTests: XCTestCase {
             
             XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
             XCTAssertEqual(map!["email"], expectedEmail)
-            XCTAssertNil(map!["name"], expectedName)
+            XCTAssertNil(map!["firstName"], expectedFirstName)
+            XCTAssertNil(map!["lastName"], expectedLastName)
             XCTAssertNotNil(map![extraDataKey])
             XCTAssertEqual(map![extraDataKey], extraDataValue)
             
