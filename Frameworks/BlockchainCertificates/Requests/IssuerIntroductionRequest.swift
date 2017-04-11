@@ -29,7 +29,8 @@ public extension IssuerIntroductionRequestDelegate {
     public func postData(for issuer: Issuer, from recipient: Recipient) -> [String: Any] {
         var dataMap = [String: Any]()
         dataMap["email"] = recipient.identity
-        dataMap["name"] = recipient.name
+        dataMap["firstName"] = recipient.givenName
+        dataMap["lastName"] = recipient.familyName
         return dataMap
     }
 }

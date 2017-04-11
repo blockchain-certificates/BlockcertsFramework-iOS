@@ -72,7 +72,7 @@ public struct Recipient {
                 self.familyName = fullNameArr[1]
             } else {
                 // This could happen, so take a sane guess. But we've deprecated givenName and familyName.
-                let subarray = fullNameArr[1...fullNameArr.count]
+                let subarray = fullNameArr[1...fullNameArr.count-1]
                 self.familyName = subarray.joined(separator: " ")
             }
         }
