@@ -10,11 +10,9 @@ import Foundation
 
 /// This represents who a certificate is issued to. It also more abstractly represents the user, but they may choose to use different names with differing institutions.
 public struct Recipient {
-    /// The recipient's given name.
-    public let givenName : String
     
-    /// The recipient's family name
-    public let familyName : String
+    /// The recipient's name.
+    public let name : String
     
     /// A unique string identifying the recipient. Currently, only an email address is supported
     public let identity : String
@@ -31,13 +29,71 @@ public struct Recipient {
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
     public let revocationAddress : String?
     
-    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
-        self.givenName = givenName
-        self.familyName = familyName
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
+        self.name = name
         self.identity = identity
         self.identityType = identityType
         self.isHashed = isHashed
         self.publicAddress = publicAddress
         self.revocationAddress = revocationAddress
+        
+        // Backcompat to allow givenName and familyName to be non-null
+        let fullNameArr = name.components(separatedBy: " ")
+        let componentCount = fullNameArr.count
+        if componentCount == 0 {
+            // This shouldn't happen, but do something sane
+            self.givenName = name
+            self.familyName = "" // backcompat: must be non-null
+        } else {
+            self.givenName = fullNameArr[0]
+            if componentCount == 1 {
+                self.familyName = "" // backcompat: must be non-null
+            } else if fullNameArr.count == 2 {
+                self.familyName = fullNameArr[1]
+            } else {
+                // This could happen, so take a sane guess. But we've deprecated givenName and familyName.
+                let subarray = fullNameArr[1...fullNameArr.count-1]
+                self.familyName = subarray.joined(separator: " ")
+            }
+        }
+    }
+    
+    //
+    // MARK: - Old properties & initializers for pre-v2.0 certificates
+    //
+
+    private var deprecatedGivenName : String?
+    public var givenName : String {
+        set {
+            debugPrint("Warning: `Recipient.givenName` is deprecated. Use `Recipient.name instead")
+            deprecatedGivenName = newValue
+        }
+        get {
+            debugPrint("Warning: `Recipient.givenName` is deprecated. Use `Recipient.name instead")
+            return deprecatedGivenName ?? ""
+        }
+    }
+    
+    private var deprecatedFamilyName : String?
+    public var familyName : String {
+        set {
+            debugPrint("Warning: `Recipient.familyName` is deprecated. Use `Recipient.name instead")
+            deprecatedFamilyName = newValue
+        }
+        get {
+            debugPrint("Warning: `Recipient.familyName` is deprecated. Use `Recipient.name instead")
+            return deprecatedFamilyName ?? ""
+        }
+    }
+    
+    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
+        self.deprecatedGivenName = givenName
+        self.deprecatedFamilyName = familyName
+        self.identity = identity
+        self.identityType = identityType
+        self.isHashed = isHashed
+        self.publicAddress = publicAddress
+        self.revocationAddress = revocationAddress
+        self.name = "\(givenName) \(familyName)"
     }
 }

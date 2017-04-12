@@ -50,7 +50,7 @@ extension Data {
     public func asHexString() -> String {
         var hexString = ""
         for byte in self {
-            hexString += String(format: "%02X", byte)
+            hexString += String(format: "%02x", byte)
         }
         
         return hexString

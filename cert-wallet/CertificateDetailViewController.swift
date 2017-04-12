@@ -81,8 +81,7 @@ class CertificateDetailViewController: UITableViewController {
                 "URL": "\(certificate.issuer.url)"
             ]),
             CertificateProperty(title: "Recipient", values: [
-                "Given Name": certificate.recipient.givenName,
-                "Family Name": certificate.recipient.familyName,
+                "Name": certificate.recipient.name,
                 "Identity": certificate.recipient.identity,
                 "Identity Type": certificate.recipient.identityType,
                 "Hashed?": "\(certificate.recipient.isHashed)",
@@ -96,7 +95,7 @@ class CertificateDetailViewController: UITableViewController {
             ]),
             CertificateProperty(title: "Verify", values: [
                 "Signer": "\(String(describing: certificate.verifyData.signer))",
-                "Signed Attribute": certificate.verifyData.signedAttribute,
+                "Signed Attribute": "\(String(describing: certificate.verifyData.signedAttribute))",
                 "Type": certificate.verifyData.type
             ])
         ]
@@ -148,7 +147,7 @@ extension CertificateDetailViewController {
         if section is CertificateDisplay {
             if let renderedViewCell = cell as? RenderedCertificateTableViewCell,
                 let certificate = certificate {
-                renderedViewCell.nameText = "\(certificate.recipient.givenName) \(certificate.recipient.familyName)"
+                renderedViewCell.nameText = certificate.recipient.name
                 renderedViewCell.titleText = certificate.title
                 renderedViewCell.subtitleText = certificate.subtitle
                 renderedViewCell.certificateIcon = UIImage(data: certificate.issuer.image)

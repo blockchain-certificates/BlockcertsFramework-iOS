@@ -15,6 +15,8 @@ class CertificateParserTests: XCTestCase {
     let v1_2filename = "sample_unsigned_cert-1.2.0"
     let v1_2signedFilename = "sample_signed_cert-1.2.0"
     let v1_2signedValidFilename = "sample_signed_cert-valid-1.2.0"
+    let v2_signedValidFilename = "sample_signed_cert-valid-2.0"
+    let v2_signedRevokedFilename = "sample_signed_cert-revoked-2.0"
     
     // MARK: - Simple parse(data:) calls
     func testExpectingV1_1Certificate() {
@@ -98,5 +100,29 @@ class CertificateParserTests: XCTestCase {
         
         let certificate = try? CertificateParser.parse(data: file, asVersion: .oneDotOne)
         XCTAssertNil(certificate)
+    }
+    
+    func testExpectingV2SignedValidCertificateAsV2_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v2_signedValidFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let certificate = try? CertificateParser.parse(data: file, asVersion: .two)
+        XCTAssertNotNil(certificate)
+        XCTAssertEqual(certificate?.version, .two)
+    }
+    
+    func testExpectingV2SignedRevokedCertificateAsV2_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v2_signedRevokedFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let certificate = try? CertificateParser.parse(data: file, asVersion: .two)
+        XCTAssertNotNil(certificate)
+        XCTAssertEqual(certificate?.version, .two)
     }
 }

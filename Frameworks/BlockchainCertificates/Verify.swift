@@ -14,12 +14,12 @@ public struct Verify {
     public let signer : URL?
     
     /// Name of the attribute in the json that is signed by the issuer's private key. Default is `"uid"`, referring to the uid attribute.
-    public let signedAttribute : String
+    public let signedAttribute : String?
     
     /// Name of the signing method. Default is `"ECDSA(secp256k1)"`, referring to the Bitcoin method of signing messages with the issuer's private key.
     public let type : String
     
-    public init(signer: URL?, signedAttribute: String, type: String) {
+    public init(signer: URL?, signedAttribute: String?, type: String) {
         self.signer = signer
         self.signedAttribute = signedAttribute
         self.type = type

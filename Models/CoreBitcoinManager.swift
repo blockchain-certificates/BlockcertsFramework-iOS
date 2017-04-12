@@ -10,7 +10,7 @@ import Foundation
 import BlockchainCertificates
 
 class CoreBitcoinManager : BitcoinManager {
-    func address(for certificate: Certificate, on chain: String) -> String? {
+    func address(for message: String, with signature: String, on chain: String) -> String? {
         
         // Check the issuer key: here's how it works:
         // 1. base64 decode the signature that's on the certificate ('signature') field
@@ -18,14 +18,11 @@ class CoreBitcoinManager : BitcoinManager {
         //    - it takes as input the signature on the certificate and the message (the assertion uid) that we expect it to be the signature of.
         //    - it returns a matching BTCKey if found
         // 3. we still have to check that the BTCKey returned above matches the issuer's public key that we looked up
-        guard let signature = certificate.signature else {
-            return nil
-        }
         guard let data = Data(base64Encoded: signature) else {
             return nil
         }
         
-        let key = BTCKey.verifySignature(data, forMessage: certificate.assertion.uid)
+        let key = BTCKey.verifySignature(data, forMessage: message)
         
         if chain == "testnet" {
             return key?.addressTestnet.string

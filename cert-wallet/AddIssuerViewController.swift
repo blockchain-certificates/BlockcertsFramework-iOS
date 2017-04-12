@@ -44,8 +44,9 @@ class AddIssuerViewController: UIViewController {
         }
         
         let newPublicAddress = Keychain.shared.nextPublicAddress()
+        let name : String = givenName + " " + familyName
         
-        let recipient = Recipient(givenName: givenName, familyName: familyName, identity: email, identityType: "email", isHashed: false, publicAddress: newPublicAddress, revocationAddress: nil)
+        let recipient = Recipient(name: name, identity: email, identityType: "email", isHashed: false, publicAddress: newPublicAddress, revocationAddress: nil)
 
         
         let alert = UIAlertController(title: "Adding issuer", message: "Contacting the Issuer at that URL...", preferredStyle: .alert)
