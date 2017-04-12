@@ -146,11 +146,15 @@ public class CertificateValidationRequest : CommonRequest {
             return
         }
         
-        let targetAddress = certificate.recipient.publicAddress
+        var targetAddress = certificate.recipient.publicAddress
+        let addressPrefixSeparator = ":"
+        if let separatorRange = targetAddress.range(of: addressPrefixSeparator) {
+            targetAddress = targetAddress.substring(from: separatorRange.upperBound)
+        }
         
         // All mainnet addresses start with 1.
         guard targetAddress.hasPrefix("1") else {
-            if targetAddress.hasPrefix("m") {
+            if targetAddress.hasPrefix("m") || targetAddress.hasPrefix("n") {
                 state = .failure(reason: "This is a testnet certificate. It cannot be validated.")
             } else {
                 state = .failure(reason: "This certificate is from an unknown blockchain and cannot be validated.")
