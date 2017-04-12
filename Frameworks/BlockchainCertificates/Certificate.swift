@@ -520,8 +520,7 @@ private enum MethodsForV2 {
                          identity: identity,
                          identityType: identityType,
                          isHashed: isHashed,
-                         publicAddress: publicKey,
-                         revocationAddress: nil)
+                         publicAddress: publicKey)
         
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {

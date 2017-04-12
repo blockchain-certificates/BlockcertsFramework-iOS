@@ -12,11 +12,9 @@ import Foundation
 public struct Recipient {
     
     /// The recipient's given name.
-    @available(*, deprecated)
     public let givenName : String
     
     /// The recipient's family name
-    @available(*, deprecated)
     public let familyName : String
     
     /// The recipient's name.
@@ -37,8 +35,7 @@ public struct Recipient {
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
     public let revocationAddress : String?
     
-    @available(*, deprecated)
-    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
+    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
         self.givenName = givenName
         self.familyName = familyName
         self.identity = identity
@@ -49,7 +46,7 @@ public struct Recipient {
         self.name = "\(givenName) \(familyName)"
     }
     
-    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String?) {
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
         self.name = name
         self.identity = identity
         self.identityType = identityType
