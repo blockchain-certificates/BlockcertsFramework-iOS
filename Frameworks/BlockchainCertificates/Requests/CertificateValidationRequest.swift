@@ -190,7 +190,7 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
                 
-                self.localHash = hexStringFromData(input: sha256(data: stringData) as NSData)
+                self.localHash = sha256(data: stringData).asHexString()
 
                 self.state = .fetchingRemoteHash
             })
@@ -221,7 +221,7 @@ public class CertificateValidationRequest : CommonRequest {
                 
                 self.normalizedCertificate = resultString
                 
-                self.localHash = hexStringFromData(input: sha256(data: stringData) as NSData)
+                self.localHash = sha256(data: stringData).asHexString()
                 
                 self.state = .fetchingRemoteHash
             })
@@ -495,20 +495,6 @@ public class CertificateValidationRequest : CommonRequest {
 private func getDataToHash(input: String, date: String) -> String {
     let toHash = "http://purl.org/dc/elements/1.1/created: " + date + "\n" + input
     return toHash
-}
-
-
-private  func hexStringFromData(input: NSData) -> String {
-    
-    var bytes = [UInt8](repeating: 0, count: input.length)
-    input.getBytes(&bytes, length: input.length)
-    
-    var hexString = ""
-    for byte in bytes {
-        hexString += String(format:"%02x", UInt8(byte))
-    }
-    
-    return hexString
 }
 
 // MARK: helper functions
