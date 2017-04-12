@@ -95,7 +95,7 @@ class CertificateDetailViewController: UITableViewController {
             ]),
             CertificateProperty(title: "Verify", values: [
                 "Signer": "\(String(describing: certificate.verifyData.signer))",
-                "Signed Attribute": "\(certificate.verifyData.signedAttribute)",
+                "Signed Attribute": "\(String(describing: certificate.verifyData.signedAttribute))",
                 "Type": certificate.verifyData.type
             ])
         ]

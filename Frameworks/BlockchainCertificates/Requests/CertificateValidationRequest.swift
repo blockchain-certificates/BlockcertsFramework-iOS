@@ -163,9 +163,7 @@ public class CertificateValidationRequest : CommonRequest {
     
     internal func computeLocalHash() {
         if certificate.version == .oneDotOne {
-            self.localHash = hexStringFromData(input: sha256(data: certificate.file) as NSData)
-            // TODO: doesn't work. Error: value of type 'Data' has no member asHex()
-            // self.localHash = sha256(data:certificate.file).asHex()
+            self.localHash = sha256(data: certificate.file).asHexString()
             state = .fetchingRemoteHash
         } else if certificate.version == .oneDotTwo {
             let docData : Data!
