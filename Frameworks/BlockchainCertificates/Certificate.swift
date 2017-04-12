@@ -13,10 +13,17 @@ import Foundation
 /// - oneDotOne: This is a v1.1 certificate
 /// - oneDotTwo: This is a v1.2 certificate
 /// - two: This is a v2 certificate
-public enum CertificateVersion {
-    case oneDotOne
+public enum CertificateVersion : Int {
+    // Note, these should always be listed in increasing certificate version order
+    case oneDotOne = 1
     case oneDotTwo
     case two
+}
+
+/// Make CertificateVersion support < or > comparisons
+extension CertificateVersion : Comparable {}
+public func <(lhs: CertificateVersion, rhs: CertificateVersion) -> Bool {
+    return lhs.rawValue < rhs.rawValue
 }
 
 /// These are the errors that can be thrown during parsing:

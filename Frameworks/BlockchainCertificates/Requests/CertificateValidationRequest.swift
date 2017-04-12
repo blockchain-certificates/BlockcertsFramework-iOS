@@ -458,7 +458,7 @@ public class CertificateValidationRequest : CommonRequest {
     func checkMerkleRoot() {
         // TODO: here and everywhere affected
         // Would like "version is after 1.1". Perhaps via comparator support on the version enum
-        guard certificate.version != .oneDotOne else {
+        guard certificate.version > .oneDotOne else {
             state = .failure(reason: "Invalid state. Shouldn't need to check merkle root for this version of the cert format")
             return
         }
@@ -479,7 +479,7 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     func checkReceipt() {
-        guard certificate.version != .oneDotOne else {
+        guard certificate.version > .oneDotOne else {
             state = .failure(reason: "Invalid state. Shouldn't need to check receipt for this version of the cert format")
             return
         }
