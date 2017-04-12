@@ -433,9 +433,14 @@ public class CertificateValidationRequest : CommonRequest {
             }
             request.resume()
         } else {
-            let batchRevoked : Bool = (revokedAddresses?.contains(self.revocationKey!))!
+            guard let revocationKey = self.revocationKey else {
+                // We don't have a revocation key, so this certifiate can't be revoked. Succeed and move on.
+                state = .success
+                return
+            }
+            let batchRevoked : Bool = revokedAddresses?.contains(revocationKey) ?? false
             if batchRevoked {
-                self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(self.revocationKey!)")
+                self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(revocationKey)")
                 return
             }
             if self.certificate.recipient.revocationAddress != nil {
