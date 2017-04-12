@@ -146,8 +146,11 @@ public class CertificateValidationRequest : CommonRequest {
             return
         }
         
-        let targetAddress = certificate.recipient.publicAddress
-        
+        var targetAddress = certificate.recipient.publicAddress
+        let addressPrefixSeparator = ":"
+        if let separatorRange = targetAddress.range(of: addressPrefixSeparator) {
+            targetAddress = targetAddress.substring(from: separatorRange.upperBound)
+        }
         // All mainnet addresses start with 1.
         guard targetAddress.hasPrefix("1") else {
             if targetAddress.hasPrefix("m") {
