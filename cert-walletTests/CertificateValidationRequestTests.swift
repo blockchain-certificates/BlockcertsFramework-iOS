@@ -283,7 +283,7 @@ class CertificateValidationRequestTests: XCTestCase {
         // Make the validation request.
         let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
             XCTAssertFalse(success)
-            XCTAssertEqual(errorMessage, "Certificate has been revoked by issuer. Revoked assertion uid  is urn:uuid:93019408-acd8-4420-be5e-0400d643954a and reason is Honor code violation")
+            XCTAssertEqual(errorMessage, "Certificate has been revoked by issuer. Revoked assertion uid is urn:uuid:d4d08ae3-6d8c-489d-be60-cbffc783f43f and reason is Honor code violation")
             testExpectation.fulfill()
         }
         XCTAssertNotNil(request)

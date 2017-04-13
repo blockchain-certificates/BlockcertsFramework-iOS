@@ -427,7 +427,7 @@ public class CertificateValidationRequest : CommonRequest {
                     let id = ra["id"]
                     let reason = ra["revocationReason"]
                     if id == self?.certificate.assertion.uid {
-                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid  is \(id!) and reason is \(reason!)")
+                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid is \(id!) and reason is \(reason!)")
                         return
                     }
                 }
