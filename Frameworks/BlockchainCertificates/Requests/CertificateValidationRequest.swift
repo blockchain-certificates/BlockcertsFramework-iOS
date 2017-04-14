@@ -262,7 +262,17 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            self?.remoteHash = transactionData.opReturnScript
+            var possibleRemoteHash = transactionData.opReturnScript
+            
+            // Some providers prepend
+            let opReturnPrefix = "6a20"
+            if let remoteHash = possibleRemoteHash,
+                remoteHash.hasPrefix(opReturnPrefix) {
+                let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: opReturnPrefix.characters.count)
+                possibleRemoteHash = remoteHash.substring(from: startIndex)
+            }
+            
+            self?.remoteHash = possibleRemoteHash
             self?.revokedAddresses = transactionData.revokedAddresses
             
             self?.state = .comparingHashes
@@ -274,14 +284,7 @@ public class CertificateValidationRequest : CommonRequest {
         let compareToHash : String?
         if certificate.version == .oneDotOne,
             let remoteHash = self.remoteHash {
-            
-            let prefix = "6a20"
-            if remoteHash.hasPrefix(prefix) {
-                let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: prefix.characters.count)
-                compareToHash = remoteHash.substring(from: startIndex)
-            } else {
-                compareToHash = remoteHash
-            }
+            compareToHash = remoteHash
         } else {
             compareToHash = self.certificate.receipt?.targetHash
         }
