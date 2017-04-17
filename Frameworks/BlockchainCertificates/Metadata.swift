@@ -11,6 +11,7 @@ import Foundation
 
 public struct Metadata {
     public static let visiblePathsKey = "displayOrder"
+    public static let schemaKey = "$schema"
     
     var groups : [String] {
         return Array(groupedMetadata.keys)
@@ -19,28 +20,31 @@ public struct Metadata {
     private let visiblePaths : [String]
 
     
-    init(json : [String: Any]) {
+    init(json inputJson: [String: Any]) {
+        var json = inputJson
         var groupedMetadata = [String : [Metadatum]]()
         
+        visiblePaths = json[Metadata.visiblePathsKey] as? [String] ?? []
+        json.removeValue(forKey: Metadata.visiblePathsKey)
+        
+        let schema = json[Metadata.schemaKey] as? [String: Any] ?? [:]
+        json.removeValue(forKey: Metadata.schemaKey)
+        
         json.forEach { (key: String, value: Any) in
-            guard key != Metadata.visiblePathsKey else {
-                // If the visiblePathsKey is here, just skip it for now
-                return
-            }
             guard let pairedValues = value as? [String: Any] else {
                 // This is an error condition, but let's hide the error for now.
                 return
             }
             
-            groupedMetadata[key] = pairedValues.map(Metadata.parseMetadatum)
+            groupedMetadata[key] = pairedValues.map { (key: String, value: Any) -> Metadatum in
+                return Metadata.parseMetadatum(key: key, value: value, schema: schema)
+            }
         }
-        
-        visiblePaths = json[Metadata.visiblePathsKey] as? [String] ?? []
 
         self.groupedMetadata = groupedMetadata
     }
     
-    private static func parseMetadatum(key: String, value: Any) -> Metadatum {
+    private static func parseMetadatum(key: String, value: Any, schema: [String: Any] = [:]) -> Metadatum {
         var type = MetadatumType.unknown
         var stringValue : String = ""
         

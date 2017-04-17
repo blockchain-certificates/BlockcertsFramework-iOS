@@ -125,6 +125,7 @@ enum MethodsForV1_2 {
                          revocationAddress: revocationKey)
         
     }
+    
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
@@ -176,9 +177,11 @@ enum MethodsForV1_2 {
                          id: assertionIDURL,
                          metadata: Metadata(json: metadataJson))
     }
+    
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         return MethodsForV1_1.parse(verifyJSON: verifyJSON)
     }
+    
     static func parse(receiptJSON: AnyObject?) -> Receipt? {
         guard let receiptData = receiptJSON as? [String : AnyObject],
             let merkleRoot = receiptData["merkleRoot"] as? String,
