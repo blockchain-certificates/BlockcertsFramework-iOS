@@ -11,16 +11,6 @@ import XCTest
 
 class MetadataTests: XCTestCase {
     
-//    override func setUp() {
-//        super.setUp()
-//        // Put setup code here. This method is called before the invocation of each test method in the class.
-//    }
-//    
-//    override func tearDown() {
-//        // Put teardown code here. This method is called after the invocation of each test method in the class.
-//        super.tearDown()
-//    }
-    
     func testNoData() {
         let data = Metadata(json: [:])
         
@@ -179,5 +169,9 @@ class MetadataTests: XCTestCase {
 //        XCTAssertEqual(data.metadatumFor(dotPath: "group.phone1")?.type, MetadatumType.phoneNumber)
 //        XCTAssertEqual(data.metadatumFor(dotPath: "group.phone2")?.type, MetadatumType.phoneNumber)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.email")?.type, MetadatumType.email)
+    }
+    
+    func testShema() {
+        
     }
 }
