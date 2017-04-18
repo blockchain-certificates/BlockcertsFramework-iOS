@@ -79,7 +79,6 @@ public enum MetadatumType {
     // String-ish types
     case email, uri, phoneNumber
     
-    // This doesn't handle enums yet. And I'm not too happy that it's on the type...
     static func typeFrom(string: String?, format: String? = nil, pattern : String? = nil) -> MetadatumType {
         var type = MetadatumType.unknown
         guard let string = string else {
@@ -118,6 +117,12 @@ public struct Metadatum {
 }
 
 // Mark: Private MetadataSchema to help parse the metadata.
+private let titleKey = "title"
+private let patternKey = "pattern"
+private let formatKey = "format"
+private let typeKey = "type"
+private let enumKey = "enum"
+
 private struct MetadataSchema {
     let propertyMap : [String : [String: (label: String?, type: MetadatumType)]]
     
@@ -140,21 +145,47 @@ private struct MetadataSchema {
             }
             
             keys.forEach { (property: String, value: Any) in
-                guard let value = value as? [String: String] else {
+                guard let value = value as? [String: Any] else {
                     return
                 }
-                let label = value["title"]
-                let type = MetadatumType.typeFrom(string: value["type"], format: value["format"], pattern: value["pattern"])
                 
                 if map[group] == nil {
                     map[group] = [:]
                 }
-                map[group]![property] = (label:label, type: type)
+                map[group]?[property] = MetadataSchema.createTupleForSchema(json: value)
             }
         }
         
         propertyMap = map
         dump(propertyMap)
+    }
+    
+    static func createTupleForSchema(json:[String: Any]) -> (label: String?, type: MetadatumType) {
+        let label = json["title"] as? String
+        var type = MetadatumType.unknown
+        
+        if let stringType = json[typeKey] as? String {
+            switch stringType {
+            case "string":
+                if json[patternKey] as? String == "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" {
+                    type = .date
+                } else if json[formatKey] as? String == "email" {
+                    type = .email
+                } else if json[formatKey] as? String == "uri" {
+                    type = .uri
+                } else {
+                    type = .string
+                }
+            case "number", "integer":
+                type = .number
+            case "boolean":
+                type = .boolean
+            default:
+                break
+            }
+        }
+        
+        return (label: label, type: type)
     }
     
     func metadatumFor(group: String, key: String, value: Any) -> Metadatum {
