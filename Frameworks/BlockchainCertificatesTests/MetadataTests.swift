@@ -166,8 +166,8 @@ class MetadataTests: XCTestCase {
         XCTAssertEqual(data.metadatumFor(dotPath: "group.date")?.type, MetadatumType.date)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.string")?.type, MetadatumType.string)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.uri")?.type, MetadatumType.uri)
-//        XCTAssertEqual(data.metadatumFor(dotPath: "group.phone1")?.type, MetadatumType.phoneNumber)
-//        XCTAssertEqual(data.metadatumFor(dotPath: "group.phone2")?.type, MetadatumType.phoneNumber)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.phone1")?.type, MetadatumType.phoneNumber)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.phone2")?.type, MetadatumType.phoneNumber)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.email")?.type, MetadatumType.email)
     }
     
@@ -241,7 +241,7 @@ class MetadataTests: XCTestCase {
         XCTAssertEqual(datum?.label, label)
     }
     
-//    func testTypeInferenceWithASchema() {
+    func testTypeInferenceWithASchema() {
     
-//    }
+    }
 }

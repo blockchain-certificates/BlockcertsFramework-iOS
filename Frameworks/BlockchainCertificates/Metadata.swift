@@ -247,11 +247,14 @@ private struct MetadataSchema {
     private func getType(from string: String) -> MetadatumType {
         var type = MetadatumType.string
         let emailRegex = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b"
+        let phoneRegex = "^\\(?[0-9]{3}\\)?-?[0-9]{3}-?[0-9]{4}"
         
-        if string.toDate() != nil {
-            type = .date
-        } else if string.range(of: emailRegex, options: [.regularExpression, .caseInsensitive], range: nil, locale: nil) != nil {
+        if string.range(of: emailRegex, options: [.regularExpression, .caseInsensitive], range: nil, locale: nil) != nil {
             type = .email
+        } else if string.range(of: phoneRegex, options: [.regularExpression, .caseInsensitive], range: nil, locale: nil) != nil {
+            type = .phoneNumber
+        } else if string.toDate() != nil {
+            type = .date
         } else if let url = URL(string: string), url.host != nil {
             type = .uri
         }
