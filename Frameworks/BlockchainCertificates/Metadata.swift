@@ -185,7 +185,6 @@ private struct MetadataSchema {
         return stringValue
     }
     
-    
     private func getType(from string: String) -> MetadatumType {
         var type = MetadatumType.string
         let emailRegex = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b"

@@ -171,7 +171,7 @@ class MetadataTests: XCTestCase {
         XCTAssertEqual(data.metadatumFor(dotPath: "group.email")?.type, MetadatumType.email)
     }
     
-    func testSchema() {
+    func testSchemaWithStringValue() {
         let label = "This is the First Key"
         let value = "value1"
         let json : [String: Any] = [
@@ -203,4 +203,45 @@ class MetadataTests: XCTestCase {
         XCTAssertEqual(datum?.value, value)
         XCTAssertEqual(datum?.label, label)
     }
+    
+    
+    func testSchemaTypesOverrideComputedTypes() {
+        // This is a weird corner case, but useful for testing my parsing.
+        // In this case, I'm going to have a URL value, but force it to be a string.
+        
+        let label = "This is the First Key"
+        let value = "https://blockcerts.org"
+        let json : [String: Any] = [
+            "$schema": [
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": [
+                    "group": [
+                        "order": ["key1"],
+                        "type": "object",
+                        "properties": [
+                            "key1": [
+                                "title": label,
+                                "type": "string"
+                            ]
+                        ]
+                    ],
+                ]
+            ],
+            "group": [
+                "key1": value,
+            ]
+        ]
+        let data = Metadata(json: json)
+        
+        let datum = data.metadatumFor(dotPath: "group.key1")
+        XCTAssertNotNil(datum)
+        XCTAssertEqual(datum?.type, MetadatumType.string)
+        XCTAssertEqual(datum?.value, value)
+        XCTAssertEqual(datum?.label, label)
+    }
+    
+//    func testTypeInferenceWithASchema() {
+    
+//    }
 }
