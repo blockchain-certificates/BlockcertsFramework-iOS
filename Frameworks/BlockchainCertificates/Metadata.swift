@@ -30,14 +30,14 @@ public struct Metadata {
         let schema = MetadataSchema(json:json[Metadata.schemaKey] as? [String: Any])
         json.removeValue(forKey: Metadata.schemaKey)
         
-        json.forEach { (key: String, value: Any) in
+        json.forEach { (group: String, value: Any) in
             guard let pairedValues = value as? [String: Any] else {
                 // This is an error condition, but let's hide the error for now.
                 return
             }
             
-            groupedMetadata[key] = pairedValues.map { (key: String, value: Any) -> Metadatum in
-                return schema.metadatumFor(key: key, value: value)
+            groupedMetadata[group] = pairedValues.map { (key: String, value: Any) -> Metadatum in
+                return schema.metadatumFor(group: group, key: key, value: value)
             }
         }
 
@@ -60,7 +60,7 @@ public struct Metadata {
         
         let group = groupedMetadata[groupName]
         return group?.first(where: { (datum) -> Bool in
-            datum.label == key
+            datum.key == key
         })
     }
     
@@ -83,29 +83,61 @@ public enum MetadatumType {
 
 public struct Metadatum {
     public let type : MetadatumType
+    public let key : String
     public let label : String
     public let value : String
 }
 
 // Mark: Private MetadataSchema to help parse the metadata.
 private struct MetadataSchema {
+    let propertyMap : [String : [String: (label: String?, type: String?)]]
+    
     init(json: [String: Any]?) {
         guard let json = json else {
+            propertyMap = [:]
             return
         }
-        print(json)
+        guard let properties = json["properties"] as? [String: Any] else {
+            propertyMap = [:]
+            return
+        }
+        
+        var map : [String: [String: (label: String?, type: String?)]] = [:]
+        
+        properties.forEach { (group: String, value: Any) in
+            guard let valueJson = value as? [String: Any],
+                let keys = valueJson["properties"] as? [String: Any] else {
+                    return
+            }
+            
+            keys.forEach { (property: String, value: Any) in
+                guard let value = value as? [String: String] else {
+                    return
+                }
+                let label = value["title"]
+                let type = value["type"]
+                
+                if map[group] == nil {
+                    map[group] = [:]
+                }
+                map[group]![property] = (label:label, type: type)
+            }
+        }
+        
+        propertyMap = map
+        dump(propertyMap)
     }
     
-    func metadatumFor(key: String, value: Any) -> Metadatum {
-        let type = typeFor(key: key, value: value)
-        let label = self.label(for: key)
+    func metadatumFor(group: String, key: String, value: Any) -> Metadatum {
+        let type = self.type(for: group, withKey: key, value: value)
+        let label = self.label(for: group, with: key)
         let displayValue = self.displayValue(for: value, type: type)
         
-        return Metadatum(type: type, label: label, value: displayValue)
+        return Metadatum(type: type, key: key, label: label, value: displayValue)
     }
     
-    private func typeFor(key: String, value: Any) -> MetadatumType {
-        if let schemaType = schemaType(for: key) {
+    private func type(for group: String, withKey key: String, value: Any) -> MetadatumType {
+        if let schemaType = schemaType(for: group, with: key) {
             return schemaType
         }
         
@@ -127,13 +159,17 @@ private struct MetadataSchema {
         return type
     }
     
-    private func schemaType(for key: String) -> MetadatumType? {
+    private func schemaType(for group: String, with key: String) -> MetadatumType? {
+        // todo: look up the schema type in the stored map.
         return nil
     }
     
-    private func label(for key: String) -> String {
-        // todo: check schema type for the label
-        return key
+    private func label(for group: String, with key: String) -> String {
+        guard let groupSchema = propertyMap[group],
+            let propertySchema = groupSchema[key] else {
+                return key
+        }
+        return propertySchema.label ?? key
     }
     
     private func displayValue(for value: Any, type: MetadatumType) -> String{
