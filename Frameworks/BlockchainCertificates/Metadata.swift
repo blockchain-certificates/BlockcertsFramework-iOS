@@ -78,19 +78,48 @@ public enum MetadatumType {
     
     // String-ish types
     case email, uri, phoneNumber
+    
+    // This doesn't handle enums yet. And I'm not too happy that it's on the type...
+    static func typeFrom(string: String?, format: String? = nil, pattern : String? = nil) -> MetadatumType {
+        var type = MetadatumType.unknown
+        guard let string = string else {
+            return type
+        }
+        
+        switch string {
+        case "string":
+            if pattern == "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" {
+                type = .date
+            } else if format == "email" {
+                type = .email
+            } else if format == "uri" {
+                type = .uri
+            } else {
+                type = .string
+            }
+        case "number", "integer":
+            type = .number
+        case "boolean":
+            type = .boolean
+        default:
+            break
+        }
+        
+        return type
+    }
 }
-
 
 public struct Metadatum {
     public let type : MetadatumType
     public let key : String
     public let label : String
     public let value : String
+    
 }
 
 // Mark: Private MetadataSchema to help parse the metadata.
 private struct MetadataSchema {
-    let propertyMap : [String : [String: (label: String?, type: String?)]]
+    let propertyMap : [String : [String: (label: String?, type: MetadatumType)]]
     
     init(json: [String: Any]?) {
         guard let json = json else {
@@ -102,7 +131,7 @@ private struct MetadataSchema {
             return
         }
         
-        var map : [String: [String: (label: String?, type: String?)]] = [:]
+        var map : [String: [String: (label: String?, type: MetadatumType)]] = [:]
         
         properties.forEach { (group: String, value: Any) in
             guard let valueJson = value as? [String: Any],
@@ -115,7 +144,7 @@ private struct MetadataSchema {
                     return
                 }
                 let label = value["title"]
-                let type = value["type"]
+                let type = MetadatumType.typeFrom(string: value["type"], format: value["format"], pattern: value["pattern"])
                 
                 if map[group] == nil {
                     map[group] = [:]
@@ -160,8 +189,7 @@ private struct MetadataSchema {
     }
     
     private func schemaType(for group: String, with key: String) -> MetadatumType? {
-        // todo: look up the schema type in the stored map.
-        return nil
+        return propertyMap[group]?[key]?.type
     }
     
     private func label(for group: String, with key: String) -> String {
