@@ -242,6 +242,93 @@ class MetadataTests: XCTestCase {
     }
     
     func testTypeInferenceWithASchema() {
-    
+        let json : [String: Any] = [
+            "$schema": [
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": [
+                    "group": [
+                        "order": ["text", "date", "email", "uri", "number", "wholeNumber", "singleEnum", "multipleEnum"],
+                        "type": "object",
+                        "properties": [
+                            "text": [
+                                "title": "Text title",
+                                "type": "string",
+                                "description": "What is this used for"
+                            ],
+                            "date": [
+                                "type": "string",
+                                "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+                                "title": "Last Login",
+                                "description": "The time the user last logged in."
+                            ],
+                            "email": [
+                                "type": "string",
+                                "format": "email",
+                                "title": "Work Email",
+                                "description": "The issuer contact's work email address."
+                            ],
+                            "uri": [
+                                "type": "string",
+                                "format": "uri",
+                                "title": "homepage"
+                            ],
+                            "number": [
+                                "type": "number",
+                                "title": "GPA"
+                            ],
+                            "wholeNumber": [
+                                "type": "integer",
+                                "title": "Friend Count",
+                                "description": "OK, not a perfect example..."
+                            ],
+                            "isBoolean": [
+                                "type": "boolean",
+                                "title": "is this a boolean?",
+                                "description": "This is the first step towards computers being self aware."
+                            ],
+                            "singleEnum": [
+                                "type": "string",
+                                "enum": ["red", "blue", "orange"],
+                                "title": "Favorite Color",
+                                "description": "Don't say blue if it's really yellow."
+                            ],
+                            "multipleEnum": [
+                                "type": "array",
+                                "uniqueItems": true,
+                                "items": [
+                                    "type": "string",
+                                    "enum": ["red", "orange", "yellow", "green", "blue", "violet"]
+                                ],
+                                "title": "Favorite Colors"
+                            ]
+                        ]
+                    ],
+                ]
+            ],
+            "group": [
+                "text": "string",
+                "date": "2017-01-01",
+                "email": "cdownie@learningmachine.com",
+                "uri": "https://blockcerts.org",
+                "number": 3.7,
+                "wholeNumber": 12,
+                "isBoolean": true,
+                "singleEnum": "blue",
+                "multipleEnum": ["red", "blue"]
+            ]
+        ]
+        let data = Metadata(json: json)
+        
+        XCTAssertNotNil(data)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.text")?.type, MetadatumType.string)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.date")?.type, MetadatumType.date)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.email")?.type, MetadatumType.email)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.uri")?.type, MetadatumType.uri)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.number")?.type, MetadatumType.number)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.wholeNumber")?.type, MetadatumType.number)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.isBoolean")?.type, MetadatumType.boolean)
+//        XCTAssertEqual(data.metadatumFor(dotPath: "group.singleEnum")?.type, MetadatumType.singleEnum)
+//        XCTAssertEqual(data.metadatumFor(dotPath: "group.multipleEnum")?.type, MetadatumType.multipleEnum)
     }
 }
