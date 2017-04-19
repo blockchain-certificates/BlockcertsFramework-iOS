@@ -69,18 +69,46 @@ public struct Metadata {
     }
 }
 
+// This represents the type of the associated data.
+// For types that aren't natively encoded as strings, or have multiple bits of data, the associated value is stored in the enum as `rawValue`
 public enum MetadatumType {
     // Error type
     case unknown
     
     // Basic types
-    case number, string, date, boolean
+    case integer, number, string, date, boolean
     
     // String-ish types
     case email, uri, phoneNumber
     
     // Enum types
-    case enumSingleOption, enumMultipleOption
+    case enumSingleOption(from: [String])
+    case enumMultipleOptions(from: [String])
+}
+
+extension MetadatumType : Equatable {}
+public func ==(lhs: MetadatumType, rhs: MetadatumType) -> Bool {
+    var areEqual = false
+    
+    switch (lhs, rhs) {
+    case (.unknown, .unknown),
+         (.integer, .integer),
+         (.number, .number),
+         (.string, .string),
+         (.date, .date),
+         (.boolean, .boolean),
+         (.email, .email),
+         (.uri, .uri),
+         (.phoneNumber, .phoneNumber):
+        areEqual = true
+    case (.enumSingleOption(from: let leftOptions), .enumSingleOption(from: let rightOptions)),
+         (.enumMultipleOptions(from: let leftOptions), .enumMultipleOptions(from: let rightOptions)):
+        areEqual = leftOptions == rightOptions
+    default:
+        break;
+    }
+    
+    return areEqual
 }
 
 public struct Metadatum {
@@ -147,15 +175,20 @@ private struct MetadataSchema {
                     type = .email
                 } else if json[formatKey] as? String == "uri" {
                     type = .uri
-                } else if json[enumKey] is [String] {
-                    type = .enumSingleOption
+                } else if let options = json[enumKey] as? [String] {
+                    type = .enumSingleOption(from:options)
                 } else {
                     type = .string
                 }
             case "array":
-                type = .enumMultipleOption
-            case "number", "integer":
+                if let items = json["items"] as? [String : Any],
+                    let options = items[enumKey] as? [String] {
+                    type = .enumMultipleOptions(from: options)
+                }
+            case "number":
                 type = .number
+            case "integer":
+                type = .integer
             case "boolean":
                 type = .boolean
             default:
@@ -183,7 +216,7 @@ private struct MetadataSchema {
         
         switch (value) {
         case is Int:
-            fallthrough
+            type = .integer
         case is Double:
             type = .number
         case is Bool:

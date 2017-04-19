@@ -150,7 +150,8 @@ class MetadataTests: XCTestCase {
         let json : [String: Any] = [
             "group": [
                 "boolean": true,
-                "number": 2,
+                "number": 2.4,
+                "integer": 3,
                 "date": "2017-03-13T08:57:03.811+00:00",
                 "string": "value3",
                 "uri": "https://learningmachine.com",
@@ -163,6 +164,7 @@ class MetadataTests: XCTestCase {
         
         XCTAssertEqual(data.metadatumFor(dotPath: "group.boolean")?.type, MetadatumType.boolean)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.number")?.type, MetadatumType.number)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.integer")?.type, MetadatumType.integer)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.date")?.type, MetadatumType.date)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.string")?.type, MetadatumType.string)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.uri")?.type, MetadatumType.uri)
@@ -326,10 +328,10 @@ class MetadataTests: XCTestCase {
         XCTAssertEqual(data.metadatumFor(dotPath: "group.email")?.type, MetadatumType.email)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.uri")?.type, MetadatumType.uri)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.number")?.type, MetadatumType.number)
-        XCTAssertEqual(data.metadatumFor(dotPath: "group.wholeNumber")?.type, MetadatumType.number)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.wholeNumber")?.type, MetadatumType.integer)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.isBoolean")?.type, MetadatumType.boolean)
-        XCTAssertEqual(data.metadatumFor(dotPath: "group.singleEnum")?.type, MetadatumType.enumSingleOption)
-        XCTAssertEqual(data.metadatumFor(dotPath: "group.multipleEnum")?.type, MetadatumType.enumMultipleOption)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.singleEnum")?.type, MetadatumType.enumSingleOption(from: ["red", "blue", "orange"]))
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.multipleEnum")?.type, MetadatumType.enumMultipleOptions(from: ["red", "orange", "yellow", "green", "blue", "violet"]))
     }
     
     
