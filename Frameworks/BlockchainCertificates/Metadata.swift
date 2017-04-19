@@ -248,6 +248,10 @@ private struct MetadataSchema {
         switch(type) {
         case .boolean:
             stringValue = value as! Bool ? "true" : "false"
+        case .enumMultipleOptions(from: _):
+            if let selections = value as? [String] {
+                stringValue = selections.joined(separator: ", ")
+            }
         default:
             stringValue = "\(value)"
         }
