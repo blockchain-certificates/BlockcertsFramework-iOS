@@ -328,7 +328,45 @@ class MetadataTests: XCTestCase {
         XCTAssertEqual(data.metadatumFor(dotPath: "group.number")?.type, MetadatumType.number)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.wholeNumber")?.type, MetadatumType.number)
         XCTAssertEqual(data.metadatumFor(dotPath: "group.isBoolean")?.type, MetadatumType.boolean)
-//        XCTAssertEqual(data.metadatumFor(dotPath: "group.singleEnum")?.type, MetadatumType.singleEnum)
-//        XCTAssertEqual(data.metadatumFor(dotPath: "group.multipleEnum")?.type, MetadatumType.multipleEnum)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.singleEnum")?.type, MetadatumType.enumSingleOption)
+        XCTAssertEqual(data.metadatumFor(dotPath: "group.multipleEnum")?.type, MetadatumType.enumMultipleOption)
     }
+    
+    
+    func testMultipleSelectEnumerationDisplayValue() {
+        let json : [String: Any] = [
+            "$schema": [
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": [
+                    "group": [
+                        "order": ["multipleEnum"],
+                        "type": "object",
+                        "properties": [
+                            "multipleEnum": [
+                                "type": "array",
+                                "uniqueItems": true,
+                                "items": [
+                                    "type": "string",
+                                    "enum": ["red", "orange", "yellow", "green", "blue", "violet"]
+                                ],
+                                "title": "Favorite Colors"
+                            ]
+                        ]
+                    ],
+                ]
+            ],
+            "group": [
+                "multipleEnum": ["red", "blue"]
+            ]
+        ]
+        let data = Metadata(json: json)
+        XCTAssertNotNil(data)
+        
+        let datum = data.metadatumFor(dotPath: "group.multipleEnum")
+        XCTAssertNotNil(datum)
+        // Even though it's encoded as an array, it should be displayed as a comma separated list.
+        XCTAssertEqual(datum?.value, "red, blue")
+    }
+
 }

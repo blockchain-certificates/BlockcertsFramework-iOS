@@ -79,33 +79,8 @@ public enum MetadatumType {
     // String-ish types
     case email, uri, phoneNumber
     
-    static func typeFrom(string: String?, format: String? = nil, pattern : String? = nil) -> MetadatumType {
-        var type = MetadatumType.unknown
-        guard let string = string else {
-            return type
-        }
-        
-        switch string {
-        case "string":
-            if pattern == "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" {
-                type = .date
-            } else if format == "email" {
-                type = .email
-            } else if format == "uri" {
-                type = .uri
-            } else {
-                type = .string
-            }
-        case "number", "integer":
-            type = .number
-        case "boolean":
-            type = .boolean
-        default:
-            break
-        }
-        
-        return type
-    }
+    // Enum types
+    case enumSingleOption, enumMultipleOption
 }
 
 public struct Metadatum {
@@ -113,7 +88,6 @@ public struct Metadatum {
     public let key : String
     public let label : String
     public let value : String
-    
 }
 
 // Mark: Private MetadataSchema to help parse the metadata.
@@ -173,9 +147,13 @@ private struct MetadataSchema {
                     type = .email
                 } else if json[formatKey] as? String == "uri" {
                     type = .uri
+                } else if json[enumKey] is [String] {
+                    type = .enumSingleOption
                 } else {
                     type = .string
                 }
+            case "array":
+                type = .enumMultipleOption
             case "number", "integer":
                 type = .number
             case "boolean":
