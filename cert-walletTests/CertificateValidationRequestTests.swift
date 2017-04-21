@@ -97,7 +97,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               error: nil)
         
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, with:v1_1ValidTransactionId, bitcoinManager: CoreBitcoinManager(), chain: "testnet", session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, with:v1_1ValidTransactionId, bitcoinManager: CoreBitcoinManager(), chain: .testnet, session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
@@ -151,7 +151,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               error: nil)
         
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: .testnet, jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
@@ -216,7 +216,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               error: nil)
         
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: .testnet, jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
             XCTAssertTrue(success)
             XCTAssertNil(errorMessage)
             testExpectation.fulfill()
@@ -281,7 +281,7 @@ class CertificateValidationRequestTests: XCTestCase {
                               error: nil)
         
         // Make the validation request.
-        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: "testnet", jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
+        let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: .testnet, jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
             XCTAssertFalse(success)
             XCTAssertEqual(errorMessage, "Certificate has been revoked by issuer. Revoked assertion uid is urn:uuid:d4d08ae3-6d8c-489d-be60-cbffc783f43f and reason is Honor code violation")
             testExpectation.fulfill()

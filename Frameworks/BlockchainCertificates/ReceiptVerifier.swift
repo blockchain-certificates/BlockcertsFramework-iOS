@@ -17,7 +17,7 @@ public class ReceiptVerifier {
      :param receipt:
      :return:
      */
-    public func validate(receipt : Receipt, chain: String) -> Bool {
+    public func validate(receipt : Receipt, chain: BitcoinChain) -> Bool {
         guard let proof = receipt.proof else {
             // no siblings, single item tree, so the hash should also be the root
             return receipt.targetHash == receipt.merkleRoot
