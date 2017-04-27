@@ -18,6 +18,7 @@
 		3B3F8A321EB177EC00543CBA /* tx_valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */; };
 		3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */; };
 		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
+		3B3F8A371EB257EA00543CBA /* IssuerKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B3F8A361EB257EA00543CBA /* IssuerKey.swift */; };
 		3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */; };
 		3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */; };
 		3B8E1E511E9BEE8B00DC636D /* normalized_revoked-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */; };
@@ -258,6 +259,7 @@
 		3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "revocation_list-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A341EB1780D00543CBA /* sample_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_issuer.json; sourceTree = "<group>"; };
+		3B3F8A361EB257EA00543CBA /* IssuerKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IssuerKey.swift; path = "cert-walletTests/Resources/IssuerKey.swift"; sourceTree = SOURCE_ROOT; };
 		3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized-1.2.0.txt"; sourceTree = "<group>"; };
 		3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized-2.0.txt"; sourceTree = "<group>"; };
 		3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized_revoked-2.0.txt"; sourceTree = "<group>"; };
@@ -497,6 +499,7 @@
 				838DA1B01DA45CBB00E85326 /* Recipient.swift */,
 				838DA1B11DA45CBB00E85326 /* Verify.swift */,
 				838DA1A51DA45AC300E85326 /* Info.plist */,
+				3B3F8A361EB257EA00543CBA /* IssuerKey.swift */,
 			);
 			path = BlockchainCertificates;
 			sourceTree = "<group>";
@@ -1410,6 +1413,7 @@
 				3B8E1E531E9BF71000DC636D /* (null) in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
 				830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
+				3B3F8A371EB257EA00543CBA /* IssuerKey.swift in Sources */,
 				83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
