@@ -209,6 +209,19 @@ public class CertificateValidationRequest : CommonRequest {
             do {
                 var json = try JSONSerialization.jsonObject(with: certificate.file, options: []) as! [String: Any]
                 json.removeValue(forKey: "signature")
+                // TODO (kdh): check for added values not mapped to JSON-LD. This is done starting V2
+                /*
+                guard let currentContext = json["@context"] as? [AnyObject] else {
+                    self.state = .failure(reason: "Failed JSON-LD normalization; could not find @context")
+                    return
+                }
+                let fallbackContext : [String: Any] = [
+                    "@vocab": "http://fallback.org/"
+                ]
+                var newContext = Array(currentContext)
+                newContext.append(fallbackContext as AnyObject)
+                json["@context"] = newContext
+                */
                 docData = try JSONSerialization.data(withJSONObject: json, options: [])
             } catch {
                 state = .failure(reason: "Failed to re-parse the document node out of the certificate's file.")
