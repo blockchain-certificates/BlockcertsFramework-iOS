@@ -17,7 +17,7 @@ struct CertificateV1_2 : Certificate {
     let language : String
     let id : URL?
     let file : Data
-    let signature: Signature?
+    let signature: String?
     
     let issuer : Issuer
     let recipient : Recipient
@@ -94,7 +94,7 @@ struct CertificateV1_2 : Certificate {
         self.verifyData = verifyData
         self.receipt = receiptData
         let signatureValue = documentData["signature"] as? String
-        self.signature = Signature(value: signatureValue, created: nil, creator: nil)
+        self.signature = signatureValue
         self.metadata = assertion.metadata
     }
 }

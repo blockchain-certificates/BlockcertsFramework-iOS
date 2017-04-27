@@ -17,12 +17,12 @@ struct CertificateV2 : Certificate {
     let language : String
     let id : URL?
     let file : Data
-    let signature: Signature?
     
     let issuer : Issuer
     let recipient : Recipient
     let assertion : Assertion
     let verifyData : Verify
+    let signature: String?
     
     let receipt : Receipt?
     let metadata: Metadata
@@ -45,9 +45,6 @@ struct CertificateV2 : Certificate {
         }
         guard var certificateData = json["badge"] as? [String: AnyObject] else {
             throw CertificateParserError.missingData(description: "Missing 'badge' property.")
-        }
-        guard var signatureData = json["signature"] as? [String: AnyObject] else {
-            throw CertificateParserError.missingData(description: "Missing 'signature' property.")
         }
         
         switch fileType {
@@ -87,7 +84,7 @@ struct CertificateV2 : Certificate {
             let recipient = MethodsForV2.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV2.parse(assertionJSON: assertionVal as AnyObject?),
             let verifyData = MethodsForV2.parse(verifyJSON: json["verification"]),
-            let receiptData = MethodsForV2.parse(receiptJSON: signatureData["merkleProof"]) else {
+            let receiptData = MethodsForV2.parse(receiptJSON: json["signature"]) else {
                 throw CertificateParserError.genericError
         }
         self.issuer = issuer
@@ -95,11 +92,7 @@ struct CertificateV2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        
-        let signatureValue = signatureData["signatureValue"] as? String
-        let created = signatureData["created"] as? String
-        let creator = signatureData["creator"] as? String
-        self.signature = Signature(value: signatureValue, created: created, creator: creator)
+        self.signature = nil
         self.metadata = assertion.metadata
     }
 }

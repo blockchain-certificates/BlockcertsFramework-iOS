@@ -9,22 +9,23 @@
 /* Begin PBXBuildFile section */
 		321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */; };
 		3B391F121E9D8687002B13BB /* RecipientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B391F0F1E9D863B002B13BB /* RecipientTests.swift */; };
-		3B57280D1E958DC900B56821 /* sample_signed_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */; };
-		3B57280E1E958DCF00B56821 /* sample_signed_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */; };
-		3B5728151E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */; };
-		3B5728161E95A4A200B56821 /* sample_signed_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */; };
+		3B3F8A211EB16FF800543CBA /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */; };
+		3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */; };
+		3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */; };
+		3B3F8A271EB1702500543CBA /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A241EB1702500543CBA /* sample_cert-unmapped-2.0.json */; };
+		3B3F8A281EB1702500543CBA /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A251EB1702500543CBA /* sample_cert-valid-2.0.json */; };
+		3B3F8A291EB1702500543CBA /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A261EB1702500543CBA /* sample_cert-revoked-2.0.json */; };
+		3B3F8A321EB177EC00543CBA /* tx_valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */; };
+		3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */; };
+		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
 		3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */; };
 		3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */; };
-		3B8E1E4F1E9BE84000DC636D /* revocation_list-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4E1E9BE84000DC636D /* revocation_list-2.0.json */; };
 		3B8E1E511E9BEE8B00DC636D /* normalized_revoked-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */; };
 		3B8E1E531E9BF71000DC636D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3B8E1E561E9BF85C00DC636D /* (null) in Sources */ = {isa = PBXBuildFile; };
-		3B8E1E591E9BFAD400DC636D /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B8E1E571E9BFABA00DC636D /* Signature.swift */; };
 		3B90A0541E999E4000C027B7 /* tx_valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0531E999E4000C027B7 /* tx_valid-1.2.0.json */; };
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
 		3B90A0581E99A05400C027B7 /* tx_valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0571E99A05400C027B7 /* tx_valid-1.1.0.json */; };
-		3B90A05B1E99A4BC00C027B7 /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0591E99A4BC00C027B7 /* sample_issuer.json */; };
-		3B90A05C1E99A4BC00C027B7 /* tx_valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A05A1E99A4BC00C027B7 /* tx_valid-2.0.json */; };
 		3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */; };
 		3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */; };
 		3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */; };
@@ -247,21 +248,22 @@
 /* Begin PBXFileReference section */
 		2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC550FD5CE48EBC6F6DB6F5 /* Pods-cert-walletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-revoked-2.0.json"; sourceTree = "<group>"; };
-		3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-2.0.json"; sourceTree = "<group>"; };
 		3B391F0F1E9D863B002B13BB /* RecipientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientTests.swift; sourceTree = SOURCE_ROOT; };
-		3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-revoked-2.0.json"; sourceTree = "<group>"; };
-		3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A241EB1702500543CBA /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A251EB1702500543CBA /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A261EB1702500543CBA /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "revocation_list-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A341EB1780D00543CBA /* sample_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_issuer.json; sourceTree = "<group>"; };
 		3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized-1.2.0.txt"; sourceTree = "<group>"; };
 		3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized-2.0.txt"; sourceTree = "<group>"; };
-		3B8E1E4E1E9BE84000DC636D /* revocation_list-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "revocation_list-2.0.json"; sourceTree = "<group>"; };
 		3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized_revoked-2.0.txt"; sourceTree = "<group>"; };
-		3B8E1E571E9BFABA00DC636D /* Signature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Signature.swift; path = Frameworks/BlockchainCertificates/Signature.swift; sourceTree = SOURCE_ROOT; };
 		3B90A0531E999E4000C027B7 /* tx_valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-1.2.0.json"; sourceTree = "<group>"; };
 		3B90A0551E999F4F00C027B7 /* got_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = got_issuer.json; sourceTree = "<group>"; };
 		3B90A0571E99A05400C027B7 /* tx_valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-1.1.0.json"; sourceTree = "<group>"; };
-		3B90A0591E99A4BC00C027B7 /* sample_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_issuer.json; sourceTree = "<group>"; };
-		3B90A05A1E99A4BC00C027B7 /* tx_valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-2.0.json"; sourceTree = "<group>"; };
 		3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.1.0.json"; sourceTree = "<group>"; };
 		3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.2.0.json"; sourceTree = "<group>"; };
 		3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
@@ -456,8 +458,9 @@
 		830AB9CE1DA6B3BC00185E19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3B36AE511E9582D70012B6F8 /* sample_signed_cert-revoked-2.0.json */,
-				3B36AE521E9582D70012B6F8 /* sample_signed_cert-valid-2.0.json */,
+				3B3F8A241EB1702500543CBA /* sample_cert-unmapped-2.0.json */,
+				3B3F8A251EB1702500543CBA /* sample_cert-valid-2.0.json */,
+				3B3F8A261EB1702500543CBA /* sample_cert-revoked-2.0.json */,
 				830AB9CF1DA6B3BC00185E19 /* index.html */,
 				830AB9D01DA6B3BC00185E19 /* modified_1.2_jsonld.json */,
 				830E707C1DEE2912009BAB30 /* multiimage_1.2.json */,
@@ -477,7 +480,6 @@
 		83111BA41DA42086006B058D /* BlockchainCertificates */ = {
 			isa = PBXGroup;
 			children = (
-				3B8E1E571E9BFABA00DC636D /* Signature.swift */,
 				83B0A84C1DA5A80300E5ECFA /* Requests */,
 				839174341DA563E800CB6E54 /* Extensions */,
 				838DA1A41DA45AC300E85326 /* BlockchainCertificates.h */,
@@ -560,17 +562,18 @@
 		834F2EE71D624FCF008C9650 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B3F8A341EB1780D00543CBA /* sample_issuer.json */,
+				3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */,
+				3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */,
+				3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */,
+				3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */,
+				3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */,
 				3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */,
-				3B8E1E4E1E9BE84000DC636D /* revocation_list-2.0.json */,
 				3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */,
 				3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */,
-				3B90A0591E99A4BC00C027B7 /* sample_issuer.json */,
-				3B90A05A1E99A4BC00C027B7 /* tx_valid-2.0.json */,
 				3B90A0571E99A05400C027B7 /* tx_valid-1.1.0.json */,
 				3B90A0551E999F4F00C027B7 /* got_issuer.json */,
 				3B90A0531E999E4000C027B7 /* tx_valid-1.2.0.json */,
-				3B5728131E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json */,
-				3B5728141E95A4A200B56821 /* sample_signed_cert-valid-2.0.json */,
 				831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */,
 				3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */,
 				3BDF6EA41D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json */,
@@ -1071,12 +1074,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B57280D1E958DC900B56821 /* sample_signed_cert-valid-2.0.json in Resources */,
 				830AB9DD1DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				830E707D1DEE2912009BAB30 /* multiimage_1.2.json in Resources */,
 				830AB9DC1DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				830AB9D91DA6B3BC00185E19 /* modified_1.2_jsonld.json in Resources */,
-				3B57280E1E958DCF00B56821 /* sample_signed_cert-revoked-2.0.json in Resources */,
 				830AB9E01DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				830AB9DB1DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json in Resources */,
 				830AB9DA1DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json in Resources */,
@@ -1127,24 +1128,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B90A0581E99A05400C027B7 /* tx_valid-1.1.0.json in Resources */,
+				3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */,
 				3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */,
 				3B8E1E511E9BEE8B00DC636D /* normalized_revoked-2.0.txt in Resources */,
-				3B8E1E4F1E9BE84000DC636D /* revocation_list-2.0.json in Resources */,
-				3B90A05B1E99A4BC00C027B7 /* sample_issuer.json in Resources */,
+				3B3F8A291EB1702500543CBA /* sample_cert-revoked-2.0.json in Resources */,
+				3B3F8A211EB16FF800543CBA /* sample_cert-unmapped-2.0.json in Resources */,
 				835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */,
-				3B5728151E95A4A200B56821 /* sample_signed_cert-revoked-2.0.json in Resources */,
-				3B90A05C1E99A4BC00C027B7 /* tx_valid-2.0.json in Resources */,
 				3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */,
+				3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0.json in Resources */,
+				3B3F8A281EB1702500543CBA /* sample_cert-valid-2.0.json in Resources */,
+				3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */,
 				3B90A0541E999E4000C027B7 /* tx_valid-1.2.0.json in Resources */,
 				3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */,
 				3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */,
+				3B3F8A321EB177EC00543CBA /* tx_valid-2.0.json in Resources */,
+				3B3F8A271EB1702500543CBA /* sample_cert-unmapped-2.0.json in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
-				3B5728161E95A4A200B56821 /* sample_signed_cert-valid-2.0.json in Resources */,
+				3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,7 +1329,6 @@
 				838DA1B71DA45CBB00E85326 /* Verify.swift in Sources */,
 				3B8E1E561E9BF85C00DC636D /* (null) in Sources */,
 				83E50B401E9EBC8400FC6D8B /* CertificateV2.swift in Sources */,
-				3B8E1E591E9BFAD400DC636D /* Signature.swift in Sources */,
 				830ABA7B1DA84DA300185E19 /* BitcoinManager.swift in Sources */,
 				83B0A84E1DA5A80B00E5ECFA /* CommonRequest.swift in Sources */,
 				83B0A8511DA5A87D00E5ECFA /* IssuerCreationRequest.swift in Sources */,

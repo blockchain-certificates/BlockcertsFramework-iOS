@@ -1,30 +1,32 @@
 {
-  "block_height": -1,
-  "block_index": -1,
-  "hash": "7405186b043b41d5ec075b90316df2fe1ba721de5813da4c82dd676a325c72e0",
+  "block_hash": "00000000dec48e9f75f4397fb692d14eb1619f582b6148db58a73d3a71881f8a",
+  "block_height": 1120094,
+  "block_index": 31,
+  "hash": "9d377aa33f9f6b4abc57d3a3b39596dae2682a1989c7aa702120ae4f980670e0",
   "addresses": [
     "msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj"
   ],
-  "total": 417000,
+  "total": 203500,
   "fees": 73000,
-  "size": 267,
+  "size": 266,
   "preference": "high",
-  "relayed_by": "46.101.120.47:18333",
-  "received": "2017-04-12T22:59:25.555Z",
+  "relayed_by": "",
+  "confirmed": "2017-04-26T17:58:00Z",
+  "received": "2017-04-26T17:58:00Z",
   "ver": 1,
   "lock_time": 0,
-  "double_spend": true,
-  "double_spend_tx": "4156d51377c264d683c0b0f30562e1762beb57f456c34651bcaf727b041d3353",
+  "double_spend": false,
   "vin_sz": 1,
   "vout_sz": 2,
-  "confirmations": 0,
+  "confirmations": 32,
+  "confidence": 1,
   "data_protocol": "unknown",
   "inputs": [
     {
-      "prev_hash": "5fde7287488b05badb446dc0695abadd210e53501a408fccc738e214d9e3c6da",
-      "output_index": 0,
-      "script": "483045022100e565bb9c7d5627f6e5415d19741efe51d8c74596a68af86bd19aae505da9024302205010f535c4b7ae726b15c55f82ea729a795c647f3df68398e655bbd6d61df3ac014104fddb3f9b745cb9dd54007164462597e607735cfe56baeef5a0b876c8bd16ee6115e3c77e2f74dc8129362e8c72e8dc4c27f4991f714754a57fd969f50e774e3d",
-      "output_value": 490000,
+      "prev_hash": "ba098553ca631e172791280e3ebde234a7f71ee23848b1fbfff7ef3a9868a0c0",
+      "output_index": 3,
+      "script": "4730440220220257d0712be4a5d8187eea4bd2049f458aeb164f63c65aa82333f7c2c1604902207744af21aeb68090ca004f11d03298d2c6fd53a80ee643389dd4a4c5bad4fefc014104fddb3f9b745cb9dd54007164462597e607735cfe56baeef5a0b876c8bd16ee6115e3c77e2f74dc8129362e8c72e8dc4c27f4991f714754a57fd969f50e774e3d",
+      "output_value": 276500,
       "sequence": 4294967295,
       "addresses": [
         "msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj"
@@ -34,7 +36,7 @@
   ],
   "outputs": [
     {
-      "value": 417000,
+      "value": 203500,
       "script": "76a9147fe4deec11117531349fc17d1217845fedf6e98988ac",
       "addresses": [
         "msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj"
@@ -43,10 +45,10 @@
     },
     {
       "value": 0,
-      "script": "6a20739a1e75c791be8f3df2c2666b1671c382af61772aca235ae6f275cfeee1511e",
+      "script": "6a2092cbe8bac63ba2f97eaabfcedc24a77448f2a4a80b34a57a40f49b1e287f3aba",
       "addresses": null,
       "script_type": "null-data",
-      "data_hex": "739a1e75c791be8f3df2c2666b1671c382af61772aca235ae6f275cfeee1511e"
+      "data_hex": "92cbe8bac63ba2f97eaabfcedc24a77448f2a4a80b34a57a40f49b1e287f3aba"
     }
   ]
 }

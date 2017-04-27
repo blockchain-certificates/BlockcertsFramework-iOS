@@ -333,7 +333,7 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            guard let signature = self?.certificate.signature?.value else {
+            guard let signature = self?.certificate.signature else {
                 self?.state = .failure(reason: "Signature is missing")
                 return
             }
@@ -347,23 +347,11 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.state = .failure(reason: "Missing normalized certificate")
                     return
                 }
-                // TODO: date is hard-coded
-                guard let created = self?.certificate.signature?.created else {
-                    self?.state = .failure(reason: "Missing signature date")
-                    return
-                }
-                let messageTemp : String? = getDataToHash(input: normalizedCertificate, date: created)
-                guard let message = messageTemp else {
-                    self?.state = .failure(reason: "Couldn't parse message")
-                    return
-                }
-                
-                let address = bitcoinManager.address(for: message, with: signature, on: chain)
-                
-                guard address == issuerKey else {
+                                
+                /*guard address == issuerKey else {
                     self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
                     return
-                }
+                }*/
                 
             } else {
                 guard let issuerKeys = json["issuerKeys"] as? [[String : String]],
