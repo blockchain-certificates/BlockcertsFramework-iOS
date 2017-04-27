@@ -503,43 +503,49 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Certificate is missing.")
                 return
             }
-
-            guard let normalizedCertificate = self?.normalizedCertificate else {
-                self?.state = .failure(reason: "Missing normalized certificate")
-                return
-            }
             
             guard let issuerPublicKeys = try? parseKeysV2(from: json, with: "publicKeys") else {
                 self?.state = .failure(reason: "Couldn't parse issuer publicKeys")
                 return
             }
             
-            
-            
-            /*
-            
-            if (theKey.created) {
-                validKey &= txTime >= key.created;
+            guard let signingKey = self?.signingPublicKey else {
+                self?.state = .failure(reason: "Couldn't parse determine transaction signing public key")
+                return
             }
-            if (theKey.revoked) {
-                validKey &= txTime <= key.revoked;
+            guard let txDate = self?.txDate else {
+                self?.state = .failure(reason: "Couldn't parse determine transaction date")
+                return
             }
-            if (theKey.expires) {
-                validKey &= txTime <= key.expires;
-            }
-            */
-            /*guard address == issuerKey else {
-                self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
-                 return
-             }*/
             
+            let issuerPublicKeyMap = issuerPublicKeys.toDictionary { $0.key }
+            guard let keyInfo = issuerPublicKeyMap[signingKey] else {
+                self?.state = .failure(reason: "Couldn't find issuer public key")
+                return
+            }
+            
+            if txDate < keyInfo.on {
+                self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key")
+                return
+            }
+            if (keyInfo.revoked != nil) {
+                if txDate > keyInfo.revoked! {
+                    self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key")
+                    return
+                }
+            }
+            if (keyInfo.expires != nil) {
+                if txDate > keyInfo.expires! {
+                    self?.state = .failure(reason: "Transaction was issued after the Issuer key expired")
+                    return
+                }
+            }
             
             self?.state = .checkingRevokedStatus
         }
         request.resume()
     }
 }
-
 
 
 // MARK: helper functions
@@ -549,4 +555,14 @@ func sha256(data : Data) -> Data {
         _ = CC_SHA256($0, CC_LONG(data.count), &hash)
     }
     return Data(bytes: hash)
+}
+
+extension Array {
+    public func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key:Element] {
+        var dict = [Key:Element]()
+        for element in self {
+            dict[selectKey(element)] = element
+        }
+        return dict
+    }
 }

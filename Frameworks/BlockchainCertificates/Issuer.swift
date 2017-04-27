@@ -333,9 +333,16 @@ func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRota
     guard let dateString = dictionary["created"] else {
         throw IssuerError.missing(property: "created")
     }
-    guard let key = dictionary["publicKey"] else {
+    
+    guard let key : String = dictionary["publicKey"] else {
         throw IssuerError.missing(property: "publicKey")
     }
+    
+    var publicKey = key
+    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
+        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
+    }
+    
     guard let date = dateString.toDate() else {
         throw IssuerError.invalid(property: "created")
     }
@@ -350,5 +357,5 @@ func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRota
         revoked = revokedString.toDate()
     }
     
-    return KeyRotation(on: date, key: key, revoked: revoked, expires: expires)
+    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
 }
