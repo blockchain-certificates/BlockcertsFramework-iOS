@@ -419,11 +419,18 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
                 
+                let regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
                 for ra in revokedAssertions {
-                    let id = ra["id"]
+                    guard let id = ra["id"],
+                        let range = id.range(of:regexp, options: .regularExpression) else {
+                        self?.state = .failure(reason: "Couldn't parse revoked assertions")
+                        return
+                    }
+                    
+                    let assertionUID = id.substring(with:range)
                     let reason = ra["revocationReason"]
-                    if id == self?.certificate.assertion.uid {
-                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid is \(id!) and reason is \(reason!)")
+                    if assertionUID == self?.certificate.assertion.uid {
+                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid is \(assertionUID) and reason is \(reason!)")
                         return
                     }
                 }

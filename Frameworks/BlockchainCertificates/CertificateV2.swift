@@ -143,14 +143,19 @@ enum MethodsForV2 {
         
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
+        
+        let regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
+        
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
             let issuedOnDate = issuedOnString.toDate(),
             let assertionID = assertionData["id"] as? String,
             let assertionIDURL = URL(string: assertionID),
-            let assertionUID = assertionData["id"] as? String else {
+            let range = assertionID.range(of:regexp, options: .regularExpression) else {
                 return nil
         }
+        
+        let assertionUID = assertionID.substring(with:range)
         
         // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a
         // hosting requirement, which is why I made it optional. But it is required for OBI compliance. Still on the fence.
