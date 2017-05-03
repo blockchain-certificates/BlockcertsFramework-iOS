@@ -177,7 +177,7 @@ class MetadataTests: XCTestCase {
         let label = "This is the First Key"
         let value = "value1"
         let json : [String: Any] = [
-            "$schema": [
+            "schema": [
                 "$schema": "http://json-schema.org/draft-04/schema#",
                 "type": "object",
                 "properties": [
@@ -214,7 +214,7 @@ class MetadataTests: XCTestCase {
         let label = "This is the First Key"
         let value = "https://blockcerts.org"
         let json : [String: Any] = [
-            "$schema": [
+            "schema": [
                 "$schema": "http://json-schema.org/draft-04/schema#",
                 "type": "object",
                 "properties": [
@@ -245,7 +245,7 @@ class MetadataTests: XCTestCase {
     
     func testTypeInferenceWithASchema() {
         let json : [String: Any] = [
-            "$schema": [
+            "schema": [
                 "$schema": "http://json-schema.org/draft-04/schema#",
                 "type": "object",
                 "properties": [
@@ -337,7 +337,7 @@ class MetadataTests: XCTestCase {
     
     func testMultipleSelectEnumerationDisplayValue() {
         let json : [String: Any] = [
-            "$schema": [
+            "schema": [
                 "$schema": "http://json-schema.org/draft-04/schema#",
                 "type": "object",
                 "properties": [
