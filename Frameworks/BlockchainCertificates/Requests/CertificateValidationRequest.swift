@@ -524,39 +524,52 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            guard let issuerPublicKeys = try? parseKeysV2(from: json, with: "publicKeys") else {
-                self?.state = .failure(reason: "Couldn't parse issuer publicKeys")
-                return
+            var issuerPublicKeys : [KeyRotation]? = nil
+            if (json["@context"] != nil) {
+                do {
+                    issuerPublicKeys = try parseKeysV2(from: json, with: "publicKeys") as [KeyRotation]?
+                } catch {
+                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
+                    return
+                }
+            } else {
+                do {
+                    issuerPublicKeys = try parseKeysV1(from: json, with: "issuerKeys") as [KeyRotation]?
+                } catch {
+                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
+                    return
+                }
             }
-            
+
             guard let signingKey = self?.signingPublicKey else {
-                self?.state = .failure(reason: "Couldn't parse determine transaction signing public key")
+                self?.state = .failure(reason: "Couldn't parse determine transaction signing public key.")
                 return
             }
             guard let txDate = self?.txDate else {
-                self?.state = .failure(reason: "Couldn't parse determine transaction date")
+                self?.state = .failure(reason: "Couldn't parse determine transaction date.")
                 return
             }
             
-            let issuerPublicKeyMap = issuerPublicKeys.toDictionary { $0.key }
-            guard let keyInfo = issuerPublicKeyMap[signingKey] else {
-                self?.state = .failure(reason: "Couldn't find issuer public key")
+            let issuerPublicKeyMap = issuerPublicKeys?.toDictionary { $0.key }
+            
+            guard let keyInfo = issuerPublicKeyMap?[signingKey] else {
+                self?.state = .failure(reason: "Couldn't find issuer public key.")
                 return
             }
             
             if txDate < keyInfo.on {
-                self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key")
+                self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key.")
                 return
             }
             if (keyInfo.revoked != nil) {
                 if txDate > keyInfo.revoked! {
-                    self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key")
+                    self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key.")
                     return
                 }
             }
             if (keyInfo.expires != nil) {
                 if txDate > keyInfo.expires! {
-                    self?.state = .failure(reason: "Transaction was issued after the Issuer key expired")
+                    self?.state = .failure(reason: "Transaction was issued after the Issuer key expired.")
                     return
                 }
             }

@@ -283,9 +283,9 @@ func parseKeysV1(from dictionary: [String: Any], with keyName: String) throws ->
             let rotation = try keyRotationSchedule(from: dictionary)
             return rotation
         } catch IssuerError.missing(let prop) {
-            throw IssuerError.missing(property: keyName + ".\(index).\(prop)") // TODO: str concat
+            throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
         } catch IssuerError.invalid(let prop) {
-            throw IssuerError.invalid(property: keyName + ".\(index).\(prop)")
+            throw IssuerError.invalid(property: ".\(keyName).\(index).\(prop)")
         }
     }
     
@@ -305,9 +305,9 @@ public func parseKeysV2(from dictionary: [String: Any], with keyName: String) th
             let rotation = try keyRotationScheduleV2(from: dictionary)
             return rotation
         } catch IssuerError.missing(let prop) {
-            throw IssuerError.missing(property: keyName + ".\(index).\(prop)") // TODO: str concat
+            throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
         } catch IssuerError.invalid(let prop) {
-            throw IssuerError.invalid(property: keyName + ".\(index).\(prop)")
+            throw IssuerError.invalid(property: ".\(keyName).\(index).\(prop)")
         }
     }
     
