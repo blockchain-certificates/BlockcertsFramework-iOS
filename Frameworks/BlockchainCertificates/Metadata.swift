@@ -11,7 +11,7 @@ import Foundation
 
 public struct Metadata {
     public static let visiblePathsKey = "displayOrder"
-    public static let schemaKey = "$schema"
+    public static let schemaKey = "schema"
     
     var groups : [String] {
         return Array(groupedMetadata.keys)
