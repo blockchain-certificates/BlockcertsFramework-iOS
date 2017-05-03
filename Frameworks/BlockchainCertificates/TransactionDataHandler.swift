@@ -32,8 +32,8 @@ public class TransactionDataHandler {
         // done differently....
     }
     
-    public static func create(chain: String, transactionId: String) -> TransactionDataHandler {
-        if chain == "testnet" {
+    public static func create(chain: BitcoinChain, transactionId: String) -> TransactionDataHandler {
+        if chain == .testnet {
             return BlockcypherHandler(transactionId: transactionId)
         } else {
             return BlockchainInfoHandler(transactionId: transactionId)

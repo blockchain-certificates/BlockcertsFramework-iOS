@@ -65,8 +65,7 @@ class CertificateV1_1Tests: XCTestCase {
                 return
         }
         let recipient = cert.recipient
-        XCTAssertEqual(recipient.givenName, "RecipientFirstName")
-        XCTAssertEqual(recipient.familyName, "RecipientLastName")
+        XCTAssertEqual(recipient.name, "RecipientFirstName RecipientLastName")
         XCTAssertEqual(recipient.identity, "recipient@domain.com")
         XCTAssertEqual(recipient.identityType, "email")
         XCTAssertEqual(recipient.isHashed, false)

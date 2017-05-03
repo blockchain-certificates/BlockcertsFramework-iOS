@@ -29,7 +29,7 @@ class ReceiptTests: XCTestCase {
         let receipt = certificate?.receipt
         
         let verifier = ReceiptVerifier()
-        let valid : Bool = verifier.validate(receipt: receipt!, chain: "testnet")
+        let valid : Bool = verifier.validate(receipt: receipt!, chain: .testnet)
         XCTAssertTrue(valid)
         
     }

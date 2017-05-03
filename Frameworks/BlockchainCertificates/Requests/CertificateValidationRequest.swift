@@ -48,7 +48,7 @@ public class CertificateValidationRequest : CommonRequest {
     let transactionId : String
     var completionHandler : ((Bool, String?) -> Void)?
     public weak var delegate : CertificateValidationRequestDelegate?
-    let chain : String
+    let chain : BitcoinChain
 
     public var state = ValidationState.notStarted {
         didSet {
@@ -97,7 +97,7 @@ public class CertificateValidationRequest : CommonRequest {
     public init(for certificate: Certificate,
          with transactionId: String,
          bitcoinManager: BitcoinManager,
-         chain: String = "mainnet",
+         chain: BitcoinChain = .mainnet,
          starting : Bool = false,
          jsonld : JSONLDProcessor = JSONLD.shared,
          session : URLSessionProtocol = URLSession.shared,
@@ -117,7 +117,7 @@ public class CertificateValidationRequest : CommonRequest {
     
     public convenience init?(for certificate: Certificate,
                       bitcoinManager: BitcoinManager,
-                     chain: String = "mainnet",
+                     chain: BitcoinChain = .mainnet,
                      starting : Bool = false,
                      jsonld : JSONLDProcessor = JSONLD.shared,
                      session: URLSessionProtocol = URLSession.shared,
@@ -146,7 +146,7 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     internal func assertChain() {
-        guard chain == "mainnet" else {
+        guard chain == .mainnet else {
             // We only need to assert mainnet if the chain is set to mainnet. If it's any other value, then we can't be held responsible for how you're validating.
             state = .computingLocalHash
             return
@@ -344,7 +344,7 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            let chain = self?.chain ?? "mainnet"
+            let chain = self?.chain ?? .mainnet
             guard let bitcoinManager = self?.bitcoinManager else {
                 self?.state = .failure(reason: "Incorrect configuration. ValidationRequest needs to have a bitcoin manager specified.")
                 return
