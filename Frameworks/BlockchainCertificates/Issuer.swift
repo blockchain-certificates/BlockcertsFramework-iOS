@@ -277,7 +277,7 @@ func parseKeys(from dictionary: [String: Any], with keyName: String,
     
     let parsedKeys = try keyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
         do {
-            let rotation = try keyRotationSchedule(from: dictionary)
+            let rotation = try keyRotationFunction(dictionary)
             return rotation
         } catch IssuerError.missing(let prop) {
             throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
