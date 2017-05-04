@@ -144,14 +144,12 @@ enum MethodsForV2 {
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
         
-        let regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
-        
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
             let issuedOnDate = issuedOnString.toDate(),
             let assertionID = assertionData["id"] as? String,
             let assertionIDURL = URL(string: assertionID),
-            let range = assertionID.range(of:regexp, options: .regularExpression) else {
+            let range = assertionID.range(of:Constants.guidRegexp, options: .regularExpression) else {
                 return nil
         }
         
@@ -161,7 +159,7 @@ enum MethodsForV2 {
         // hosting requirement, which is why I made it optional. But it is required for OBI compliance. Still on the fence.
         let evidenceObj : AnyObject? = assertionData["evidence"] as AnyObject?
         var evidence : String = ""
-        if ((evidenceObj as? String) != nil) {
+        if (evidenceObj as? String) != nil {
             evidence = evidenceObj as! String
         }
         

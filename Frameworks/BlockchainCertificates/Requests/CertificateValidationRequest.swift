@@ -209,19 +209,6 @@ public class CertificateValidationRequest : CommonRequest {
             do {
                 var json = try JSONSerialization.jsonObject(with: certificate.file, options: []) as! [String: Any]
                 json.removeValue(forKey: "signature")
-                // TODO (kdh): check for added values not mapped to JSON-LD. This is done starting V2
-                /*
-                guard let currentContext = json["@context"] as? [AnyObject] else {
-                    self.state = .failure(reason: "Failed JSON-LD normalization; could not find @context")
-                    return
-                }
-                let fallbackContext : [String: Any] = [
-                    "@vocab": "http://fallback.org/"
-                ]
-                var newContext = Array(currentContext)
-                newContext.append(fallbackContext as AnyObject)
-                json["@context"] = newContext
-                */
                 docData = try JSONSerialization.data(withJSONObject: json, options: [])
             } catch {
                 state = .failure(reason: "Failed to re-parse the document node out of the certificate's file.")
@@ -419,10 +406,9 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
                 
-                let regexp = "[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}"
                 for ra in revokedAssertions {
                     guard let id = ra["id"],
-                        let range = id.range(of:regexp, options: .regularExpression) else {
+                        let range = id.range(of:Constants.guidRegexp, options: .regularExpression) else {
                         self?.state = .failure(reason: "Couldn't parse revoked assertions")
                         return
                     }
@@ -525,16 +511,16 @@ public class CertificateValidationRequest : CommonRequest {
             }
             
             var issuerPublicKeys : [KeyRotation]? = nil
-            if (json["@context"] != nil) {
+            if json["@context"] != nil {
                 do {
-                    issuerPublicKeys = try parseKeysV2(from: json, with: "publicKeys") as [KeyRotation]?
+                    issuerPublicKeys = try parseKeys(from: json, with: "publicKeys", converter: keyRotationScheduleV2) as [KeyRotation]?
                 } catch {
                     self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
                     return
                 }
             } else {
                 do {
-                    issuerPublicKeys = try parseKeysV1(from: json, with: "issuerKeys") as [KeyRotation]?
+                    issuerPublicKeys = try parseKeys(from: json, with: "issuerKeys", converter: keyRotationSchedule) as [KeyRotation]?
                 } catch {
                     self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
                     return
@@ -561,13 +547,13 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key.")
                 return
             }
-            if (keyInfo.revoked != nil) {
+            if keyInfo.revoked != nil {
                 if txDate > keyInfo.revoked! {
                     self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key.")
                     return
                 }
             }
-            if (keyInfo.expires != nil) {
+            if keyInfo.expires != nil {
                 if txDate > keyInfo.expires! {
                     self?.state = .failure(reason: "Transaction was issued after the Issuer key expired.")
                     return

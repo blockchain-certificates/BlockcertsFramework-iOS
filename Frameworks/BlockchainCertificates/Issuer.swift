@@ -146,7 +146,7 @@ public struct Issuer {
     ///
     /// - parameter dictionary: A set of key-value pairs with data used to create the Issuer object
     /// - parameter version: Version hint for parsing
-    public init(dictionary: [String: Any], asVersion version: IssuerVersion = IssuerVersion.one) throws {
+    public init(dictionary: [String: Any], asVersion version: IssuerVersion = .one) throws {
         // Required properties first
         guard let name = dictionary["name"] as? String else {
             throw IssuerError.missing(property: "name")
@@ -174,15 +174,14 @@ public struct Issuer {
             throw IssuerError.invalid(property: "url")
         }
         
-
         if version == IssuerVersion.one {
-            let parsedIssuerKeys = try parseKeysV1(from: dictionary, with: "issuerKeys")
-            let parsedRevocationKeys = try parseKeysV1(from: dictionary, with: "revocationKeys")
+            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
+            let parsedRevocationKeys = try parseKeys(from: dictionary, with: "revocationKeys", converter: keyRotationSchedule)
             
             issuerKeys = parsedIssuerKeys.sorted(by: <)
             revocationKeys = parsedRevocationKeys.sorted(by: <)
         } else {
-            let parsedIssuerKeys = try parseKeysV1(from: dictionary, with: "publicKeys")
+            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
             issuerKeys = parsedIssuerKeys.sorted(by: <)
             revocationKeys = []
         }
@@ -192,8 +191,6 @@ public struct Issuer {
         self.image = image
         self.id = id
         self.url = url
-        
-
         
         // Optional Properties.
         if let introductionString = dictionary["introductionURL"] as? String,
@@ -212,7 +209,6 @@ public struct Issuer {
     }
     
     
-    /// TODO (kim): is this used?
     /// Convert this Issuer structure into a dictionary format.
     ///
     /// - returns: The dictionary representing this Issuer.
@@ -270,7 +266,8 @@ public func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
     return lhs.on < rhs.on
 }
 
-func parseKeysV1(from dictionary: [String: Any], with keyName: String) throws -> [KeyRotation] {
+func parseKeys(from dictionary: [String: Any], with keyName: String,
+                 converter keyRotationFunction: ([String : String]) throws -> KeyRotation) throws -> [KeyRotation] {
     guard let keyProperty = dictionary[keyName] else {
         throw IssuerError.missing(property: keyName)
     }
@@ -281,28 +278,6 @@ func parseKeysV1(from dictionary: [String: Any], with keyName: String) throws ->
     let parsedKeys = try keyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
         do {
             let rotation = try keyRotationSchedule(from: dictionary)
-            return rotation
-        } catch IssuerError.missing(let prop) {
-            throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
-        } catch IssuerError.invalid(let prop) {
-            throw IssuerError.invalid(property: ".\(keyName).\(index).\(prop)")
-        }
-    }
-    
-    return parsedKeys
-}
-
-public func parseKeysV2(from dictionary: [String: Any], with keyName: String) throws -> [KeyRotation] {
-    guard let keyProperty = dictionary[keyName] else {
-        throw IssuerError.missing(property: keyName)
-    }
-    guard let keyData = keyProperty as? [[String: String]] else {
-        throw IssuerError.invalid(property: keyName)
-    }
-    
-    let parsedKeys = try keyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
-        do {
-            let rotation = try keyRotationScheduleV2(from: dictionary)
             return rotation
         } catch IssuerError.missing(let prop) {
             throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
