@@ -15,7 +15,7 @@ import CommonCrypto
 //Step 1 of 5... Computing SHA256 digest of local certificate [DONE]
 //Step 2 of 5... Fetching hash in OP_RETURN field [DONE]
 //Step 3 of 5... Comparing local and blockchain hashes [PASS]
-//Step 4 of 5... Checking Media Lab signature [PASS]
+//Step 4 of 5... Checking authenticity [PASS]
 //Step 5 of 5... Checking not revoked by issuer [PASS]
 //Success! The certificate has been verified.
 public enum ValidationState {
@@ -26,6 +26,8 @@ public enum ValidationState {
     case failure(reason : String)
     // these are v1.2
     case checkingReceipt, checkingMerkleRoot
+    // this is v2.0+
+    case checkingAuthenticity
 }
 
 public protocol CertificateValidationRequestDelegate : class {
@@ -77,6 +79,8 @@ public class CertificateValidationRequest : CommonRequest {
                 self.checkMerkleRoot()
             case .checkingReceipt:
                 self.checkReceipt()
+            case .checkingAuthenticity:
+                self.checkAuthenticity()
             }
         }
     }
@@ -87,6 +91,8 @@ public class CertificateValidationRequest : CommonRequest {
     private var revocationKey : String?
     private var revokedAddresses : Set<String>?
     var normalizedCertificate : String?
+    var txDate : Date?
+    var signingPublicKey : String?
     
     public init(for certificate: Certificate,
          with transactionId: String,
@@ -274,6 +280,8 @@ public class CertificateValidationRequest : CommonRequest {
             
             self?.remoteHash = possibleRemoteHash
             self?.revokedAddresses = transactionData.revokedAddresses
+            self?.txDate = transactionData.txDate
+            self?.signingPublicKey = transactionData.signingPublicKey
             
             self?.state = .comparingHashes
         }
@@ -333,65 +341,37 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            guard let signature = self?.certificate.signature?.value else {
+            guard let signature = self?.certificate.signature else {
                 self?.state = .failure(reason: "Signature is missing")
                 return
             }
             
-            if self?.certificate.version == .two {
-                guard let issuerKey = json["publicKey"] as? String else {
-                    self?.state = .failure(reason: "Couldn't parse issuerKey")
+            guard let issuerKeys = json["issuerKeys"] as? [[String : String]],
+                let revocationKeys = json["revocationKeys"] as? [[String : String]] else {
+                    self?.state = .failure(reason: "Couldn't parse issuerKeys or revocationKeys from json: \n\(json)")
                     return
-                }
-                guard let normalizedCertificate = self?.normalizedCertificate else {
-                    self?.state = .failure(reason: "Missing normalized certificate")
-                    return
-                }
-                // TODO: date is hard-coded
-                guard let created = self?.certificate.signature?.created else {
-                    self?.state = .failure(reason: "Missing signature date")
-                    return
-                }
-                let messageTemp : String? = getDataToHash(input: normalizedCertificate, date: created)
-                guard let message = messageTemp else {
-                    self?.state = .failure(reason: "Couldn't parse message")
-                    return
-                }
-                
-                let address = bitcoinManager.address(for: message, with: signature, on: chain)
-                
-                guard address == issuerKey else {
-                    self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
-                    return
-                }
-                
-            } else {
-                guard let issuerKeys = json["issuerKeys"] as? [[String : String]],
-                    let revocationKeys = json["revocationKeys"] as? [[String : String]] else {
-                        self?.state = .failure(reason: "Couldn't parse issuerKeys or revocationKeys from json: \n\(json)")
-                        return
-                }
-                guard let revokeKey = revocationKeys.first?["key"] else {
-                        self?.state = .failure(reason: "Couldn't parse first revokeKey")
-                        return
-                }
-                self?.revocationKey = revokeKey
-                guard let issuerKey = issuerKeys.first?["key"] else {
-                    self?.state = .failure(reason: "Couldn't parse issuerKey")
-                    return
-                }
-                guard let message = self?.certificate.assertion.uid else {
-                    self?.state = .failure(reason: "Couldn't parse message")
-                    return
-                }
-                
-                let address = bitcoinManager.address(for: message, with: signature, on: chain)
-                
-                guard address == issuerKey else {
-                    self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
-                    return
-                }
             }
+            guard let revokeKey = revocationKeys.first?["key"] else {
+                    self?.state = .failure(reason: "Couldn't parse first revokeKey")
+                    return
+            }
+            self?.revocationKey = revokeKey
+            guard let issuerKey = issuerKeys.first?["key"] else {
+                self?.state = .failure(reason: "Couldn't parse issuerKey")
+                return
+            }
+            guard let message = self?.certificate.assertion.uid else {
+                self?.state = .failure(reason: "Couldn't parse message")
+                return
+            }
+                
+            let address = bitcoinManager.address(for: message, with: signature, on: chain)
+                
+            guard address == issuerKey else {
+                self?.state = .failure(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
+                return
+            }
+            
             
             self?.state = .checkingRevokedStatus
         }
@@ -427,10 +407,16 @@ public class CertificateValidationRequest : CommonRequest {
                 }
                 
                 for ra in revokedAssertions {
-                    let id = ra["id"]
+                    guard let id = ra["id"],
+                        let range = id.range(of:Constants.guidRegexp, options: .regularExpression) else {
+                        self?.state = .failure(reason: "Couldn't parse revoked assertions")
+                        return
+                    }
+                    
+                    let assertionUID = id.substring(with:range)
                     let reason = ra["revocationReason"]
-                    if id == self?.certificate.assertion.uid {
-                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid is \(id!) and reason is \(reason!)")
+                    if assertionUID == self?.certificate.assertion.uid {
+                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid is \(assertionUID) and reason is \(reason!)")
                         return
                     }
                 }
@@ -496,18 +482,90 @@ public class CertificateValidationRequest : CommonRequest {
             state = .failure(reason: "Invalid Merkle Receipt:\n Receipt\(certificate.receipt!)")
             return
         }
-        state = .checkingIssuerSignature
+        if certificate.version == .oneDotTwo {
+            state = .checkingIssuerSignature
+        } else {
+            state = .checkingAuthenticity
+        }
+    }
+    
+    internal func checkAuthenticity() {
+        let url = certificate.issuer.id
+        let request = session.dataTask(with: certificate.issuer.id) { [weak self] (data, response, error) in
+            guard let response = response as? HTTPURLResponse,
+                response.statusCode == 200 else {
+                    self?.state = .failure(reason: "Got invalid response from \(url)")
+                    return
+            }
+            guard let data = data else {
+                self?.state = .failure(reason: "Got a valid response, but no data from \(url)")
+                return
+            }
+            guard let json = try? JSONSerialization.jsonObject(with: data) as! [String: AnyObject] else {
+                self?.state = .failure(reason: "Issuer didn't return valid JSON data from \(url)")
+                return
+            }
+            guard (self?.certificate) != nil else {
+                self?.state = .failure(reason: "Certificate is missing.")
+                return
+            }
+            
+            var issuerPublicKeys : [KeyRotation]? = nil
+            if json["@context"] != nil {
+                do {
+                    issuerPublicKeys = try parseKeys(from: json, with: "publicKeys", converter: keyRotationScheduleV2) as [KeyRotation]?
+                } catch {
+                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
+                    return
+                }
+            } else {
+                do {
+                    issuerPublicKeys = try parseKeys(from: json, with: "issuerKeys", converter: keyRotationSchedule) as [KeyRotation]?
+                } catch {
+                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
+                    return
+                }
+            }
+
+            guard let signingKey = self?.signingPublicKey else {
+                self?.state = .failure(reason: "Couldn't parse determine transaction signing public key.")
+                return
+            }
+            guard let txDate = self?.txDate else {
+                self?.state = .failure(reason: "Couldn't parse determine transaction date.")
+                return
+            }
+            
+            let issuerPublicKeyMap = issuerPublicKeys?.toDictionary { $0.key }
+            
+            guard let keyInfo = issuerPublicKeyMap?[signingKey] else {
+                self?.state = .failure(reason: "Couldn't find issuer public key.")
+                return
+            }
+            
+            if txDate < keyInfo.on {
+                self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key.")
+                return
+            }
+            if keyInfo.revoked != nil {
+                if txDate > keyInfo.revoked! {
+                    self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key.")
+                    return
+                }
+            }
+            if keyInfo.expires != nil {
+                if txDate > keyInfo.expires! {
+                    self?.state = .failure(reason: "Transaction was issued after the Issuer key expired.")
+                    return
+                }
+            }
+            
+            self?.state = .checkingRevokedStatus
+        }
+        request.resume()
     }
 }
 
-/// This is a simplified adaptation of the getDataToHash function from
-/// https://github.com/digitalbazaar/jsonld-signatures. 
-/// This function prefixes the normalized json-ld with optional headers. Blockcerts only uses the 
-/// created date header for now.
-private func getDataToHash(input: String, date: String) -> String {
-    let toHash = "http://purl.org/dc/elements/1.1/created: " + date + "\n" + input
-    return toHash
-}
 
 // MARK: helper functions
 func sha256(data : Data) -> Data {
@@ -516,4 +574,14 @@ func sha256(data : Data) -> Data {
         _ = CC_SHA256($0, CC_LONG(data.count), &hash)
     }
     return Data(bytes: hash)
+}
+
+extension Array {
+    public func toDictionary<Key: Hashable>(with selectKey: (Element) -> Key) -> [Key:Element] {
+        var dict = [Key:Element]()
+        for element in self {
+            dict[selectKey(element)] = element
+        }
+        return dict
+    }
 }

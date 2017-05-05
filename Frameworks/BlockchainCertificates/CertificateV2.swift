@@ -17,12 +17,12 @@ struct CertificateV2 : Certificate {
     let language : String
     let id : URL?
     let file : Data
-    let signature: Signature?
     
     let issuer : Issuer
     let recipient : Recipient
     let assertion : Assertion
     let verifyData : Verify
+    let signature: String?
     
     let receipt : Receipt?
     let metadata: Metadata
@@ -45,9 +45,6 @@ struct CertificateV2 : Certificate {
         }
         guard var certificateData = json["badge"] as? [String: AnyObject] else {
             throw CertificateParserError.missingData(description: "Missing 'badge' property.")
-        }
-        guard var signatureData = json["signature"] as? [String: AnyObject] else {
-            throw CertificateParserError.missingData(description: "Missing 'signature' property.")
         }
         
         switch fileType {
@@ -87,7 +84,7 @@ struct CertificateV2 : Certificate {
             let recipient = MethodsForV2.parse(recipientJSON: json["recipient"]),
             let assertion = MethodsForV2.parse(assertionJSON: assertionVal as AnyObject?),
             let verifyData = MethodsForV2.parse(verifyJSON: json["verification"]),
-            let receiptData = MethodsForV2.parse(receiptJSON: signatureData["merkleProof"]) else {
+            let receiptData = MethodsForV2.parse(receiptJSON: json["signature"]) else {
                 throw CertificateParserError.genericError
         }
         self.issuer = issuer
@@ -95,11 +92,7 @@ struct CertificateV2 : Certificate {
         self.assertion = assertion
         self.verifyData = verifyData
         self.receipt = receiptData
-        
-        let signatureValue = signatureData["signatureValue"] as? String
-        let created = signatureData["created"] as? String
-        let creator = signatureData["creator"] as? String
-        self.signature = Signature(value: signatureValue, created: created, creator: creator)
+        self.signature = nil
         self.metadata = assertion.metadata
     }
 }
@@ -150,20 +143,23 @@ enum MethodsForV2 {
         
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
+        
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
             let issuedOnDate = issuedOnString.toDate(),
             let assertionID = assertionData["id"] as? String,
             let assertionIDURL = URL(string: assertionID),
-            let assertionUID = assertionData["id"] as? String else {
+            let range = assertionID.range(of:Constants.guidRegexp, options: .regularExpression) else {
                 return nil
         }
+        
+        let assertionUID = assertionID.substring(with:range)
         
         // evidence is optional in 1.2. This is a hack workaround. This field is irritating -- we never use it practically, and it forces a
         // hosting requirement, which is why I made it optional. But it is required for OBI compliance. Still on the fence.
         let evidenceObj : AnyObject? = assertionData["evidence"] as AnyObject?
         var evidence : String = ""
-        if ((evidenceObj as? String) != nil) {
+        if (evidenceObj as? String) != nil {
             evidence = evidenceObj as! String
         }
         

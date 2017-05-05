@@ -12,6 +12,8 @@ import Foundation
 public struct TransactionData {
     public let opReturnScript : String?
     public let revokedAddresses : Set<String>?
+    public let signingPublicKey : String?
+    public let txDate : Date?
 }
 
 public class TransactionDataHandler {
@@ -69,7 +71,8 @@ public class BlockchainInfoHandler : TransactionDataHandler {
             }
         }
         
-        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked)
+        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked,
+        signingPublicKey: nil, txDate: nil)
     }
 }
 
@@ -79,7 +82,7 @@ public class BlockcypherHandler : TransactionDataHandler {
     }
     override public func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["outputs"] as? [[String: AnyObject]] else {
-            super.failureReason = "Missing 'out' property in response:\n\(json)"
+            super.failureReason = "Missing 'outputs' property in response:\n\(json)"
             return
         }
         guard let lastOutput = outputs.last else {
@@ -103,6 +106,32 @@ public class BlockcypherHandler : TransactionDataHandler {
             }
         }
         
-        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked)
+        guard let inputs = json["inputs"] as? [[String: AnyObject]] else {
+            super.failureReason = "Missing 'inputs' property in response:\n\(json)"
+            return
+        }
+        
+        guard let firstInput = inputs.first else {
+            super.failureReason = "Couldn't find the first 'input' key in inputs: \(inputs)"
+            return
+        }
+        
+        guard let addresses = firstInput["addresses"] as? [String] else {
+            super.failureReason = "Couldn't find the 'addresses' key in inputs: \(inputs)"
+            return
+        }
+        
+        guard let signingPublicKey = addresses.first else {
+            super.failureReason = "Couldn't find the first signing public key inputs: \(inputs)"
+            return
+        }
+
+        guard let txDateString = json["received"] as? String else {
+            super.failureReason = "Missing 'received' property in response:\n\(json)"
+            return
+        }
+        
+        let txDate = txDateString.toDate()
+        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked, signingPublicKey: signingPublicKey, txDate: txDate)
     }
 }

@@ -11,14 +11,29 @@ import Foundation
 /// Signifies when a new key was rotated in for a given purpose.
 public struct KeyRotation {
     /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
+    /// In V2 this is an alias for 'created'
     public let on : Date
     /// A base64-encoded string representing the data of the key.
     public let key : String
     
-    public init(on: Date, key: String) {
+    public let revoked : Date?
+    public let expires : Date?
+    
+    public init(on: Date, key: String, revoked: Date? = nil, expires: Date? = nil) {
         self.on = on
         self.key = key
+        self.revoked = revoked
+        self.expires = expires
     }
+}
+
+/// Issuer version. Used for parsing; data model is the same
+/// - one: This is a v1 issuer
+/// - two: This is a v2 issuer
+public enum IssuerVersion : Int {
+    // Note, these should always be listed in increasing issuer version order
+    case one = 1
+    case two
 }
 
 public enum IssuerError : Error {
@@ -130,7 +145,8 @@ public struct Issuer {
     /// This is the inverse of `toDictionary`
     ///
     /// - parameter dictionary: A set of key-value pairs with data used to create the Issuer object
-    public init(dictionary: [String: Any]) throws {
+    /// - parameter version: Version hint for parsing
+    public init(dictionary: [String: Any], asVersion version: IssuerVersion = .one) throws {
         // Required properties first
         guard let name = dictionary["name"] as? String else {
             throw IssuerError.missing(property: "name")
@@ -157,53 +173,17 @@ public struct Issuer {
         guard let url = URL(string: urlString) else {
             throw IssuerError.invalid(property: "url")
         }
-        guard let issuerKeyProperty = dictionary["issuerKeys"] else {
-            throw IssuerError.missing(property: "issuerKeys")
-        }
-        guard let issuerKeyData = issuerKeyProperty as? [[String: String]] else {
-            throw IssuerError.invalid(property: "issuerKeys")
-        }
-        guard let revocationKeyProperty = dictionary["revocationKeys"] else {
-            throw IssuerError.missing(property: "revocationKeys")
-        }
-        guard let revocationKeyData = revocationKeyProperty as? [[String : String]] else {
-            throw IssuerError.invalid(property: "revocationKeys")
-        }
         
-        func keyRotationSchedule(from dictionary: [String : String]) throws -> KeyRotation {
-            guard let dateString = dictionary["date"] else {
-                throw IssuerError.missing(property: "date")
-            }
-            guard let key = dictionary["key"] else {
-                throw IssuerError.missing(property: "key")
-            }
-            guard let date = dateString.toDate() else {
-                throw IssuerError.invalid(property: "date")
-            }
+        if version == IssuerVersion.one {
+            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
+            let parsedRevocationKeys = try parseKeys(from: dictionary, with: "revocationKeys", converter: keyRotationSchedule)
             
-            return KeyRotation(on: date, key: key)
-        }
-        
-        let parsedIssuerKeys = try issuerKeyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
-            do {
-                let rotation = try keyRotationSchedule(from: dictionary)
-                return rotation
-            } catch IssuerError.missing(let prop) {
-                throw IssuerError.missing(property: "issuerKeys.\(index).\(prop)")
-            } catch IssuerError.invalid(let prop) {
-                throw IssuerError.invalid(property: "issuerKeys.\(index).\(prop)")
-            }
-        }
-        
-        let parsedRevocationKeys = try revocationKeyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
-            do {
-                let rotation = try keyRotationSchedule(from: dictionary)
-                return rotation
-            } catch IssuerError.missing(let prop) {
-                throw IssuerError.missing(property: "revocationKeys.\(index).\(prop)")
-            } catch IssuerError.invalid(let prop) {
-                throw IssuerError.invalid(property: "revocationKeys.\(index).\(prop)")
-            }
+            issuerKeys = parsedIssuerKeys.sorted(by: <)
+            revocationKeys = parsedRevocationKeys.sorted(by: <)
+        } else {
+            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
+            issuerKeys = parsedIssuerKeys.sorted(by: <)
+            revocationKeys = []
         }
         
         self.name = name
@@ -211,8 +191,6 @@ public struct Issuer {
         self.image = image
         self.id = id
         self.url = url
-        issuerKeys = parsedIssuerKeys.sorted(by: <)
-        revocationKeys = parsedRevocationKeys.sorted(by: <)
         
         // Optional Properties.
         if let introductionString = dictionary["introductionURL"] as? String,
@@ -286,4 +264,73 @@ public func ==(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
 
 public func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
     return lhs.on < rhs.on
+}
+
+func parseKeys(from dictionary: [String: Any], with keyName: String,
+                 converter keyRotationFunction: ([String : String]) throws -> KeyRotation) throws -> [KeyRotation] {
+    guard let keyProperty = dictionary[keyName] else {
+        throw IssuerError.missing(property: keyName)
+    }
+    guard let keyData = keyProperty as? [[String: String]] else {
+        throw IssuerError.invalid(property: keyName)
+    }
+    
+    let parsedKeys = try keyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
+        do {
+            let rotation = try keyRotationFunction(dictionary)
+            return rotation
+        } catch IssuerError.missing(let prop) {
+            throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
+        } catch IssuerError.invalid(let prop) {
+            throw IssuerError.invalid(property: ".\(keyName).\(index).\(prop)")
+        }
+    }
+    
+    return parsedKeys
+}
+
+func keyRotationSchedule(from dictionary: [String : String]) throws -> KeyRotation {
+    guard let dateString = dictionary["date"] else {
+        throw IssuerError.missing(property: "date")
+    }
+    guard let key = dictionary["key"] else {
+        throw IssuerError.missing(property: "key")
+    }
+    guard let date = dateString.toDate() else {
+        throw IssuerError.invalid(property: "date")
+    }
+    
+    return KeyRotation(on: date, key: key)
+}
+
+
+func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRotation {
+    guard let dateString = dictionary["created"] else {
+        throw IssuerError.missing(property: "created")
+    }
+    
+    guard let key : String = dictionary["publicKey"] else {
+        throw IssuerError.missing(property: "publicKey")
+    }
+    
+    var publicKey = key
+    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
+        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
+    }
+    
+    guard let date = dateString.toDate() else {
+        throw IssuerError.invalid(property: "created")
+    }
+    
+    var expires : Date? = nil
+    var revoked : Date? = nil
+    
+    if let expiresString = dictionary["expires"] {
+        expires = expiresString.toDate()
+    }
+    if let revokedString = dictionary["revoked"] {
+        revoked = revokedString.toDate()
+    }
+    
+    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
 }

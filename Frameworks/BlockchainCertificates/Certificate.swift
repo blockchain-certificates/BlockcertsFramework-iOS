@@ -161,7 +161,7 @@ public protocol Certificate {
     var file : Data { get }
     
     /// String of signature created when the Bitcoin private key signs the value in the attribute-signed field.
-    var signature : Signature? { get }
+    var signature : String? { get }
 
     /// Represents the entity that issued this certifiate. See `Issuer` for more details
     var issuer : Issuer { get }
