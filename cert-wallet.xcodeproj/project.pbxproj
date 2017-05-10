@@ -92,7 +92,6 @@
 		837ED9921EC37AAA0095F100 /* CertificateParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9771EC37AAA0095F100 /* CertificateParserTests.swift */; };
 		837ED9931EC37AAA0095F100 /* CertificateV1_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9781EC37AAA0095F100 /* CertificateV1_1Tests.swift */; };
 		837ED9941EC37AAA0095F100 /* CertificateV1_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9791EC37AAA0095F100 /* CertificateV1_2Tests.swift */; };
-		837ED9951EC37AAA0095F100 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 837ED97A1EC37AAA0095F100 /* Info.plist */; };
 		837ED9961EC37AAA0095F100 /* IssuerCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97B1EC37AAA0095F100 /* IssuerCreationRequestTests.swift */; };
 		837ED9971EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97C1EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift */; };
 		837ED9981EC37AAA0095F100 /* IssuerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97D1EC37AAA0095F100 /* IssuerTests.swift */; };
@@ -220,6 +219,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8391745E1DA56B6300CB6E54;
 			remoteInfo = CommonCrypto;
+		};
+		837ED9B31EC383590095F100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 837ED9281EC37A440095F100;
+			remoteInfo = Blockcerts;
 		};
 		839174641DA56B6300CB6E54 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -824,6 +830,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				837ED9B41EC383590095F100 /* PBXTargetDependency */,
 			);
 			name = ImportAction;
 			productName = ImportAction;
@@ -1188,7 +1195,6 @@
 				837ED9A21EC37AAA0095F100 /* sample_signed_cert-1.1.0.json in Resources */,
 				837ED99D1EC37AAA0095F100 /* modified_1.2_jsonld.json in Resources */,
 				837ED99E1EC37AAA0095F100 /* multiimage_1.2.json in Resources */,
-				837ED9951EC37AAA0095F100 /* Info.plist in Resources */,
 				837ED9A41EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				837ED99C1EC37AAA0095F100 /* index.html in Resources */,
 				837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0.json in Resources */,
@@ -1525,6 +1531,11 @@
 			isa = PBXTargetDependency;
 			target = 8391745E1DA56B6300CB6E54 /* CommonCrypto */;
 			targetProxy = 837ED9AD1EC381A20095F100 /* PBXContainerItemProxy */;
+		};
+		837ED9B41EC383590095F100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 837ED9281EC37A440095F100 /* Blockcerts */;
+			targetProxy = 837ED9B31EC383590095F100 /* PBXContainerItemProxy */;
 		};
 		839174651DA56B6300CB6E54 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1885,6 +1896,7 @@
 		837ED9411EC37A440095F100 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1895,7 +1907,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/Blockcerts/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.Blockcerts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1910,6 +1922,7 @@
 		837ED9421EC37A440095F100 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
@@ -1920,7 +1933,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Frameworks/Blockcerts/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.Blockcerts;
 				PRODUCT_NAME = "$(TARGET_NAME)";

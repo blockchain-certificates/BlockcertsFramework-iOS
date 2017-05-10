@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BlockchainCertificates
+import Blockcerts
 
 class CoreBitcoinManager : BitcoinManager {
     func address(for message: String, with signature: String, on chain: BitcoinChain) -> String? {

@@ -8,7 +8,7 @@
 
 import Foundation
 import Security
-import BlockchainCertificates
+import Blockcerts
 
 private var unusedKeyIndexKey = "org.blockcerts.unused-key-index"
 

@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import BlockchainCertificates
+@testable import Blockcerts
 
 class CertificateV1_1Tests: XCTestCase {
     let certificateFilename = "sample_unsigned_cert-1.1.0"

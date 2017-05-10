@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import BlockchainCertificates
+import Blockcerts
 
 public class MockURLSession : URLSessionProtocol {
     private var responseData = [URL : (data: Data?, response: URLResponse?, error: Error?)]()

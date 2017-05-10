@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import BlockchainCertificates
+@testable import Blockcerts
 
 class IssuerTests: XCTestCase {
     let nameValue = "Name"
