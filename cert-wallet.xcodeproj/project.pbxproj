@@ -8,13 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */; };
-		3B391F121E9D8687002B13BB /* RecipientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B391F0F1E9D863B002B13BB /* RecipientTests.swift */; };
 		3B3F8A211EB16FF800543CBA /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */; };
 		3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */; };
 		3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */; };
-		3B3F8A271EB1702500543CBA /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A241EB1702500543CBA /* sample_cert-unmapped-2.0.json */; };
-		3B3F8A281EB1702500543CBA /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A251EB1702500543CBA /* sample_cert-valid-2.0.json */; };
-		3B3F8A291EB1702500543CBA /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A261EB1702500543CBA /* sample_cert-revoked-2.0.json */; };
 		3B3F8A321EB177EC00543CBA /* tx_valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */; };
 		3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */; };
 		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
@@ -27,12 +23,10 @@
 		3B684B0A1EBA83ED007185AE /* normalized_v1-issuer-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B071EBA83ED007185AE /* normalized_v1-issuer-2.0.txt */; };
 		3B684B0B1EBA83ED007185AE /* normalized_authenticity-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B081EBA83ED007185AE /* normalized_authenticity-2.0.txt */; };
 		3B684B0D1EBA8D2A007185AE /* sample_v1_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B0C1EBA8D2A007185AE /* sample_v1_issuer.json */; };
-		3B684B0E1EBBCD22007185AE /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */; };
 		3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */; };
 		3B8E1E511E9BEE8B00DC636D /* normalized_revoked-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */; };
 		3B8E1E531E9BF71000DC636D /* (null) in Sources */ = {isa = PBXBuildFile; };
-		3B8E1E561E9BF85C00DC636D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3B90A0541E999E4000C027B7 /* tx_valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0531E999E4000C027B7 /* tx_valid-1.2.0.json */; };
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
 		3B90A0581E99A05400C027B7 /* tx_valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0571E99A05400C027B7 /* tx_valid-1.1.0.json */; };
@@ -40,46 +34,15 @@
 		3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF6EA61D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json */; };
 		3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */; };
 		53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */; };
-		830AB9C71DA6B0F200185E19 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9C61DA6B0F200185E19 /* StringExtensions.swift */; };
-		830AB9C91DA6B2D400185E19 /* CertificateParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9C81DA6B2D400185E19 /* CertificateParserTests.swift */; };
-		830AB9CC1DA6B34400185E19 /* CertificateV1_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9CA1DA6B34400185E19 /* CertificateV1_1Tests.swift */; };
-		830AB9CD1DA6B34400185E19 /* CertificateV1_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9CB1DA6B34400185E19 /* CertificateV1_2Tests.swift */; };
-		830AB9D81DA6B3BC00185E19 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9CF1DA6B3BC00185E19 /* index.html */; };
-		830AB9D91DA6B3BC00185E19 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D01DA6B3BC00185E19 /* modified_1.2_jsonld.json */; };
-		830AB9DA1DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D11DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json */; };
-		830AB9DB1DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D21DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json */; };
-		830AB9DC1DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D31DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json */; };
-		830AB9DD1DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D41DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json */; };
-		830AB9DE1DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D51DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json */; };
-		830AB9DF1DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D61DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json */; };
-		830AB9E01DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 830AB9D71DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
-		830AB9E41DA6B44B00185E19 /* IssuerCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E11DA6B44B00185E19 /* IssuerCreationRequestTests.swift */; };
-		830AB9E51DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E21DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift */; };
-		830AB9E61DA6B44B00185E19 /* IssuerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E31DA6B44B00185E19 /* IssuerTests.swift */; };
-		830AB9E81DA6B5C400185E19 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E71DA6B5C400185E19 /* MockURLSession.swift */; };
-		830AB9EA1DA6B63400185E19 /* ReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830AB9E91DA6B63400185E19 /* ReceiptTests.swift */; };
-		830ABA7B1DA84DA300185E19 /* BitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */; };
 		830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		830ABA7F1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
-		830E707D1DEE2912009BAB30 /* multiimage_1.2.json in Resources */ = {isa = PBXBuildFile; fileRef = 830E707C1DEE2912009BAB30 /* multiimage_1.2.json */; };
-		83111BAC1DA42087006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
-		83111BB81DA42087006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
-		83111BB91DA42087006B058D /* BlockchainCertificates.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		83111BC11DA4212C006B058D /* BlockchainCertificates.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */; };
-		8318FC451DAC0BC2006A8FD5 /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318FC441DAC0BC2006A8FD5 /* CertificateValidationRequest.swift */; };
-		8318FC471DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8318FC461DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift */; };
-		8318FC4E1DAC4BBB006A8FD5 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
-		8318FC4F1DAC4BC1006A8FD5 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; };
 		831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */; };
 		832A0BAF1D8B12D900BDCD59 /* DocumentPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BAE1D8B12D900BDCD59 /* DocumentPickerViewController.swift */; };
 		832A0BB21D8B12D900BDCD59 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 832A0BB01D8B12D900BDCD59 /* MainInterface.storyboard */; };
 		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		832F2A4C1E955FAF00A65C3A /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F2A4A1E955E0900A65C3A /* Metadata.swift */; };
-		832F2A4E1E9564FF00A65C3A /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */; };
-		832F2A501E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 832F2A4F1E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json */; };
 		834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */; };
 		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
 		8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
@@ -88,7 +51,6 @@
 		835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 835B624D1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json */; };
 		835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
 		835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
-		836031BE1E5D088C005B2D2E /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839174351DA563E800CB6E54 /* String.swift */; };
 		8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
 		8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
 		8369CB141D70D02C006D603E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8369CB131D70D02C006D603E /* Settings.bundle */; };
@@ -102,28 +64,65 @@
 		836B857C1D7F575D00B2130B /* CertificateRevocationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836B857B1D7F575D00B2130B /* CertificateRevocationRequestTests.swift */; };
 		836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
+		837ED9321EC37A440095F100 /* Blockcerts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; };
+		837ED93E1EC37A440095F100 /* Blockcerts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; };
+		837ED93F1EC37A440095F100 /* Blockcerts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		837ED95F1EC37A9E0095F100 /* Assertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9471EC37A9E0095F100 /* Assertion.swift */; };
+		837ED9601EC37A9E0095F100 /* BlockchainCertificates.h in Headers */ = {isa = PBXBuildFile; fileRef = 837ED9481EC37A9E0095F100 /* BlockchainCertificates.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		837ED9611EC37A9E0095F100 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9491EC37A9E0095F100 /* Certificate.swift */; };
+		837ED9621EC37A9E0095F100 /* CertificateV1_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94A1EC37A9E0095F100 /* CertificateV1_1.swift */; };
+		837ED9631EC37A9E0095F100 /* CertificateV1_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94B1EC37A9E0095F100 /* CertificateV1_2.swift */; };
+		837ED9641EC37A9E0095F100 /* CertificateV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94C1EC37A9E0095F100 /* CertificateV2.swift */; };
+		837ED9651EC37A9E0095F100 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94E1EC37A9E0095F100 /* String.swift */; };
+		837ED9661EC37A9E0095F100 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94F1EC37A9E0095F100 /* URLSession.swift */; };
+		837ED9681EC37A9E0095F100 /* Issuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9511EC37A9E0095F100 /* Issuer.swift */; };
+		837ED9691EC37A9E0095F100 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9521EC37A9E0095F100 /* Metadata.swift */; };
+		837ED96A1EC37A9E0095F100 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9531EC37A9E0095F100 /* Receipt.swift */; };
+		837ED96B1EC37A9E0095F100 /* ReceiptVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9541EC37A9E0095F100 /* ReceiptVerifier.swift */; };
+		837ED96C1EC37A9E0095F100 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9551EC37A9E0095F100 /* Recipient.swift */; };
+		837ED96D1EC37A9E0095F100 /* CertificateRevocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9571EC37A9E0095F100 /* CertificateRevocationRequest.swift */; };
+		837ED96E1EC37A9E0095F100 /* CertificateValidationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9581EC37A9E0095F100 /* CertificateValidationRequest.swift */; };
+		837ED96F1EC37A9E0095F100 /* CommonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9591EC37A9E0095F100 /* CommonRequest.swift */; };
+		837ED9701EC37A9E0095F100 /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED95A1EC37A9E0095F100 /* IssuerCreationRequest.swift */; };
+		837ED9711EC37A9E0095F100 /* IssuerIntroductionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED95B1EC37A9E0095F100 /* IssuerIntroductionRequest.swift */; };
+		837ED9721EC37A9E0095F100 /* Signature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED95C1EC37A9E0095F100 /* Signature.swift */; };
+		837ED9731EC37A9E0095F100 /* TransactionDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED95D1EC37A9E0095F100 /* TransactionDataHandler.swift */; };
+		837ED9741EC37A9E0095F100 /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED95E1EC37A9E0095F100 /* Verify.swift */; };
+		837ED9911EC37AAA0095F100 /* BlockchainCertificatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9761EC37AAA0095F100 /* BlockchainCertificatesTests.swift */; };
+		837ED9921EC37AAA0095F100 /* CertificateParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9771EC37AAA0095F100 /* CertificateParserTests.swift */; };
+		837ED9931EC37AAA0095F100 /* CertificateV1_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9781EC37AAA0095F100 /* CertificateV1_1Tests.swift */; };
+		837ED9941EC37AAA0095F100 /* CertificateV1_2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9791EC37AAA0095F100 /* CertificateV1_2Tests.swift */; };
+		837ED9951EC37AAA0095F100 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 837ED97A1EC37AAA0095F100 /* Info.plist */; };
+		837ED9961EC37AAA0095F100 /* IssuerCreationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97B1EC37AAA0095F100 /* IssuerCreationRequestTests.swift */; };
+		837ED9971EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97C1EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift */; };
+		837ED9981EC37AAA0095F100 /* IssuerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97D1EC37AAA0095F100 /* IssuerTests.swift */; };
+		837ED9991EC37AAA0095F100 /* MetadataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97E1EC37AAA0095F100 /* MetadataTests.swift */; };
+		837ED99A1EC37AAA0095F100 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED97F1EC37AAA0095F100 /* MockURLSession.swift */; };
+		837ED99B1EC37AAA0095F100 /* ReceiptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9801EC37AAA0095F100 /* ReceiptTests.swift */; };
+		837ED99C1EC37AAA0095F100 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9821EC37AAA0095F100 /* index.html */; };
+		837ED99D1EC37AAA0095F100 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9831EC37AAA0095F100 /* modified_1.2_jsonld.json */; };
+		837ED99E1EC37AAA0095F100 /* multiimage_1.2.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9841EC37AAA0095F100 /* multiimage_1.2.json */; };
+		837ED99F1EC37AAA0095F100 /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0.json */; };
+		837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0.json */; };
+		837ED9A11EC37AAA0095F100 /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0.json */; };
+		837ED9A21EC37AAA0095F100 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9881EC37AAA0095F100 /* sample_signed_cert-1.1.0.json */; };
+		837ED9A31EC37AAA0095F100 /* sample_signed_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9891EC37AAA0095F100 /* sample_signed_cert-1.2.0.json */; };
+		837ED9A41EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98A1EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json */; };
+		837ED9A51EC37AAA0095F100 /* sample_signed_cert-valid-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98B1EC37AAA0095F100 /* sample_signed_cert-valid-1.2.0.json */; };
+		837ED9A61EC37AAA0095F100 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98C1EC37AAA0095F100 /* sample_unsigned_cert-1.1.0.json */; };
+		837ED9A71EC37AAA0095F100 /* sample_unsigned_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98D1EC37AAA0095F100 /* sample_unsigned_cert-1.2.0.json */; };
+		837ED9A81EC37AAA0095F100 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98E1EC37AAA0095F100 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
+		837ED9A91EC37AAA0095F100 /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98F1EC37AAA0095F100 /* sample_unsigned_cert_with_metadata-1.2.0.json */; };
+		837ED9AA1EC37AAA0095F100 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9901EC37AAA0095F100 /* StringExtensions.swift */; };
+		837ED9B01EC382080095F100 /* BitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9AF1EC382080095F100 /* BitcoinManager.swift */; };
+		837ED9B21EC382E00095F100 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9B11EC382E00095F100 /* Constants.swift */; };
 		838DA1A01DA4588F00E85326 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 838DA19C1DA4588F00E85326 /* index.html */; };
 		838DA1A21DA4588F00E85326 /* JSONLD.h in Headers */ = {isa = PBXBuildFile; fileRef = 838DA19E1DA4588F00E85326 /* JSONLD.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		838DA1A31DA4588F00E85326 /* JSONLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA19F1DA4588F00E85326 /* JSONLD.swift */; };
-		838DA1A61DA45AC300E85326 /* BlockchainCertificates.h in Headers */ = {isa = PBXBuildFile; fileRef = 838DA1A41DA45AC300E85326 /* BlockchainCertificates.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		838DA1AA1DA45AF800E85326 /* BlockchainCertificatesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1A81DA45AF800E85326 /* BlockchainCertificatesTests.swift */; };
-		838DA1B21DA45CBB00E85326 /* Assertion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1AC1DA45CBB00E85326 /* Assertion.swift */; };
-		838DA1B31DA45CBB00E85326 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1AD1DA45CBB00E85326 /* Certificate.swift */; };
-		838DA1B41DA45CBB00E85326 /* Issuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1AE1DA45CBB00E85326 /* Issuer.swift */; };
-		838DA1B51DA45CBB00E85326 /* Receipt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1AF1DA45CBB00E85326 /* Receipt.swift */; };
-		838DA1B61DA45CBB00E85326 /* Recipient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1B01DA45CBB00E85326 /* Recipient.swift */; };
-		838DA1B71DA45CBB00E85326 /* Verify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838DA1B11DA45CBB00E85326 /* Verify.swift */; };
-		839174311DA5610600CB6E54 /* TransactionDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839174301DA5610600CB6E54 /* TransactionDataHandler.swift */; };
-		839174331DA5637600CB6E54 /* ReceiptVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839174321DA5637600CB6E54 /* ReceiptVerifier.swift */; };
-		839174361DA563E800CB6E54 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 839174351DA563E800CB6E54 /* String.swift */; };
 		839174661DA56B6300CB6E54 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; };
 		839174671DA56B6300CB6E54 /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		839174741DA56EFB00CB6E54 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 8391746B1DA56B9500CB6E54 /* CommonCrypto.h */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
-		83B0A84E1DA5A80B00E5ECFA /* CommonRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A84D1DA5A80300E5ECFA /* CommonRequest.swift */; };
-		83B0A8511DA5A87D00E5ECFA /* IssuerCreationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A84F1DA5A87D00E5ECFA /* IssuerCreationRequest.swift */; };
-		83B0A8521DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A8501DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift */; };
-		83B0A8541DA5A90E00E5ECFA /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B0A8531DA5A90E00E5ECFA /* URLSession.swift */; };
 		83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
 		83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
 		83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
@@ -137,9 +136,6 @@
 		83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
-		83E50B3C1E9EB9C400FC6D8B /* CertificateV1_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E50B3B1E9EB9C400FC6D8B /* CertificateV1_1.swift */; };
-		83E50B3E1E9EBAA000FC6D8B /* CertificateV1_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E50B3D1E9EBAA000FC6D8B /* CertificateV1_2.swift */; };
-		83E50B401E9EBC8400FC6D8B /* CertificateV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83E50B3F1E9EBC8400FC6D8B /* CertificateV2.swift */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
 
@@ -155,27 +151,6 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
-		83111BAD1DA42087006B058D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 836A319B1D5933D800943801 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83111BA21DA42086006B058D;
-			remoteInfo = BlockchainCertificates;
-		};
-		83111BAF1DA42087006B058D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 836A319B1D5933D800943801 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 836A31A21D5933D800943801;
-			remoteInfo = "cert-wallet";
-		};
-		83111BB61DA42087006B058D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 836A319B1D5933D800943801 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83111BA21DA42086006B058D;
-			remoteInfo = BlockchainCertificates;
-		};
 		832A0BBF1D8B12D900BDCD59 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 836A319B1D5933D800943801 /* Project object */;
@@ -211,14 +186,42 @@
 			remoteGlobalIDString = 836A31A21D5933D800943801;
 			remoteInfo = "cert-wallet";
 		};
-		839174641DA56B6300CB6E54 /* PBXContainerItemProxy */ = {
+		837ED9331EC37A440095F100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 837ED9281EC37A440095F100;
+			remoteInfo = Blockcerts;
+		};
+		837ED9351EC37A440095F100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 836A31A21D5933D800943801;
+			remoteInfo = "cert-wallet";
+		};
+		837ED93C1EC37A440095F100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 837ED9281EC37A440095F100;
+			remoteInfo = Blockcerts;
+		};
+		837ED9AB1EC381A20095F100 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 836A319B1D5933D800943801 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8354F30F1D9F13840008DB09;
+			remoteInfo = JSONLD;
+		};
+		837ED9AD1EC381A20095F100 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 836A319B1D5933D800943801 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8391745E1DA56B6300CB6E54;
 			remoteInfo = CommonCrypto;
 		};
-		839174721DA56E9B00CB6E54 /* PBXContainerItemProxy */ = {
+		839174641DA56B6300CB6E54 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 836A319B1D5933D800943801 /* Project object */;
 			proxyType = 1;
@@ -246,7 +249,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				83111BB91DA42087006B058D /* BlockchainCertificates.framework in Embed Frameworks */,
+				837ED93F1EC37A440095F100 /* Blockcerts.framework in Embed Frameworks */,
 				839174671DA56B6300CB6E54 /* CommonCrypto.framework in Embed Frameworks */,
 				8354F3181D9F13840008DB09 /* JSONLD.framework in Embed Frameworks */,
 			);
@@ -258,13 +261,9 @@
 /* Begin PBXFileReference section */
 		2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC550FD5CE48EBC6F6DB6F5 /* Pods-cert-walletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.debug.xcconfig"; sourceTree = "<group>"; };
-		3B391F0F1E9D863B002B13BB /* RecipientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipientTests.swift; sourceTree = SOURCE_ROOT; };
 		3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
-		3B3F8A241EB1702500543CBA /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
-		3B3F8A251EB1702500543CBA /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
-		3B3F8A261EB1702500543CBA /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "revocation_list-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A341EB1780D00543CBA /* sample_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_issuer.json; sourceTree = "<group>"; };
@@ -288,31 +287,7 @@
 		3BF0FCEF1D66240F00CCEC57 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
 		4577D4DA579179516CE8C7E7 /* Pods-cert-wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.release.xcconfig"; sourceTree = "<group>"; };
 		63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		830AB9C61DA6B0F200185E19 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = Frameworks/BlockchainCertificatesTests/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
-		830AB9C81DA6B2D400185E19 /* CertificateParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateParserTests.swift; path = Frameworks/BlockchainCertificatesTests/CertificateParserTests.swift; sourceTree = SOURCE_ROOT; };
-		830AB9CA1DA6B34400185E19 /* CertificateV1_1Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateV1_1Tests.swift; path = Frameworks/BlockchainCertificatesTests/CertificateV1_1Tests.swift; sourceTree = SOURCE_ROOT; };
-		830AB9CB1DA6B34400185E19 /* CertificateV1_2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateV1_2Tests.swift; path = Frameworks/BlockchainCertificatesTests/CertificateV1_2Tests.swift; sourceTree = SOURCE_ROOT; };
-		830AB9CF1DA6B3BC00185E19 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		830AB9D01DA6B3BC00185E19 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
-		830AB9D11DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
-		830AB9D21DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.2.0.json"; sourceTree = "<group>"; };
-		830AB9D31DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.1.0.json"; sourceTree = "<group>"; };
-		830AB9D41DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.2.0.json"; sourceTree = "<group>"; };
-		830AB9D51DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.1.0.json"; sourceTree = "<group>"; };
-		830AB9D61DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.2.0.json"; sourceTree = "<group>"; };
-		830AB9D71DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-invalid_no_email-1.2.0.json"; sourceTree = "<group>"; };
-		830AB9E11DA6B44B00185E19 /* IssuerCreationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IssuerCreationRequestTests.swift; path = Frameworks/BlockchainCertificatesTests/IssuerCreationRequestTests.swift; sourceTree = SOURCE_ROOT; };
-		830AB9E21DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IssuerIntroductionRequestTests.swift; path = Frameworks/BlockchainCertificatesTests/IssuerIntroductionRequestTests.swift; sourceTree = SOURCE_ROOT; };
-		830AB9E31DA6B44B00185E19 /* IssuerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IssuerTests.swift; path = Frameworks/BlockchainCertificatesTests/IssuerTests.swift; sourceTree = SOURCE_ROOT; };
-		830AB9E71DA6B5C400185E19 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MockURLSession.swift; path = Frameworks/BlockchainCertificatesTests/MockURLSession.swift; sourceTree = SOURCE_ROOT; };
-		830AB9E91DA6B63400185E19 /* ReceiptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceiptTests.swift; path = Frameworks/BlockchainCertificatesTests/ReceiptTests.swift; sourceTree = SOURCE_ROOT; };
-		830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BitcoinManager.swift; path = Frameworks/CoreBitcoin/BitcoinManager.swift; sourceTree = SOURCE_ROOT; };
 		830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreBitcoinManager.swift; sourceTree = "<group>"; };
-		830E707C1DEE2912009BAB30 /* multiimage_1.2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = multiimage_1.2.json; sourceTree = "<group>"; };
-		83111BA31DA42086006B058D /* BlockchainCertificates.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlockchainCertificates.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockchainCertificatesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8318FC441DAC0BC2006A8FD5 /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequest.swift; sourceTree = "<group>"; };
-		8318FC461DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateRevocationRequest.swift; sourceTree = "<group>"; };
 		831FF7631D99B4A0008BAA68 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
 		832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ImportAction.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		832A0BAD1D8B12D900BDCD59 /* ImportAction.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportAction.entitlements; sourceTree = "<group>"; };
@@ -323,9 +298,6 @@
 		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		832F2A4A1E955E0900A65C3A /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = Frameworks/BlockchainCertificates/Metadata.swift; sourceTree = SOURCE_ROOT; };
-		832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataTests.swift; path = Frameworks/BlockchainCertificatesTests/MetadataTests.swift; sourceTree = SOURCE_ROOT; };
-		832F2A4F1E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert_with_metadata-1.2.0.json"; sourceTree = "<group>"; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -353,23 +325,62 @@
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836B857B1D7F575D00B2130B /* CertificateRevocationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateRevocationRequestTests.swift; sourceTree = "<group>"; };
 		836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderedCertificateTableViewCell.swift; sourceTree = "<group>"; };
+		837ED9291EC37A440095F100 /* Blockcerts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blockcerts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		837ED9311EC37A440095F100 /* BlockcertsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockcertsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		837ED9471EC37A9E0095F100 /* Assertion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assertion.swift; sourceTree = "<group>"; };
+		837ED9481EC37A9E0095F100 /* BlockchainCertificates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockchainCertificates.h; sourceTree = "<group>"; };
+		837ED9491EC37A9E0095F100 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
+		837ED94A1EC37A9E0095F100 /* CertificateV1_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_1.swift; sourceTree = "<group>"; };
+		837ED94B1EC37A9E0095F100 /* CertificateV1_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_2.swift; sourceTree = "<group>"; };
+		837ED94C1EC37A9E0095F100 /* CertificateV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV2.swift; sourceTree = "<group>"; };
+		837ED94E1EC37A9E0095F100 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		837ED94F1EC37A9E0095F100 /* URLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		837ED9501EC37A9E0095F100 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		837ED9511EC37A9E0095F100 /* Issuer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issuer.swift; sourceTree = "<group>"; };
+		837ED9521EC37A9E0095F100 /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		837ED9531EC37A9E0095F100 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Receipt.swift; sourceTree = "<group>"; };
+		837ED9541EC37A9E0095F100 /* ReceiptVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptVerifier.swift; sourceTree = "<group>"; };
+		837ED9551EC37A9E0095F100 /* Recipient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipient.swift; sourceTree = "<group>"; };
+		837ED9571EC37A9E0095F100 /* CertificateRevocationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateRevocationRequest.swift; sourceTree = "<group>"; };
+		837ED9581EC37A9E0095F100 /* CertificateValidationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequest.swift; sourceTree = "<group>"; };
+		837ED9591EC37A9E0095F100 /* CommonRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonRequest.swift; sourceTree = "<group>"; };
+		837ED95A1EC37A9E0095F100 /* IssuerCreationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequest.swift; sourceTree = "<group>"; };
+		837ED95B1EC37A9E0095F100 /* IssuerIntroductionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequest.swift; sourceTree = "<group>"; };
+		837ED95C1EC37A9E0095F100 /* Signature.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Signature.swift; sourceTree = "<group>"; };
+		837ED95D1EC37A9E0095F100 /* TransactionDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionDataHandler.swift; sourceTree = "<group>"; };
+		837ED95E1EC37A9E0095F100 /* Verify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Verify.swift; sourceTree = "<group>"; };
+		837ED9761EC37AAA0095F100 /* BlockchainCertificatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockchainCertificatesTests.swift; sourceTree = "<group>"; };
+		837ED9771EC37AAA0095F100 /* CertificateParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateParserTests.swift; sourceTree = "<group>"; };
+		837ED9781EC37AAA0095F100 /* CertificateV1_1Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_1Tests.swift; sourceTree = "<group>"; };
+		837ED9791EC37AAA0095F100 /* CertificateV1_2Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_2Tests.swift; sourceTree = "<group>"; };
+		837ED97A1EC37AAA0095F100 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		837ED97B1EC37AAA0095F100 /* IssuerCreationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequestTests.swift; sourceTree = "<group>"; };
+		837ED97C1EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequestTests.swift; sourceTree = "<group>"; };
+		837ED97D1EC37AAA0095F100 /* IssuerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerTests.swift; sourceTree = "<group>"; };
+		837ED97E1EC37AAA0095F100 /* MetadataTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataTests.swift; sourceTree = "<group>"; };
+		837ED97F1EC37AAA0095F100 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		837ED9801EC37AAA0095F100 /* ReceiptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReceiptTests.swift; sourceTree = "<group>"; };
+		837ED9821EC37AAA0095F100 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		837ED9831EC37AAA0095F100 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
+		837ED9841EC37AAA0095F100 /* multiimage_1.2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = multiimage_1.2.json; sourceTree = "<group>"; };
+		837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
+		837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
+		837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		837ED9881EC37AAA0095F100 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
+		837ED9891EC37AAA0095F100 /* sample_signed_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.2.0.json"; sourceTree = "<group>"; };
+		837ED98A1EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.1.0.json"; sourceTree = "<group>"; };
+		837ED98B1EC37AAA0095F100 /* sample_signed_cert-valid-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.2.0.json"; sourceTree = "<group>"; };
+		837ED98C1EC37AAA0095F100 /* sample_unsigned_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.1.0.json"; sourceTree = "<group>"; };
+		837ED98D1EC37AAA0095F100 /* sample_unsigned_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-1.2.0.json"; sourceTree = "<group>"; };
+		837ED98E1EC37AAA0095F100 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert-invalid_no_email-1.2.0.json"; sourceTree = "<group>"; };
+		837ED98F1EC37AAA0095F100 /* sample_unsigned_cert_with_metadata-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_unsigned_cert_with_metadata-1.2.0.json"; sourceTree = "<group>"; };
+		837ED9901EC37AAA0095F100 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		837ED9AF1EC382080095F100 /* BitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinManager.swift; sourceTree = "<group>"; };
+		837ED9B11EC382E00095F100 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		838DA19C1DA4588F00E85326 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = Frameworks/JSONLD/index.html; sourceTree = SOURCE_ROOT; };
 		838DA19D1DA4588F00E85326 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Frameworks/JSONLD/Info.plist; sourceTree = SOURCE_ROOT; };
 		838DA19E1DA4588F00E85326 /* JSONLD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONLD.h; path = Frameworks/JSONLD/JSONLD.h; sourceTree = SOURCE_ROOT; };
 		838DA19F1DA4588F00E85326 /* JSONLD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONLD.swift; path = Frameworks/JSONLD/JSONLD.swift; sourceTree = SOURCE_ROOT; };
-		838DA1A41DA45AC300E85326 /* BlockchainCertificates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BlockchainCertificates.h; path = Frameworks/BlockchainCertificates/BlockchainCertificates.h; sourceTree = SOURCE_ROOT; };
-		838DA1A51DA45AC300E85326 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Frameworks/BlockchainCertificates/Info.plist; sourceTree = SOURCE_ROOT; };
-		838DA1A81DA45AF800E85326 /* BlockchainCertificatesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlockchainCertificatesTests.swift; path = Frameworks/BlockchainCertificatesTests/BlockchainCertificatesTests.swift; sourceTree = SOURCE_ROOT; };
-		838DA1A91DA45AF800E85326 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Frameworks/BlockchainCertificatesTests/Info.plist; sourceTree = SOURCE_ROOT; };
-		838DA1AC1DA45CBB00E85326 /* Assertion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Assertion.swift; path = Frameworks/BlockchainCertificates/Assertion.swift; sourceTree = SOURCE_ROOT; };
-		838DA1AD1DA45CBB00E85326 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Certificate.swift; path = Frameworks/BlockchainCertificates/Certificate.swift; sourceTree = SOURCE_ROOT; };
-		838DA1AE1DA45CBB00E85326 /* Issuer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Issuer.swift; path = Frameworks/BlockchainCertificates/Issuer.swift; sourceTree = SOURCE_ROOT; };
-		838DA1AF1DA45CBB00E85326 /* Receipt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Receipt.swift; path = Frameworks/BlockchainCertificates/Receipt.swift; sourceTree = SOURCE_ROOT; };
-		838DA1B01DA45CBB00E85326 /* Recipient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Recipient.swift; path = Frameworks/BlockchainCertificates/Recipient.swift; sourceTree = SOURCE_ROOT; };
-		838DA1B11DA45CBB00E85326 /* Verify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Verify.swift; path = Frameworks/BlockchainCertificates/Verify.swift; sourceTree = SOURCE_ROOT; };
-		839174301DA5610600CB6E54 /* TransactionDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TransactionDataHandler.swift; path = Frameworks/BlockchainCertificates/TransactionDataHandler.swift; sourceTree = SOURCE_ROOT; };
-		839174321DA5637600CB6E54 /* ReceiptVerifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReceiptVerifier.swift; path = Frameworks/BlockchainCertificates/ReceiptVerifier.swift; sourceTree = SOURCE_ROOT; };
-		839174351DA563E800CB6E54 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8391746B1DA56B9500CB6E54 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommonCrypto.h; path = Frameworks/CommonCrypto/CommonCrypto.h; sourceTree = SOURCE_ROOT; };
 		8391746C1DA56B9500CB6E54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Frameworks/CommonCrypto/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -378,18 +389,11 @@
 		839174701DA56DDC00CB6E54 /* iphonesimulator.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = iphonesimulator.modulemap; path = Frameworks/CommonCrypto/iphonesimulator.modulemap; sourceTree = SOURCE_ROOT; };
 		839174711DA56DDC00CB6E54 /* macosx.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = macosx.modulemap; path = Frameworks/CommonCrypto/macosx.modulemap; sourceTree = SOURCE_ROOT; };
 		83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateValidationRequestTests.swift; sourceTree = "<group>"; };
-		83B0A84D1DA5A80300E5ECFA /* CommonRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonRequest.swift; sourceTree = "<group>"; };
-		83B0A84F1DA5A87D00E5ECFA /* IssuerCreationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerCreationRequest.swift; sourceTree = "<group>"; };
-		83B0A8501DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerIntroductionRequest.swift; sourceTree = "<group>"; };
-		83B0A8531DA5A90E00E5ECFA /* URLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RenderedCertificateView.xib; path = RenderedCertificateView/RenderedCertificateView.xib; sourceTree = "<group>"; };
 		83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RenderedCertificateView.swift; path = RenderedCertificateView/RenderedCertificateView.swift; sourceTree = "<group>"; };
 		83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		83DF11B41D88617B002E8921 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		83DF831A1D8B3653006CA7AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		83E50B3B1E9EB9C400FC6D8B /* CertificateV1_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateV1_1.swift; path = Frameworks/BlockchainCertificates/CertificateV1_1.swift; sourceTree = SOURCE_ROOT; };
-		83E50B3D1E9EBAA000FC6D8B /* CertificateV1_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateV1_2.swift; path = Frameworks/BlockchainCertificates/CertificateV1_2.swift; sourceTree = SOURCE_ROOT; };
-		83E50B3F1E9EBC8400FC6D8B /* CertificateV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CertificateV2.swift; path = Frameworks/BlockchainCertificates/CertificateV2.swift; sourceTree = SOURCE_ROOT; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
 		D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -398,28 +402,10 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		83111B9F1DA42086006B058D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8318FC4F1DAC4BC1006A8FD5 /* CommonCrypto.framework in Frameworks */,
-				8318FC4E1DAC4BBB006A8FD5 /* JSONLD.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83111BA81DA42087006B058D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83111BAC1DA42087006B058D /* BlockchainCertificates.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		832A0BA71D8B12D900BDCD59 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83111BC11DA4212C006B058D /* BlockchainCertificates.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,9 +427,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				837ED93E1EC37A440095F100 /* Blockcerts.framework in Frameworks */,
 				839174661DA56B6300CB6E54 /* CommonCrypto.framework in Frameworks */,
 				8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */,
-				83111BB81DA42087006B058D /* BlockchainCertificates.framework in Frameworks */,
 				321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -464,6 +450,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		837ED9251EC37A440095F100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837ED92E1EC37A440095F100 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837ED9321EC37A440095F100 /* Blockcerts.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8391745B1DA56B6300CB6E54 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,73 +475,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		830AB9CE1DA6B3BC00185E19 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				3B3F8A241EB1702500543CBA /* sample_cert-unmapped-2.0.json */,
-				3B3F8A251EB1702500543CBA /* sample_cert-valid-2.0.json */,
-				3B3F8A261EB1702500543CBA /* sample_cert-revoked-2.0.json */,
-				830AB9CF1DA6B3BC00185E19 /* index.html */,
-				830AB9D01DA6B3BC00185E19 /* modified_1.2_jsonld.json */,
-				830E707C1DEE2912009BAB30 /* multiimage_1.2.json */,
-				830AB9D11DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json */,
-				830AB9D21DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json */,
-				830AB9D31DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json */,
-				830AB9D41DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json */,
-				830AB9D51DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json */,
-				830AB9D61DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json */,
-				832F2A4F1E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json */,
-				830AB9D71DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */,
-			);
-			name = Resources;
-			path = Frameworks/BlockchainCertificatesTests/Resources;
-			sourceTree = SOURCE_ROOT;
-		};
-		83111BA41DA42086006B058D /* BlockchainCertificates */ = {
-			isa = PBXGroup;
-			children = (
-				83B0A84C1DA5A80300E5ECFA /* Requests */,
-				839174341DA563E800CB6E54 /* Extensions */,
-				838DA1A41DA45AC300E85326 /* BlockchainCertificates.h */,
-				839174301DA5610600CB6E54 /* TransactionDataHandler.swift */,
-				838DA1AC1DA45CBB00E85326 /* Assertion.swift */,
-				839174321DA5637600CB6E54 /* ReceiptVerifier.swift */,
-				838DA1AD1DA45CBB00E85326 /* Certificate.swift */,
-				83E50B3B1E9EB9C400FC6D8B /* CertificateV1_1.swift */,
-				83E50B3D1E9EBAA000FC6D8B /* CertificateV1_2.swift */,
-				83E50B3F1E9EBC8400FC6D8B /* CertificateV2.swift */,
-				830ABA7A1DA84DA300185E19 /* BitcoinManager.swift */,
-				838DA1AE1DA45CBB00E85326 /* Issuer.swift */,
-				832F2A4A1E955E0900A65C3A /* Metadata.swift */,
-				838DA1AF1DA45CBB00E85326 /* Receipt.swift */,
-				838DA1B01DA45CBB00E85326 /* Recipient.swift */,
-				838DA1B11DA45CBB00E85326 /* Verify.swift */,
-				838DA1A51DA45AC300E85326 /* Info.plist */,
-			);
-			path = BlockchainCertificates;
-			sourceTree = "<group>";
-		};
-		83111BB11DA42087006B058D /* BlockchainCertificatesTests */ = {
-			isa = PBXGroup;
-			children = (
-				830AB9CE1DA6B3BC00185E19 /* Resources */,
-				830AB9CA1DA6B34400185E19 /* CertificateV1_1Tests.swift */,
-				830AB9CB1DA6B34400185E19 /* CertificateV1_2Tests.swift */,
-				830AB9E91DA6B63400185E19 /* ReceiptTests.swift */,
-				3B391F0F1E9D863B002B13BB /* RecipientTests.swift */,
-				832F2A4D1E9564FF00A65C3A /* MetadataTests.swift */,
-				830AB9E11DA6B44B00185E19 /* IssuerCreationRequestTests.swift */,
-				830AB9E21DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift */,
-				830AB9E31DA6B44B00185E19 /* IssuerTests.swift */,
-				830AB9C61DA6B0F200185E19 /* StringExtensions.swift */,
-				830AB9C81DA6B2D400185E19 /* CertificateParserTests.swift */,
-				838DA1A81DA45AF800E85326 /* BlockchainCertificatesTests.swift */,
-				830AB9E71DA6B5C400185E19 /* MockURLSession.swift */,
-				838DA1A91DA45AF800E85326 /* Info.plist */,
-			);
-			path = BlockchainCertificatesTests;
-			sourceTree = "<group>";
-		};
 		832A0BAB1D8B12D900BDCD59 /* ImportAction */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,9 +588,9 @@
 				832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */,
 				832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */,
 				8354F3101D9F13840008DB09 /* JSONLD.framework */,
-				83111BA31DA42086006B058D /* BlockchainCertificates.framework */,
-				83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */,
 				8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */,
+				837ED9291EC37A440095F100 /* Blockcerts.framework */,
+				837ED9311EC37A440095F100 /* BlockcertsTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -700,15 +634,95 @@
 			path = "cert-walletUITests";
 			sourceTree = "<group>";
 		};
-		839174341DA563E800CB6E54 /* Extensions */ = {
+		837ED9461EC37A9E0095F100 /* Blockcerts */ = {
 			isa = PBXGroup;
 			children = (
-				83B0A8531DA5A90E00E5ECFA /* URLSession.swift */,
-				839174351DA563E800CB6E54 /* String.swift */,
+				837ED9AF1EC382080095F100 /* BitcoinManager.swift */,
+				837ED9471EC37A9E0095F100 /* Assertion.swift */,
+				837ED9481EC37A9E0095F100 /* BlockchainCertificates.h */,
+				837ED9491EC37A9E0095F100 /* Certificate.swift */,
+				837ED94A1EC37A9E0095F100 /* CertificateV1_1.swift */,
+				837ED94B1EC37A9E0095F100 /* CertificateV1_2.swift */,
+				837ED94C1EC37A9E0095F100 /* CertificateV2.swift */,
+				837ED94D1EC37A9E0095F100 /* Extensions */,
+				837ED9501EC37A9E0095F100 /* Info.plist */,
+				837ED9511EC37A9E0095F100 /* Issuer.swift */,
+				837ED9521EC37A9E0095F100 /* Metadata.swift */,
+				837ED9531EC37A9E0095F100 /* Receipt.swift */,
+				837ED9541EC37A9E0095F100 /* ReceiptVerifier.swift */,
+				837ED9551EC37A9E0095F100 /* Recipient.swift */,
+				837ED9561EC37A9E0095F100 /* Requests */,
+				837ED95C1EC37A9E0095F100 /* Signature.swift */,
+				837ED95D1EC37A9E0095F100 /* TransactionDataHandler.swift */,
+				837ED95E1EC37A9E0095F100 /* Verify.swift */,
+				837ED9B11EC382E00095F100 /* Constants.swift */,
 			);
-			name = Extensions;
-			path = Frameworks/BlockchainCertificates/Extensions;
-			sourceTree = SOURCE_ROOT;
+			name = Blockcerts;
+			path = Frameworks/Blockcerts;
+			sourceTree = "<group>";
+		};
+		837ED94D1EC37A9E0095F100 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				837ED94E1EC37A9E0095F100 /* String.swift */,
+				837ED94F1EC37A9E0095F100 /* URLSession.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		837ED9561EC37A9E0095F100 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				837ED9571EC37A9E0095F100 /* CertificateRevocationRequest.swift */,
+				837ED9581EC37A9E0095F100 /* CertificateValidationRequest.swift */,
+				837ED9591EC37A9E0095F100 /* CommonRequest.swift */,
+				837ED95A1EC37A9E0095F100 /* IssuerCreationRequest.swift */,
+				837ED95B1EC37A9E0095F100 /* IssuerIntroductionRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		837ED9751EC37AAA0095F100 /* BlockcertsTests */ = {
+			isa = PBXGroup;
+			children = (
+				837ED9761EC37AAA0095F100 /* BlockchainCertificatesTests.swift */,
+				837ED9771EC37AAA0095F100 /* CertificateParserTests.swift */,
+				837ED9781EC37AAA0095F100 /* CertificateV1_1Tests.swift */,
+				837ED9791EC37AAA0095F100 /* CertificateV1_2Tests.swift */,
+				837ED97A1EC37AAA0095F100 /* Info.plist */,
+				837ED97B1EC37AAA0095F100 /* IssuerCreationRequestTests.swift */,
+				837ED97C1EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift */,
+				837ED97D1EC37AAA0095F100 /* IssuerTests.swift */,
+				837ED97E1EC37AAA0095F100 /* MetadataTests.swift */,
+				837ED97F1EC37AAA0095F100 /* MockURLSession.swift */,
+				837ED9801EC37AAA0095F100 /* ReceiptTests.swift */,
+				837ED9811EC37AAA0095F100 /* Resources */,
+				837ED9901EC37AAA0095F100 /* StringExtensions.swift */,
+			);
+			name = BlockcertsTests;
+			path = Frameworks/BlockcertsTests;
+			sourceTree = "<group>";
+		};
+		837ED9811EC37AAA0095F100 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				837ED9821EC37AAA0095F100 /* index.html */,
+				837ED9831EC37AAA0095F100 /* modified_1.2_jsonld.json */,
+				837ED9841EC37AAA0095F100 /* multiimage_1.2.json */,
+				837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0.json */,
+				837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0.json */,
+				837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0.json */,
+				837ED9881EC37AAA0095F100 /* sample_signed_cert-1.1.0.json */,
+				837ED9891EC37AAA0095F100 /* sample_signed_cert-1.2.0.json */,
+				837ED98A1EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json */,
+				837ED98B1EC37AAA0095F100 /* sample_signed_cert-valid-1.2.0.json */,
+				837ED98C1EC37AAA0095F100 /* sample_unsigned_cert-1.1.0.json */,
+				837ED98D1EC37AAA0095F100 /* sample_unsigned_cert-1.2.0.json */,
+				837ED98E1EC37AAA0095F100 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */,
+				837ED98F1EC37AAA0095F100 /* sample_unsigned_cert_with_metadata-1.2.0.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
 		};
 		839174601DA56B6300CB6E54 /* CommonCrypto */ = {
 			isa = PBXGroup;
@@ -722,19 +736,6 @@
 			);
 			path = CommonCrypto;
 			sourceTree = "<group>";
-		};
-		83B0A84C1DA5A80300E5ECFA /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				8318FC441DAC0BC2006A8FD5 /* CertificateValidationRequest.swift */,
-				8318FC461DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift */,
-				83B0A84D1DA5A80300E5ECFA /* CommonRequest.swift */,
-				83B0A84F1DA5A87D00E5ECFA /* IssuerCreationRequest.swift */,
-				83B0A8501DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift */,
-			);
-			name = Requests;
-			path = Frameworks/BlockchainCertificates/Requests;
-			sourceTree = SOURCE_ROOT;
 		};
 		83DF11B01D88617B002E8921 /* Models */ = {
 			isa = PBXGroup;
@@ -758,10 +759,10 @@
 		BA06BCAA0680E083B5A63088 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				837ED9461EC37A9E0095F100 /* Blockcerts */,
+				837ED9751EC37AAA0095F100 /* BlockcertsTests */,
 				839174601DA56B6300CB6E54 /* CommonCrypto */,
 				8354F3111D9F13840008DB09 /* JSONLD */,
-				83111BA41DA42086006B058D /* BlockchainCertificates */,
-				83111BB11DA42087006B058D /* BlockchainCertificatesTests */,
 				D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */,
 				2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */,
 				63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */,
@@ -785,19 +786,19 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		83111BA01DA42086006B058D /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				838DA1A61DA45AC300E85326 /* BlockchainCertificates.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		8354F30D1D9F13840008DB09 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				838DA1A21DA4588F00E85326 /* JSONLD.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837ED9261EC37A440095F100 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837ED9601EC37A9E0095F100 /* BlockchainCertificates.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -812,44 +813,6 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		83111BA21DA42086006B058D /* BlockchainCertificates */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83111BBE1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificates" */;
-			buildPhases = (
-				83111B9E1DA42086006B058D /* Sources */,
-				83111B9F1DA42086006B058D /* Frameworks */,
-				83111BA01DA42086006B058D /* Headers */,
-				83111BA11DA42086006B058D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				839174731DA56E9B00CB6E54 /* PBXTargetDependency */,
-			);
-			name = BlockchainCertificates;
-			productName = BlockchainCertificates;
-			productReference = 83111BA31DA42086006B058D /* BlockchainCertificates.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		83111BAA1DA42087006B058D /* BlockchainCertificatesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83111BBF1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificatesTests" */;
-			buildPhases = (
-				83111BA71DA42087006B058D /* Sources */,
-				83111BA81DA42087006B058D /* Frameworks */,
-				83111BA91DA42087006B058D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83111BAE1DA42087006B058D /* PBXTargetDependency */,
-				83111BB01DA42087006B058D /* PBXTargetDependency */,
-			);
-			name = BlockchainCertificatesTests;
-			productName = BlockchainCertificatesTests;
-			productReference = 83111BAB1DA42087006B058D /* BlockchainCertificatesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		832A0BA91D8B12D900BDCD59 /* ImportAction */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 832A0BC81D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportAction" */;
@@ -922,8 +885,8 @@
 				832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */,
 				832A0BC31D8B12D900BDCD59 /* PBXTargetDependency */,
 				8354F3161D9F13840008DB09 /* PBXTargetDependency */,
-				83111BB71DA42087006B058D /* PBXTargetDependency */,
 				839174651DA56B6300CB6E54 /* PBXTargetDependency */,
+				837ED93D1EC37A440095F100 /* PBXTargetDependency */,
 			);
 			name = "cert-wallet";
 			productName = "cert-wallet";
@@ -972,6 +935,45 @@
 			productReference = 836A31C41D5933D800943801 /* cert-walletUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		837ED9281EC37A440095F100 /* Blockcerts */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 837ED9401EC37A440095F100 /* Build configuration list for PBXNativeTarget "Blockcerts" */;
+			buildPhases = (
+				837ED9241EC37A440095F100 /* Sources */,
+				837ED9251EC37A440095F100 /* Frameworks */,
+				837ED9261EC37A440095F100 /* Headers */,
+				837ED9271EC37A440095F100 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				837ED9AC1EC381A20095F100 /* PBXTargetDependency */,
+				837ED9AE1EC381A20095F100 /* PBXTargetDependency */,
+			);
+			name = Blockcerts;
+			productName = Blockcerts;
+			productReference = 837ED9291EC37A440095F100 /* Blockcerts.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		837ED9301EC37A440095F100 /* BlockcertsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 837ED9431EC37A440095F100 /* Build configuration list for PBXNativeTarget "BlockcertsTests" */;
+			buildPhases = (
+				837ED92D1EC37A440095F100 /* Sources */,
+				837ED92E1EC37A440095F100 /* Frameworks */,
+				837ED92F1EC37A440095F100 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				837ED9341EC37A440095F100 /* PBXTargetDependency */,
+				837ED9361EC37A440095F100 /* PBXTargetDependency */,
+			);
+			name = BlockcertsTests;
+			productName = BlockcertsTests;
+			productReference = 837ED9311EC37A440095F100 /* BlockcertsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8391745E1DA56B6300CB6E54 /* CommonCrypto */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8391746A1DA56B6300CB6E54 /* Build configuration list for PBXNativeTarget "CommonCrypto" */;
@@ -996,23 +998,10 @@
 		836A319B1D5933D800943801 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
+				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Digital Certificates Project";
 				TargetAttributes = {
-					83111BA21DA42086006B058D = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = CYEWR6MU44;
-						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
-					};
-					83111BAA1DA42087006B058D = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = CYEWR6MU44;
-						LastSwiftMigration = 0800;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 836A31A21D5933D800943801;
-					};
 					832A0BA91D8B12D900BDCD59 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = CYEWR6MU44;
@@ -1057,6 +1046,17 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 836A31A21D5933D800943801;
 					};
+					837ED9281EC37A440095F100 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = CYEWR6MU44;
+						ProvisioningStyle = Automatic;
+					};
+					837ED9301EC37A440095F100 = {
+						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = CYEWR6MU44;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 836A31A21D5933D800943801;
+					};
 					8391745E1DA56B6300CB6E54 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = CYEWR6MU44;
@@ -1083,39 +1083,14 @@
 				832A0BA91D8B12D900BDCD59 /* ImportAction */,
 				832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */,
 				8354F30F1D9F13840008DB09 /* JSONLD */,
-				83111BA21DA42086006B058D /* BlockchainCertificates */,
-				83111BAA1DA42087006B058D /* BlockchainCertificatesTests */,
 				8391745E1DA56B6300CB6E54 /* CommonCrypto */,
+				837ED9281EC37A440095F100 /* Blockcerts */,
+				837ED9301EC37A440095F100 /* BlockcertsTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		83111BA11DA42086006B058D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83111BA91DA42087006B058D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				830AB9DD1DA6B3BC00185E19 /* sample_signed_cert-valid-1.2.0.json in Resources */,
-				830E707D1DEE2912009BAB30 /* multiimage_1.2.json in Resources */,
-				830AB9DC1DA6B3BC00185E19 /* sample_signed_cert-valid-1.1.0.json in Resources */,
-				830AB9D91DA6B3BC00185E19 /* modified_1.2_jsonld.json in Resources */,
-				830AB9E01DA6B3BC00185E19 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
-				830AB9DB1DA6B3BC00185E19 /* sample_signed_cert-1.2.0.json in Resources */,
-				830AB9DA1DA6B3BC00185E19 /* sample_signed_cert-1.1.0.json in Resources */,
-				832F2A501E95A6D900A65C3A /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */,
-				830AB9DE1DA6B3BC00185E19 /* sample_unsigned_cert-1.1.0.json in Resources */,
-				830AB9DF1DA6B3BC00185E19 /* sample_unsigned_cert-1.2.0.json in Resources */,
-				830AB9D81DA6B3BC00185E19 /* index.html in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		832A0BA81D8B12D900BDCD59 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1161,7 +1136,6 @@
 				3BF0FCF01D66240F00CCEC57 /* sample_signed_cert-1.1.0.json in Resources */,
 				3B8E1E511E9BEE8B00DC636D /* normalized_revoked-2.0.txt in Resources */,
 				3B684B091EBA83ED007185AE /* normalized_tampered-2.0.txt in Resources */,
-				3B3F8A291EB1702500543CBA /* sample_cert-revoked-2.0.json in Resources */,
 				3B3F8A211EB16FF800543CBA /* sample_cert-unmapped-2.0.json in Resources */,
 				3B684AFF1EBA814A007185AE /* sample_cert-v1-issuer-2.0.json in Resources */,
 				835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */,
@@ -1172,7 +1146,6 @@
 				3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0.json in Resources */,
 				3B684B011EBA814A007185AE /* sample_cert-authenticity-2.0.json in Resources */,
 				3B684B001EBA814A007185AE /* sample_cert-tampered-2.0.json in Resources */,
-				3B3F8A281EB1702500543CBA /* sample_cert-valid-2.0.json in Resources */,
 				3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */,
 				3B684B0B1EBA83ED007185AE /* normalized_authenticity-2.0.txt in Resources */,
 				3B90A0541E999E4000C027B7 /* tx_valid-1.2.0.json in Resources */,
@@ -1180,7 +1153,6 @@
 				3B8E1E4B1E99B5A400DC636D /* normalized-1.2.0.txt in Resources */,
 				3B8E1E4D1E99BCEF00DC636D /* normalized-2.0.txt in Resources */,
 				3B3F8A321EB177EC00543CBA /* tx_valid-2.0.json in Resources */,
-				3B3F8A271EB1702500543CBA /* sample_cert-unmapped-2.0.json in Resources */,
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
@@ -1195,6 +1167,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837ED9271EC37A440095F100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837ED92F1EC37A440095F100 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837ED9A81EC37AAA0095F100 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
+				837ED9A31EC37AAA0095F100 /* sample_signed_cert-1.2.0.json in Resources */,
+				837ED9A91EC37AAA0095F100 /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */,
+				837ED9A61EC37AAA0095F100 /* sample_unsigned_cert-1.1.0.json in Resources */,
+				837ED9A21EC37AAA0095F100 /* sample_signed_cert-1.1.0.json in Resources */,
+				837ED99D1EC37AAA0095F100 /* modified_1.2_jsonld.json in Resources */,
+				837ED99E1EC37AAA0095F100 /* multiimage_1.2.json in Resources */,
+				837ED9951EC37AAA0095F100 /* Info.plist in Resources */,
+				837ED9A41EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json in Resources */,
+				837ED99C1EC37AAA0095F100 /* index.html in Resources */,
+				837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0.json in Resources */,
+				837ED9A51EC37AAA0095F100 /* sample_signed_cert-valid-1.2.0.json in Resources */,
+				837ED9A71EC37AAA0095F100 /* sample_unsigned_cert-1.2.0.json in Resources */,
+				837ED99F1EC37AAA0095F100 /* sample_cert-revoked-2.0.json in Resources */,
+				837ED9A11EC37AAA0095F100 /* sample_cert-valid-2.0.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,55 +1347,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		83111B9E1DA42086006B058D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				839174331DA5637600CB6E54 /* ReceiptVerifier.swift in Sources */,
-				839174311DA5610600CB6E54 /* TransactionDataHandler.swift in Sources */,
-				838DA1B61DA45CBB00E85326 /* Recipient.swift in Sources */,
-				83E50B3E1E9EBAA000FC6D8B /* CertificateV1_2.swift in Sources */,
-				839174361DA563E800CB6E54 /* String.swift in Sources */,
-				83B0A8521DA5A87D00E5ECFA /* IssuerIntroductionRequest.swift in Sources */,
-				832F2A4C1E955FAF00A65C3A /* Metadata.swift in Sources */,
-				838DA1B51DA45CBB00E85326 /* Receipt.swift in Sources */,
-				838DA1B21DA45CBB00E85326 /* Assertion.swift in Sources */,
-				8318FC451DAC0BC2006A8FD5 /* CertificateValidationRequest.swift in Sources */,
-				838DA1B31DA45CBB00E85326 /* Certificate.swift in Sources */,
-				83E50B3C1E9EB9C400FC6D8B /* CertificateV1_1.swift in Sources */,
-				83B0A8541DA5A90E00E5ECFA /* URLSession.swift in Sources */,
-				838DA1B71DA45CBB00E85326 /* Verify.swift in Sources */,
-				3B8E1E561E9BF85C00DC636D /* (null) in Sources */,
-				83E50B401E9EBC8400FC6D8B /* CertificateV2.swift in Sources */,
-				3B684B0E1EBBCD22007185AE /* Globals.swift in Sources */,
-				830ABA7B1DA84DA300185E19 /* BitcoinManager.swift in Sources */,
-				83B0A84E1DA5A80B00E5ECFA /* CommonRequest.swift in Sources */,
-				83B0A8511DA5A87D00E5ECFA /* IssuerCreationRequest.swift in Sources */,
-				838DA1B41DA45CBB00E85326 /* Issuer.swift in Sources */,
-				8318FC471DAC0FD5006A8FD5 /* CertificateRevocationRequest.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83111BA71DA42087006B058D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				830AB9E51DA6B44B00185E19 /* IssuerIntroductionRequestTests.swift in Sources */,
-				836031BE1E5D088C005B2D2E /* String.swift in Sources */,
-				832F2A4E1E9564FF00A65C3A /* MetadataTests.swift in Sources */,
-				830AB9E41DA6B44B00185E19 /* IssuerCreationRequestTests.swift in Sources */,
-				830AB9E61DA6B44B00185E19 /* IssuerTests.swift in Sources */,
-				830AB9C71DA6B0F200185E19 /* StringExtensions.swift in Sources */,
-				830AB9C91DA6B2D400185E19 /* CertificateParserTests.swift in Sources */,
-				3B391F121E9D8687002B13BB /* RecipientTests.swift in Sources */,
-				830AB9CC1DA6B34400185E19 /* CertificateV1_1Tests.swift in Sources */,
-				830AB9E81DA6B5C400185E19 /* MockURLSession.swift in Sources */,
-				838DA1AA1DA45AF800E85326 /* BlockchainCertificatesTests.swift in Sources */,
-				830AB9EA1DA6B63400185E19 /* ReceiptTests.swift in Sources */,
-				830AB9CD1DA6B34400185E19 /* CertificateV1_2Tests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		832A0BA61D8B12D900BDCD59 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1467,6 +1419,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		837ED9241EC37A440095F100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837ED96A1EC37A9E0095F100 /* Receipt.swift in Sources */,
+				837ED9B21EC382E00095F100 /* Constants.swift in Sources */,
+				837ED9651EC37A9E0095F100 /* String.swift in Sources */,
+				837ED9711EC37A9E0095F100 /* IssuerIntroductionRequest.swift in Sources */,
+				837ED9B01EC382080095F100 /* BitcoinManager.swift in Sources */,
+				837ED96E1EC37A9E0095F100 /* CertificateValidationRequest.swift in Sources */,
+				837ED9741EC37A9E0095F100 /* Verify.swift in Sources */,
+				837ED9661EC37A9E0095F100 /* URLSession.swift in Sources */,
+				837ED96B1EC37A9E0095F100 /* ReceiptVerifier.swift in Sources */,
+				837ED9681EC37A9E0095F100 /* Issuer.swift in Sources */,
+				837ED96C1EC37A9E0095F100 /* Recipient.swift in Sources */,
+				837ED9621EC37A9E0095F100 /* CertificateV1_1.swift in Sources */,
+				837ED96F1EC37A9E0095F100 /* CommonRequest.swift in Sources */,
+				837ED9641EC37A9E0095F100 /* CertificateV2.swift in Sources */,
+				837ED95F1EC37A9E0095F100 /* Assertion.swift in Sources */,
+				837ED9721EC37A9E0095F100 /* Signature.swift in Sources */,
+				837ED96D1EC37A9E0095F100 /* CertificateRevocationRequest.swift in Sources */,
+				837ED9611EC37A9E0095F100 /* Certificate.swift in Sources */,
+				837ED9691EC37A9E0095F100 /* Metadata.swift in Sources */,
+				837ED9631EC37A9E0095F100 /* CertificateV1_2.swift in Sources */,
+				837ED9701EC37A9E0095F100 /* IssuerCreationRequest.swift in Sources */,
+				837ED9731EC37A9E0095F100 /* TransactionDataHandler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		837ED92D1EC37A440095F100 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				837ED9971EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift in Sources */,
+				837ED9921EC37AAA0095F100 /* CertificateParserTests.swift in Sources */,
+				837ED9991EC37AAA0095F100 /* MetadataTests.swift in Sources */,
+				837ED9931EC37AAA0095F100 /* CertificateV1_1Tests.swift in Sources */,
+				837ED9961EC37AAA0095F100 /* IssuerCreationRequestTests.swift in Sources */,
+				837ED9911EC37AAA0095F100 /* BlockchainCertificatesTests.swift in Sources */,
+				837ED9AA1EC37AAA0095F100 /* StringExtensions.swift in Sources */,
+				837ED99A1EC37AAA0095F100 /* MockURLSession.swift in Sources */,
+				837ED9941EC37AAA0095F100 /* CertificateV1_2Tests.swift in Sources */,
+				837ED99B1EC37AAA0095F100 /* ReceiptTests.swift in Sources */,
+				837ED9981EC37AAA0095F100 /* IssuerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8391745A1DA56B6300CB6E54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1477,21 +1476,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		83111BAE1DA42087006B058D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83111BA21DA42086006B058D /* BlockchainCertificates */;
-			targetProxy = 83111BAD1DA42087006B058D /* PBXContainerItemProxy */;
-		};
-		83111BB01DA42087006B058D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 836A31A21D5933D800943801 /* cert-wallet */;
-			targetProxy = 83111BAF1DA42087006B058D /* PBXContainerItemProxy */;
-		};
-		83111BB71DA42087006B058D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83111BA21DA42086006B058D /* BlockchainCertificates */;
-			targetProxy = 83111BB61DA42087006B058D /* PBXContainerItemProxy */;
-		};
 		832A0BC01D8B12D900BDCD59 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */;
@@ -1517,15 +1501,35 @@
 			target = 836A31A21D5933D800943801 /* cert-wallet */;
 			targetProxy = 836A31C51D5933D800943801 /* PBXContainerItemProxy */;
 		};
+		837ED9341EC37A440095F100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 837ED9281EC37A440095F100 /* Blockcerts */;
+			targetProxy = 837ED9331EC37A440095F100 /* PBXContainerItemProxy */;
+		};
+		837ED9361EC37A440095F100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 836A31A21D5933D800943801 /* cert-wallet */;
+			targetProxy = 837ED9351EC37A440095F100 /* PBXContainerItemProxy */;
+		};
+		837ED93D1EC37A440095F100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 837ED9281EC37A440095F100 /* Blockcerts */;
+			targetProxy = 837ED93C1EC37A440095F100 /* PBXContainerItemProxy */;
+		};
+		837ED9AC1EC381A20095F100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8354F30F1D9F13840008DB09 /* JSONLD */;
+			targetProxy = 837ED9AB1EC381A20095F100 /* PBXContainerItemProxy */;
+		};
+		837ED9AE1EC381A20095F100 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8391745E1DA56B6300CB6E54 /* CommonCrypto */;
+			targetProxy = 837ED9AD1EC381A20095F100 /* PBXContainerItemProxy */;
+		};
 		839174651DA56B6300CB6E54 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8391745E1DA56B6300CB6E54 /* CommonCrypto */;
 			targetProxy = 839174641DA56B6300CB6E54 /* PBXContainerItemProxy */;
-		};
-		839174731DA56E9B00CB6E54 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8391745E1DA56B6300CB6E54 /* CommonCrypto */;
-			targetProxy = 839174721DA56E9B00CB6E54 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1557,92 +1561,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		83111BBA1DA42087006B058D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 35;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = CYEWR6MU44;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 35;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Frameworks/BlockchainCertificates/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificates;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		83111BBB1DA42087006B058D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				CURRENT_PROJECT_VERSION = 35;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = CYEWR6MU44;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 35;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Frameworks/BlockchainCertificates/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificates;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		83111BBC1DA42087006B058D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CYEWR6MU44;
-				INFOPLIST_FILE = Frameworks/BlockchainCertificatesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificatesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
-			};
-			name = Debug;
-		};
-		83111BBD1DA42087006B058D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CYEWR6MU44;
-				INFOPLIST_FILE = Frameworks/BlockchainCertificatesTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockchainCertificatesTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
-			};
-			name = Release;
-		};
 		832A0BC61D8B12D900BDCD59 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1964,6 +1882,88 @@
 			};
 			name = Release;
 		};
+		837ED9411EC37A440095F100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Frameworks/Blockcerts/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.Blockcerts;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		837ED9421EC37A440095F100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Frameworks/Blockcerts/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.Blockcerts;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		837ED9441EC37A440095F100 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = Frameworks/BlockcertsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockcertsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
+			};
+			name = Debug;
+		};
+		837ED9451EC37A440095F100 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				DEVELOPMENT_TEAM = CYEWR6MU44;
+				INFOPLIST_FILE = Frameworks/BlockcertsTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockcertsTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
+			};
+			name = Release;
+		};
 		839174681DA56B6300CB6E54 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8391746E1DA56C2100CB6E54 /* CommonCrypto.xcconfig */;
@@ -2019,24 +2019,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		83111BBE1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificates" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83111BBA1DA42087006B058D /* Debug */,
-				83111BBB1DA42087006B058D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83111BBF1DA42087006B058D /* Build configuration list for PBXNativeTarget "BlockchainCertificatesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83111BBC1DA42087006B058D /* Debug */,
-				83111BBD1DA42087006B058D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		832A0BC51D8B12D900BDCD59 /* Build configuration list for PBXNativeTarget "ImportActionFileProvider" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2099,6 +2081,22 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		837ED9401EC37A440095F100 /* Build configuration list for PBXNativeTarget "Blockcerts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				837ED9411EC37A440095F100 /* Debug */,
+				837ED9421EC37A440095F100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		837ED9431EC37A440095F100 /* Build configuration list for PBXNativeTarget "BlockcertsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				837ED9441EC37A440095F100 /* Debug */,
+				837ED9451EC37A440095F100 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 		8391746A1DA56B6300CB6E54 /* Build configuration list for PBXNativeTarget "CommonCrypto" */ = {
 			isa = XCConfigurationList;
