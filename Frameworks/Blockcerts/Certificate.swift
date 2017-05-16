@@ -180,6 +180,9 @@ public protocol Certificate {
     
     /// Contains all the metadata associated with the certificate. See `Metadata` for more details
     var metadata : Metadata { get }
+    
+    /// An optional display of this certificate in raw HTML.
+    var htmlDisplay : String? { get }
 }
 
 
@@ -191,6 +194,10 @@ extension Certificate {
     /// - Throws: CertificateParserErrors
     init(data: Data) throws {
         throw CertificateParserError.notImplemented
+    }
+    
+    var htmlDisplay : String? {
+        return nil
     }
 }
 
