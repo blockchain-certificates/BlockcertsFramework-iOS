@@ -26,6 +26,7 @@ struct CertificateV1_2 : Certificate {
     
     let receipt : Receipt?
     let metadata: Metadata
+    let htmlDisplay: String?
     
     init(data: Data) throws {
         file = data
@@ -96,6 +97,7 @@ struct CertificateV1_2 : Certificate {
         let signatureValue = documentData["signature"] as? String
         self.signature = signatureValue
         self.metadata = assertion.metadata
+        self.htmlDisplay = assertion.htmlDisplay
     }
 }
 
@@ -170,12 +172,15 @@ enum MethodsForV1_2 {
             }
         }
         
+        let htmlDisplay = assertionData["displayHtml"] as? String
+        
         return Assertion(issuedOn: issuedOnDate,
                          signatureImages: signatureImages,
                          evidence: evidence,
                          uid: assertionUID,
                          id: assertionIDURL,
-                         metadata: Metadata(json: metadataJson))
+                         metadata: Metadata(json: metadataJson),
+                         htmlDisplay: htmlDisplay)
     }
     
     static func parse(verifyJSON: AnyObject?) -> Verify? {
