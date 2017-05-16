@@ -25,7 +25,7 @@ struct CertificateProperty : TableSection {
 struct CertificateActions : TableSection {
     let identifier = "CertificateActionsTableViewCell"
     let title : String? = "Actions"
-    let actions = [ "Validate" ] // , "Revoke"
+    let actions = [ "Validate" ]
     var rows : Int { return actions.count }
 }
 
@@ -164,11 +164,7 @@ extension CertificateDetailViewController {
         } else if let section = section as? CertificateActions {
             let action = section.actions[indexPath.row]
             cell.textLabel?.text = action
-            if action == "Revoke" {
-                cell.textLabel?.textColor = UIColor.red
-            } else {
-                cell.textLabel?.textColor = cell.tintColor
-            }
+            cell.textLabel?.textColor = cell.tintColor
         } else if let section = section as? CertificateProperty {
             let values = section.values
             let sortedKeys = values.keys.sorted(by: <)
@@ -196,8 +192,6 @@ extension CertificateDetailViewController {
                 default:
                     validateCertificate()
                 }
-            case "Revoke":
-                promptToRevokeCertificate()
             default:
                 tableView.deselectRow(at: indexPath, animated: true)
             }
@@ -288,82 +282,5 @@ extension CertificateDetailViewController {
         validatingAlert.addAction(cancelAction)
         present(validatingAlert, animated: true, completion: nil)
     }
-    
-    func promptToRevokeCertificate() {
-        let revokeConfirmation = UIAlertController(title: "Revoke Certificate?", message: "Revoking a certificate is permanent. Are you sure you want to revoke this certificate?", preferredStyle: .alert)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
-            if let selectedRow = self?.tableView.indexPathForSelectedRow {
-                self?.tableView.deselectRow(at: selectedRow, animated: true)
-            }
-        }
-        let revokeAction = UIAlertAction(title: "Revoke", style: .destructive) { [weak self] (action) in
-            self?.revokeCertificate()
-        }
-
-        revokeConfirmation.addAction(cancelAction)
-        revokeConfirmation.addAction(revokeAction)
-        
-        present(revokeConfirmation, animated: true, completion: nil)
-    }
-    
-    func revokeCertificate() {
-        let dismissAction = UIAlertAction(title: "OK", style: .default) { [weak self] (action) in
-            if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
-                self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
-            }
-        }
-        
-        let completeAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        completeAlert.addAction(dismissAction)
-        
-        guard let certificate = certificate else {
-            completeAlert.title = "Error"
-            completeAlert.message = "Certificate is missing. Try again?"
-            present(completeAlert, animated: true, completion: nil)
-            return
-        }
-
-        inProgressRequest?.abort()
-        inProgressRequest = CertificateRevocationRequest(revoking: certificate) { [weak self] (success, error) in
-            if success {
-                completeAlert.title = "Success"
-                completeAlert.message = "Certificate successfully revoked."
-            } else {
-                completeAlert.title = "Error"
-                if let error = error {
-                    completeAlert.message = "This certificate couldn't be revoked: \(error)"
-                } else {
-                    completeAlert.message = "This certificate couldn't be revoked."
-                }
-            }
-            
-            let showCompleteAlert : () -> Void = {
-                self?.present(completeAlert, animated: false) { () in
-                    if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
-                        self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
-                    }
-                }
-            }
-            if self?.presentedViewController != nil {
-                self?.presentedViewController?.dismiss(animated: false, completion: showCompleteAlert)
-            } else {
-                showCompleteAlert()
-            }
-        }
-        inProgressRequest?.start()
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { [weak self] (action) in
-            self?.inProgressRequest?.abort()
-            self?.inProgressRequest = nil
-            
-            if let selectedIndexPath = self?.tableView.indexPathForSelectedRow {
-                self?.tableView.deselectRow(at: selectedIndexPath, animated: true)
-            }
-        }
-        let validatingAlert = UIAlertController(title: nil, message: "Revoking this certificate...", preferredStyle: .alert)
-        validatingAlert.addAction(cancelAction)
-        present(validatingAlert, animated: true, completion: nil)
-    }
-    
 }
 
