@@ -94,6 +94,7 @@ struct CertificateV2 : Certificate {
         self.receipt = receiptData
         self.signature = nil
         self.metadata = assertion.metadata
+        self.htmlDisplay = json["displayHtml"] as? String
     }
 }
 
