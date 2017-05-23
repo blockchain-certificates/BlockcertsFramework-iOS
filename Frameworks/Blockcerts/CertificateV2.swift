@@ -26,6 +26,7 @@ struct CertificateV2 : Certificate {
     
     let receipt : Receipt?
     let metadata: Metadata
+    let htmlDisplay: String?
     
     
     init(data: Data) throws {
