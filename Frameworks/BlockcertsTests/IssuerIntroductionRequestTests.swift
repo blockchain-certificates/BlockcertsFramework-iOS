@@ -109,7 +109,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
             let extraDataKey = "favoriteEmoji"
             let extraDataValue = "🐼"
 
-            public func postData(for issuer: Issuer, from recipient: Recipient) -> [String : Any] {
+            public func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String : Any] {
                 var data = [String: Any]()
                 data["email"] = recipient.identity
                 data[extraDataKey] = extraDataValue
