@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WebKit
 
 public enum IssuerIntroductionRequestError : Error {
     case aborted
@@ -14,11 +15,13 @@ public enum IssuerIntroductionRequestError : Error {
     case cannotSerializePostData
     case genericErrorFromServer(error: Error?)
     case errorResponseFromServer(response: HTTPURLResponse)
+    case introductionMethodNotSupported
+    case webAuthenticationFailed
 }
 
 public protocol IssuerIntroductionRequestDelegate : class {
     func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL?
-    func postData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
+    func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
 }
 
 public extension IssuerIntroductionRequestDelegate {
@@ -26,11 +29,18 @@ public extension IssuerIntroductionRequestDelegate {
         return issuer.introductionURL
     }
     
-    public func postData(for issuer: Issuer, from recipient: Recipient) -> [String: Any] {
+    public func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any] {
         var dataMap = [String: Any]()
         dataMap["email"] = recipient.identity
         dataMap["name"] = recipient.name
         return dataMap
+    }
+    
+    public func present(webView:WKWebView) throws {
+        throw IssuerIntroductionRequestError.introductionMethodNotSupported
+    }
+    public func dismiss(webView:WKWebView) {
+        
     }
 }
 
@@ -38,14 +48,17 @@ private class DefaultDelegate : IssuerIntroductionRequestDelegate {
     
 }
 
-public class IssuerIntroductionRequest : CommonRequest {
+public class IssuerIntroductionRequest : NSObject, CommonRequest {
     public var callback : ((IssuerIntroductionRequestError?) -> Void)?
     public var delegate : IssuerIntroductionRequestDelegate
     
-    private var recipient : Recipient
-    private var session : URLSessionProtocol
-    private var currentTask : URLSessionDataTaskProtocol?
-    private var issuer : Issuer
+    var recipient : Recipient
+    var session : URLSessionProtocol
+    var currentTask : URLSessionDataTaskProtocol?
+    var issuer : Issuer
+    
+    // These are for web auth.
+    private var presentingWebView : WKWebView?
     
     public init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((IssuerIntroductionRequestError?) -> Void)?) {
         self.callback = callback
@@ -57,13 +70,24 @@ public class IssuerIntroductionRequest : CommonRequest {
     }
     
     public func start() {
-        guard let url = delegate.introductionURL(for: issuer, introducing: recipient) else {
-            reportFailure(.issuerMissingIntroductionURL)
-            return
+        switch issuer.introductionMethod {
+        case .basic(let introductionURL):
+            startBasicIntroduction(at: introductionURL)
+        case .webAuthentication(let introductionURL, _, _):
+            startWebIntroduction(at: introductionURL)
+        case .unknown:
+            if let url = delegate.introductionURL(for: issuer, introducing: recipient) {
+                startBasicIntroduction(at: url)
+                return
+            } else {
+                reportFailure(.issuerMissingIntroductionURL)
+            }
         }
-        
+    }
+    
+    func startBasicIntroduction(at url: URL) {
         // Create JSON body. Start with the provided extra data parameters if they're present.
-        var dataMap = delegate.postData(for: issuer, from: recipient)
+        var dataMap = delegate.introductionData(for: issuer, from: recipient)
         dataMap["bitcoinAddress"] = recipient.publicAddress
         
         guard let data = try? JSONSerialization.data(withJSONObject: dataMap, options: []) else {
@@ -91,18 +115,83 @@ public class IssuerIntroductionRequest : CommonRequest {
         currentTask?.resume()
     }
     
+    func startWebIntroduction(at url: URL) {
+        var dataMap = delegate.introductionData(for: issuer, from: recipient)
+        dataMap["bitcoinAddress"] = recipient.publicAddress
+
+        // Translate the key/values in `dataMap` into query string parameters
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            reportFailure(.issuerMissingIntroductionURL)
+            return
+        }
+        for (key, value) in dataMap {
+            components.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
+        }
+        guard let queryURL = components.url else {
+            reportFailure(.cannotSerializePostData)
+            return
+        }
+        
+        // Create a webview
+        let configuration = WKWebViewConfiguration()
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        
+        // Setup its delegate
+        webView.navigationDelegate = self
+        
+        // Load that URL into the webview
+        let request = URLRequest(url: queryURL)
+        webView.load(request)
+        
+        // Call our delegate to present the UI
+        do {
+            try delegate.present(webView: webView)
+            presentingWebView = webView
+        } catch {
+            reportFailure(.introductionMethodNotSupported)
+        }
+    }
+    
     public func abort() {
         currentTask?.cancel()
         reportFailure(.aborted)
     }
     
-    private func reportFailure(_ reason: IssuerIntroductionRequestError) {
+    func reportFailure(_ reason: IssuerIntroductionRequestError) {
         callback?(reason)
-        callback = nil
+        resetState()
     }
     
-    private func reportSuccess() {
+    func reportSuccess() {
         callback?(nil)
+        resetState()
+    }
+    
+    private func resetState() {
         callback = nil
+        presentingWebView?.navigationDelegate = nil
+        presentingWebView = nil
     }
 }
+
+extension IssuerIntroductionRequest : WKNavigationDelegate {
+    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        guard case IssuerIntroductionMethod.webAuthentication(_, let successURL, let errorURL) = issuer.introductionMethod else {
+            return
+        }
+        
+        if webView.url == successURL {
+            OperationQueue.main.addOperation {
+                self.delegate.dismiss(webView: webView)
+            }
+            reportSuccess()
+        } else if webView.url == errorURL {
+            OperationQueue.main.addOperation {
+                self.delegate.dismiss(webView: webView)
+            }
+            reportFailure(.webAuthenticationFailed)
+        }
+    }
+}
+
+
