@@ -198,4 +198,38 @@ class IssuerTests: XCTestCase {
         let expectedMethod = IssuerIntroductionMethod.basic(introductionURL: URL(string:introductionURLValue)!)
         XCTAssertEqual(result.introductionMethod, expectedMethod)
     }
+    
+    
+    func testDictionaryWithIntroMethodMismatch() {
+        let input : [String : Any] = [
+            "name": nameValue,
+            "email": emailValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "id": idValue,
+            "url": urlValue,
+            "publicKey": publicKeyValue,
+            "introductionAuthenticationMethod": "web",
+            "introductionURL": introductionURLValue,
+            "issuerKeys": [
+                [
+                    "date": issuerKey.on.toString(),
+                    "key": issuerKey.key
+                ]
+            ],
+            "revocationKeys": [
+                [
+                    "date": revocationKey.on.toString(),
+                    "key": revocationKey.key
+                ]
+            ]
+            
+        ]
+        let result = try! Issuer(dictionary: input)
+        
+        XCTAssertNotNil(result)
+        
+        XCTAssertEqual(result.introductionMethod, IssuerIntroductionMethod.unknown)
+    }
+
+    
 }
