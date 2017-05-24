@@ -41,6 +41,12 @@ public enum IssuerError : Error {
     case invalid(property: String)
 }
 
+public enum IssuerIntroductionMethod {
+    case unknown
+    case basic(introductionURL: URL)
+    case webAuthentication(introductionURL: URL, successURL: URL, errorURL: URL)
+}
+
 public struct Issuer {
     // MARK: - Properties
     // MARK: Required properties
@@ -66,8 +72,25 @@ public struct Issuer {
     /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to revoke certificates.
     public let revocationKeys : [KeyRotation]
     
-    /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`
-    public let introductionURL : URL?
+    /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
+    public let introductionMethod : IssuerIntroductionMethod
+    
+    /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`. Note that
+    public var introductionURL : URL? {
+        var url : URL? = nil
+        
+        switch introductionMethod {
+        case .basic(let introductionURL):
+            url = introductionURL
+        case .webAuthentication(let introductionURL, _, _):
+            url = introductionURL
+        case .unknown:
+            break
+        }
+        
+        return url
+    }
+    
     
     /// v2+ only; url where revocation list is located
     public let revocationURL : URL?
@@ -106,7 +129,7 @@ public struct Issuer {
         
         issuerKeys = []
         revocationKeys = []
-        introductionURL = nil
+        introductionMethod = .unknown
     }
     
     /// Create an issuer from a complete set of data.
@@ -138,8 +161,41 @@ public struct Issuer {
         self.revocationURL = revocationURL
         issuerKeys = publicIssuerKeys.sorted(by: <)
         revocationKeys = publicRevocationKeys.sorted(by: <)
-        self.introductionURL = introductionURL
+        introductionMethod = .basic(introductionURL: introductionURL)
     }
+    
+    /// Create an issuer from a complete set of data.
+    ///
+    /// - parameter name:                 The issuer's name
+    /// - parameter email:                The issuer's email.
+    /// - parameter image:                A data object for the issuer's image.
+    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
+    /// - parameter url:                  URL to list all certificates issued by identifier
+    /// - parameter publicIssuerKeys:     An array of KeyRotation objects used to issue certificates.
+    /// - parameter publicRevocationKeys: An array of KeyRotation objects used to revoke certificates.
+    /// - parameter introductionMethod:   How the recipient should be introduced to the issuer.
+    ///
+    /// - returns: An initialized Issuer object.
+    public init(name: String,
+                email: String,
+                image: Data,
+                id: URL,
+                url: URL,
+                revocationURL: URL? = nil,
+                publicIssuerKeys: [KeyRotation],
+                publicRevocationKeys: [KeyRotation],
+                introductionMethod: IssuerIntroductionMethod) {
+        self.name = name
+        self.email = email
+        self.image = image
+        self.id = id
+        self.url = url
+        self.revocationURL = revocationURL
+        issuerKeys = publicIssuerKeys.sorted(by: <)
+        revocationKeys = publicRevocationKeys.sorted(by: <)
+        self.introductionMethod = introductionMethod
+    }
+
     
     /// Create an issuer from a dictionary of data. Typically used when reading from disk or from a network response
     /// This is the inverse of `toDictionary`
@@ -192,14 +248,44 @@ public struct Issuer {
         self.id = id
         self.url = url
         
-        // Optional Properties.
-        if let introductionString = dictionary["introductionURL"] as? String,
-            let introductionURL = URL(string: introductionString) {
-            self.introductionURL = introductionURL
+        // Restore the introduction method.
+        let introductionMethod = dictionary["introductionAuthenticationMethod"] as? String
+        let introductionStringURL = dictionary["introductionURL"] as? String
+        
+        if let introductionMethod = introductionMethod {
+            switch introductionMethod {
+            case "basic":
+                if let introductionStringURL = introductionStringURL,
+                    let introductionURL = URL(string: introductionStringURL) {
+                    self.introductionMethod = .basic(introductionURL: introductionURL)
+                } else {
+                    self.introductionMethod = .unknown
+                }
+            case "web":
+                if let introductionStringURL = introductionStringURL,
+                    let introductionURL = URL(string: introductionStringURL),
+                    let successStringURL = dictionary["introductionSuccessURL"] as? String,
+                    let successURL = URL(string: successStringURL),
+                    let errorStringURL = dictionary["introductionErrorURL"] as? String,
+                    let errorURL = URL(string: errorStringURL) {
+                    
+                    self.introductionMethod = .webAuthentication(introductionURL: introductionURL, successURL: successURL, errorURL: errorURL)
+                } else {
+                    self.introductionMethod = .unknown
+                }
+            case "unknown":
+                fallthrough
+            default:
+                self.introductionMethod = .unknown
+            }
+        } else if let introductionStringURL = introductionStringURL,
+            let introductionURL = URL(string: introductionStringURL) {
+            self.introductionMethod = .basic(introductionURL: introductionURL)
         } else {
-            self.introductionURL = nil
+            self.introductionMethod = .unknown
         }
         
+        // Optional: restore the revocation data
         if let revocationString = dictionary["revocationList"] as? String,
             let revocationURL = URL(string: revocationString) {
             self.revocationURL = revocationURL
@@ -235,8 +321,18 @@ public struct Issuer {
             "issuerKeys": serializedIssuerKeys,
             "revocationKeys": serializedRevocationKeys
         ]
-        if let introductionURL = introductionURL {
+        
+        switch introductionMethod {
+        case .basic(let introductionURL):
+            dictionary["introductionAuthenticationMethod"] = "basic"
             dictionary["introductionURL"] = "\(introductionURL)"
+        case .webAuthentication(let introductionURL, let successURL, let errorURL):
+            dictionary["introductionAuthenticationMethod"] = "web"
+            dictionary["introductionURL"] = "\(introductionURL)"
+            dictionary["introductionSuccessURL"] = "\(successURL)"
+            dictionary["introductionErrorURL"] = "\(errorURL)"
+        case .unknown:
+            dictionary["introductionAuthenticationMethod"] = "unknown"
         }
         
         return dictionary
@@ -254,6 +350,7 @@ public func ==(lhs: Issuer, rhs: Issuer) -> Bool {
         && lhs.url == rhs.url
         && lhs.issuerKeys == rhs.issuerKeys
         && lhs.revocationKeys == rhs.revocationKeys
+        && lhs.introductionMethod == rhs.introductionMethod
 }
 
 extension KeyRotation : Comparable {}
@@ -265,6 +362,23 @@ public func ==(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
 public func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
     return lhs.on < rhs.on
 }
+
+extension IssuerIntroductionMethod : Equatable {}
+
+public func ==(lhs: IssuerIntroductionMethod, rhs: IssuerIntroductionMethod) -> Bool {
+    switch (lhs, rhs) {
+    case (.unknown, .unknown):
+        return true
+    case (.basic(let leftURL), .basic(let rightURL)):
+        return leftURL == rightURL
+    case (.webAuthentication(let leftIntroURL, let leftSuccessURL, let leftErrorURL), .webAuthentication(let rightIntroURL, let rightSuccessURL, let rightErrorURL)):
+        return leftIntroURL == rightIntroURL && leftSuccessURL == rightSuccessURL && leftErrorURL == rightErrorURL
+    default:
+        return false
+    }
+}
+
+// MARK - Helper functions
 
 func parseKeys(from dictionary: [String: Any], with keyName: String,
                  converter keyRotationFunction: ([String : String]) throws -> KeyRotation) throws -> [KeyRotation] {

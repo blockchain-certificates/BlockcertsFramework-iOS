@@ -17,6 +17,8 @@ class IssuerTests: XCTestCase {
     let urlValue = "https://example.com/url"
     let publicKeyValue = "BadPublicKey"
     let introductionURLValue = "https://example.com/request"
+    let introductionURLSuccessValue = "https://example.com/request/success"
+    let introductionURLErrorValue = "https://example.com/request/error"
     let issuerKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")
     let revocationKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "REVOCATION_KEY")
     
@@ -52,6 +54,7 @@ class IssuerTests: XCTestCase {
         XCTAssertEqual(result["image"] as! String, "data:image/png;base64,\(imageDataValue)")
         XCTAssertEqual(result["id"] as! String, idValue)
         XCTAssertEqual(result["url"] as! String, urlValue)
+        XCTAssertEqual(result["introductionAuthenticationMethod"] as! String, "basic")
         XCTAssertEqual(result["introductionURL"] as! String, introductionURLValue)
         
         let issuerKeys = result["issuerKeys"] as! [[String: String]]
@@ -98,5 +101,101 @@ class IssuerTests: XCTestCase {
         
         XCTAssertNotNil(result)
         XCTAssertEqual(result, expectedResult)
+    }
+    
+    func testDictionaryConversionWithWebAuthentication() {
+        let introductionMethod = IssuerIntroductionMethod.webAuthentication(introductionURL: URL(string: introductionURLValue)!,
+                                                                            successURL: URL(string: introductionURLSuccessValue)!,
+                                                                            errorURL: URL(string: introductionURLErrorValue)!)
+        let issuer = Issuer(name: nameValue,
+                            email: emailValue,
+                            image: Data(),
+                            id: URL(string: idValue)!,
+                            url: URL(string: urlValue)!,
+                            publicIssuerKeys: [issuerKey],
+                            publicRevocationKeys: [revocationKey],
+                            introductionMethod: introductionMethod)
+
+        let result = issuer.toDictionary()
+        XCTAssertEqual(result["introductionAuthenticationMethod"] as! String, "web")
+        XCTAssertEqual(result["introductionURL"] as! String, introductionURLValue)
+        XCTAssertEqual(result["introductionSuccessURL"] as! String, introductionURLSuccessValue)
+        XCTAssertEqual(result["introductionErrorURL"] as! String, introductionURLErrorValue)
+    }
+    
+    
+    func testDictionaryInitializationWithWebAuthentication() {
+        let input : [String : Any] = [
+            "name": nameValue,
+            "email": emailValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "id": idValue,
+            "url": urlValue,
+            "publicKey": publicKeyValue,
+            "introductionAuthenticationMethod": "web",
+            "introductionURL": introductionURLValue,
+            "introductionSuccessURL": introductionURLSuccessValue,
+            "introductionErrorURL": introductionURLErrorValue,
+            "issuerKeys": [
+                [
+                    "date": issuerKey.on.toString(),
+                    "key": issuerKey.key
+                ]
+            ],
+            "revocationKeys": [
+                [
+                    "date": revocationKey.on.toString(),
+                    "key": revocationKey.key
+                ]
+            ]
+            
+        ]
+        let introductionMethod = IssuerIntroductionMethod.webAuthentication(introductionURL: URL(string: introductionURLValue)!,
+                                                                            successURL: URL(string: introductionURLSuccessValue)!,
+                                                                            errorURL: URL(string: introductionURLErrorValue)!)
+        let expectedResult = Issuer(name: nameValue,
+                                    email: emailValue,
+                                    image: Data(),
+                                    id: URL(string: idValue)!,
+                                    url: URL(string: urlValue)!,
+                                    publicIssuerKeys: [issuerKey],
+                                    publicRevocationKeys: [revocationKey],
+                                    introductionMethod: introductionMethod)
+        let result = try! Issuer(dictionary: input)
+        
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result, expectedResult)
+    }
+    
+    
+    func testDictionaryInitializationBackwardsCompatibility() {
+        let input : [String : Any] = [
+            "name": nameValue,
+            "email": emailValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "id": idValue,
+            "url": urlValue,
+            "publicKey": publicKeyValue,
+            "introductionURL": introductionURLValue,
+            "issuerKeys": [
+                [
+                    "date": issuerKey.on.toString(),
+                    "key": issuerKey.key
+                ]
+            ],
+            "revocationKeys": [
+                [
+                    "date": revocationKey.on.toString(),
+                    "key": revocationKey.key
+                ]
+            ]
+            
+        ]
+        let result = try! Issuer(dictionary: input)
+        
+        XCTAssertNotNil(result)
+        
+        let expectedMethod = IssuerIntroductionMethod.basic(introductionURL: URL(string:introductionURLValue)!)
+        XCTAssertEqual(result.introductionMethod, expectedMethod)
     }
 }
