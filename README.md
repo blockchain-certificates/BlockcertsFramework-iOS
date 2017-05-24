@@ -1,7 +1,7 @@
-# cert-wallet
+# Blockcerts Framework for iOS
 [![Build Status](https://travis-ci.org/blockchain-certificates/cert-wallet.svg?branch=master)](https://travis-ci.org/blockchain-certificates/cert-wallet)
 
-An iOS wallet for viewing, validating, and sharing digital certificates.
+This repository contains the core modules used to implement Blockcerts functionality in iOS. 
 
 ## Archive a build for TestFlight
 Here's what you need to do to distribute a new build on TestFlight:
