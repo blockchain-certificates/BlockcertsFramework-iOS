@@ -117,6 +117,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
                 return data
             }
         }
+        
         // Mock out the network
         let session = MockURLSession()
         let url = issuer.introductionURL!
@@ -154,6 +155,5 @@ class IssuerIntroductionRequestTests: XCTestCase {
         request.start()
         
         waitForExpectations(timeout: 20.0, handler: nil)
-        
     }
 }
