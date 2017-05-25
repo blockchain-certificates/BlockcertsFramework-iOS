@@ -97,7 +97,7 @@ class IssuerTests: XCTestCase {
                                     publicIssuerKeys: [issuerKey],
                                     publicRevocationKeys: [revocationKey],
                                     introductionURL: URL(string: introductionURLValue)!)
-        let result = try! Issuer(dictionary: input)
+        let result = try! Issuer(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
         XCTAssertEqual(result, expectedResult)
@@ -161,7 +161,7 @@ class IssuerTests: XCTestCase {
                                     publicIssuerKeys: [issuerKey],
                                     publicRevocationKeys: [revocationKey],
                                     introductionMethod: introductionMethod)
-        let result = try! Issuer(dictionary: input)
+        let result = try! Issuer(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
         XCTAssertEqual(result, expectedResult)
@@ -191,7 +191,7 @@ class IssuerTests: XCTestCase {
             ]
             
         ]
-        let result = try! Issuer(dictionary: input)
+        let result = try! Issuer(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
         
@@ -224,12 +224,50 @@ class IssuerTests: XCTestCase {
             ]
             
         ]
-        let result = try! Issuer(dictionary: input)
+        let result = try! Issuer(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
         
         XCTAssertEqual(result.introductionMethod, IssuerIntroductionMethod.unknown)
     }
+    
+    func testDictionaryInitializationWithBadVersion() {
+        let input : [String : Any] = [
+            "name": nameValue,
+            "email": emailValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "id": idValue,
+            "url": urlValue,
+            "publicKey": publicKeyValue,
+            "introductionURL": introductionURLValue,
+            "issuerKeys": [
+                [
+                    "date": issuerKey.on.toString(),
+                    "key": issuerKey.key
+                ]
+            ],
+            "revocationKeys": [
+                [
+                    "date": revocationKey.on.toString(),
+                    "key": revocationKey.key
+                ]
+            ]
+            
+        ]
+
+        do {
+            _ = try Issuer(dictionary: input, asVersion: .two)
+            XCTFail("Parsing that input as v2 should fail")
+        } catch {
+            switch error {
+            case IssuerError.missing(let property):
+                XCTAssertEqual(property, "publicKeys", "Parsing v1 input as v2 should fail with missing `publicKeys` property")
+            default:
+                XCTFail("")
+            }
+        }
+    }
+
 
     
 }
