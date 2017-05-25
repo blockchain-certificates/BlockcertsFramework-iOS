@@ -112,8 +112,7 @@ class IssuerTests: XCTestCase {
                             image: Data(),
                             id: URL(string: idValue)!,
                             url: URL(string: urlValue)!,
-                            publicIssuerKeys: [issuerKey],
-                            publicRevocationKeys: [revocationKey],
+                            publicKeys: [issuerKey],
                             introductionMethod: introductionMethod)
 
         let result = issuer.toDictionary()
@@ -302,9 +301,82 @@ class IssuerTests: XCTestCase {
 
         version = Issuer.detectVersion(from: issuerWithWebAuth)
         XCTAssertEqual(version, .two)
-        
     }
-
-
     
+    func testDictionaryInitializationWithVersionDetection() {
+        // V1
+        let issuerV1 : [String : Any] = [
+            "name": nameValue,
+            "email": emailValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "id": idValue,
+            "url": urlValue,
+            "publicKey": publicKeyValue,
+            "introductionURL": introductionURLValue,
+            "issuerKeys": [
+                [
+                    "date": issuerKey.on.toString(),
+                    "key": issuerKey.key
+                ]
+            ],
+            "revocationKeys": [
+                [
+                    "date": revocationKey.on.toString(),
+                    "key": revocationKey.key
+                ]
+            ]
+            
+        ]
+        let expectedResult = Issuer(name: nameValue,
+                                    email: emailValue,
+                                    image: Data(),
+                                    id: URL(string: idValue)!,
+                                    url: URL(string: urlValue)!,
+                                    publicIssuerKeys: [issuerKey],
+                                    publicRevocationKeys: [revocationKey],
+                                    introductionURL: URL(string: introductionURLValue)!)
+        let result = try? Issuer(dictionary: issuerV1)
+        
+        XCTAssertNotNil(result)
+        XCTAssertEqual(result, expectedResult)
+        
+        
+        // v2
+        let publicKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "n138AWR4d2srKgw57rWph8wibVSwZt2XDi")
+        let issuerV2 : [String: Any] = [
+            "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
+            "type": "Profile",
+            "id": idValue,
+            "name": nameValue,
+            "url": urlValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "email": emailValue,
+            "publicKeys": [
+                [
+                    "publicKey": "ecdsa-koblitz-pubkey:\(publicKey.key)",
+                    "created": publicKey.on.toString()
+                ]
+            ],
+            "introductionAuthenticationMethod": "web",
+            "introductionURL": introductionURLValue,
+            "introductionSuccessURL": introductionURLSuccessValue,
+            "introductionErrorURL": introductionURLErrorValue
+        ]
+        
+        let resultV2 = try? Issuer(dictionary: issuerV2)
+        let webIntroduction = IssuerIntroductionMethod.webAuthentication(introductionURL: URL(string: introductionURLValue)!,
+                                                                         successURL: URL(string: introductionURLSuccessValue)!,
+                                                                         errorURL: URL(string: introductionURLErrorValue)!)
+        
+        
+        let expectedResultV2 = Issuer(name: nameValue,
+                                      email: emailValue,
+                                      image: Data(),
+                                      id: URL(string: idValue)!,
+                                      url: URL(string: urlValue)!,
+                                      publicKeys: [publicKey],
+                                      introductionMethod: webIntroduction)
+        XCTAssertNotNil(resultV2)
+        XCTAssertEqual(resultV2, expectedResultV2)
+    }
 }

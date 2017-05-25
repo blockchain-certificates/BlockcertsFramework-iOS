@@ -200,6 +200,37 @@ public struct Issuer {
         issuerKeys = publicIssuerKeys.sorted(by: <)
         revocationKeys = publicRevocationKeys.sorted(by: <)
         self.introductionMethod = introductionMethod
+        version = .one
+    }
+    
+    /// Create an issuer from a complete set of data.
+    ///
+    /// - parameter name:                 The issuer's name
+    /// - parameter email:                The issuer's email.
+    /// - parameter image:                A data object for the issuer's image.
+    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
+    /// - parameter url:                  URL to list all certificates issued by identifier
+    /// - parameter publicKeys:           An array of KeyRotation objects used to issue certificates.
+    /// - parameter introductionMethod:   How the recipient should be introduced to the issuer.
+    ///
+    /// - returns: An initialized Issuer object.
+    public init(name: String,
+                email: String,
+                image: Data,
+                id: URL,
+                url: URL,
+                revocationURL: URL? = nil,
+                publicKeys: [KeyRotation],
+                introductionMethod: IssuerIntroductionMethod) {
+        self.name = name
+        self.email = email
+        self.image = image
+        self.id = id
+        self.url = url
+        self.revocationURL = revocationURL
+        issuerKeys = publicKeys.sorted(by: <)
+        revocationKeys = []
+        self.introductionMethod = introductionMethod
         version = .two
     }
 
@@ -350,6 +381,11 @@ public struct Issuer {
     }
     
     public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
+        if dictionary["publicKeys"] != nil {
+            return .two
+        } else if dictionary["issuerKeys"] != nil {
+            return .one
+        }
         return nil
     }
 }
