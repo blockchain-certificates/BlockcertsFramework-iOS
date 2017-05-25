@@ -231,7 +231,7 @@ class IssuerTests: XCTestCase {
         XCTAssertEqual(result.introductionMethod, IssuerIntroductionMethod.unknown)
     }
     
-    func testDictionaryInitializationWithBadVersion() {
+    func testVersionDetectionForV1() {
         let input : [String : Any] = [
             "name": nameValue,
             "email": emailValue,
@@ -254,18 +254,55 @@ class IssuerTests: XCTestCase {
             ]
             
         ]
+        
+        let version = Issuer.detectVersion(from: input)
+        XCTAssertEqual(version, .one)
+    }
+    
+    func testVersionDetectionForV2() {
+        let issuer : [String : Any] = [
+            "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
+            "type": "Profile",
+            "id": idValue,
+            "name": nameValue,
+            "url": urlValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "email": emailValue,
+            "publicKeys": [
+                [
+                    "publicKey": "ecdsa-koblitz-pubkey:n138AWR4d2srKgw57rWph8wibVSwZt2XDi",
+                    "created": "2017-03-10T18:17:48.102+00:00"
+                ]
+            ],
+            "introductionURL": introductionURLValue
+        ]
+        
+        var version = Issuer.detectVersion(from: issuer)
+        XCTAssertEqual(version, .two)
+        
+        let issuerWithWebAuth : [String: Any] = [
+            "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
+            "type": "Profile",
+            "id": idValue,
+            "name": nameValue,
+            "url": urlValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "email": emailValue,
+            "publicKeys": [
+                [
+                    "publicKey": "ecdsa-koblitz-pubkey:n138AWR4d2srKgw57rWph8wibVSwZt2XDi",
+                    "created": "2017-03-10T18:17:48.102+00:00"
+                ]
+            ],
+            "introductionAuthenticationMethod": "web",
+            "introductionURL": introductionURLValue,
+            "introductionSuccessURL": introductionURLSuccessValue,
+            "introductionErrorURL": introductionURLErrorValue
+        ]
 
-        do {
-            _ = try Issuer(dictionary: input, asVersion: .two)
-            XCTFail("Parsing that input as v2 should fail")
-        } catch {
-            switch error {
-            case IssuerError.missing(let property):
-                XCTAssertEqual(property, "publicKeys", "Parsing v1 input as v2 should fail with missing `publicKeys` property")
-            default:
-                XCTFail("")
-            }
-        }
+        version = Issuer.detectVersion(from: issuerWithWebAuth)
+        XCTAssertEqual(version, .two)
+        
     }
 
 

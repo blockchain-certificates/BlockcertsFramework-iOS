@@ -39,6 +39,7 @@ public enum IssuerVersion : Int {
 public enum IssuerError : Error {
     case missing(property: String)
     case invalid(property: String)
+    case unknownVersion
 }
 
 public enum IssuerIntroductionMethod {
@@ -95,6 +96,9 @@ public struct Issuer {
     /// v2+ only; url where revocation list is located
     public let revocationURL : URL?
     
+    /// What Issuer data version this issuer is using.
+    public let version : IssuerVersion
+    
     // MARK: Convenience Properties
     /// A convenience method for the most recent (and theoretically only valid) issuerKey.
     public var publicKey : String? {
@@ -130,6 +134,7 @@ public struct Issuer {
         issuerKeys = []
         revocationKeys = []
         introductionMethod = .unknown
+        version = .one
     }
     
     /// Create an issuer from a complete set of data.
@@ -162,6 +167,7 @@ public struct Issuer {
         issuerKeys = publicIssuerKeys.sorted(by: <)
         revocationKeys = publicRevocationKeys.sorted(by: <)
         introductionMethod = .basic(introductionURL: introductionURL)
+        version = .one
     }
     
     /// Create an issuer from a complete set of data.
@@ -194,6 +200,7 @@ public struct Issuer {
         issuerKeys = publicIssuerKeys.sorted(by: <)
         revocationKeys = publicRevocationKeys.sorted(by: <)
         self.introductionMethod = introductionMethod
+        version = .two
     }
 
     
@@ -202,7 +209,7 @@ public struct Issuer {
     ///
     /// - parameter dictionary: A set of key-value pairs with data used to create the Issuer object
     /// - parameter version: Version hint for parsing
-    public init(dictionary: [String: Any], asVersion version: IssuerVersion = .one) throws {
+    public init(dictionary: [String: Any], asVersion strictVersion: IssuerVersion? = nil) throws {
         // Required properties first
         guard let name = dictionary["name"] as? String else {
             throw IssuerError.missing(property: "name")
@@ -229,6 +236,9 @@ public struct Issuer {
         guard let url = URL(string: urlString) else {
             throw IssuerError.invalid(property: "url")
         }
+        guard let version = strictVersion ?? Issuer.detectVersion(from: dictionary) else {
+            throw IssuerError.unknownVersion
+        }
         
         if version == IssuerVersion.one {
             let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
@@ -247,6 +257,7 @@ public struct Issuer {
         self.image = image
         self.id = id
         self.url = url
+        self.version = version
         
         // Restore the introduction method.
         let introductionMethod = dictionary["introductionAuthenticationMethod"] as? String
@@ -336,6 +347,10 @@ public struct Issuer {
         }
         
         return dictionary
+    }
+    
+    public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
+        return nil
     }
 }
 
