@@ -22,6 +22,8 @@ public enum IssuerIntroductionRequestError : Error {
 public protocol IssuerIntroductionRequestDelegate : class {
     func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL?
     func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
+    func present(webView:WKWebView) throws
+    func dismiss(webView:WKWebView)
 }
 
 public extension IssuerIntroductionRequestDelegate {
@@ -124,8 +126,8 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
             reportFailure(.issuerMissingIntroductionURL)
             return
         }
-        for (key, value) in dataMap {
-            components.queryItems?.append(URLQueryItem(name: key, value: "\(value)"))
+        components.queryItems = dataMap.map { (key: String, value: Any) -> URLQueryItem in
+            return URLQueryItem(name: key, value: "\(value)")
         }
         guard let queryURL = components.url else {
             reportFailure(.cannotSerializePostData)
