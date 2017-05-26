@@ -296,6 +296,8 @@ public struct Issuer {
         
         if let introductionMethod = introductionMethod {
             switch introductionMethod {
+            case "none":
+                fallthrough
             case "basic":
                 if let introductionStringURL = introductionStringURL,
                     let introductionURL = URL(string: introductionStringURL) {
