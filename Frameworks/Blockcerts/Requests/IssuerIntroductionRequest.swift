@@ -170,6 +170,11 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
     }
     
     private func resetState() {
+        if let webView = presentingWebView {
+            OperationQueue.main.addOperation { [weak self] in
+                self?.delegate.dismiss(webView: webView)
+            }
+        }
         callback = nil
         presentingWebView?.navigationDelegate = nil
         presentingWebView = nil
@@ -183,14 +188,8 @@ extension IssuerIntroductionRequest : WKNavigationDelegate {
         }
         
         if webView.url == successURL {
-            OperationQueue.main.addOperation {
-                self.delegate.dismiss(webView: webView)
-            }
             reportSuccess()
         } else if webView.url == errorURL {
-            OperationQueue.main.addOperation {
-                self.delegate.dismiss(webView: webView)
-            }
             reportFailure(.webAuthenticationFailed)
         }
     }
