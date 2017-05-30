@@ -17,13 +17,14 @@ public enum IssuerIntroductionRequestError : Error {
     case errorResponseFromServer(response: HTTPURLResponse)
     case introductionMethodNotSupported
     case webAuthenticationFailed
+    case webAuthenticationMisconfigured
 }
 
 public protocol IssuerIntroductionRequestDelegate : class {
     func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL?
     func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
-    func present(webView:WKWebView) throws
-    func dismiss(webView:WKWebView)
+    func presentWebView(at url:URL, with navigationDelegate:WKNavigationDelegate) throws
+    func dismissWebView()
 }
 
 public extension IssuerIntroductionRequestDelegate {
@@ -38,11 +39,10 @@ public extension IssuerIntroductionRequestDelegate {
         return dataMap
     }
     
-    public func present(webView:WKWebView) throws {
+    public func presentWebView(at url:URL, with navigationDelegate:WKNavigationDelegate) throws {
         throw IssuerIntroductionRequestError.introductionMethodNotSupported
     }
-    public func dismiss(webView:WKWebView) {
-        
+    public func dismissWebView() {
     }
 }
 
@@ -58,9 +58,6 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
     var session : URLSessionProtocol
     var currentTask : URLSessionDataTaskProtocol?
     var issuer : Issuer
-    
-    // These are for web auth.
-    private var presentingWebView : WKWebView?
     
     public init(introduce recipient: Recipient, to issuer: Issuer, session: URLSessionProtocol = URLSession.shared, callback: ((IssuerIntroductionRequestError?) -> Void)?) {
         self.callback = callback
@@ -134,21 +131,9 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
             return
         }
         
-        // Create a webview
-        let configuration = WKWebViewConfiguration()
-        let webView = WKWebView(frame: .zero, configuration: configuration)
-        
-        // Setup its delegate
-        webView.navigationDelegate = self
-        
-        // Load that URL into the webview
-        let request = URLRequest(url: queryURL)
-        webView.load(request)
-        
         // Call our delegate to present the UI
         do {
-            try delegate.present(webView: webView)
-            presentingWebView = webView
+            try delegate.presentWebView(at: queryURL, with: self)
         } catch {
             reportFailure(.introductionMethodNotSupported)
         }
@@ -170,27 +155,42 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
     }
     
     private func resetState() {
-        if let webView = presentingWebView {
-            OperationQueue.main.addOperation { [weak self] in
-                self?.delegate.dismiss(webView: webView)
-            }
+        OperationQueue.main.addOperation { [weak self] in
+            self?.delegate.dismissWebView()
         }
         callback = nil
-        presentingWebView?.navigationDelegate = nil
-        presentingWebView = nil
     }
 }
 
 extension IssuerIntroductionRequest : WKNavigationDelegate {
-    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+//    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+    public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        print("\(#function): \(String(describing: webView.url))")
         guard case IssuerIntroductionMethod.webAuthentication(_, let successURL, let errorURL) = issuer.introductionMethod else {
             return
         }
+        guard let successComponents = URLComponents(url: successURL, resolvingAgainstBaseURL: false),
+            let errorComponents = URLComponents(url: errorURL, resolvingAgainstBaseURL: false) else {
+                webView.stopLoading()
+                reportFailure(.webAuthenticationMisconfigured)
+                return
+        }
         
-        if webView.url == successURL {
-            reportSuccess()
-        } else if webView.url == errorURL {
-            reportFailure(.webAuthenticationFailed)
+        if let webURL = webView.url {
+            if let webComponents = URLComponents(url: webURL, resolvingAgainstBaseURL: false) {
+                if webComponents.path == successComponents.path {
+                    webView.stopLoading()
+                    reportSuccess()
+                } else if webComponents.path == errorComponents.path {
+                    webView.stopLoading()
+                    reportFailure(.webAuthenticationFailed)
+                }
+            } else {
+                webView.stopLoading()
+                reportFailure(.webAuthenticationFailed)
+            }
+        } else {
+            print("WebView URL has changed to nil. What does that mean?")
         }
     }
 }
