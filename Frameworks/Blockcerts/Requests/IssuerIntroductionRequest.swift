@@ -163,9 +163,7 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
 }
 
 extension IssuerIntroductionRequest : WKNavigationDelegate {
-//    public func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
     public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        print("\(#function): \(String(describing: webView.url))")
         guard case IssuerIntroductionMethod.webAuthentication(_, let successURL, let errorURL) = issuer.introductionMethod else {
             return
         }
