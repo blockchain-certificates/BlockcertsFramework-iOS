@@ -169,28 +169,25 @@ extension IssuerIntroductionRequest : WKNavigationDelegate {
         guard case IssuerIntroductionMethod.webAuthentication(_, let successURL, let errorURL) = issuer.introductionMethod else {
             return
         }
-        guard let successComponents = URLComponents(url: successURL, resolvingAgainstBaseURL: false),
-            let errorComponents = URLComponents(url: errorURL, resolvingAgainstBaseURL: false) else {
-                webView.stopLoading()
-                reportFailure(.webAuthenticationMisconfigured)
-                return
+        guard let webURL = webView.url else {
+            return
         }
-        
-        if let webURL = webView.url {
-            if let webComponents = URLComponents(url: webURL, resolvingAgainstBaseURL: false) {
-                if webComponents.path == successComponents.path {
-                    webView.stopLoading()
-                    reportSuccess()
-                } else if webComponents.path == errorComponents.path {
-                    webView.stopLoading()
-                    reportFailure(.webAuthenticationFailed)
-                }
-            } else {
+
+        if var webComponents = URLComponents(url: webURL, resolvingAgainstBaseURL: false) {
+            // Remove any additional query items before comparison
+            webComponents.queryItems = nil
+            let compareToUrl = webComponents.url
+            
+            if compareToUrl == successURL {
+                webView.stopLoading()
+                reportSuccess()
+            } else if compareToUrl == errorURL {
                 webView.stopLoading()
                 reportFailure(.webAuthenticationFailed)
             }
         } else {
-            print("WebView URL has changed to nil. What does that mean?")
+            webView.stopLoading()
+            reportFailure(.webAuthenticationFailed)
         }
     }
 }

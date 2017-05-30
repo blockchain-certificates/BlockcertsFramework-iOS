@@ -309,9 +309,20 @@ public struct Issuer {
                 if let introductionStringURL = introductionStringURL,
                     let introductionURL = URL(string: introductionStringURL),
                     let successStringURL = dictionary["introductionSuccessURL"] as? String,
-                    let successURL = URL(string: successStringURL),
+                    var successURL = URL(string: successStringURL),
                     let errorStringURL = dictionary["introductionErrorURL"] as? String,
-                    let errorURL = URL(string: errorStringURL) {
+                    var errorURL = URL(string: errorStringURL) {
+                    
+                    // Remove any query string parameters from the success & error urls
+                    if var successComponents = URLComponents(url: successURL, resolvingAgainstBaseURL: false) {
+                        successComponents.queryItems = nil
+                        successURL = successComponents.url ?? successURL
+                    }
+                    
+                    if var errorComponents = URLComponents(url: errorURL, resolvingAgainstBaseURL: false) {
+                        errorComponents.queryItems = nil
+                        errorURL = errorComponents.url ?? errorURL
+                    }
                     
                     self.introductionMethod = .webAuthentication(introductionURL: introductionURL, successURL: successURL, errorURL: errorURL)
                 } else {
