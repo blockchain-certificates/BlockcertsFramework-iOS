@@ -405,18 +405,17 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.state = .failure(reason: "Couldn't parse revoked assertions")
                     return
                 }
-                
+
+                print("mathing \(String(describing: self?.certificate.id))?")
                 for ra in revokedAssertions {
-                    guard let id = ra["id"],
-                        let range = id.range(of:Constants.guidRegexp, options: .regularExpression) else {
+                    guard let id = ra["id"] else {
                         self?.state = .failure(reason: "Couldn't parse revoked assertions")
                         return
                     }
-                    
-                    let assertionUID = id.substring(with:range)
                     let reason = ra["revocationReason"]
-                    if assertionUID == self?.certificate.assertion.uid {
-                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion uid is \(assertionUID) and reason is \(reason!)")
+                    print("id: \(id), reason: \(String(describing:reason))")
+                    if id == self?.certificate.id {
+                        self?.state = .failure(reason: "Certificate has been revoked by issuer. Revoked assertion id is \(id) and reason is \(reason!)")
                         return
                     }
                 }

@@ -91,7 +91,7 @@ class CertificateDetailViewController: UITableViewController {
                 "Issued On": "\(certificate.assertion.issuedOn)",
                 "Evidence": certificate.assertion.evidence,
                 "UID": certificate.assertion.uid,
-                "ID": "\(certificate.assertion.id)"
+                "ID": "\(String(describing: certificate.assertion.id))"
             ]),
             CertificateProperty(title: "Verify", values: [
                 "Signer": "\(String(describing: certificate.verifyData.signer))",

@@ -53,7 +53,7 @@ class CertificateV1_2SignedTests: XCTestCase {
         XCTAssertEqual(cert.title, "Game of Thrones Character")
         XCTAssertEqual(cert.subtitle, nil)
         XCTAssertEqual(cert.description, "This certifies that the named character is an official Game of Thrones character.")
-        XCTAssertEqual(cert.id, URL(string: "http://certificates.gamoeofthronesxyz.org/criteria/2016/08/got.json"))
+        XCTAssertEqual(cert.id, "http://certificates.gamoeofthronesxyz.org/criteria/2016/08/got.json")
     }
     
     func testImportIssuerProperties() {

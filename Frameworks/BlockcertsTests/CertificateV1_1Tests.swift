@@ -41,7 +41,7 @@ class CertificateV1_1Tests: XCTestCase {
         XCTAssertEqual(cert.title, "Certificate title")
         XCTAssertEqual(cert.subtitle, nil)
         XCTAssertEqual(cert.description, "Certificate description")
-        XCTAssertEqual(cert.id, URL(string: "https://www.theissuer.edu/criteria/2016/05/certificate-type.json"))
+        XCTAssertEqual(cert.id, "https://www.theissuer.edu/criteria/2016/05/certificate-type.json")
     }
     
     func testImportIssuerProperties() {

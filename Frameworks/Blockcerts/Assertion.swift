@@ -27,7 +27,7 @@ public struct Assertion {
     /// Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
     public let uid : String
     
-    /// URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
+    /// DEPRECATED: URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
     public let id : URL?
     
     public let metadata : Metadata

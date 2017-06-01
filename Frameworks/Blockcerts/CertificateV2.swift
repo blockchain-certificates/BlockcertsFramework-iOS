@@ -15,7 +15,7 @@ struct CertificateV2 : Certificate {
     let description: String
     let image : Data
     let language : String
-    let id : URL?
+    let id : String
     let file : Data
     
     let issuer : Issuer
@@ -27,6 +27,7 @@ struct CertificateV2 : Certificate {
     let receipt : Receipt?
     let metadata: Metadata
     let htmlDisplay: String?
+    let shareUrl: URL?
     
     
     init(data: Data) throws {
@@ -64,12 +65,11 @@ struct CertificateV2 : Certificate {
         guard let description = certificateData["description"] as? String else {
             throw CertificateParserError.missingData(description: "Missing certificate's description property.")
         }
-        if let certificateIdString = certificateData["id"] as? String,
-            let certificateIDURL = URL(string: certificateIdString) {
-            id = certificateIDURL
-        } else {
-            id = nil
+        guard let certificateIdString = json["id"] as? String else {
+            throw CertificateParserError.missingData(description: "Missing certificate's id property.")
         }
+        id = certificateIdString
+        shareUrl = URL(string: id)
         
         let certificateImage = imageData(from: certificateImageURI)
         let subtitle = certificateData["subtitle"] as? String

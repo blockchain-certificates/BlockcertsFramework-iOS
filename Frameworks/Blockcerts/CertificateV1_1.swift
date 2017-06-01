@@ -15,7 +15,7 @@ struct CertificateV1_1 : Certificate {
     let description: String
     let image : Data
     let language : String
-    let id : URL?
+    let id : String
     let file : Data
     let signature: String?
     
@@ -25,6 +25,7 @@ struct CertificateV1_1 : Certificate {
     let verifyData : Verify
     let receipt: Receipt? = nil
     let metadata: Metadata
+    let shareUrl: URL?
     
     init(data: Data) throws {
         self.file = data
@@ -62,7 +63,8 @@ struct CertificateV1_1 : Certificate {
         self.description = description
         self.image = certificateImage
         language = ""
-        id = certificateIdUrl
+        id = certificateIdString
+        shareUrl = certificateIdUrl
         
         
         // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.

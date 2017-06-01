@@ -155,7 +155,7 @@ public protocol Certificate {
     var language : String { get }
     
     /// Link to a JSON that details the issuer's issuing and recovation keys.
-    var id : URL? { get }
+    var id : String { get }
     
     /// The raw, unedited file representation of the certificate.
     var file : Data { get }
@@ -183,6 +183,9 @@ public protocol Certificate {
     
     /// An optional display of this certificate in raw HTML.
     var htmlDisplay : String? { get }
+    
+    /// If present, the hosted URL that can be used to share this certificate.
+    var shareUrl : URL? { get }
 }
 
 
