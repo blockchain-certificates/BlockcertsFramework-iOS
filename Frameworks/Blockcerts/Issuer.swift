@@ -96,6 +96,9 @@ public struct Issuer {
     /// v2+ only; url where revocation list is located
     public let revocationURL : URL?
     
+    /// v2+ only. This is where you report usage analytics directly to the issuer.
+    public let analyticsURL: URL?
+    
     /// What Issuer data version this issuer is using.
     public let version : IssuerVersion
     
@@ -135,6 +138,7 @@ public struct Issuer {
         revocationKeys = []
         introductionMethod = .unknown
         version = .one
+        analyticsURL = nil
     }
     
     /// Create an issuer from a complete set of data.
@@ -157,7 +161,8 @@ public struct Issuer {
                 revocationURL: URL? = nil,
                 publicIssuerKeys: [KeyRotation],
                 publicRevocationKeys: [KeyRotation],
-                introductionURL: URL) {
+                introductionURL: URL,
+                analyticsURL: URL? = nil) {
         self.name = name
         self.email = email
         self.image = image
@@ -168,6 +173,7 @@ public struct Issuer {
         revocationKeys = publicRevocationKeys.sorted(by: <)
         introductionMethod = .basic(introductionURL: introductionURL)
         version = .one
+        self.analyticsURL = analyticsURL
     }
     
     /// Create an issuer from a complete set of data.
@@ -190,7 +196,8 @@ public struct Issuer {
                 revocationURL: URL? = nil,
                 publicIssuerKeys: [KeyRotation],
                 publicRevocationKeys: [KeyRotation],
-                introductionMethod: IssuerIntroductionMethod) {
+                introductionMethod: IssuerIntroductionMethod,
+                analyticsURL: URL? = nil) {
         self.name = name
         self.email = email
         self.image = image
@@ -201,6 +208,7 @@ public struct Issuer {
         revocationKeys = publicRevocationKeys.sorted(by: <)
         self.introductionMethod = introductionMethod
         version = .one
+        self.analyticsURL = analyticsURL
     }
     
     /// Create an issuer from a complete set of data.
@@ -221,7 +229,8 @@ public struct Issuer {
                 url: URL,
                 revocationURL: URL? = nil,
                 publicKeys: [KeyRotation],
-                introductionMethod: IssuerIntroductionMethod) {
+                introductionMethod: IssuerIntroductionMethod,
+                analyticsURL: URL?) {
         self.name = name
         self.email = email
         self.image = image
@@ -232,6 +241,7 @@ public struct Issuer {
         revocationKeys = []
         self.introductionMethod = introductionMethod
         version = .two
+        self.analyticsURL = analyticsURL
     }
 
     
@@ -289,6 +299,13 @@ public struct Issuer {
         self.id = id
         self.url = url
         self.version = version
+        
+        if let analyticsString = dictionary["analyticsURL"] as? String,
+            let analyticsURL = URL(string:analyticsString) {
+            self.analyticsURL = analyticsURL
+        } else {
+            analyticsURL = nil
+        }
         
         // Restore the introduction method.
         let introductionMethod = dictionary["introductionAuthenticationMethod"] as? String
@@ -388,6 +405,10 @@ public struct Issuer {
             dictionary["introductionErrorURL"] = "\(errorURL)"
         case .unknown:
             dictionary["introductionAuthenticationMethod"] = "unknown"
+        }
+        
+        if let url = analyticsURL {
+            dictionary["analyticsURL"] = url
         }
         
         return dictionary
