@@ -145,7 +145,6 @@ enum MethodsForV2 {
         
     }
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
-        
         guard let assertionData = assertionJSON as? [String : Any],
             let issuedOnString = assertionData["issuedOn"] as? String,
             let issuedOnDate = issuedOnString.toDate(),
