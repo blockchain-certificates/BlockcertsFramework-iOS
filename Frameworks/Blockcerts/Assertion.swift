@@ -28,7 +28,7 @@ public struct Assertion {
     public let uid : String
     
     /// URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
-    public let id : URL
+    public let id : URL?
     
     public let metadata : Metadata
     
@@ -37,7 +37,7 @@ public struct Assertion {
     /// Public memberwise initializer. See above documentation for an explanation of each argument
     ///
     /// - returns: an initialized Assertion object.
-    public init(issuedOn: Date, signatureImage: Data, evidence: String, uid: String, id: URL, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
+    public init(issuedOn: Date, signatureImage: Data, evidence: String, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
         self.issuedOn = issuedOn
         self.evidence = evidence
         self.uid = uid
@@ -56,7 +56,7 @@ public struct Assertion {
     ///   - uid: Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
     ///   - id: URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
     ///   - metadata: Metadata object that contains all anscillary data associated with this certificate.
-    public init(issuedOn: Date, signatureImages: [SignatureImage], evidence: String, uid: String, id: URL, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
+    public init(issuedOn: Date, signatureImages: [SignatureImage], evidence: String, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
         self.issuedOn = issuedOn
         self.evidence = evidence
         self.uid = uid
