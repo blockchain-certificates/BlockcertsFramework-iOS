@@ -154,11 +154,8 @@ public protocol Certificate {
     /// Represents the IETF language and IETF country codes.
     var language : String { get }
     
-    /// A string that uniquely identifies the certificate. May be a GUID (matching `universalIdentifier`) or a URL matching `shareUrl`.
+    /// Link to a JSON that details the issuer's issuing and recovation keys.
     var id : String { get }
-    
-    /// A GUID that uniquely identifies the certificate.
-    var universalIdentifier : String { get }
     
     /// The raw, unedited file representation of the certificate.
     var file : Data { get }
