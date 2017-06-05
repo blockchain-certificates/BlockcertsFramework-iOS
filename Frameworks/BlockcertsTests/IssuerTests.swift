@@ -19,6 +19,7 @@ class IssuerTests: XCTestCase {
     let introductionURLValue = "https://example.com/request"
     let introductionURLSuccessValue = "https://example.com/request/success"
     let introductionURLErrorValue = "https://example.com/request/error"
+    let analyticsURLValue = "https://example.com/analytics/data"
     let issuerKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")
     let revocationKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "REVOCATION_KEY")
     
@@ -113,7 +114,8 @@ class IssuerTests: XCTestCase {
                             id: URL(string: idValue)!,
                             url: URL(string: urlValue)!,
                             publicKeys: [issuerKey],
-                            introductionMethod: introductionMethod)
+                            introductionMethod: introductionMethod,
+                            analyticsURL: URL(string: analyticsURLValue)!)
 
         let result = issuer.toDictionary()
         XCTAssertEqual(result["introductionAuthenticationMethod"] as! String, "web")
@@ -375,7 +377,8 @@ class IssuerTests: XCTestCase {
                                       id: URL(string: idValue)!,
                                       url: URL(string: urlValue)!,
                                       publicKeys: [publicKey],
-                                      introductionMethod: webIntroduction)
+                                      introductionMethod: webIntroduction,
+                                      analyticsURL: URL(string: analyticsURLValue)!)
         XCTAssertNotNil(resultV2)
         XCTAssertEqual(resultV2, expectedResultV2)
     }
