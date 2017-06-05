@@ -28,7 +28,7 @@ struct CertificateV2 : Certificate {
     let metadata: Metadata
     let htmlDisplay: String?
     let shareUrl: URL?
-    
+    let universalIdentifier: String
     
     init(data: Data) throws {
         file = data
@@ -96,6 +96,7 @@ struct CertificateV2 : Certificate {
         self.signature = nil
         self.metadata = assertion.metadata
         self.htmlDisplay = json["displayHtml"] as? String
+        self.universalIdentifier = json["universalIdentifier"] as? String ?? certificateIdString
     }
 }
 
