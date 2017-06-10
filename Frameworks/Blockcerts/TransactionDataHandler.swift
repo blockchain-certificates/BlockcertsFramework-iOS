@@ -17,13 +17,11 @@ public struct TransactionData {
 }
 
 public class TransactionDataHandler {
-    public let transactionId : String?
     public let transactionUrlAsString : String?
     public var failureReason : String?
     public var transactionData : TransactionData?
     
-    public init(transactionId: String, transactionUrlAsString: String) {
-        self.transactionId = transactionId
+    public init(transactionUrlAsString: String) {
         self.transactionUrlAsString = transactionUrlAsString
     }
     
@@ -34,17 +32,19 @@ public class TransactionDataHandler {
     
     public static func create(chain: BitcoinChain, transactionId: String) -> TransactionDataHandler {
         if chain == .testnet {
-            return BlockcypherHandler(transactionId: transactionId)
+            let transactionUrlAsString = "http://api.blockcypher.com/v1/btc/test3/txs/\(transactionId)";
+            return BlockcypherHandler(transactionUrlAsString: transactionUrlAsString);
         } else {
-            return BlockchainInfoHandler(transactionId: transactionId)
+            let transactionUrlAsString = "https://api.blockcypher.com/v1/btc/main/txs/\(transactionId)";
+            return BlockcypherHandler(transactionUrlAsString: transactionUrlAsString);
         }
+        
+        // We can use this for fallback in the future if we want...
+        //return BlockchainInfoHandler(transactionId: transactionId)
     }
 }
 
 public class BlockchainInfoHandler : TransactionDataHandler {
-    public init(transactionId: String) {
-        super.init(transactionId: transactionId, transactionUrlAsString: "https://blockchain.info/rawtx/\(transactionId)?cors=true")
-    }
     
     override public func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["out"] as? [[String: AnyObject]] else {
@@ -77,9 +77,7 @@ public class BlockchainInfoHandler : TransactionDataHandler {
 }
 
 public class BlockcypherHandler : TransactionDataHandler {
-    public init(transactionId: String) {
-        super.init(transactionId: transactionId, transactionUrlAsString: "http://api.blockcypher.com/v1/btc/test3/txs/\(transactionId)")
-    }
+
     override public func parseResponse(json: [String : AnyObject]) {
         guard let outputs = json["outputs"] as? [[String: AnyObject]] else {
             super.failureReason = "Missing 'outputs' property in response:\n\(json)"
