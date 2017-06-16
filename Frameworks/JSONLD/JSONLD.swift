@@ -127,8 +127,8 @@ extension JSONLD : JSONLDProcessor {
             + "};"
             + "window.webkit.messageHandlers.respond.postMessage(response);"
             + "}"
-        let expandContext = generateCachedJsonContext()
-        let options = "{algorithm: 'URDNA2015', format: 'application/nquads', expandContext: \(expandContext)}"
+//        let expandContext = generateCachedJsonContext()
+        let options = "{algorithm: 'URDNA2015', format: 'application/nquads'}"
         
         let jsString = "jsonld.normalize(\(serializedDoc), \(options), \(jsResultHandler))"
         stringCallbacks[newID] = callback
