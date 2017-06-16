@@ -127,39 +127,11 @@ extension JSONLD : JSONLDProcessor {
             + "};"
             + "window.webkit.messageHandlers.respond.postMessage(response);"
             + "}"
-//        let expandContext = generateCachedJsonContext()
         let options = "{algorithm: 'URDNA2015', format: 'application/nquads'}"
         
         let jsString = "jsonld.normalize(\(serializedDoc), \(options), \(jsResultHandler))"
         stringCallbacks[newID] = callback
         webView.evaluateJavaScript(jsString, completionHandler: nil)
-    }
-    
-    private func generateCachedJsonContext() -> String {
-        guard let obiPath = Bundle.main.path(forResource: "obi", ofType: "json"),
-            let blockcertsPath = Bundle.main.path(forResource: "blockcerts", ofType: "json") else {
-                print("can't find obiPath and blockcertsPath")
-                return "{}"
-        }
-        
-        guard let obiContextData = FileManager.default.contents(atPath: obiPath),
-            let blockcertsContextData = FileManager.default.contents(atPath: blockcertsPath) else {
-                print("can't read contents of obi or blockcerts context files")
-                return "{}"
-        }
-        
-        guard let obiContext = String(data: obiContextData, encoding: .utf8),
-            let blockcertsContext = String(data: blockcertsContextData, encoding: .utf8) else {
-                print("Can't translate them into strings.")
-                return "{}"
-        }
-        
-        let obiKey = "https://openbadgespec.org/v2/context.json"
-        let blockcertsKey = "https://www.blockcerts.org/schema/2.0-alpha/context.json"
-        let alternateBlockcertsKey = "https://w3id.org/blockcerts/schema/2.0-alpha/context.json"
-        
-        // TODO for Swift 4: make these multi-line strings.
-        return "{\"\(blockcertsKey)\": \(blockcertsContext), \"\(alternateBlockcertsKey)\": \(blockcertsContext), \"\(obiKey)\": \(obiContext)}"
     }
 }
 
