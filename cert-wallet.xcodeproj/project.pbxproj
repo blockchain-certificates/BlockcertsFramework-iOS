@@ -43,6 +43,8 @@
 		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8345E0F01EF48341007C1FC5 /* obi.json in Resources */ = {isa = PBXBuildFile; fileRef = 8345E0EF1EF48341007C1FC5 /* obi.json */; };
+		8345E0F21EF48396007C1FC5 /* blockcerts.json in Resources */ = {isa = PBXBuildFile; fileRef = 8345E0F11EF48396007C1FC5 /* blockcerts.json */; };
 		834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE81D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json */; };
 		834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 834F2EE91D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json */; };
 		8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
@@ -302,6 +304,8 @@
 		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8345E0EF1EF48341007C1FC5 /* obi.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = obi.json; path = Frameworks/JSONLD/contexts/obi.json; sourceTree = SOURCE_ROOT; };
+		8345E0F11EF48396007C1FC5 /* blockcerts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = blockcerts.json; path = Frameworks/JSONLD/contexts/blockcerts.json; sourceTree = SOURCE_ROOT; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -514,6 +518,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8345E0EE1EF48308007C1FC5 /* contexts */ = {
+			isa = PBXGroup;
+			children = (
+				8345E0EF1EF48341007C1FC5 /* obi.json */,
+				8345E0F11EF48396007C1FC5 /* blockcerts.json */,
+			);
+			name = contexts;
+			sourceTree = "<group>";
+		};
 		834F2EE71D624FCF008C9650 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -557,6 +570,7 @@
 				838DA19D1DA4588F00E85326 /* Info.plist */,
 				838DA19E1DA4588F00E85326 /* JSONLD.h */,
 				838DA19F1DA4588F00E85326 /* JSONLD.swift */,
+				8345E0EE1EF48308007C1FC5 /* contexts */,
 			);
 			path = JSONLD;
 			sourceTree = "<group>";
@@ -1121,6 +1135,8 @@
 			files = (
 				83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
 				836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */,
+				8345E0F01EF48341007C1FC5 /* obi.json in Resources */,
+				8345E0F21EF48396007C1FC5 /* blockcerts.json in Resources */,
 				8369CB141D70D02C006D603E /* Settings.bundle in Resources */,
 				836A31B01D5933D800943801 /* Assets.xcassets in Resources */,
 				836A31AE1D5933D800943801 /* Main.storyboard in Resources */,
