@@ -71,7 +71,7 @@
 		837ED9611EC37A9E0095F100 /* Certificate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9491EC37A9E0095F100 /* Certificate.swift */; };
 		837ED9621EC37A9E0095F100 /* CertificateV1_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94A1EC37A9E0095F100 /* CertificateV1_1.swift */; };
 		837ED9631EC37A9E0095F100 /* CertificateV1_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94B1EC37A9E0095F100 /* CertificateV1_2.swift */; };
-		837ED9641EC37A9E0095F100 /* CertificateV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94C1EC37A9E0095F100 /* CertificateV2.swift */; };
+		837ED9641EC37A9E0095F100 /* CertificateV2Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94C1EC37A9E0095F100 /* CertificateV2Alpha.swift */; };
 		837ED9651EC37A9E0095F100 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94E1EC37A9E0095F100 /* String.swift */; };
 		837ED9661EC37A9E0095F100 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED94F1EC37A9E0095F100 /* URLSession.swift */; };
 		837ED9681EC37A9E0095F100 /* Issuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 837ED9511EC37A9E0095F100 /* Issuer.swift */; };
@@ -335,7 +335,7 @@
 		837ED9491EC37A9E0095F100 /* Certificate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Certificate.swift; sourceTree = "<group>"; };
 		837ED94A1EC37A9E0095F100 /* CertificateV1_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_1.swift; sourceTree = "<group>"; };
 		837ED94B1EC37A9E0095F100 /* CertificateV1_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV1_2.swift; sourceTree = "<group>"; };
-		837ED94C1EC37A9E0095F100 /* CertificateV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV2.swift; sourceTree = "<group>"; };
+		837ED94C1EC37A9E0095F100 /* CertificateV2Alpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV2Alpha.swift; sourceTree = "<group>"; };
 		837ED94E1EC37A9E0095F100 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		837ED94F1EC37A9E0095F100 /* URLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		837ED9501EC37A9E0095F100 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -644,7 +644,7 @@
 				837ED9491EC37A9E0095F100 /* Certificate.swift */,
 				837ED94A1EC37A9E0095F100 /* CertificateV1_1.swift */,
 				837ED94B1EC37A9E0095F100 /* CertificateV1_2.swift */,
-				837ED94C1EC37A9E0095F100 /* CertificateV2.swift */,
+				837ED94C1EC37A9E0095F100 /* CertificateV2Alpha.swift */,
 				837ED94D1EC37A9E0095F100 /* Extensions */,
 				837ED9501EC37A9E0095F100 /* Info.plist */,
 				837ED9511EC37A9E0095F100 /* Issuer.swift */,
@@ -1435,7 +1435,7 @@
 				837ED96C1EC37A9E0095F100 /* Recipient.swift in Sources */,
 				837ED9621EC37A9E0095F100 /* CertificateV1_1.swift in Sources */,
 				837ED96F1EC37A9E0095F100 /* CommonRequest.swift in Sources */,
-				837ED9641EC37A9E0095F100 /* CertificateV2.swift in Sources */,
+				837ED9641EC37A9E0095F100 /* CertificateV2Alpha.swift in Sources */,
 				837ED95F1EC37A9E0095F100 /* Assertion.swift in Sources */,
 				837ED9721EC37A9E0095F100 /* Signature.swift in Sources */,
 				837ED9611EC37A9E0095F100 /* Certificate.swift in Sources */,

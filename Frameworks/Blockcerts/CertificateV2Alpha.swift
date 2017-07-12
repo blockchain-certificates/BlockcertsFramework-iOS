@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct CertificateV2 : Certificate {
-    let version = CertificateVersion.two
+struct CertificateV2Alpha : Certificate {
+    let version = CertificateVersion.twoAlpha
     let title : String
     let subtitle : String?
     let description: String

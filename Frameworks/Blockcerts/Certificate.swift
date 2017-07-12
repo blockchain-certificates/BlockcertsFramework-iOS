@@ -17,7 +17,8 @@ public enum CertificateVersion : Int {
     // Note, these should always be listed in increasing certificate version order
     case oneDotOne = 1
     case oneDotTwo
-    case two
+    case twoAlpha
+//    case two
 }
 
 /// Make CertificateVersion support < or > comparisons
@@ -69,8 +70,8 @@ public enum CertificateParser {
     /// - returns: A Certificate if `data` is a valid Certificate at the specified version. Nil otherwise.
     public static func parse(data: Data, asVersion version: CertificateVersion) throws -> Certificate {
         switch version {
-        case .two:
-            return try CertificateV2(data: data)
+        case .twoAlpha:
+            return try CertificateV2Alpha(data: data)
         case .oneDotTwo:
             return try CertificateV1_2(data: data)
         case .oneDotOne:
@@ -110,10 +111,10 @@ public enum CertificateParser {
                 }
             }
             fallthrough
-        case .two:
+        case .twoAlpha:
             if cert == nil {
                 do {
-                    cert = try CertificateV2(data: data)
+                    cert = try CertificateV2Alpha(data: data)
                 } catch {
                     cert = nil
                     lastError = error
