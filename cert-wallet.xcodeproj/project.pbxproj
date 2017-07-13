@@ -1655,7 +1655,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.demo-app.ImportActionFileProvider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -1671,7 +1671,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.demo-app.ImportActionFileProvider";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -1687,7 +1687,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.demo-app.ImportAction";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
@@ -1703,7 +1703,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.demo-app.ImportAction";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
@@ -1728,7 +1728,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1755,7 +1755,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.JSONLD;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1887,7 +1887,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-wallet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1910,7 +1910,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.demo-app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-wallet-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_TREAT_WARNINGS_AS_ERRORS = YES;
 				SWIFT_VERSION = 4.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1930,7 +1930,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-walletTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
 			};
@@ -1948,7 +1948,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-walletTests-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
 			};
@@ -1966,7 +1966,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-walletUITests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "cert-wallet";
 			};
@@ -1983,7 +1983,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "cert-walletUITests-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = "cert-wallet";
 			};
@@ -2008,7 +2008,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.BlockcertsFramework-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2035,7 +2035,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.blockcerts.BlockcertsFramework-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -2054,7 +2054,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockcertsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
 			};
@@ -2071,7 +2071,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = org.blockcerts.BlockcertsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/cert-wallet.app/cert-wallet";
 			};
