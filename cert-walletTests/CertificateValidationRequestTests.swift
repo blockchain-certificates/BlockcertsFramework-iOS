@@ -29,9 +29,10 @@ class CertificateValidationRequestTests: XCTestCase {
         // Build mocked network request & response
         let session = MockURLSession()
         
-        let transactionURL = URL(string:"https://blockchain.info/rawtx/\(v1_1transactionId)?cors=true")!
+        let transactionURL = URL(string: "https://api.blockcypher.com/v1/btc/main/txs/\(v1_1transactionId)")!
+//        let transactionURL = URL(string:"https://blockchain.info/rawtx/\(v1_1transactionId)?cors=true")!
         let transactionResponse = HTTPURLResponse(url: transactionURL, statusCode: 200, httpVersion: nil, headerFields: nil)!
-        let transactionData = "{\"ver\":1,\"inputs\":[{\"sequence\":4294967295,\"prev_out\":{\"spent\":true,\"tx_index\":151120487,\"type\":0,\"addr\":\"1HVE4FE9jqEe914WYhtZ9VzAJpjC4nuCig\",\"value\":23025,\"n\":2,\"script\":\"76a914b4d88edb2677121b603b8ee1326247aaad45cbea88ac\"},\"script\":\"47304402207c7f06af8b8b8ba1c349d63252b3b4570370202168b3afbad3319695b609986a02201750f276c4d534904ba69342d7a97d371e28131c0b2c704fb5093aa0fe1e6255012103cc68e3493cfe9467d7ef6da336ed554f4425a4450f062048d18860ee68556ebe\"}],\"block_height\":413966,\"relayed_by\":\"45.33.85.58\",\"out\":[{\"spent\":false,\"tx_index\":151122290,\"type\":0,\"addr\":\"18DmEbKzRBo6gQz9ET6hQeWUDcUbGAMqzC\",\"value\":2750,\"n\":0,\"script\":\"76a9144f32cc080424addd43421ad862ae327bb84d894888ac\"},{\"spent\":false,\"tx_index\":151122290,\"type\":0,\"addr\":\"1JQ7ma9qcL2EZDMAnKneKeNXGU3WFoNtjg\",\"value\":2750,\"n\":1,\"script\":\"76a914bed95b01064d287267bb49b44de2ce577ca5468f88ac\"},{\"spent\":true,\"tx_index\":151122290,\"type\":0,\"addr\":\"1HVE4FE9jqEe914WYhtZ9VzAJpjC4nuCig\",\"value\":7525,\"n\":2,\"script\":\"76a914b4d88edb2677121b603b8ee1326247aaad45cbea88ac\"},{\"spent\":false,\"tx_index\":151122290,\"type\":0,\"value\":0,\"n\":3,\"script\":\"6a20b200240216e10d988bc748e675abb1b5cc1b29384e9f1c68cad9f5a03a6ed531\"}],\"lock_time\":0,\"size\":302,\"double_spend\":false,\"time\":1464548606,\"tx_index\":151122290,\"vin_sz\":1,\"hash\":\"d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d\",\"vout_sz\":4}".data(using: .utf8)
+        let transactionData = "{\"block_hash\":\"000000000000000003700c5037f87c081e132a0516b297d8654c5274b1608275\",\"block_height\":413966,\"block_index\":71,\"hash\":\"d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d\",\"addresses\":[\"18DmEbKzRBo6gQz9ET6hQeWUDcUbGAMqzC\",\"1HVE4FE9jqEe914WYhtZ9VzAJpjC4nuCig\",\"1JQ7ma9qcL2EZDMAnKneKeNXGU3WFoNtjg\"],\"total\":13025,\"fees\":10000,\"size\":302,\"preference\":\"low\",\"relayed_by\":\"76.112.113.11:8333\",\"confirmed\":\"2016-05-29T19:03:26Z\",\"received\":\"2016-05-29T18:58:25.315Z\",\"ver\":1,\"lock_time\":0,\"double_spend\":false,\"vin_sz\":1,\"vout_sz\":4,\"confirmations\":61698,\"confidence\":1,\"data_protocol\":\"unknown\",\"inputs\":[{\"prev_hash\":\"572e50582bbe533b1446c5aa5c18b2ffccf41fbb4ff973eb91dbb65a128858f9\",\"output_index\":2,\"script\":\"47304402207c7f06af8b8b8ba1c349d63252b3b4570370202168b3afbad3319695b609986a02201750f276c4d534904ba69342d7a97d371e28131c0b2c704fb5093aa0fe1e6255012103cc68e3493cfe9467d7ef6da336ed554f4425a4450f062048d18860ee68556ebe\",\"output_value\":23025,\"sequence\":4294967295,\"addresses\":[\"1HVE4FE9jqEe914WYhtZ9VzAJpjC4nuCig\"],\"script_type\":\"pay-to-pubkey-hash\"}],\"outputs\":[{\"value\":2750,\"script\":\"76a9144f32cc080424addd43421ad862ae327bb84d894888ac\",\"addresses\":[\"18DmEbKzRBo6gQz9ET6hQeWUDcUbGAMqzC\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":2750,\"script\":\"76a914bed95b01064d287267bb49b44de2ce577ca5468f88ac\",\"addresses\":[\"1JQ7ma9qcL2EZDMAnKneKeNXGU3WFoNtjg\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":7525,\"script\":\"76a914b4d88edb2677121b603b8ee1326247aaad45cbea88ac\",\"spent_by\":\"25a54e5a6beb90ae30ea7797108939ee2aea50b671652ec0d8ed14f0612b0b51\",\"addresses\":[\"1HVE4FE9jqEe914WYhtZ9VzAJpjC4nuCig\"],\"script_type\":\"pay-to-pubkey-hash\"},{\"value\":0,\"script\":\"6a20b200240216e10d988bc748e675abb1b5cc1b29384e9f1c68cad9f5a03a6ed531\",\"addresses\":null,\"script_type\":\"null-data\",\"data_hex\":\"b200240216e10d988bc748e675abb1b5cc1b29384e9f1c68cad9f5a03a6ed531\"}]}".data(using: .utf8)
         session.respond(to: transactionURL,
                         with: transactionData,
                         response: transactionResponse,
@@ -157,7 +158,7 @@ class CertificateValidationRequestTests: XCTestCase {
     }
     
     func testValidV2Certificate() {
-        let certFilename = "sample_cert-valid-2.0"
+        let certFilename = "sample_cert-valid-2.0a"
         let txFilename = "tx_valid-2.0"
         let sampleIssuerFilename = "sample_issuer"
         let normalizedFilename = "normalized-2.0"
@@ -231,7 +232,7 @@ class CertificateValidationRequestTests: XCTestCase {
     
     /// A revoked assertion should fail
     func testRevokedV2Certificate() {
-        let certFilename = "sample_cert-revoked-2.0"
+        let certFilename = "sample_cert-revoked-2.0a"
         let txFilename = "tx_valid-2.0"
         let sampleIssuerFilename = "sample_issuer"
         let normalizedFilename = "normalized_revoked-2.0"
@@ -305,7 +306,7 @@ class CertificateValidationRequestTests: XCTestCase {
     
     /// If the transaction was issued after the issuer revoked the key, verification should fail
     func testV2CertificateAuthenticityFailure() {
-        let certFilename = "sample_cert-authenticity-2.0"
+        let certFilename = "sample_cert-authenticity-2.0a"
         let txFilename = "tx_invalid-authenticity-2.0"
         let sampleIssuerFilename = "sample_issuer"
         let normalizedFilename = "normalized_authenticity-2.0"
@@ -379,7 +380,7 @@ class CertificateValidationRequestTests: XCTestCase {
     
     /// A tampered V2 certificate (field changed) should fail
     func testV2TamperedCertificateFailure() {
-        let certFilename = "sample_cert-tampered-2.0"
+        let certFilename = "sample_cert-tampered-2.0a"
         let txFilename = "tx_invalid-authenticity-2.0"
         let sampleIssuerFilename = "sample_issuer"
         let normalizedFilename = "normalized_tampered-2.0"
@@ -453,7 +454,7 @@ class CertificateValidationRequestTests: XCTestCase {
     
     /// A valid v2 certificate with a legacy-formatted issuer identification should pass
     func testValidV2CertificateWithV1Issuer() {
-        let v2ValidFilename = "sample_cert-v1-issuer-2.0"
+        let v2ValidFilename = "sample_cert-v1-issuer-2.0a"
         let v2txFilename = "tx_valid-v1-issuer-2.0"
         let sampleIssuerFilename = "sample_v1_issuer"
         let v2normalized = "normalized_v1-issuer-2.0"

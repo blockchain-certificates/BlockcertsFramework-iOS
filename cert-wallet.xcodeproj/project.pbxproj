@@ -9,14 +9,14 @@
 /* Begin PBXBuildFile section */
 		321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */; };
 		3B3F8A211EB16FF800543CBA /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */; };
-		3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */; };
-		3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */; };
+		3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0a.json */; };
+		3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0a.json */; };
 		3B3F8A321EB177EC00543CBA /* tx_valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */; };
 		3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */; };
 		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
-		3B684AFF1EBA814A007185AE /* sample_cert-v1-issuer-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684AFC1EBA814A007185AE /* sample_cert-v1-issuer-2.0.json */; };
-		3B684B001EBA814A007185AE /* sample_cert-tampered-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684AFD1EBA814A007185AE /* sample_cert-tampered-2.0.json */; };
-		3B684B011EBA814A007185AE /* sample_cert-authenticity-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684AFE1EBA814A007185AE /* sample_cert-authenticity-2.0.json */; };
+		3B684AFF1EBA814A007185AE /* sample_cert-v1-issuer-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684AFC1EBA814A007185AE /* sample_cert-v1-issuer-2.0a.json */; };
+		3B684B001EBA814A007185AE /* sample_cert-tampered-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684AFD1EBA814A007185AE /* sample_cert-tampered-2.0a.json */; };
+		3B684B011EBA814A007185AE /* sample_cert-authenticity-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684AFE1EBA814A007185AE /* sample_cert-authenticity-2.0a.json */; };
 		3B684B041EBA8293007185AE /* tx_valid-v1-issuer-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B021EBA8293007185AE /* tx_valid-v1-issuer-2.0.json */; };
 		3B684B051EBA8293007185AE /* tx_invalid-authenticity-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B031EBA8293007185AE /* tx_invalid-authenticity-2.0.json */; };
 		3B684B091EBA83ED007185AE /* normalized_tampered-2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B061EBA83ED007185AE /* normalized_tampered-2.0.txt */; };
@@ -99,9 +99,9 @@
 		837ED99C1EC37AAA0095F100 /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9821EC37AAA0095F100 /* index.html */; };
 		837ED99D1EC37AAA0095F100 /* modified_1.2_jsonld.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9831EC37AAA0095F100 /* modified_1.2_jsonld.json */; };
 		837ED99E1EC37AAA0095F100 /* multiimage_1.2.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9841EC37AAA0095F100 /* multiimage_1.2.json */; };
-		837ED99F1EC37AAA0095F100 /* sample_cert-revoked-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0.json */; };
-		837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0.json */; };
-		837ED9A11EC37AAA0095F100 /* sample_cert-valid-2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0.json */; };
+		837ED99F1EC37AAA0095F100 /* sample_cert-revoked-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0a.json */; };
+		837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0a.json */; };
+		837ED9A11EC37AAA0095F100 /* sample_cert-valid-2.0a.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0a.json */; };
 		837ED9A21EC37AAA0095F100 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9881EC37AAA0095F100 /* sample_signed_cert-1.1.0.json */; };
 		837ED9A31EC37AAA0095F100 /* sample_signed_cert-1.2.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED9891EC37AAA0095F100 /* sample_signed_cert-1.2.0.json */; };
 		837ED9A41EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 837ED98A1EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json */; };
@@ -266,14 +266,14 @@
 		2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC550FD5CE48EBC6F6DB6F5 /* Pods-cert-walletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
-		3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
-		3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
+		3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0a.json"; sourceTree = "<group>"; };
+		3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0a.json"; sourceTree = "<group>"; };
 		3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "revocation_list-2.0.json"; sourceTree = "<group>"; };
 		3B3F8A341EB1780D00543CBA /* sample_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_issuer.json; sourceTree = "<group>"; };
-		3B684AFC1EBA814A007185AE /* sample_cert-v1-issuer-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-v1-issuer-2.0.json"; sourceTree = "<group>"; };
-		3B684AFD1EBA814A007185AE /* sample_cert-tampered-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-tampered-2.0.json"; sourceTree = "<group>"; };
-		3B684AFE1EBA814A007185AE /* sample_cert-authenticity-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-authenticity-2.0.json"; sourceTree = "<group>"; };
+		3B684AFC1EBA814A007185AE /* sample_cert-v1-issuer-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-v1-issuer-2.0a.json"; sourceTree = "<group>"; };
+		3B684AFD1EBA814A007185AE /* sample_cert-tampered-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-tampered-2.0a.json"; sourceTree = "<group>"; };
+		3B684AFE1EBA814A007185AE /* sample_cert-authenticity-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-authenticity-2.0a.json"; sourceTree = "<group>"; };
 		3B684B021EBA8293007185AE /* tx_valid-v1-issuer-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_valid-v1-issuer-2.0.json"; sourceTree = "<group>"; };
 		3B684B031EBA8293007185AE /* tx_invalid-authenticity-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "tx_invalid-authenticity-2.0.json"; sourceTree = "<group>"; };
 		3B684B061EBA83ED007185AE /* normalized_tampered-2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "normalized_tampered-2.0.txt"; sourceTree = "<group>"; };
@@ -365,9 +365,9 @@
 		837ED9821EC37AAA0095F100 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		837ED9831EC37AAA0095F100 /* modified_1.2_jsonld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = modified_1.2_jsonld.json; sourceTree = "<group>"; };
 		837ED9841EC37AAA0095F100 /* multiimage_1.2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = multiimage_1.2.json; sourceTree = "<group>"; };
-		837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0.json"; sourceTree = "<group>"; };
-		837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0.json"; sourceTree = "<group>"; };
-		837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0.json"; sourceTree = "<group>"; };
+		837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-revoked-2.0a.json"; sourceTree = "<group>"; };
+		837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-unmapped-2.0a.json"; sourceTree = "<group>"; };
+		837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0a.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_cert-valid-2.0a.json"; sourceTree = "<group>"; };
 		837ED9881EC37AAA0095F100 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
 		837ED9891EC37AAA0095F100 /* sample_signed_cert-1.2.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.2.0.json"; sourceTree = "<group>"; };
 		837ED98A1EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-valid-1.1.0.json"; sourceTree = "<group>"; };
@@ -523,15 +523,15 @@
 				3B684B081EBA83ED007185AE /* normalized_authenticity-2.0.txt */,
 				3B684B021EBA8293007185AE /* tx_valid-v1-issuer-2.0.json */,
 				3B684B031EBA8293007185AE /* tx_invalid-authenticity-2.0.json */,
-				3B684AFC1EBA814A007185AE /* sample_cert-v1-issuer-2.0.json */,
-				3B684AFD1EBA814A007185AE /* sample_cert-tampered-2.0.json */,
-				3B684AFE1EBA814A007185AE /* sample_cert-authenticity-2.0.json */,
+				3B684AFC1EBA814A007185AE /* sample_cert-v1-issuer-2.0a.json */,
+				3B684AFD1EBA814A007185AE /* sample_cert-tampered-2.0a.json */,
+				3B684AFE1EBA814A007185AE /* sample_cert-authenticity-2.0a.json */,
 				3B3F8A341EB1780D00543CBA /* sample_issuer.json */,
 				3B3F8A301EB177EC00543CBA /* tx_valid-2.0.json */,
 				3B3F8A311EB177EC00543CBA /* revocation_list-2.0.json */,
 				3B3F8A1E1EB16FF800543CBA /* sample_cert-unmapped-2.0.json */,
-				3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0.json */,
-				3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0.json */,
+				3B3F8A1F1EB16FF800543CBA /* sample_cert-valid-2.0a.json */,
+				3B3F8A201EB16FF800543CBA /* sample_cert-revoked-2.0a.json */,
 				3B8E1E501E9BEE8B00DC636D /* normalized_revoked-2.0.txt */,
 				3B8E1E4C1E99BCEF00DC636D /* normalized-2.0.txt */,
 				3B8E1E4A1E99B5A400DC636D /* normalized-1.2.0.txt */,
@@ -709,9 +709,9 @@
 				837ED9821EC37AAA0095F100 /* index.html */,
 				837ED9831EC37AAA0095F100 /* modified_1.2_jsonld.json */,
 				837ED9841EC37AAA0095F100 /* multiimage_1.2.json */,
-				837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0.json */,
-				837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0.json */,
-				837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0.json */,
+				837ED9851EC37AAA0095F100 /* sample_cert-revoked-2.0a.json */,
+				837ED9861EC37AAA0095F100 /* sample_cert-unmapped-2.0a.json */,
+				837ED9871EC37AAA0095F100 /* sample_cert-valid-2.0a.json */,
 				837ED9881EC37AAA0095F100 /* sample_signed_cert-1.1.0.json */,
 				837ED9891EC37AAA0095F100 /* sample_signed_cert-1.2.0.json */,
 				837ED98A1EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json */,
@@ -1138,15 +1138,15 @@
 				3B8E1E511E9BEE8B00DC636D /* normalized_revoked-2.0.txt in Resources */,
 				3B684B091EBA83ED007185AE /* normalized_tampered-2.0.txt in Resources */,
 				3B3F8A211EB16FF800543CBA /* sample_cert-unmapped-2.0.json in Resources */,
-				3B684AFF1EBA814A007185AE /* sample_cert-v1-issuer-2.0.json in Resources */,
+				3B684AFF1EBA814A007185AE /* sample_cert-v1-issuer-2.0a.json in Resources */,
 				835B62461D63B1E500C95EB8 /* sample_signed_cert-1.2.0.json in Resources */,
 				3BDF6EA51D74FA1D00EC005C /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				3BDF6EA71D74FA8500EC005C /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				834F2EEB1D624FCF008C9650 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				831FF7641D99B4A0008BAA68 /* modified_1.2_jsonld.json in Resources */,
-				3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0.json in Resources */,
-				3B684B011EBA814A007185AE /* sample_cert-authenticity-2.0.json in Resources */,
-				3B684B001EBA814A007185AE /* sample_cert-tampered-2.0.json in Resources */,
+				3B3F8A231EB16FF800543CBA /* sample_cert-revoked-2.0a.json in Resources */,
+				3B684B011EBA814A007185AE /* sample_cert-authenticity-2.0a.json in Resources */,
+				3B684B001EBA814A007185AE /* sample_cert-tampered-2.0a.json in Resources */,
 				3B3F8A331EB177EC00543CBA /* revocation_list-2.0.json in Resources */,
 				3B684B0B1EBA83ED007185AE /* normalized_authenticity-2.0.txt in Resources */,
 				3B90A0541E999E4000C027B7 /* tx_valid-1.2.0.json in Resources */,
@@ -1157,7 +1157,7 @@
 				835B624E1D64BDB700C95EB8 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */,
 				834F2EEA1D624FCF008C9650 /* sample_unsigned_cert-1.1.0.json in Resources */,
-				3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0.json in Resources */,
+				3B3F8A221EB16FF800543CBA /* sample_cert-valid-2.0a.json in Resources */,
 				3B684B041EBA8293007185AE /* tx_valid-v1-issuer-2.0.json in Resources */,
 				3B684B0D1EBA8D2A007185AE /* sample_v1_issuer.json in Resources */,
 			);
@@ -1191,11 +1191,11 @@
 				837ED99E1EC37AAA0095F100 /* multiimage_1.2.json in Resources */,
 				837ED9A41EC37AAA0095F100 /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				837ED99C1EC37AAA0095F100 /* index.html in Resources */,
-				837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0.json in Resources */,
+				837ED9A01EC37AAA0095F100 /* sample_cert-unmapped-2.0a.json in Resources */,
 				837ED9A51EC37AAA0095F100 /* sample_signed_cert-valid-1.2.0.json in Resources */,
 				837ED9A71EC37AAA0095F100 /* sample_unsigned_cert-1.2.0.json in Resources */,
-				837ED99F1EC37AAA0095F100 /* sample_cert-revoked-2.0.json in Resources */,
-				837ED9A11EC37AAA0095F100 /* sample_cert-valid-2.0.json in Resources */,
+				837ED99F1EC37AAA0095F100 /* sample_cert-revoked-2.0a.json in Resources */,
+				837ED9A11EC37AAA0095F100 /* sample_cert-valid-2.0a.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
