@@ -20,7 +20,7 @@ public struct Metadata {
     private let visiblePaths : [String]
 
     
-    init(json inputJson: [String: Any]) {
+    public init(json inputJson: [String: Any]) {
         var json = inputJson
         var groupedMetadata = [String : [Metadatum]]()
         

@@ -18,7 +18,6 @@ class CertificatesViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         loadCertificates()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(loadCertificates), name: NotificationNames.allDataReset, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleImportNotification(_:)), name: NotificationNames.importCertificate, object: nil)
     }
@@ -130,7 +129,7 @@ extension CertificatesViewController {
 
 // MARK - Import handling code.
 extension CertificatesViewController {
-    func handleImportNotification(_ note: Notification) {
+    @objc func handleImportNotification(_ note: Notification) {
         guard let fileURL = note.object as? URL else {
             // This is a developer failure. It means we sent the notification without a URL paylaod. No need to inform the user. 
             return
@@ -217,7 +216,7 @@ extension CertificatesViewController {
         }
     }
 
-    func loadCertificates() {
+    @objc func loadCertificates() {
         let documentsDirectory = Paths.certificateDirectory
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []

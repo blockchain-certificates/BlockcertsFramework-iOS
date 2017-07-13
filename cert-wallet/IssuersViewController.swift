@@ -30,7 +30,7 @@ class IssuersViewController: UITableViewController {
         NSKeyedArchiver.archiveRootObject(issuersCodingList, toFile: archiveURL.path)
     }
     
-    func loadIssuers() {
+    @objc internal func loadIssuers() {
         let codedIssuers = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? [[String: Any]] ?? []
         issuers = codedIssuers.flatMap({ try? Issuer(dictionary: $0) })
         tableView.reloadData()
