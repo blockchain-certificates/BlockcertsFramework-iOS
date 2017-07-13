@@ -2,13 +2,13 @@
 //  CertificateV2.swift
 //  cert-wallet
 //
-//  Created by Chris Downie on 4/12/17.
+//  Created by Chris Downie on 7/13/17.
 //  Copyright © 2017 Digital Certificates Project. All rights reserved.
 //
 
 import Foundation
 
-struct CertificateV2Alpha : Certificate {
+struct CertificateV2 : Certificate {
     let version = CertificateVersion.twoAlpha
     let title : String
     let subtitle : String?
