@@ -75,6 +75,7 @@
 		836A31B01D5933D800943801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 836A31AF1D5933D800943801 /* Assets.xcassets */; };
 		836A31B31D5933D800943801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 836A31B11D5933D800943801 /* LaunchScreen.storyboard */; };
 		836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31BD1D5933D800943801 /* KeychainTests.swift */; };
+		836DC53B1F191F75001FA732 /* CertificateV2_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DC53A1F191F75001FA732 /* CertificateV2_0Tests.swift */; };
 		836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		837ED9321EC37A440095F100 /* Blockcerts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; };
@@ -343,6 +344,7 @@
 		836A31BF1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836A31C41D5933D800943801 /* cert-walletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		836DC53A1F191F75001FA732 /* CertificateV2_0Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV2_0Tests.swift; sourceTree = "<group>"; };
 		836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderedCertificateTableViewCell.swift; sourceTree = "<group>"; };
 		837ED9291EC37A440095F100 /* Blockcerts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blockcerts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		837ED9311EC37A440095F100 /* BlockcertsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlockcertsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -779,6 +781,7 @@
 				837ED9771EC37AAA0095F100 /* CertificateParserTests.swift */,
 				837ED9781EC37AAA0095F100 /* CertificateV1_1Tests.swift */,
 				837ED9791EC37AAA0095F100 /* CertificateV1_2Tests.swift */,
+				836DC53A1F191F75001FA732 /* CertificateV2_0Tests.swift */,
 				837ED97A1EC37AAA0095F100 /* Info.plist */,
 				837ED97B1EC37AAA0095F100 /* IssuerCreationRequestTests.swift */,
 				837ED97C1EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift */,
@@ -1532,6 +1535,7 @@
 			files = (
 				837ED9971EC37AAA0095F100 /* IssuerIntroductionRequestTests.swift in Sources */,
 				837ED9921EC37AAA0095F100 /* CertificateParserTests.swift in Sources */,
+				836DC53B1F191F75001FA732 /* CertificateV2_0Tests.swift in Sources */,
 				837ED9991EC37AAA0095F100 /* MetadataTests.swift in Sources */,
 				837ED9931EC37AAA0095F100 /* CertificateV1_1Tests.swift in Sources */,
 				837ED9961EC37AAA0095F100 /* IssuerCreationRequestTests.swift in Sources */,
