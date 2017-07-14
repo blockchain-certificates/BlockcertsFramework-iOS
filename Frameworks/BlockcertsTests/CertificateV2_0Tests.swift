@@ -37,10 +37,10 @@ class CertificateV2_0Tests: XCTestCase {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
-        XCTAssertEqual(cert.title, "Game of Thrones Character")
+        XCTAssertEqual(cert.title, "Certificate of Accomplishment")
         XCTAssertEqual(cert.subtitle, nil)
-        XCTAssertEqual(cert.description, "This certifies that the named character is an official Game of Thrones character.")
-        XCTAssertEqual(cert.id, "http://certificates.gamoeofthronesxyz.org/criteria/2016/08/got.json")
+        XCTAssertEqual(cert.description, "Lorem ipsum dolor sit amet, mei docendi concludaturque ad, cu nec partem graece. Est aperiam consetetur cu, expetenda moderatius neglegentur ei nam, suas dolor laudem eam an.")
+        XCTAssertEqual(cert.id, "urn:uuid:bbba8553-8ec1-445f-82c9-a57251dd731c")
     }
     
 }

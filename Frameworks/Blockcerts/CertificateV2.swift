@@ -82,7 +82,7 @@ struct CertificateV2 : Certificate {
         
         // Use helper methods to parse Issuer, Recipient, Assert, and Verify objects.
         guard let issuer = MethodsForV2.parse(issuerJSON: certificateData["issuer"]),
-            let recipient = MethodsForV2.parse(recipientJSON: json["recipient"]),
+            let recipient = MethodsForV2.parse(recipientJSON: json),
             let assertion = MethodsForV2.parse(assertionJSON: assertionVal as AnyObject?),
             let verifyData = MethodsForV2.parse(verifyJSON: json["verification"]),
             let receiptData = MethodsForV2.parse(receiptJSON: json["signature"]) else {
@@ -126,13 +126,13 @@ fileprivate enum MethodsForV2 {
                       revocationURL: revocationURL)
     }
     
-    static func parse(recipientJSON: AnyObject?) -> Recipient? {
-        guard let recipientData = recipientJSON as? [String : AnyObject],
-            let recipientProfile = recipientData["recipientProfile"] as? [String : AnyObject],
-            let name = recipientProfile["name"] as? String, // difference from v1.2
+    static func parse(recipientJSON json: [String : Any]) -> Recipient? {
+        guard let recipientData = json["recipient"] as? [String : Any],
+            let recipientProfile = json["recipientProfile"] as? [String :Any],
+            let name = recipientProfile["name"] as? String,
             let identityType = recipientData["type"] as? String,
             let isHashed = recipientData["hashed"] as? Bool,
-            let publicKey = recipientProfile["publicKey"] as? String,  // difference from v1.2
+            let publicKey = recipientProfile["publicKey"] as? String,
             let identity = recipientData["identity"] as? String else {
                 return nil
         }
@@ -200,7 +200,7 @@ fileprivate enum MethodsForV2 {
         }
         
         var signerURL : URL? = nil
-        if let signer = verifyData["creator"] {
+        if let signer = verifyData["publicKey"] {
             signerURL = URL(string: signer as! String)
         }
         
