@@ -424,12 +424,12 @@ public struct Issuer {
     }
     
     public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
-        if dictionary["publicKey"] != nil {
+        if dictionary["issuerKeys"] != nil {
+            return .one
+        } else if dictionary["publicKey"] != nil {
             return .two
         } else if dictionary["publicKeys"] != nil {
             return .twoAlpha
-        } else if dictionary["issuerKeys"] != nil {
-            return .one
         }
         return nil
     }

@@ -260,7 +260,7 @@ class IssuerTests: XCTestCase {
         XCTAssertEqual(version, .one)
     }
     
-    func testVersionDetectionForV2() {
+    func testVersionDetectionForV2Alpha() {
         let issuer : [String : Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
             "type": "Profile",
@@ -279,7 +279,7 @@ class IssuerTests: XCTestCase {
         ]
         
         var version = Issuer.detectVersion(from: issuer)
-        XCTAssertEqual(version, .two)
+        XCTAssertEqual(version, .twoAlpha)
         
         let issuerWithWebAuth : [String: Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
@@ -302,7 +302,7 @@ class IssuerTests: XCTestCase {
         ]
 
         version = Issuer.detectVersion(from: issuerWithWebAuth)
-        XCTAssertEqual(version, .two)
+        XCTAssertEqual(version, .twoAlpha)
     }
     
     func testDictionaryInitializationWithVersionDetection() {
