@@ -534,24 +534,6 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Couldn't parse issuer keys")
                 return
             }
-            /*
-            if false {
-                
-                contexts.contains(SchemaURLs.v2Alpha)
-                do {
-                    issuerPublicKeys = try parseKeys(from: json, with: "publicKeys", converter: keyRotationScheduleV2) as [KeyRotation]?
-                } catch {
-                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
-                    return
-                }
-            } else {
-                do {
-                    issuerPublicKeys = try parseKeys(from: json, with: "issuerKeys", converter: keyRotationSchedule) as [KeyRotation]?
-                } catch {
-                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
-                    return
-                }
-            }*/
 
             guard let signingKey = self?.signingPublicKey else {
                 self?.state = .failure(reason: "Couldn't parse determine transaction signing public key.")
