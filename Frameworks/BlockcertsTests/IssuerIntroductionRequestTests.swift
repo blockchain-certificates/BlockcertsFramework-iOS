@@ -18,19 +18,19 @@ class IssuerIntroductionRequestTests: XCTestCase {
         let expectedEmail = "johnny@blockcerts.org"
         let expectedName = "Johnny Strong"
         
-        let issuer = Issuer(name: "BlockCerts Issuer",
-                            email: "issuer@blockcerts.org",
-                            image: "data:image/png;base64,".data(using: .utf8)!,
-                            id: URL(string: "https://blockcerts.org/issuer.json")!,
-                            url: URL(string: "https://blockcerts.org")!,
-                            publicIssuerKeys: [
+        let issuer = IssuerV1(name: "BlockCerts Issuer",
+                              email: "issuer@blockcerts.org",
+                              image: "data:image/png;base64,".data(using: .utf8)!,
+                              id: URL(string: "https://blockcerts.org/issuer.json")!,
+                              url: URL(string: "https://blockcerts.org")!,
+                              publicIssuerKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
-                            ],
-                            publicRevocationKeys: [
+                              ],
+                              publicRevocationKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_REVOCATION_KEY")
-                            ],
-                            introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
-
+                              ],
+                              introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
+        
         let recipient = Recipient(name: expectedName,
                                   identity: expectedEmail,
                                   identityType: "email",
@@ -84,18 +84,18 @@ class IssuerIntroductionRequestTests: XCTestCase {
         let extraDataKey = "favoriteEmoji"
         let extraDataValue = "🐼"
 
-        let issuer = Issuer(name: "BlockCerts Issuer",
-                            email: "issuer@blockcerts.org",
-                            image: "data:image/png;base64,".data(using: .utf8)!,
-                            id: URL(string: "https://blockcerts.org/issuer.json")!,
-                            url: URL(string: "https://blockcerts.org")!,
-                            publicIssuerKeys: [
+        let issuer = IssuerV1(name: "BlockCerts Issuer",
+                              email: "issuer@blockcerts.org",
+                              image: "data:image/png;base64,".data(using: .utf8)!,
+                              id: URL(string: "https://blockcerts.org/issuer.json")!,
+                              url: URL(string: "https://blockcerts.org")!,
+                              publicIssuerKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
-                            ],
-                            publicRevocationKeys: [
+                              ],
+                              publicRevocationKeys: [
                                 KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_REVOCATION_KEY")
-                            ],
-                            introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
+                              ],
+                              introductionURL: URL(string: "https://blockcerts.org/introduce/")!)
         
         let recipient = Recipient(givenName: expectedFirstName,
                                   familyName: expectedLastName,

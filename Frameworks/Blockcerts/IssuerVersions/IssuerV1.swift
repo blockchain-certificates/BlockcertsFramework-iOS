@@ -11,24 +11,6 @@ import Foundation
 
 // MARK: Supporting classes, also codable.
 
-/// Signifies when a new key was rotated in for a given purpose.
-public struct KeyRotation {
-    /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
-    /// In V2 this is an alias for 'created'
-    public let on : Date
-    /// A base64-encoded string representing the data of the key.
-    public let key : String
-    
-    public let revoked : Date?
-    public let expires : Date?
-    
-    public init(on: Date, key: String, revoked: Date? = nil, expires: Date? = nil) {
-        self.on = on
-        self.key = key
-        self.revoked = revoked
-        self.expires = expires
-    }
-}
 
 
 
@@ -40,7 +22,7 @@ public enum IssuerError : Error {
 
 
 
-public struct Issuer {
+public struct IssuerV1 : Issuer {
     // MARK: - Properties
     // MARK: Required properties
     /// The name of the issuer.
@@ -269,7 +251,7 @@ public struct Issuer {
         guard let url = URL(string: urlString) else {
             throw IssuerError.invalid(property: "url")
         }
-        guard let version = strictVersion ?? Issuer.detectVersion(from: dictionary) else {
+        guard let version = strictVersion ?? IssuerParser.detectVersion(from: dictionary) else {
             throw IssuerError.unknownVersion
         }
         
@@ -427,142 +409,28 @@ public struct Issuer {
 }
 
 // MARK: - Equatable & Comparable conformance
-extension Issuer : Equatable {}
-
-public func ==(lhs: Issuer, rhs: Issuer) -> Bool {
-    return lhs.name == rhs.name
-        && lhs.email == rhs.email
-        && lhs.image == rhs.image
-        && lhs.id == rhs.id
-        && lhs.url == rhs.url
-        && lhs.issuerKeys == rhs.issuerKeys
-        && lhs.revocationKeys == rhs.revocationKeys
-        && lhs.introductionMethod == rhs.introductionMethod
-}
-
-extension KeyRotation : Comparable {}
-
-public func ==(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
-    return lhs.on == rhs.on && lhs.key == rhs.key
-}
-
-public func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
-    return lhs.on < rhs.on
-}
-
-extension IssuerIntroductionMethod : Equatable {}
-
-public func ==(lhs: IssuerIntroductionMethod, rhs: IssuerIntroductionMethod) -> Bool {
-    switch (lhs, rhs) {
-    case (.unknown, .unknown):
-        return true
-    case (.basic(let leftURL), .basic(let rightURL)):
-        return leftURL == rightURL
-    case (.webAuthentication(let leftIntroURL, let leftSuccessURL, let leftErrorURL), .webAuthentication(let rightIntroURL, let rightSuccessURL, let rightErrorURL)):
-        return leftIntroURL == rightIntroURL && leftSuccessURL == rightSuccessURL && leftErrorURL == rightErrorURL
-    default:
-        return false
+extension IssuerV1 : Equatable {
+//    public static func ==(lhs: Issuer, rhs: IssuerV1) -> Bool {
+//        // Switch the order of the arguments
+//        return rhs == lhs
+//    }
+//    
+//    public static func ==(lhs: IssuerV1, rhs: Issuer) -> Bool {
+//        guard let rhsIssuerV1 = rhs as? IssuerV1 else {
+//            return false
+//        }
+//        return lhs == rhsIssuerV1
+//    }
+    public static func ==(lhs: IssuerV1, rhs: IssuerV1) -> Bool {
+        return lhs.name == rhs.name
+            && lhs.email == rhs.email
+            && lhs.image == rhs.image
+            && lhs.id == rhs.id
+            && lhs.url == rhs.url
+            && lhs.issuerKeys == rhs.issuerKeys
+            && lhs.revocationKeys == rhs.revocationKeys
+            && lhs.introductionMethod == rhs.introductionMethod
     }
 }
 
-// MARK - Helper functions
 
-func parseKeys(from dictionary: [String: Any], with keyName: String,
-               converter keyRotationFunction: ([String : String]) throws -> KeyRotation) throws -> [KeyRotation] {
-    guard let keyProperty = dictionary[keyName] else {
-        throw IssuerError.missing(property: keyName)
-    }
-    guard let keyData = keyProperty as? [[String: String]] else {
-        throw IssuerError.invalid(property: keyName)
-    }
-    
-    let parsedKeys = try keyData.enumerated().map { (index: Int, dictionary: [String : String]) throws -> KeyRotation in
-        do {
-            let rotation = try keyRotationFunction(dictionary)
-            return rotation
-        } catch IssuerError.missing(let prop) {
-            throw IssuerError.missing(property: ".\(keyName).\(index).\(prop)")
-        } catch IssuerError.invalid(let prop) {
-            throw IssuerError.invalid(property: ".\(keyName).\(index).\(prop)")
-        }
-    }
-    
-    return parsedKeys
-}
-
-func keyRotationSchedule(from dictionary: [String : String]) throws -> KeyRotation {
-    guard let dateString = dictionary["date"] else {
-        throw IssuerError.missing(property: "date")
-    }
-    guard let key = dictionary["key"] else {
-        throw IssuerError.missing(property: "key")
-    }
-    guard let date = dateString.toDate() else {
-        throw IssuerError.invalid(property: "date")
-    }
-    
-    return KeyRotation(on: date, key: key)
-}
-
-
-func keyRotationScheduleV2Alpha(from dictionary: [String : String]) throws -> KeyRotation {
-    guard let dateString = dictionary["created"] else {
-        throw IssuerError.missing(property: "created")
-    }
-    
-    guard let key : String = dictionary["publicKey"] else {
-        throw IssuerError.missing(property: "publicKey")
-    }
-    
-    var publicKey = key
-    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
-    }
-    
-    guard let date = dateString.toDate() else {
-        throw IssuerError.invalid(property: "created")
-    }
-    
-    var expires : Date? = nil
-    var revoked : Date? = nil
-    
-    if let expiresString = dictionary["expires"] {
-        expires = expiresString.toDate()
-    }
-    if let revokedString = dictionary["revoked"] {
-        revoked = revokedString.toDate()
-    }
-    
-    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
-}
-
-func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRotation {
-    guard let dateString = dictionary["created"] else {
-        throw IssuerError.missing(property: "created")
-    }
-    
-    guard let key : String = dictionary["id"] else {
-        throw IssuerError.missing(property: "id")
-    }
-    
-    var publicKey = key
-    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
-    }
-    
-    guard let date = dateString.toDate() else {
-        throw IssuerError.invalid(property: "created")
-    }
-    
-    var expires : Date? = nil
-    var revoked : Date? = nil
-    
-    if let expiresString = dictionary["expires"] {
-        expires = expiresString.toDate()
-    }
-    if let revokedString = dictionary["revoked"] {
-        revoked = revokedString.toDate()
-    }
-    
-    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
-}

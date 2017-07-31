@@ -118,7 +118,7 @@ fileprivate enum MethodsForV2 {
             revocationURL = URL(string: issuerData["revocationList"]!)
         }
         
-        return Issuer(name: issuerName,
+        return IssuerV2(name: issuerName,
                       email: issuerEmail,
                       image: logo,
                       id: issuerIdURL,

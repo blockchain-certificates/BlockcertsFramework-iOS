@@ -55,11 +55,12 @@ class IssuerIdentificationRequestTests: XCTestCase {
         // Create the request
         let request = IssuerIdentificationRequest(id: url, session: session) { (issuer, error) in
             XCTAssertNotNil(issuer)
+            XCTAssertEqual(issuer?.version, .one)
             XCTAssertEqual(issuer!.name, expectedName)
             XCTAssertEqual(issuer!.email, expectedEmail)
             XCTAssertEqual(issuer!.image, try! Data(contentsOf: URL(string: expectedImageData)!))
             XCTAssertEqual(issuer!.id, url)
-            XCTAssertEqual(issuer!.url, URL(string: expectedURLString)!)
+            XCTAssertEqual((issuer as? IssuerV1)?.url, URL(string: expectedURLString)!)
             XCTAssertEqual(issuer!.introductionURL, URL(string: expectedIntroductionURLString)!)
             
             itShouldCallTheCallback.fulfill()

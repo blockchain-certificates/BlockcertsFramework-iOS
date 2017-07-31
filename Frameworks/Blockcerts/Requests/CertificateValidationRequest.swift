@@ -380,7 +380,8 @@ public class CertificateValidationRequest : CommonRequest {
     
     internal func checkRevokedStatus() {
         if certificate.version == .twoAlpha {
-            guard let url = certificate.issuer.revocationURL else {
+            guard let concreteIssuer = certificate.issuer as? IssuerV2Alpha,
+                let url = concreteIssuer.revocationURL else {
                 // Issuer does not revoke certificates
                 // Success
                 self.state = .success
