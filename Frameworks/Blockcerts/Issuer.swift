@@ -73,6 +73,17 @@ public enum IssuerParser {
         return issuer
     }
     
+    public static func parse(dictionary: [String: Any], asVersion version: IssuerVersion) throws -> Issuer {
+        switch version {
+        case .one:
+            return try IssuerV1(dictionary: dictionary)
+        case .twoAlpha:
+            return try IssuerV2Alpha(dictionary: dictionary)
+        case .two:
+            return try IssuerV2(dictionary: dictionary)
+        }
+    }
+    
     public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
         if dictionary["issuerKeys"] != nil {
             return .one
