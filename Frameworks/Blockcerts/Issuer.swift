@@ -33,6 +33,7 @@ public struct KeyRotation {
 public enum IssuerVersion : Int {
     // Note, these should always be listed in increasing issuer version order
     case one = 1
+    case twoAlpha
     case two
 }
 
@@ -281,17 +282,25 @@ public struct Issuer {
             throw IssuerError.unknownVersion
         }
         
-        if version == IssuerVersion.one {
+        switch version {
+        case .one:
             let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
             let parsedRevocationKeys = try parseKeys(from: dictionary, with: "revocationKeys", converter: keyRotationSchedule)
             
             issuerKeys = parsedIssuerKeys.sorted(by: <)
             revocationKeys = parsedRevocationKeys.sorted(by: <)
-        } else {
+        case .twoAlpha:
+            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2Alpha)
+            issuerKeys = parsedIssuerKeys.sorted(by: <)
+            
+            revocationKeys = []
+        case .two:
             let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
             issuerKeys = parsedIssuerKeys.sorted(by: <)
+            
             revocationKeys = []
         }
+
         
         self.name = name
         self.email = email
@@ -415,10 +424,12 @@ public struct Issuer {
     }
     
     public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
-        if dictionary["publicKeys"] != nil {
-            return .two
-        } else if dictionary["issuerKeys"] != nil {
+        if dictionary["issuerKeys"] != nil {
             return .one
+        } else if dictionary["publicKey"] != nil {
+            return .two
+        } else if dictionary["publicKeys"] != nil {
+            return .twoAlpha
         }
         return nil
     }
@@ -503,13 +514,44 @@ func keyRotationSchedule(from dictionary: [String : String]) throws -> KeyRotati
 }
 
 
-func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRotation {
+func keyRotationScheduleV2Alpha(from dictionary: [String : String]) throws -> KeyRotation {
     guard let dateString = dictionary["created"] else {
         throw IssuerError.missing(property: "created")
     }
     
     guard let key : String = dictionary["publicKey"] else {
         throw IssuerError.missing(property: "publicKey")
+    }
+    
+    var publicKey = key
+    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
+        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
+    }
+    
+    guard let date = dateString.toDate() else {
+        throw IssuerError.invalid(property: "created")
+    }
+    
+    var expires : Date? = nil
+    var revoked : Date? = nil
+    
+    if let expiresString = dictionary["expires"] {
+        expires = expiresString.toDate()
+    }
+    if let revokedString = dictionary["revoked"] {
+        revoked = revokedString.toDate()
+    }
+    
+    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
+}
+
+func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRotation {
+    guard let dateString = dictionary["created"] else {
+        throw IssuerError.missing(property: "created")
+    }
+    
+    guard let key : String = dictionary["id"] else {
+        throw IssuerError.missing(property: "id")
     }
     
     var publicKey = key

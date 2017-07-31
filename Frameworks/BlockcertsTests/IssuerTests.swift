@@ -260,7 +260,7 @@ class IssuerTests: XCTestCase {
         XCTAssertEqual(version, .one)
     }
     
-    func testVersionDetectionForV2() {
+    func testVersionDetectionForV2Alpha() {
         let issuer : [String : Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
             "type": "Profile",
@@ -279,7 +279,7 @@ class IssuerTests: XCTestCase {
         ]
         
         var version = Issuer.detectVersion(from: issuer)
-        XCTAssertEqual(version, .two)
+        XCTAssertEqual(version, .twoAlpha)
         
         let issuerWithWebAuth : [String: Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
@@ -301,6 +301,51 @@ class IssuerTests: XCTestCase {
             "introductionErrorURL": introductionURLErrorValue
         ]
 
+        version = Issuer.detectVersion(from: issuerWithWebAuth)
+        XCTAssertEqual(version, .twoAlpha)
+    }
+    
+    func testVersionDetectionForV2() {
+        let issuer : [String : Any] = [
+            "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
+            "type": "Profile",
+            "id": idValue,
+            "name": nameValue,
+            "url": urlValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "email": emailValue,
+            "publicKey": [
+                [
+                    "id": "ecdsa-koblitz-pubkey:n138AWR4d2srKgw57rWph8wibVSwZt2XDi",
+                    "created": "2017-03-10T18:17:48.102+00:00"
+                ]
+            ],
+            "introductionURL": introductionURLValue
+        ]
+        
+        var version = Issuer.detectVersion(from: issuer)
+        XCTAssertEqual(version, .two)
+        
+        let issuerWithWebAuth : [String: Any] = [
+            "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
+            "type": "Profile",
+            "id": idValue,
+            "name": nameValue,
+            "url": urlValue,
+            "image": "data:image/png;base64,\(imageDataValue)",
+            "email": emailValue,
+            "publicKey": [
+                [
+                    "id": "ecdsa-koblitz-pubkey:n138AWR4d2srKgw57rWph8wibVSwZt2XDi",
+                    "created": "2017-03-10T18:17:48.102+00:00"
+                ]
+            ],
+            "introductionAuthenticationMethod": "web",
+            "introductionURL": introductionURLValue,
+            "introductionSuccessURL": introductionURLSuccessValue,
+            "introductionErrorURL": introductionURLErrorValue
+        ]
+        
         version = Issuer.detectVersion(from: issuerWithWebAuth)
         XCTAssertEqual(version, .two)
     }

@@ -147,7 +147,7 @@ class CertificateValidationRequestTests: XCTestCase {
         waitForExpectations(timeout: 20.0, handler: nil)
     }
     
-    func testValidV2Certificate() {
+    func testValidV2AlphaCertificate() {
         let certFilename = "sample_cert-valid-2.0a"
         let txFilename = "tx_valid-2.0"
         let sampleIssuerFilename = "sample_issuer"

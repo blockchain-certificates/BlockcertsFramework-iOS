@@ -510,20 +510,29 @@ public class CertificateValidationRequest : CommonRequest {
             }
             
             var issuerPublicKeys : [KeyRotation]? = nil
-            if json["@context"] != nil {
-                do {
-                    issuerPublicKeys = try parseKeys(from: json, with: "publicKeys", converter: keyRotationScheduleV2) as [KeyRotation]?
-                } catch {
-                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
-                    return
-                }
-            } else {
-                do {
-                    issuerPublicKeys = try parseKeys(from: json, with: "issuerKeys", converter: keyRotationSchedule) as [KeyRotation]?
-                } catch {
-                    self?.state = .failure(reason: "Couldn't parse issuer publicKeys.")
-                    return
-                }
+            var converter : (([String : String]) throws -> KeyRotation)!
+            var keyName = "publicKeys"
+            let contexts = json["@context"] as? [String]
+            
+            if contexts == nil {
+                converter = keyRotationSchedule
+                keyName = "issuerKeys"
+            } else if contexts!.contains(SchemaURLs.v2Alpha) {
+                converter = keyRotationScheduleV2Alpha
+            } else if contexts!.contains(SchemaURLs.v2) {
+                converter = keyRotationScheduleV2
+            }
+            
+            if converter == nil {
+                self?.state = .failure(reason: "Couldn't figure out the issuer's schema during verification.")
+                return
+            }
+            
+            do {
+                issuerPublicKeys = try parseKeys(from: json, with: keyName, converter: converter) as [KeyRotation]?
+            } catch {
+                self?.state = .failure(reason: "Couldn't parse issuer keys")
+                return
             }
 
             guard let signingKey = self?.signingPublicKey else {
