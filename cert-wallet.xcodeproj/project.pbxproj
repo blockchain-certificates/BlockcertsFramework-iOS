@@ -135,6 +135,9 @@
 		83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
+		83EE9BBC1F2FD101005009D2 /* IssuerV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BB91F2FD101005009D2 /* IssuerV1.swift */; };
+		83EE9BBD1F2FD101005009D2 /* IssuerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BBA1F2FD101005009D2 /* IssuerV2.swift */; };
+		83EE9BBE1F2FD101005009D2 /* IssuerV2Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BBB1F2FD101005009D2 /* IssuerV2Alpha.swift */; };
 		83FF84701F1827650003E1A6 /* CertificateV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FF846F1F1827650003E1A6 /* CertificateV2.swift */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 /* End PBXBuildFile section */
@@ -401,6 +404,9 @@
 		83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
 		83DF11B41D88617B002E8921 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		83DF831A1D8B3653006CA7AF /* Globals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		83EE9BB91F2FD101005009D2 /* IssuerV1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerV1.swift; sourceTree = "<group>"; };
+		83EE9BBA1F2FD101005009D2 /* IssuerV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerV2.swift; sourceTree = "<group>"; };
+		83EE9BBB1F2FD101005009D2 /* IssuerV2Alpha.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuerV2Alpha.swift; sourceTree = "<group>"; };
 		83FF846F1F1827650003E1A6 /* CertificateV2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV2.swift; sourceTree = "<group>"; };
 		A693BC264EDAC5CF09FBFAB9 /* Pods-cert-walletTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.release.xcconfig"; sourceTree = "<group>"; };
 		B12E22D3F78CAFE605C4EF2C /* Pods-cert-wallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -740,6 +746,7 @@
 				837ED94D1EC37A9E0095F100 /* Extensions */,
 				837ED9501EC37A9E0095F100 /* Info.plist */,
 				837ED9511EC37A9E0095F100 /* Issuer.swift */,
+				83EE9BB81F2FD101005009D2 /* IssuerVersions */,
 				837ED9521EC37A9E0095F100 /* Metadata.swift */,
 				837ED9531EC37A9E0095F100 /* Receipt.swift */,
 				837ED9541EC37A9E0095F100 /* ReceiptVerifier.swift */,
@@ -835,6 +842,16 @@
 				83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */,
 			);
 			name = RenderedCertificateView;
+			sourceTree = "<group>";
+		};
+		83EE9BB81F2FD101005009D2 /* IssuerVersions */ = {
+			isa = PBXGroup;
+			children = (
+				83EE9BB91F2FD101005009D2 /* IssuerV1.swift */,
+				83EE9BBA1F2FD101005009D2 /* IssuerV2.swift */,
+				83EE9BBB1F2FD101005009D2 /* IssuerV2Alpha.swift */,
+			);
+			path = IssuerVersions;
 			sourceTree = "<group>";
 		};
 		BA06BCAA0680E083B5A63088 /* Frameworks */ = {
@@ -1505,9 +1522,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				837ED96A1EC37A9E0095F100 /* Receipt.swift in Sources */,
+				83EE9BBE1F2FD101005009D2 /* IssuerV2Alpha.swift in Sources */,
 				837ED9B21EC382E00095F100 /* Constants.swift in Sources */,
 				837ED9651EC37A9E0095F100 /* String.swift in Sources */,
 				837ED9711EC37A9E0095F100 /* IssuerIntroductionRequest.swift in Sources */,
+				83EE9BBD1F2FD101005009D2 /* IssuerV2.swift in Sources */,
 				837ED9B01EC382080095F100 /* BitcoinManager.swift in Sources */,
 				837ED96E1EC37A9E0095F100 /* CertificateValidationRequest.swift in Sources */,
 				837ED9741EC37A9E0095F100 /* Verify.swift in Sources */,
@@ -1518,6 +1537,7 @@
 				837ED9621EC37A9E0095F100 /* CertificateV1_1.swift in Sources */,
 				837ED96F1EC37A9E0095F100 /* CommonRequest.swift in Sources */,
 				837ED9641EC37A9E0095F100 /* CertificateV2Alpha.swift in Sources */,
+				83EE9BBC1F2FD101005009D2 /* IssuerV1.swift in Sources */,
 				837ED95F1EC37A9E0095F100 /* Assertion.swift in Sources */,
 				83FF84701F1827650003E1A6 /* CertificateV2.swift in Sources */,
 				837ED9721EC37A9E0095F100 /* Signature.swift in Sources */,

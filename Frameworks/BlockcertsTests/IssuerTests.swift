@@ -23,9 +23,6 @@ class IssuerTests: XCTestCase {
     let issuerKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")
     let revocationKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "REVOCATION_KEY")
     
-    override func setUp() {
-    }
-
     func testDictionaryConversion() {
         let issuer = Issuer(name: nameValue,
                             email: emailValue,
