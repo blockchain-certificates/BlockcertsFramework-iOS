@@ -11,6 +11,9 @@ import Foundation
 
 public struct IssuerV2 : Issuer {
     // MARK: - Properties
+    /// What Issuer data version this issuer is using.
+    public let version : IssuerVersion // = IssuerVersion.two
+    
     // MARK: Required properties
     /// The name of the issuer.
     public let name : String
@@ -60,9 +63,6 @@ public struct IssuerV2 : Issuer {
     /// v2+ only. This is where you report usage analytics directly to the issuer.
     public let analyticsURL: URL?
     
-    /// What Issuer data version this issuer is using.
-    public let version : IssuerVersion
-    
     // MARK: Convenience Properties
     /// A convenience method for the most recent (and theoretically only valid) issuerKey.
     public var publicKey : String? {
@@ -70,107 +70,7 @@ public struct IssuerV2 : Issuer {
     }
     
     // MARK: - Initializers
-    /// Create an Issuer from partial data. This is commonly done from data available in a certificate.
-    /// Once this is created, you'll need to refresh it to get one with updated keys and an introduction URL. Without those, you will be unable to verify that this issuer *actually issued* certificates, or introduce new Recipients to that issuer.
-    ///
-    /// The parameter names happen to correspond to the property names of the Issuer struct.
-    ///
-    /// - parameter name:  The issuer's name
-    /// - parameter email: The issuer's email.
-    /// - parameter image: A data object for the issuer's image.
-    /// - parameter id:    The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:   URL to list all certificates issued by identifier
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        
-        issuerKeys = []
-        revocationKeys = []
-        introductionMethod = .unknown
-        version = .one
-        analyticsURL = nil
-    }
-    
-    /// Create an issuer from a complete set of data.
-    ///
-    /// - parameter name:                 The issuer's name
-    /// - parameter email:                The issuer's email.
-    /// - parameter image:                A data object for the issuer's image.
-    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:                  URL to list all certificates issued by identifier
-    /// - parameter publicIssuerKeys:     An array of KeyRotation objects used to issue certificates.
-    /// - parameter publicRevocationKeys: An array of KeyRotation objects used to revoke certificates.
-    /// - parameter introductionURL:      URL to introduce a recipient to this issuer.
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil,
-                publicIssuerKeys: [KeyRotation],
-                publicRevocationKeys: [KeyRotation],
-                introductionURL: URL,
-                analyticsURL: URL? = nil) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        issuerKeys = publicIssuerKeys.sorted(by: <)
-        revocationKeys = publicRevocationKeys.sorted(by: <)
-        introductionMethod = .basic(introductionURL: introductionURL)
-        version = .one
-        self.analyticsURL = analyticsURL
-    }
-    
-    /// Create an issuer from a complete set of data.
-    ///
-    /// - parameter name:                 The issuer's name
-    /// - parameter email:                The issuer's email.
-    /// - parameter image:                A data object for the issuer's image.
-    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:                  URL to list all certificates issued by identifier
-    /// - parameter publicIssuerKeys:     An array of KeyRotation objects used to issue certificates.
-    /// - parameter publicRevocationKeys: An array of KeyRotation objects used to revoke certificates.
-    /// - parameter introductionMethod:   How the recipient should be introduced to the issuer.
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil,
-                publicIssuerKeys: [KeyRotation],
-                publicRevocationKeys: [KeyRotation],
-                introductionMethod: IssuerIntroductionMethod,
-                analyticsURL: URL? = nil) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        issuerKeys = publicIssuerKeys.sorted(by: <)
-        revocationKeys = publicRevocationKeys.sorted(by: <)
-        self.introductionMethod = introductionMethod
-        version = .one
-        self.analyticsURL = analyticsURL
-    }
+
     
     /// Create an issuer from a complete set of data.
     ///
@@ -201,8 +101,8 @@ public struct IssuerV2 : Issuer {
         issuerKeys = publicKeys.sorted(by: <)
         revocationKeys = []
         self.introductionMethod = introductionMethod
-        version = .two
         self.analyticsURL = analyticsURL
+        self.version = .two
     }
     
     

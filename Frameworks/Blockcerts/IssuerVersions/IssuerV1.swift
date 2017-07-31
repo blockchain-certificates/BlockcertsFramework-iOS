@@ -24,6 +24,9 @@ public enum IssuerError : Error {
 
 public struct IssuerV1 : Issuer {
     // MARK: - Properties
+    /// What Issuer data version this issuer is using.
+    public let version : IssuerVersion //= IssuerVersion.one
+    
     // MARK: Required properties
     /// The name of the issuer.
     public let name : String
@@ -73,8 +76,6 @@ public struct IssuerV1 : Issuer {
     /// v2+ only. This is where you report usage analytics directly to the issuer.
     public let analyticsURL: URL?
     
-    /// What Issuer data version this issuer is using.
-    public let version : IssuerVersion
     
     // MARK: Convenience Properties
     /// A convenience method for the most recent (and theoretically only valid) issuerKey.
@@ -184,40 +185,6 @@ public struct IssuerV1 : Issuer {
         version = .one
         self.analyticsURL = analyticsURL
     }
-    
-    /// Create an issuer from a complete set of data.
-    ///
-    /// - parameter name:                 The issuer's name
-    /// - parameter email:                The issuer's email.
-    /// - parameter image:                A data object for the issuer's image.
-    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:                  URL to list all certificates issued by identifier
-    /// - parameter publicKeys:           An array of KeyRotation objects used to issue certificates.
-    /// - parameter introductionMethod:   How the recipient should be introduced to the issuer.
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil,
-                publicKeys: [KeyRotation],
-                introductionMethod: IssuerIntroductionMethod,
-                analyticsURL: URL?) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        issuerKeys = publicKeys.sorted(by: <)
-        revocationKeys = []
-        self.introductionMethod = introductionMethod
-        version = .two
-        self.analyticsURL = analyticsURL
-    }
-    
     
     /// Create an issuer from a dictionary of data. Typically used when reading from disk or from a network response
     /// This is the inverse of `toDictionary`

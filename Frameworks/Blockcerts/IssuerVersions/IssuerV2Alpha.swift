@@ -11,6 +11,9 @@ import Foundation
 
 public struct IssuerV2Alpha : Issuer {
     // MARK: - Properties
+    /// What Issuer data version this issuer is using.
+    public let version : IssuerVersion //= IssuerVersion.twoAlpha
+    
     // MARK: Required properties
     /// The name of the issuer.
     public let name : String
@@ -59,9 +62,6 @@ public struct IssuerV2Alpha : Issuer {
     
     /// v2+ only. This is where you report usage analytics directly to the issuer.
     public let analyticsURL: URL?
-    
-    /// What Issuer data version this issuer is using.
-    public let version : IssuerVersion
     
     // MARK: Convenience Properties
     /// A convenience method for the most recent (and theoretically only valid) issuerKey.
