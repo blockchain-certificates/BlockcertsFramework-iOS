@@ -59,14 +59,18 @@ extension Issuer {
 
 public enum IssuerParser {
     public static func parse(dictionary: [String: Any]) -> Issuer? {
+        guard let version = IssuerParser.detectVersion(from: dictionary) else {
+            return nil
+        }
+        
         var issuer : Issuer? = nil
         
-        issuer = try? IssuerV2(dictionary: dictionary)
-        
-        if issuer == nil {
+        switch version {
+        case .two:
+            issuer = try? IssuerV2(dictionary: dictionary)
+        case .twoAlpha:
             issuer = try? IssuerV2Alpha(dictionary: dictionary)
-        }
-        if issuer == nil {
+        case .one:
             issuer = try? IssuerV1(dictionary: dictionary)
         }
 
