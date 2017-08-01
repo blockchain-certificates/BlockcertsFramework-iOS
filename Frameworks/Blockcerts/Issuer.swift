@@ -38,6 +38,18 @@ public protocol Issuer {
     var introductionURL : URL? { get }
 }
 
+public protocol AnalyticsSupport {
+    var analyticsURL: URL? { get }
+}
+
+public protocol ServerBasedRevocationSupport {
+    var revocationURL : URL? { get }
+}
+
+typealias IssuerWithAnalytics = Issuer & AnalyticsSupport
+typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
+
+
 extension Issuer {
     var introductionURL : URL? {
         var url : URL? = nil

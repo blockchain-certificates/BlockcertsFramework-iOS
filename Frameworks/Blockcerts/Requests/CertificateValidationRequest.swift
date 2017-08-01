@@ -518,7 +518,7 @@ public class CertificateValidationRequest : CommonRequest {
             if contexts == nil {
                 converter = keyRotationSchedule
                 keyName = "issuerKeys"
-            } else if contexts!.contains(SchemaURLs.v2Alpha) {
+            } else if contexts!.contains(SchemaURLs.v2Alpha) || contexts!.contains(SchemaURLs.v2AlphaExperimental) {
                 converter = keyRotationScheduleV2Alpha
             } else if contexts!.contains(SchemaURLs.v2) {
                 converter = keyRotationScheduleV2

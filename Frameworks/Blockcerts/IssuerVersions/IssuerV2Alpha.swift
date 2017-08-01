@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct IssuerV2Alpha : Issuer {
+public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport {
     // MARK: - Properties
     /// What Issuer data version this issuer is using.
     public let version : IssuerVersion //= IssuerVersion.twoAlpha

@@ -15,6 +15,7 @@ struct Constants {
 }
 
 enum SchemaURLs {
-    static let v2Alpha = "https://www.blockcerts.org/schema/2.0-alpha/context.json"
+    static let v2AlphaExperimental = "https://www.blockcerts.org/schema/2.0-alpha/context.json"
+    static let v2Alpha = "https://w3id.org/blockcerts/schema/2.0-alpha/context.json"
     static let v2 = "https://w3id.org/blockcerts/v2"
 }
