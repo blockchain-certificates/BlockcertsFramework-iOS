@@ -46,8 +46,8 @@ public protocol ServerBasedRevocationSupport {
     var revocationURL : URL? { get }
 }
 
-typealias IssuerWithAnalytics = Issuer & AnalyticsSupport
-typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
+public typealias IssuerWithAnalytics = Issuer & AnalyticsSupport
+public typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
 
 
 extension Issuer {
