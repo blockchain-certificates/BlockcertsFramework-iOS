@@ -16,24 +16,11 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     public let image : Data
     public let id : URL
     public let url : URL
-    public var publicKeys: [KeyRotation] {
-        return issuerKeys
-    }
+    public let introductionMethod : IssuerIntroductionMethod
+    public let publicKeys: [KeyRotation]
     
     // MARK: Optional Properties
-    /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to issue certificates during specific date ranges
-    public let issuerKeys : [KeyRotation]
-    
-    /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to revoke certificates.
-    public let revocationKeys : [KeyRotation]
-    
-    /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
-    public let introductionMethod : IssuerIntroductionMethod
-    
-    /// v2+ only; url where revocation list is located
     public let revocationURL : URL?
-    
-    /// v2+ only. This is where you report usage analytics directly to the issuer.
     public let analyticsURL: URL?
     
     /// Create an issuer from a complete set of data.
@@ -62,8 +49,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         self.id = id
         self.url = url
         self.revocationURL = revocationURL
-        issuerKeys = publicKeys.sorted(by: <)
-        revocationKeys = []
+        self.publicKeys = publicKeys.sorted(by: <)
         self.introductionMethod = introductionMethod
         self.analyticsURL = analyticsURL
     }
@@ -103,8 +89,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         }
         
         let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2Alpha)
-        issuerKeys = parsedIssuerKeys.sorted(by: <)
-        revocationKeys = []
+        publicKeys = parsedIssuerKeys.sorted(by: <)
         
         self.name = name
         self.email = email
@@ -183,19 +168,13 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     ///
     /// - returns: The dictionary representing this Issuer.
     public func toDictionary() -> [String: Any] {
-        let serializedIssuerKeys = issuerKeys.map { (keyRotation) -> [String : String] in
+        let serializedIssuerKeys = publicKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": keyRotation.on.toString(),
                 "key": keyRotation.key
             ]
         }
-        let serializedRevocationKeys = revocationKeys.map { (keyRotation) -> [String : String] in
-            return [
-                "date": keyRotation.on.toString(),
-                "key": keyRotation.key
-            ]
-        }
-        
+
         var dictionary : [String: Any] = [
             "name": name,
             "email": email,
@@ -203,7 +182,6 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
             "id": "\(id)",
             "url": "\(url)",
             "issuerKeys": serializedIssuerKeys,
-            "revocationKeys": serializedRevocationKeys
         ]
         
         switch introductionMethod {
@@ -247,8 +225,39 @@ extension IssuerV2Alpha : Equatable {
             && lhs.image == rhs.image
             && lhs.id == rhs.id
             && lhs.url == rhs.url
-            && lhs.issuerKeys == rhs.issuerKeys
-            && lhs.revocationKeys == rhs.revocationKeys
+            && lhs.publicKeys == rhs.publicKeys
             && lhs.introductionMethod == rhs.introductionMethod
     }
 }
+
+fileprivate func keyRotationScheduleV2Alpha(from dictionary: [String : String]) throws -> KeyRotation {
+    guard let dateString = dictionary["created"] else {
+        throw IssuerError.missing(property: "created")
+    }
+    
+    guard let key : String = dictionary["publicKey"] else {
+        throw IssuerError.missing(property: "publicKey")
+    }
+    
+    var publicKey = key
+    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
+        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
+    }
+    
+    guard let date = dateString.toDate() else {
+        throw IssuerError.invalid(property: "created")
+    }
+    
+    var expires : Date? = nil
+    var revoked : Date? = nil
+    
+    if let expiresString = dictionary["expires"] {
+        expires = expiresString.toDate()
+    }
+    if let revokedString = dictionary["revoked"] {
+        revoked = revokedString.toDate()
+    }
+    
+    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
+}
+
