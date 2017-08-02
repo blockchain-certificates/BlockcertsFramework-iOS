@@ -104,39 +104,10 @@ public struct IssuerV1 : Issuer, Decodable {
         // TODO: We can make this into its own functions with @autoclosures for perf.
         
         // Parse out the introduction method. Yikes.
-        let methodName = try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod) ?? "none"
-        let introURL = try container.decodeIfPresent(URL.self, forKey: .introductionURL)
-        var introMethod : IssuerIntroductionMethod?
-        switch methodName {
-        case "none":
-            fallthrough
-        case "basic":
-            if let url = introURL {
-                introMethod = .basic(introductionURL: url)
-            }
-        case "web":
-            if let url = introURL,
-                var successURL = try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
-                var errorURL = try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL) {
-                
-                
-                // Remove any query string parameters from the success & error urls
-                if var successComponents = URLComponents(url: successURL, resolvingAgainstBaseURL: false) {
-                    successComponents.queryItems = nil
-                    successURL = successComponents.url ?? successURL
-                }
-                
-                if var errorComponents = URLComponents(url: errorURL, resolvingAgainstBaseURL: false) {
-                    errorComponents.queryItems = nil
-                    errorURL = errorComponents.url ?? errorURL
-                }
-                
-                introMethod = .webAuthentication(introductionURL: url, successURL: successURL, errorURL: errorURL)
-            }
-        default:
-            break
-        }
-        introductionMethod = introMethod ?? .unknown
+        introductionMethod = IssuerIntroductionMethod.methodFrom(name: try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod),
+                                                                 introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
+                                                                 successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
+                                                                 errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
     }
     
     // MARK: - Initializers

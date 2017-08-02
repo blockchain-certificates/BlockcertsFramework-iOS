@@ -444,7 +444,5 @@ class IssuerTests: XCTestCase {
         } catch {
             XCTFail()
         }
-        
-        
     }
 }
