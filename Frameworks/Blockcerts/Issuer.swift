@@ -13,8 +13,7 @@ import Foundation
 public protocol Issuer {
     /// What Issuer data version this issuer is using.
     var version : IssuerVersion { get }
-    // MARK: - Properties
-    // MARK: Required properties
+
     /// The name of the issuer.
     var name : String { get }
     
@@ -30,6 +29,10 @@ public protocol Issuer {
     /// This defines how the recipient shoudl introduce to the issuer.
     var introductionMethod : IssuerIntroductionMethod { get }
     
+    /// This shows all the public keys the issuer used to sign any certificates.
+    var publicKeys: [KeyRotation] { get }
+    
+    // This will be deprecated come Swift 4
     func toDictionary() -> [String: Any]
 }
 
@@ -119,20 +122,17 @@ public enum IssuerIntroductionMethod : Equatable {
 }
 
 
-
-
-
-/// Make these go away
-
 /// Signifies when a new key was rotated in for a given purpose.
 public struct KeyRotation : Comparable {
     /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
-    /// In V2 this is an alias for 'created'
     public let on : Date
     /// A base64-encoded string representing the data of the key.
     public let key : String
     
+    /// When this certificate was revoked
     public let revoked : Date?
+    
+    /// WHen this certificate expires on its own, unless it is revoked before
     public let expires : Date?
     
     public init(on: Date, key: String, revoked: Date? = nil, expires: Date? = nil) {
@@ -154,7 +154,6 @@ public struct KeyRotation : Comparable {
 
 
 // MARK - Helper functions
-
 func parseKeys(from dictionary: [String: Any], with keyName: String,
                converter keyRotationFunction: ([String : String]) throws -> KeyRotation) throws -> [KeyRotation] {
     guard let keyProperty = dictionary[keyName] else {

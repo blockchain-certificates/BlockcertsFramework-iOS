@@ -10,25 +10,15 @@ import Foundation
 
 
 public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport {
-    // MARK: - Properties
-    /// What Issuer data version this issuer is using.
     public let version = IssuerVersion.two
-    
-    // MARK: Required properties
-    /// The name of the issuer.
     public let name : String
-    
-    /// The email address where you can contact the issuer
     public let email : String
-    
-    /// Image data for the issuer. This can be used to populate a UIImage object
     public let image : Data
-    
-    /// Unique identifier for an Issuer. Also, the URL where you can re-request data. This is useful if an instance of this struct only has partial data, or if you want to see that the keys are still valid.
     public let id : URL
-    
-    /// Where you can go to check a list of certificates issued by this issuer.
     public let url : URL
+    public var publicKeys: [KeyRotation] {
+        return issuerKeys
+    }
     
     // MARK: Optional Properties
     /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to issue certificates during specific date ranges
