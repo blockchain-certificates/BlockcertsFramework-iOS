@@ -51,7 +51,7 @@ public typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
 
 
 extension Issuer {
-    var introductionURL : URL? {
+    public var introductionURL : URL? {
         var url : URL? = nil
         
         switch introductionMethod {

@@ -12,7 +12,7 @@ import Foundation
 public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport {
     // MARK: - Properties
     /// What Issuer data version this issuer is using.
-    public let version : IssuerVersion //= IssuerVersion.twoAlpha
+    public let version = IssuerVersion.twoAlpha
     
     // MARK: Required properties
     /// The name of the issuer.
@@ -40,137 +40,11 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
     public let introductionMethod : IssuerIntroductionMethod
     
-    /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`. Note that
-    public var introductionURL : URL? {
-        var url : URL? = nil
-        
-        switch introductionMethod {
-        case .basic(let introductionURL):
-            url = introductionURL
-        case .webAuthentication(let introductionURL, _, _):
-            url = introductionURL
-        case .unknown:
-            break
-        }
-        
-        return url
-    }
-    
-    
     /// v2+ only; url where revocation list is located
     public let revocationURL : URL?
     
     /// v2+ only. This is where you report usage analytics directly to the issuer.
     public let analyticsURL: URL?
-    
-    // MARK: Convenience Properties
-    /// A convenience method for the most recent (and theoretically only valid) issuerKey.
-    public var publicKey : String? {
-        return issuerKeys.first?.key
-    }
-    
-    // MARK: - Initializers
-    /// Create an Issuer from partial data. This is commonly done from data available in a certificate.
-    /// Once this is created, you'll need to refresh it to get one with updated keys and an introduction URL. Without those, you will be unable to verify that this issuer *actually issued* certificates, or introduce new Recipients to that issuer.
-    ///
-    /// The parameter names happen to correspond to the property names of the Issuer struct.
-    ///
-    /// - parameter name:  The issuer's name
-    /// - parameter email: The issuer's email.
-    /// - parameter image: A data object for the issuer's image.
-    /// - parameter id:    The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:   URL to list all certificates issued by identifier
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        
-        issuerKeys = []
-        revocationKeys = []
-        introductionMethod = .unknown
-        version = .one
-        analyticsURL = nil
-    }
-    
-    /// Create an issuer from a complete set of data.
-    ///
-    /// - parameter name:                 The issuer's name
-    /// - parameter email:                The issuer's email.
-    /// - parameter image:                A data object for the issuer's image.
-    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:                  URL to list all certificates issued by identifier
-    /// - parameter publicIssuerKeys:     An array of KeyRotation objects used to issue certificates.
-    /// - parameter publicRevocationKeys: An array of KeyRotation objects used to revoke certificates.
-    /// - parameter introductionURL:      URL to introduce a recipient to this issuer.
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil,
-                publicIssuerKeys: [KeyRotation],
-                publicRevocationKeys: [KeyRotation],
-                introductionURL: URL,
-                analyticsURL: URL? = nil) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        issuerKeys = publicIssuerKeys.sorted(by: <)
-        revocationKeys = publicRevocationKeys.sorted(by: <)
-        introductionMethod = .basic(introductionURL: introductionURL)
-        version = .one
-        self.analyticsURL = analyticsURL
-    }
-    
-    /// Create an issuer from a complete set of data.
-    ///
-    /// - parameter name:                 The issuer's name
-    /// - parameter email:                The issuer's email.
-    /// - parameter image:                A data object for the issuer's image.
-    /// - parameter id:                   The refresh URL for the issuer. Also a unique identifier.
-    /// - parameter url:                  URL to list all certificates issued by identifier
-    /// - parameter publicIssuerKeys:     An array of KeyRotation objects used to issue certificates.
-    /// - parameter publicRevocationKeys: An array of KeyRotation objects used to revoke certificates.
-    /// - parameter introductionMethod:   How the recipient should be introduced to the issuer.
-    ///
-    /// - returns: An initialized Issuer object.
-    public init(name: String,
-                email: String,
-                image: Data,
-                id: URL,
-                url: URL,
-                revocationURL: URL? = nil,
-                publicIssuerKeys: [KeyRotation],
-                publicRevocationKeys: [KeyRotation],
-                introductionMethod: IssuerIntroductionMethod,
-                analyticsURL: URL? = nil) {
-        self.name = name
-        self.email = email
-        self.image = image
-        self.id = id
-        self.url = url
-        self.revocationURL = revocationURL
-        issuerKeys = publicIssuerKeys.sorted(by: <)
-        revocationKeys = publicRevocationKeys.sorted(by: <)
-        self.introductionMethod = introductionMethod
-        version = .one
-        self.analyticsURL = analyticsURL
-    }
     
     /// Create an issuer from a complete set of data.
     ///
@@ -201,7 +75,6 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         issuerKeys = publicKeys.sorted(by: <)
         revocationKeys = []
         self.introductionMethod = introductionMethod
-        version = .two
         self.analyticsURL = analyticsURL
     }
     
@@ -238,36 +111,16 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         guard let url = URL(string: urlString) else {
             throw IssuerError.invalid(property: "url")
         }
-        guard let version = strictVersion ?? IssuerParser.detectVersion(from: dictionary) else {
-            throw IssuerError.unknownVersion
-        }
         
-        switch version {
-        case .one:
-            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
-            let parsedRevocationKeys = try parseKeys(from: dictionary, with: "revocationKeys", converter: keyRotationSchedule)
-            
-            issuerKeys = parsedIssuerKeys.sorted(by: <)
-            revocationKeys = parsedRevocationKeys.sorted(by: <)
-        case .twoAlpha:
-            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2Alpha)
-            issuerKeys = parsedIssuerKeys.sorted(by: <)
-            
-            revocationKeys = []
-        case .two:
-            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
-            issuerKeys = parsedIssuerKeys.sorted(by: <)
-            
-            revocationKeys = []
-        }
-        
+        let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2Alpha)
+        issuerKeys = parsedIssuerKeys.sorted(by: <)
+        revocationKeys = []
         
         self.name = name
         self.email = email
         self.image = image
         self.id = id
         self.url = url
-        self.version = version
         
         if let analyticsString = dictionary["analyticsURL"] as? String,
             let analyticsURL = URL(string:analyticsString) {
@@ -381,17 +234,6 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         }
         
         return dictionary
-    }
-    
-    public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
-        if dictionary["issuerKeys"] != nil {
-            return .one
-        } else if dictionary["publicKey"] != nil {
-            return .two
-        } else if dictionary["publicKeys"] != nil {
-            return .twoAlpha
-        }
-        return nil
     }
 }
 

@@ -123,7 +123,10 @@ fileprivate enum MethodsForV2 {
                              image: logo,
                              id: issuerIdURL,
                              url: issuerURL,
-                             revocationURL: revocationURL)
+                             revocationURL: revocationURL,
+                             publicKeys: [],
+                             introductionMethod: .unknown,
+                             analyticsURL: nil)
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {
