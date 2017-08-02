@@ -177,17 +177,3 @@ func parseKeys(from dictionary: [String: Any], with keyName: String,
     return parsedKeys
 }
 
-func keyRotationSchedule(from dictionary: [String : String]) throws -> KeyRotation {
-    guard let dateString = dictionary["date"] else {
-        throw IssuerError.missing(property: "date")
-    }
-    guard let key = dictionary["key"] else {
-        throw IssuerError.missing(property: "key")
-    }
-    guard let date = dateString.toDate() else {
-        throw IssuerError.invalid(property: "date")
-    }
-    
-    return KeyRotation(on: date, key: key)
-}
-
