@@ -12,7 +12,7 @@ import Foundation
 public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport {
     // MARK: - Properties
     /// What Issuer data version this issuer is using.
-    public let version : IssuerVersion // = IssuerVersion.two
+    public let version = IssuerVersion.two
     
     // MARK: Required properties
     /// The name of the issuer.
@@ -63,15 +63,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
     /// v2+ only. This is where you report usage analytics directly to the issuer.
     public let analyticsURL: URL?
     
-    // MARK: Convenience Properties
-    /// A convenience method for the most recent (and theoretically only valid) issuerKey.
-    public var publicKey : String? {
-        return issuerKeys.first?.key
-    }
-    
-    // MARK: - Initializers
 
-    
     /// Create an issuer from a complete set of data.
     ///
     /// - parameter name:                 The issuer's name
@@ -102,7 +94,6 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
         revocationKeys = []
         self.introductionMethod = introductionMethod
         self.analyticsURL = analyticsURL
-        self.version = .two
     }
     
     
@@ -138,36 +129,17 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
         guard let url = URL(string: urlString) else {
             throw IssuerError.invalid(property: "url")
         }
-        guard let version = strictVersion ?? IssuerParser.detectVersion(from: dictionary) else {
-            throw IssuerError.unknownVersion
-        }
         
-        switch version {
-        case .one:
-            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
-            let parsedRevocationKeys = try parseKeys(from: dictionary, with: "revocationKeys", converter: keyRotationSchedule)
-            
-            issuerKeys = parsedIssuerKeys.sorted(by: <)
-            revocationKeys = parsedRevocationKeys.sorted(by: <)
-        case .twoAlpha:
-            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2Alpha)
-            issuerKeys = parsedIssuerKeys.sorted(by: <)
-            
-            revocationKeys = []
-        case .two:
-            let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
-            issuerKeys = parsedIssuerKeys.sorted(by: <)
-            
-            revocationKeys = []
-        }
+        let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
+        issuerKeys = parsedIssuerKeys.sorted(by: <)
         
+        revocationKeys = []
         
         self.name = name
         self.email = email
         self.image = image
         self.id = id
         self.url = url
-        self.version = version
         
         if let analyticsString = dictionary["analyticsURL"] as? String,
             let analyticsURL = URL(string:analyticsString) {
