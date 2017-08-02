@@ -104,10 +104,10 @@ public struct IssuerV1 : Issuer, Decodable {
         // TODO: We can make this into its own functions with @autoclosures for perf.
         
         // Parse out the introduction method. Yikes.
-        introductionMethod = IssuerIntroductionMethod.methodFrom(name: try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod),
-                                                                 introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
-                                                                 successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
-                                                                 errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
+        introductionMethod = try IssuerIntroductionMethod.methodFrom(name: try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod),
+                                                                     introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
+                                                                     successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
+                                                                     errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
     }
     
     // MARK: - Initializers
@@ -235,53 +235,13 @@ public struct IssuerV1 : Issuer, Decodable {
         self.url = url
         
         // Restore the introduction method.
-        let introductionMethod = dictionary["introductionAuthenticationMethod"] as? String
-        let introductionStringURL = dictionary["introductionURL"] as? String
-        
-        if let introductionMethod = introductionMethod {
-            switch introductionMethod {
-            case "none":
-                fallthrough
-            case "basic":
-                if let introductionStringURL = introductionStringURL,
-                    let introductionURL = URL(string: introductionStringURL) {
-                    self.introductionMethod = .basic(introductionURL: introductionURL)
-                } else {
-                    self.introductionMethod = .unknown
-                }
-            case "web":
-                if let introductionStringURL = introductionStringURL,
-                    let introductionURL = URL(string: introductionStringURL),
-                    let successStringURL = dictionary["introductionSuccessURL"] as? String,
-                    var successURL = URL(string: successStringURL),
-                    let errorStringURL = dictionary["introductionErrorURL"] as? String,
-                    var errorURL = URL(string: errorStringURL) {
-                    
-                    // Remove any query string parameters from the success & error urls
-                    if var successComponents = URLComponents(url: successURL, resolvingAgainstBaseURL: false) {
-                        successComponents.queryItems = nil
-                        successURL = successComponents.url ?? successURL
-                    }
-                    
-                    if var errorComponents = URLComponents(url: errorURL, resolvingAgainstBaseURL: false) {
-                        errorComponents.queryItems = nil
-                        errorURL = errorComponents.url ?? errorURL
-                    }
-                    
-                    self.introductionMethod = .webAuthentication(introductionURL: introductionURL, successURL: successURL, errorURL: errorURL)
-                } else {
-                    self.introductionMethod = .unknown
-                }
-            case "unknown":
-                fallthrough
-            default:
-                self.introductionMethod = .unknown
-            }
-        } else if let introductionStringURL = introductionStringURL,
-            let introductionURL = URL(string: introductionStringURL) {
-            self.introductionMethod = .basic(introductionURL: introductionURL)
-        } else {
-            self.introductionMethod = .unknown
+        do {
+            introductionMethod = try IssuerIntroductionMethod.methodFrom(name: dictionary["introductionAuthenticationMethod"] as? String,
+                                                                         introductionURL: dictionary["introductionURL"] as? String,
+                                                                         successURL: dictionary["introductionSuccessURL"] as? String,
+                                                                         errorURL: dictionary["introductionErrorURL"] as? String)
+        } catch  {
+            introductionMethod = .unknown
         }
     }
     

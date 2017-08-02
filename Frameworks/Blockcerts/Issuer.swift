@@ -120,21 +120,48 @@ public enum IssuerIntroductionMethod : Equatable {
         }
     }
     
-    public static func methodFrom(name: String?, introductionURL: URL?, successURL: URL?, errorURL: URL?) -> IssuerIntroductionMethod {
+    
+    public static func methodFrom(name: String?,
+                                  introductionURL introURLString: String?,
+                                  successURL successURLString: String?,
+                                  errorURL errorURLString: String?) throws -> IssuerIntroductionMethod {
+        var introURL : URL?
+        if introURLString != nil {
+            introURL = URL(string: introURLString!)
+        }
+        
+        var successURL : URL?
+        if successURLString != nil {
+            successURL = URL(string: successURLString!)
+        }
+        
+        var errorURL : URL?
+        if errorURLString != nil {
+            errorURL = URL(string : errorURLString!)
+        }
+
+        return try IssuerIntroductionMethod.methodFrom(name: name,
+                                                   introductionURL: introURL,
+                                                   successURL: successURL,
+                                                   errorURL: errorURL)
+    }
+    public static func methodFrom(name: String?,
+                                  introductionURL: @autoclosure () throws -> URL?,
+                                  successURL: @autoclosure () throws -> URL?,
+                                  errorURL: @autoclosure () throws -> URL?) throws -> IssuerIntroductionMethod {
         let methodName = name ?? "none"
-        let introURL = introductionURL
         var introMethod : IssuerIntroductionMethod?
         switch methodName {
         case "none":
             fallthrough
         case "basic":
-            if let url = introURL {
+            if let url = try introductionURL() {
                 introMethod = .basic(introductionURL: url)
             }
         case "web":
-            if let url = introURL,
-                var successURL = successURL,
-                var errorURL = errorURL {
+            if let url = try introductionURL(),
+                var successURL = try successURL(),
+                var errorURL = try errorURL() {
                 
                 
                 // Remove any query string parameters from the success & error urls
