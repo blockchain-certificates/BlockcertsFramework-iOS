@@ -61,7 +61,12 @@ class IssuerIdentificationRequestTests: XCTestCase {
             XCTAssertEqual(issuer!.image, try! Data(contentsOf: URL(string: expectedImageData)!))
             XCTAssertEqual(issuer!.id, url)
             XCTAssertEqual((issuer as? IssuerV1)?.url, URL(string: expectedURLString)!)
-            XCTAssertEqual(issuer!.introductionURL, URL(string: expectedIntroductionURLString)!)
+            
+            if case IssuerIntroductionMethod.basic(let introURL) = issuer!.introductionMethod {
+                XCTAssertEqual(introURL, URL(string: expectedIntroductionURLString)!)
+            } else {
+                XCTFail("Introduction Method should be basic for this test.")
+            }
             
             itShouldCallTheCallback.fulfill()
         }

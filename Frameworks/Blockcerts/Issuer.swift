@@ -27,15 +27,10 @@ public protocol Issuer {
     /// Unique identifier for an Issuer. Also, the URL where you can re-request data. This is useful if an instance of this struct only has partial data, or if you want to see that the keys are still valid.
     var id : URL { get }
     
-    /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
+    /// This defines how the recipient shoudl introduce to the issuer.
     var introductionMethod : IssuerIntroductionMethod { get }
     
     func toDictionary() -> [String: Any]
-    
-    // MARK: Convenience methods
-    
-    /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`. Note that
-    var introductionURL : URL? { get }
 }
 
 public protocol AnalyticsSupport {
@@ -48,25 +43,6 @@ public protocol ServerBasedRevocationSupport {
 
 public typealias IssuerWithAnalytics = Issuer & AnalyticsSupport
 public typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
-
-
-extension Issuer {
-    public var introductionURL : URL? {
-        var url : URL? = nil
-        
-        switch introductionMethod {
-        case .basic(let introductionURL):
-            url = introductionURL
-        case .webAuthentication(let introductionURL, _, _):
-            url = introductionURL
-        case .unknown:
-            break
-        }
-        
-        return url
-    }
-}
-
 
 
 public enum IssuerParser {

@@ -39,24 +39,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
     
     /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
     public let introductionMethod : IssuerIntroductionMethod
-    
-    /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`. Note that
-    public var introductionURL : URL? {
-        var url : URL? = nil
         
-        switch introductionMethod {
-        case .basic(let introductionURL):
-            url = introductionURL
-        case .webAuthentication(let introductionURL, _, _):
-            url = introductionURL
-        case .unknown:
-            break
-        }
-        
-        return url
-    }
-    
-    
     /// v2+ only; url where revocation list is located
     public let revocationURL : URL?
     

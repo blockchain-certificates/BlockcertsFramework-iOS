@@ -53,22 +53,6 @@ public struct IssuerV1 : Issuer {
     /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
     public let introductionMethod : IssuerIntroductionMethod
     
-    /// The URL where you can make a POST request with recipient data in order to introduce a Recipient to an Issuer. For more information, look at `IssuerIntroductionRequest`. Note that
-    public var introductionURL : URL? {
-        var url : URL? = nil
-        
-        switch introductionMethod {
-        case .basic(let introductionURL):
-            url = introductionURL
-        case .webAuthentication(let introductionURL, _, _):
-            url = introductionURL
-        case .unknown:
-            break
-        }
-        
-        return url
-    }
-    
     // MARK: - Initializers
     /// Create an Issuer from partial data. This is commonly done from data available in a certificate.
     /// Once this is created, you'll need to refresh it to get one with updated keys and an introduction URL. Without those, you will be unable to verify that this issuer *actually issued* certificates, or introduce new Recipients to that issuer.
