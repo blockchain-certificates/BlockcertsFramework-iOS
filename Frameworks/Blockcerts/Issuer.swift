@@ -222,34 +222,3 @@ func keyRotationScheduleV2Alpha(from dictionary: [String : String]) throws -> Ke
     
     return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
 }
-
-func keyRotationScheduleV2(from dictionary: [String : String]) throws -> KeyRotation {
-    guard let dateString = dictionary["created"] else {
-        throw IssuerError.missing(property: "created")
-    }
-    
-    guard let key : String = dictionary["id"] else {
-        throw IssuerError.missing(property: "id")
-    }
-    
-    var publicKey = key
-    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
-    }
-    
-    guard let date = dateString.toDate() else {
-        throw IssuerError.invalid(property: "created")
-    }
-    
-    var expires : Date? = nil
-    var revoked : Date? = nil
-    
-    if let expiresString = dictionary["expires"] {
-        expires = expiresString.toDate()
-    }
-    if let revokedString = dictionary["revoked"] {
-        revoked = revokedString.toDate()
-    }
-    
-    return KeyRotation(on: date, key: publicKey, revoked: revoked, expires: expires)
-}

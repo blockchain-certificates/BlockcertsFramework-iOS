@@ -501,7 +501,8 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Got a valid response, but no data from \(url)")
                 return
             }
-            guard let json = try? JSONSerialization.jsonObject(with: data) as! [String: AnyObject] else {
+            guard let json = try? JSONSerialization.jsonObject(with: data) as! [String: AnyObject],
+                let issuer = IssuerParser.parse(dictionary: json) else {
                 self?.state = .failure(reason: "Issuer didn't return valid JSON data from \(url)")
                 return
             }
@@ -509,33 +510,6 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Certificate is missing.")
                 return
             }
-            
-            var issuerPublicKeys : [KeyRotation]? = nil
-            var converter : (([String : String]) throws -> KeyRotation)!
-            var keyName = "publicKeys"
-            let contexts = json["@context"] as? [String]
-            
-            if contexts == nil {
-                converter = keyRotationSchedule
-                keyName = "issuerKeys"
-            } else if contexts!.contains(SchemaURLs.v2Alpha) || contexts!.contains(SchemaURLs.v2AlphaExperimental) {
-                converter = keyRotationScheduleV2Alpha
-            } else if contexts!.contains(SchemaURLs.v2) {
-                converter = keyRotationScheduleV2
-            }
-            
-            if converter == nil {
-                self?.state = .failure(reason: "Couldn't figure out the issuer's schema during verification.")
-                return
-            }
-            
-            do {
-                issuerPublicKeys = try parseKeys(from: json, with: keyName, converter: converter) as [KeyRotation]?
-            } catch {
-                self?.state = .failure(reason: "Couldn't parse issuer keys")
-                return
-            }
-
             guard let signingKey = self?.signingPublicKey else {
                 self?.state = .failure(reason: "Couldn't parse determine transaction signing public key.")
                 return
@@ -545,9 +519,9 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            let issuerPublicKeyMap = issuerPublicKeys?.toDictionary { $0.key }
+            let issuerPublicKeyMap = issuer.publicKeys.toDictionary { $0.key }
             
-            guard let keyInfo = issuerPublicKeyMap?[signingKey] else {
+            guard let keyInfo = issuerPublicKeyMap[signingKey] else {
                 self?.state = .failure(reason: "Couldn't find issuer public key.")
                 return
             }
