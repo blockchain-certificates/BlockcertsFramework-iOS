@@ -23,11 +23,8 @@ class IssuerTests: XCTestCase {
     let issuerKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")
     let revocationKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "REVOCATION_KEY")
     
-    override func setUp() {
-    }
-
     func testDictionaryConversion() {
-        let issuer = Issuer(name: nameValue,
+        let issuer = IssuerV1(name: nameValue,
                             email: emailValue,
                             image: Data(),
                             id: URL(string: idValue)!,
@@ -90,33 +87,33 @@ class IssuerTests: XCTestCase {
             ]
 
         ]
-        let expectedResult = Issuer(name: nameValue,
-                                    email: emailValue,
-                                    image: Data(),
-                                    id: URL(string: idValue)!,
-                                    url: URL(string: urlValue)!,
-                                    publicIssuerKeys: [issuerKey],
-                                    publicRevocationKeys: [revocationKey],
-                                    introductionURL: URL(string: introductionURLValue)!)
-        let result = try! Issuer(dictionary: input, asVersion: .one)
+        let expectedResult = IssuerV1(name: nameValue,
+                                      email: emailValue,
+                                      image: Data(),
+                                      id: URL(string: idValue)!,
+                                      url: URL(string: urlValue)!,
+                                      publicIssuerKeys: [issuerKey],
+                                      publicRevocationKeys: [revocationKey],
+                                      introductionURL: URL(string: introductionURLValue)!)
+        let result = try? IssuerParser.parse(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
-        XCTAssertEqual(result, expectedResult)
+        XCTAssertEqual(result as? IssuerV1, expectedResult)
     }
     
     func testDictionaryConversionWithWebAuthentication() {
         let introductionMethod = IssuerIntroductionMethod.webAuthentication(introductionURL: URL(string: introductionURLValue)!,
                                                                             successURL: URL(string: introductionURLSuccessValue)!,
                                                                             errorURL: URL(string: introductionURLErrorValue)!)
-        let issuer = Issuer(name: nameValue,
-                            email: emailValue,
-                            image: Data(),
-                            id: URL(string: idValue)!,
-                            url: URL(string: urlValue)!,
-                            publicKeys: [issuerKey],
-                            introductionMethod: introductionMethod,
-                            analyticsURL: URL(string: analyticsURLValue)!)
-
+        let issuer = IssuerV2Alpha(name: nameValue,
+                                   email: emailValue,
+                                   image: Data(),
+                                   id: URL(string: idValue)!,
+                                   url: URL(string: urlValue)!,
+                                   publicKeys: [issuerKey],
+                                   introductionMethod: introductionMethod,
+                                   analyticsURL: URL(string: analyticsURLValue)!)
+        
         let result = issuer.toDictionary()
         XCTAssertEqual(result["introductionAuthenticationMethod"] as! String, "web")
         XCTAssertEqual(result["introductionURL"] as! String, introductionURLValue)
@@ -154,7 +151,7 @@ class IssuerTests: XCTestCase {
         let introductionMethod = IssuerIntroductionMethod.webAuthentication(introductionURL: URL(string: introductionURLValue)!,
                                                                             successURL: URL(string: introductionURLSuccessValue)!,
                                                                             errorURL: URL(string: introductionURLErrorValue)!)
-        let expectedResult = Issuer(name: nameValue,
+        let expectedResult = IssuerV1(name: nameValue,
                                     email: emailValue,
                                     image: Data(),
                                     id: URL(string: idValue)!,
@@ -162,10 +159,10 @@ class IssuerTests: XCTestCase {
                                     publicIssuerKeys: [issuerKey],
                                     publicRevocationKeys: [revocationKey],
                                     introductionMethod: introductionMethod)
-        let result = try! Issuer(dictionary: input, asVersion: .one)
+        let result = try? IssuerParser.parse(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
-        XCTAssertEqual(result, expectedResult)
+        XCTAssertEqual(result as? IssuerV1, expectedResult)
     }
     
     
@@ -192,12 +189,12 @@ class IssuerTests: XCTestCase {
             ]
             
         ]
-        let result = try! Issuer(dictionary: input, asVersion: .one)
+        let result = try? IssuerParser.parse(dictionary: input, asVersion: .one)
         
         XCTAssertNotNil(result)
         
         let expectedMethod = IssuerIntroductionMethod.basic(introductionURL: URL(string:introductionURLValue)!)
-        XCTAssertEqual(result.introductionMethod, expectedMethod)
+        XCTAssertEqual(result?.introductionMethod, expectedMethod)
     }
     
     
@@ -225,11 +222,11 @@ class IssuerTests: XCTestCase {
             ]
             
         ]
-        let result = try! Issuer(dictionary: input, asVersion: .one)
+        let result = IssuerParser.parse(dictionary: input)
         
         XCTAssertNotNil(result)
         
-        XCTAssertEqual(result.introductionMethod, IssuerIntroductionMethod.unknown)
+        XCTAssertEqual(result?.introductionMethod, IssuerIntroductionMethod.unknown)
     }
     
     func testVersionDetectionForV1() {
@@ -256,7 +253,7 @@ class IssuerTests: XCTestCase {
             
         ]
         
-        let version = Issuer.detectVersion(from: input)
+        let version = IssuerParser.detectVersion(from: input)
         XCTAssertEqual(version, .one)
     }
     
@@ -278,7 +275,7 @@ class IssuerTests: XCTestCase {
             "introductionURL": introductionURLValue
         ]
         
-        var version = Issuer.detectVersion(from: issuer)
+        var version = IssuerParser.detectVersion(from: issuer)
         XCTAssertEqual(version, .twoAlpha)
         
         let issuerWithWebAuth : [String: Any] = [
@@ -301,7 +298,7 @@ class IssuerTests: XCTestCase {
             "introductionErrorURL": introductionURLErrorValue
         ]
 
-        version = Issuer.detectVersion(from: issuerWithWebAuth)
+        version = IssuerParser.detectVersion(from: issuerWithWebAuth)
         XCTAssertEqual(version, .twoAlpha)
     }
     
@@ -323,7 +320,7 @@ class IssuerTests: XCTestCase {
             "introductionURL": introductionURLValue
         ]
         
-        var version = Issuer.detectVersion(from: issuer)
+        var version = IssuerParser.detectVersion(from: issuer)
         XCTAssertEqual(version, .two)
         
         let issuerWithWebAuth : [String: Any] = [
@@ -346,12 +343,11 @@ class IssuerTests: XCTestCase {
             "introductionErrorURL": introductionURLErrorValue
         ]
         
-        version = Issuer.detectVersion(from: issuerWithWebAuth)
+        version = IssuerParser.detectVersion(from: issuerWithWebAuth)
         XCTAssertEqual(version, .two)
     }
     
     func testDictionaryInitializationWithVersionDetection() {
-        // V1
         let issuerV1 : [String : Any] = [
             "name": nameValue,
             "email": emailValue,
@@ -374,7 +370,7 @@ class IssuerTests: XCTestCase {
             ]
             
         ]
-        let expectedResult = Issuer(name: nameValue,
+        let expectedResult = IssuerV1(name: nameValue,
                                     email: emailValue,
                                     image: Data(),
                                     id: URL(string: idValue)!,
@@ -382,15 +378,14 @@ class IssuerTests: XCTestCase {
                                     publicIssuerKeys: [issuerKey],
                                     publicRevocationKeys: [revocationKey],
                                     introductionURL: URL(string: introductionURLValue)!)
-        let result = try? Issuer(dictionary: issuerV1)
+        let result = try? IssuerParser.parse(dictionary: issuerV1, asVersion: .one)
         
         XCTAssertNotNil(result)
-        XCTAssertEqual(result, expectedResult)
+        XCTAssertEqual(result as? IssuerV1, expectedResult)
         
         
-        // v2
         let publicKey = KeyRotation(on: Date(timeIntervalSince1970: 0), key: "n138AWR4d2srKgw57rWph8wibVSwZt2XDi")
-        let issuerV2 : [String: Any] = [
+        let issuerV2Alpha : [String: Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
             "type": "Profile",
             "id": idValue,
@@ -410,13 +405,13 @@ class IssuerTests: XCTestCase {
             "introductionErrorURL": introductionURLErrorValue
         ]
         
-        let resultV2 = try? Issuer(dictionary: issuerV2)
+        let resultV2Alpha = try? IssuerParser.parse(dictionary: issuerV2Alpha, asVersion: .twoAlpha)
         let webIntroduction = IssuerIntroductionMethod.webAuthentication(introductionURL: URL(string: introductionURLValue)!,
                                                                          successURL: URL(string: introductionURLSuccessValue)!,
                                                                          errorURL: URL(string: introductionURLErrorValue)!)
         
         
-        let expectedResultV2 = Issuer(name: nameValue,
+        let expectedResultV2Alpha = IssuerV2Alpha(name: nameValue,
                                       email: emailValue,
                                       image: Data(),
                                       id: URL(string: idValue)!,
@@ -424,7 +419,7 @@ class IssuerTests: XCTestCase {
                                       publicKeys: [publicKey],
                                       introductionMethod: webIntroduction,
                                       analyticsURL: URL(string: analyticsURLValue)!)
-        XCTAssertNotNil(resultV2)
-        XCTAssertEqual(resultV2, expectedResultV2)
+        XCTAssertNotNil(resultV2Alpha)
+        XCTAssertEqual(resultV2Alpha as? IssuerV2Alpha, expectedResultV2Alpha)
     }
 }

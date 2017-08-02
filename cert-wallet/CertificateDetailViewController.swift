@@ -77,8 +77,7 @@ class CertificateDetailViewController: UITableViewController {
             CertificateProperty(title: "Issuer", values: [
                 "Name": certificate.issuer.name,
                 "Email": certificate.issuer.email,
-                "ID": "\(certificate.issuer.id)",
-                "URL": "\(certificate.issuer.url)"
+                "ID": "\(certificate.issuer.id)"
             ]),
             CertificateProperty(title: "Recipient", values: [
                 "Name": certificate.recipient.name,

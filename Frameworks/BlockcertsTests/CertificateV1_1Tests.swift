@@ -50,7 +50,7 @@ class CertificateV1_1Tests: XCTestCase {
                 XCTFail("Failed to laod the test file in CertificateTests")
                 return
         }
-        let issuer = cert.issuer
+        let issuer = cert.issuer as! IssuerV1
         
         XCTAssertEqual(issuer.name, "Issuing Institution")
         XCTAssertEqual(issuer.email, "issuer@theissuer.edu")

@@ -118,12 +118,15 @@ fileprivate enum MethodsForV2 {
             revocationURL = URL(string: issuerData["revocationList"]!)
         }
         
-        return Issuer(name: issuerName,
-                      email: issuerEmail,
-                      image: logo,
-                      id: issuerIdURL,
-                      url: issuerURL,
-                      revocationURL: revocationURL)
+        return IssuerV2(name: issuerName,
+                        email: issuerEmail,
+                        image: logo,
+                        id: issuerIdURL,
+                        url: issuerURL,
+                        revocationURL: revocationURL,
+                        publicKeys: [],
+                        introductionMethod: .unknown,
+                        analyticsURL: nil)
     }
     
     static func parse(recipientJSON json: [String : Any]) -> Recipient? {

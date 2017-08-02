@@ -53,16 +53,23 @@ public class IssuerIdentificationRequest : CommonRequest {
                 return
             }
             
-            do {
-                let issuer = try Issuer(dictionary: json)
+            // TODO: Handle more nuanced responses with IssuerParser
+            if let issuer = IssuerParser.parse(dictionary: json) {
                 self?.reportSuccess(with: issuer)
-            } catch IssuerError.missing(let property) {
-                self?.report(failure: .issuerMissing(property: property))
-            } catch IssuerError.invalid(let property) {
-                self?.report(failure: .issuerInvalid(property: property))
-            } catch {
+            } else {
                 self?.report(failure: .unknownResponse)
             }
+            
+//            do {
+//                let issuer = try Issuer(dictionary: json)
+//                self?.reportSuccess(with: issuer)
+//            } catch IssuerError.missing(let property) {
+//                self?.report(failure: .issuerMissing(property: property))
+//            } catch IssuerError.invalid(let property) {
+//                self?.report(failure: .issuerInvalid(property: property))
+//            } catch {
+//                self?.report(failure: .unknownResponse)
+//            }
         }
         currentTask?.resume()
     }

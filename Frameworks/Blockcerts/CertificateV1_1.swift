@@ -98,11 +98,11 @@ enum MethodsForV1_1 {
         }
         let logo = imageData(from: logoURI)
         
-        return Issuer(name: issuerName,
-                      email: issuerEmail,
-                      image: logo,
-                      id: issuerIdURL,
-                      url: issuerURL)
+        return IssuerV1(name: issuerName,
+                        email: issuerEmail,
+                        image: logo,
+                        id: issuerIdURL,
+                        url: issuerURL)
     }
     
     static func parse(recipientJSON: AnyObject?) -> Recipient? {

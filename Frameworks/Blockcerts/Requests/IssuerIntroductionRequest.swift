@@ -21,17 +21,12 @@ public enum IssuerIntroductionRequestError : Error {
 }
 
 public protocol IssuerIntroductionRequestDelegate : class {
-    func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL?
     func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
     func presentWebView(at url:URL, with navigationDelegate:WKNavigationDelegate) throws
     func dismissWebView()
 }
 
 public extension IssuerIntroductionRequestDelegate {
-    func introductionURL(for issuer: Issuer, introducing recipient: Recipient) -> URL? {
-        return issuer.introductionURL
-    }
-    
     public func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any] {
         var dataMap = [String: Any]()
         dataMap["email"] = recipient.identity
@@ -75,12 +70,7 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
         case .webAuthentication(let introductionURL, _, _):
             startWebIntroduction(at: introductionURL)
         case .unknown:
-            if let url = delegate.introductionURL(for: issuer, introducing: recipient) {
-                startBasicIntroduction(at: url)
-                return
-            } else {
-                reportFailure(.issuerMissingIntroductionURL)
-            }
+            reportFailure(.issuerMissingIntroductionURL)
         }
     }
     
