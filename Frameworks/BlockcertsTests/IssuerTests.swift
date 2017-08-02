@@ -422,4 +422,29 @@ class IssuerTests: XCTestCase {
         XCTAssertNotNil(resultV2Alpha)
         XCTAssertEqual(resultV2Alpha as? IssuerV2Alpha, expectedResultV2Alpha)
     }
+    
+    func testIssuerV1Codable() {
+        // Attempt decode
+        let issuerV1File = "issuer-v1"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerV1File, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let issuerV1 = try decoder.decode(IssuerV1.self, from: file)
+            XCTAssertEqual(issuerV1.id, URL(string: "http://www.blockcerts.org/mockissuer/issuer/got-issuer.json")!)
+            XCTAssertEqual(issuerV1.url, URL(string: "http://www.blockcerts.org/mockissuer/certificates/")!)
+            XCTAssertEqual(issuerV1.name, "Game of thrones issuer on testnet")
+            XCTAssertEqual(issuerV1.email, "org@org.org")
+            XCTAssertEqual(issuerV1.issuerKeys.first?.key, "mmShyF6mhf6LeQzPdEsmiCghhgMuEn9TNF")
+            XCTAssertEqual(issuerV1.revocationKeys.first?.key, "mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT")
+        } catch {
+            XCTFail()
+        }
+        
+        
+    }
 }

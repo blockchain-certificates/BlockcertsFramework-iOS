@@ -123,7 +123,7 @@ public enum IssuerIntroductionMethod : Equatable {
 
 
 /// Signifies when a new key was rotated in for a given purpose.
-public struct KeyRotation : Comparable {
+public struct KeyRotation : Comparable, Codable {
     /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
     public let on : Date
     /// A base64-encoded string representing the data of the key.

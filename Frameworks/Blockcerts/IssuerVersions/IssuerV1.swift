@@ -14,7 +14,46 @@ public enum IssuerError : Error {
     case unknownVersion
 }
 
-public struct IssuerV1 : Issuer {
+public struct KeyRotationV1 : Decodable, Equatable {
+    public let date : Date
+    public let key : String
+    
+    private enum CodingKeys : CodingKey {
+        case date, key
+    }
+    init(date: Date, key: String) {
+        self.date = date
+        self.key = key
+    }
+    
+    init(from keyRotation: KeyRotation) {
+        date = keyRotation.on
+        key = keyRotation.key
+    }
+    
+    public func toKeyRotation() -> KeyRotation {
+        return KeyRotation(on: date, key: key)
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        key = try container.decode(String.self, forKey: .key)
+        let dateString = try container.decode(String.self, forKey: .date)
+        if let date = dateString.toDate() {
+            self.date = date
+        } else {
+            throw IssuerError.invalid(property: "date")
+        }
+    }
+    
+    public static func ==(lhs: KeyRotationV1, rhs: KeyRotationV1) -> Bool {
+        return lhs.date == rhs.date
+                && lhs.key == rhs.key
+    }
+}
+
+public struct IssuerV1 : Issuer, Decodable {
     public let version = IssuerVersion.one
     public let name : String
     public let email : String
@@ -22,18 +61,83 @@ public struct IssuerV1 : Issuer {
     public let id : URL
     public let url : URL
     public var publicKeys: [KeyRotation] {
-        return issuerKeys
+        return issuerKeys.map { $0.toKeyRotation() }
     }
 
     // MARK: Optional Properties
     /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to issue certificates during specific date ranges
-    public let issuerKeys : [KeyRotation]
+    public let issuerKeys : [KeyRotationV1]
     
     /// An ordered list of KeyRotation objects, with the most recent key rotation first. These represent the keys used to revoke certificates.
-    public let revocationKeys : [KeyRotation]
+    public let revocationKeys : [KeyRotationV1]
     
     /// This defines how the recipient shoudl introduce to the issuer. It replaces `introductionURL`
     public let introductionMethod : IssuerIntroductionMethod
+
+    private enum CodingKeys : CodingKey {
+        case id
+        case url
+        case name
+        case email
+        case image
+        case issuerKeys
+        case revocationKeys
+        
+        case introductionAuthenticationMethod
+        case introductionURL
+        case introductionSuccessURL
+        case introductionErrorURL
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+        email = try container.decode(String.self, forKey: .email)
+        let imageURL = try container.decode(URL.self, forKey: .image)
+        image = try Data(contentsOf: imageURL)
+        id = try container.decode(URL.self, forKey: .id)
+        url = try container.decode(URL.self, forKey: .url)
+        issuerKeys = try container.decode(Array.self, forKey: .issuerKeys)
+        revocationKeys = try container.decode(Array.self, forKey: .revocationKeys)
+        
+        // TODO: We can make this into its own functions with @autoclosures for perf.
+        
+        // Parse out the introduction method. Yikes.
+        let methodName = try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod) ?? "none"
+        let introURL = try container.decodeIfPresent(URL.self, forKey: .introductionURL)
+        var introMethod : IssuerIntroductionMethod?
+        switch methodName {
+        case "none":
+            fallthrough
+        case "basic":
+            if let url = introURL {
+                introMethod = .basic(introductionURL: url)
+            }
+        case "web":
+            if let url = introURL,
+                var successURL = try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
+                var errorURL = try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL) {
+                
+                
+                // Remove any query string parameters from the success & error urls
+                if var successComponents = URLComponents(url: successURL, resolvingAgainstBaseURL: false) {
+                    successComponents.queryItems = nil
+                    successURL = successComponents.url ?? successURL
+                }
+                
+                if var errorComponents = URLComponents(url: errorURL, resolvingAgainstBaseURL: false) {
+                    errorComponents.queryItems = nil
+                    errorURL = errorComponents.url ?? errorURL
+                }
+                
+                introMethod = .webAuthentication(introductionURL: url, successURL: successURL, errorURL: errorURL)
+            }
+        default:
+            break
+        }
+        introductionMethod = introMethod ?? .unknown
+    }
     
     // MARK: - Initializers
     /// Create an Issuer from partial data. This is commonly done from data available in a certificate.
@@ -90,8 +194,8 @@ public struct IssuerV1 : Issuer {
         self.image = image
         self.id = id
         self.url = url
-        issuerKeys = publicIssuerKeys.sorted(by: <)
-        revocationKeys = publicRevocationKeys.sorted(by: <)
+        issuerKeys = publicIssuerKeys.sorted(by: <).map{ KeyRotationV1(from: $0) }
+        revocationKeys = publicRevocationKeys.sorted(by: <).map{ KeyRotationV1(from: $0) }
         introductionMethod = .basic(introductionURL: introductionURL)
     }
     
@@ -109,8 +213,8 @@ public struct IssuerV1 : Issuer {
         self.image = image
         self.id = id
         self.url = url
-        issuerKeys = publicIssuerKeys.sorted(by: <)
-        revocationKeys = publicRevocationKeys.sorted(by: <)
+        issuerKeys = publicIssuerKeys.sorted(by: <).map { KeyRotationV1(from : $0) }
+        revocationKeys = publicRevocationKeys.sorted(by: <).map { KeyRotationV1(from : $0) }
         self.introductionMethod = introductionMethod
     }
     
@@ -150,8 +254,8 @@ public struct IssuerV1 : Issuer {
         let parsedIssuerKeys = try parseKeys(from: dictionary, with: "issuerKeys", converter: keyRotationSchedule)
         let parsedRevocationKeys = try parseKeys(from: dictionary, with: "revocationKeys", converter: keyRotationSchedule)
         
-        issuerKeys = parsedIssuerKeys.sorted(by: <)
-        revocationKeys = parsedRevocationKeys.sorted(by: <)
+        issuerKeys = parsedIssuerKeys.sorted(by: <).map { KeyRotationV1(from : $0) }
+        revocationKeys = parsedRevocationKeys.sorted(by: <).map { KeyRotationV1(from : $0) }
         
         self.name = name
         self.email = email
@@ -217,13 +321,13 @@ public struct IssuerV1 : Issuer {
     public func toDictionary() -> [String: Any] {
         let serializedIssuerKeys = issuerKeys.map { (keyRotation) -> [String : String] in
             return [
-                "date": keyRotation.on.toString(),
+                "date": keyRotation.date.toString(),
                 "key": keyRotation.key
             ]
         }
         let serializedRevocationKeys = revocationKeys.map { (keyRotation) -> [String : String] in
             return [
-                "date": keyRotation.on.toString(),
+                "date": keyRotation.date.toString(),
                 "key": keyRotation.key
             ]
         }

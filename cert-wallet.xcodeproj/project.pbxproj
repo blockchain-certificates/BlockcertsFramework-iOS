@@ -63,6 +63,7 @@
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
 		8354F3181D9F13840008DB09 /* JSONLD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		83558F941F32797300EB194E /* issuer-v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 83558F931F32797300EB194E /* issuer-v1.json */; };
 		835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
 		835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
 		8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
@@ -330,6 +331,7 @@
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		8354F3101D9F13840008DB09 /* JSONLD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONLD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		83558F931F32797300EB194E /* issuer-v1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "issuer-v1.json"; sourceTree = "<group>"; };
 		835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CertificateDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		83659CF51D66492800316BA8 /* cert-wallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "cert-wallet.entitlements"; sourceTree = "<group>"; };
 		8369CB081D6F6378006D603E /* AddIssuerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddIssuerViewController.swift; sourceTree = "<group>"; };
@@ -658,6 +660,14 @@
 			path = JSONLD;
 			sourceTree = "<group>";
 		};
+		83558F921F32795000EB194E /* Issuers */ = {
+			isa = PBXGroup;
+			children = (
+				83558F931F32797300EB194E /* issuer-v1.json */,
+			);
+			path = Issuers;
+			sourceTree = "<group>";
+		};
 		836A319A1D5933D800943801 = {
 			isa = PBXGroup;
 			children = (
@@ -806,6 +816,7 @@
 		837ED9811EC37AAA0095F100 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				83558F921F32795000EB194E /* Issuers */,
 				83166BD51F17E4C60022CCB0 /* Certificates */,
 				837ED9821EC37AAA0095F100 /* index.html */,
 			);
@@ -1289,6 +1300,7 @@
 				83166BEE1F17E4C60022CCB0 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				83166BF01F17E4C60022CCB0 /* sample_cert-revoked-2.0a.json in Resources */,
 				83166BE91F17E4C60022CCB0 /* modified_1.2_jsonld.json in Resources */,
+				83558F941F32797300EB194E /* issuer-v1.json in Resources */,
 				83166BE81F17E4C60022CCB0 /* sample_unsigned_cert-1.1.0.json in Resources */,
 				83166BEB1F17E4C60022CCB0 /* sample_signed_cert-1.2.0.json in Resources */,
 				83166BEC1F17E4C60022CCB0 /* sample_signed_cert-valid-1.2.0.json in Resources */,
