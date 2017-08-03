@@ -14,13 +14,14 @@ public enum IssuerError : Error {
     case unknownVersion
 }
 
-public struct KeyRotationV1 : Decodable, Equatable {
+public struct KeyRotationV1 : Codable, Equatable {
     public let date : Date
     public let key : String
     
     private enum CodingKeys : CodingKey {
         case date, key
     }
+    
     init(date: Date, key: String) {
         self.date = date
         self.key = key
@@ -47,13 +48,20 @@ public struct KeyRotationV1 : Decodable, Equatable {
         }
     }
     
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(date.toString(), forKey: .date)
+        try container.encode(key, forKey: .key)
+    }
+
     public static func ==(lhs: KeyRotationV1, rhs: KeyRotationV1) -> Bool {
         return lhs.date == rhs.date
                 && lhs.key == rhs.key
     }
 }
 
-public struct IssuerV1 : Issuer, Decodable {
+public struct IssuerV1 : Issuer, Codable {
     public let version = IssuerVersion.one
     public let name : String
     public let email : String
@@ -108,6 +116,33 @@ public struct IssuerV1 : Issuer, Decodable {
                                                                      introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
                                                                      successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
                                                                      errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(name, forKey: .name)
+        try container.encode(email, forKey: .email)
+        try container.encode("data:image/png;base64,\(image.base64EncodedString())", forKey: .image)
+        try container.encode(id, forKey: .id)
+        try container.encode(url, forKey: .url)
+        try container.encode(issuerKeys, forKey: .issuerKeys)
+        try container.encode(revocationKeys, forKey: .revocationKeys)
+        
+        switch introductionMethod {
+        case .basic(let introductionURL):
+            try container.encode("basic", forKey: .introductionAuthenticationMethod)
+            try container.encode(introductionURL, forKey: .introductionURL)
+        case .webAuthentication(let introductionURL, let successURL, let errorURL):
+            try container.encode("web", forKey: .introductionAuthenticationMethod)
+            try container.encode(introductionURL, forKey: .introductionURL)
+            try container.encode(successURL, forKey: .introductionSuccessURL)
+            try container.encode(errorURL, forKey: .introductionErrorURL)
+        case .unknown:
+            fallthrough
+        default:
+            break;
+        }
     }
     
     // MARK: - Initializers

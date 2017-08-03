@@ -466,6 +466,13 @@ class IssuerTests: XCTestCase {
                                 ],
                                 introductionURL: URL(string: "http://www.blockcerts.org/mockissuer/intro/")!)
         
-        let output = JSONEncoder().encode(issuerV1)
+        let encoder = JSONEncoder()
+        do {
+            let output = try encoder.encode(issuerV1)
+        } catch {
+            print("Errors oh no")
+            dump(error)
+            XCTFail("Exception thrown while encoding issuer v1.")
+        }
     }
 }
