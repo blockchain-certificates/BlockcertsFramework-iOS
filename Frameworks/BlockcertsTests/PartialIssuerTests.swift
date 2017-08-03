@@ -10,6 +10,12 @@ import XCTest
 @testable import Blockcerts
 
 class PartialIssuerTests: XCTestCase {
+    let nameValue = "Name"
+    let emailValue = "Email"
+    let imageDataValue = ""
+    let idValue = "https://example.com/id"
+    let urlValue = "https://example.com/url"
+    
     func testIssuerInV1_1Certificate() {
         let filename = "sample_signed_cert-valid-1.1.0"
         let testBundle = Bundle(for: type(of: self))
@@ -113,6 +119,23 @@ class PartialIssuerTests: XCTestCase {
         } catch {
             XCTFail("Parser threw when it shouldn't have.")
         }
-
+    }
+    
+    func testGeneralParserWithPartialIssuerData() {
+        let issuerJSON : [String: Any] = [
+            "id": idValue,
+            "name": nameValue,
+            "url": urlValue,
+            "image": "data:image/png;base64,",
+            "email": emailValue,
+        ]
+        
+        let version = IssuerParser.detectVersion(from: issuerJSON)
+        XCTAssertEqual(version, IssuerVersion.embedded)
+        
+        let issuer = IssuerParser.parse(dictionary: issuerJSON)
+        XCTAssertNotNil(issuer)
+        XCTAssertEqual(issuer?.version, .embedded)
+        XCTAssertEqual(issuer?.id, URL(string: idValue)!)
     }
 }
