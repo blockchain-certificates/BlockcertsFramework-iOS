@@ -88,7 +88,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
             throw IssuerError.invalid(property: "url")
         }
         
-        let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2)
+        let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKey", converter: keyRotationScheduleV2)
         publicKeys = parsedIssuerKeys.sorted(by: <)
         
         self.name = name

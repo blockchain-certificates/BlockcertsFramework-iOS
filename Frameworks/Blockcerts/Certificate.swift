@@ -116,7 +116,7 @@ public enum CertificateParser {
         case .two:
             if cert == nil {
                 do {
-                    cert = try CertificateV2Alpha(data: data)
+                    cert = try CertificateV2(data: data)
                 } catch {
                     cert = nil
                     lastError = error
