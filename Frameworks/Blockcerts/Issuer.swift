@@ -50,20 +50,15 @@ public typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
 
 public enum IssuerParser {
     public static func parse(dictionary: [String: Any]) -> Issuer? {
-        guard let version = IssuerParser.detectVersion(from: dictionary) else {
-            return nil
-        }
+        var issuer : Issuer? = try? IssuerV2(dictionary: dictionary)
         
-        var issuer : Issuer? = nil
-        
-        switch version {
-        case .two:
-            issuer = try? IssuerV2(dictionary: dictionary)
-        case .twoAlpha:
+        if issuer == nil {
             issuer = try? IssuerV2Alpha(dictionary: dictionary)
-        case .one:
+        }
+        if issuer == nil {
             issuer = try? IssuerV1(dictionary: dictionary)
-        case .embedded:
+        }
+        if issuer == nil {
             issuer = try? PartialIssuer(dictionary: dictionary)
         }
 
