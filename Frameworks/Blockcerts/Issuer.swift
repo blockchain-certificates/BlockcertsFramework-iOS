@@ -63,6 +63,8 @@ public enum IssuerParser {
             issuer = try? IssuerV2Alpha(dictionary: dictionary)
         case .one:
             issuer = try? IssuerV1(dictionary: dictionary)
+        case .embedded:
+            issuer = try? PartialIssuer(dictionary: dictionary)
         }
 
         return issuer
@@ -76,6 +78,8 @@ public enum IssuerParser {
             return try IssuerV2Alpha(dictionary: dictionary)
         case .two:
             return try IssuerV2(dictionary: dictionary)
+        case .embedded:
+            return try PartialIssuer(dictionary: dictionary)
         }
     }
     
@@ -87,7 +91,7 @@ public enum IssuerParser {
         } else if dictionary["publicKeys"] != nil {
             return .twoAlpha
         }
-        return nil
+        return .embedded
     }
 }
 
@@ -96,6 +100,7 @@ public enum IssuerParser {
 /// - twoAlpha: This is a pre-relase v2 issuer
 /// - two: This is a v2 issuer
 public enum IssuerVersion : Int {
+    case embedded
     // Note, these should always be listed in increasing issuer version order
     case one = 1
     case twoAlpha
