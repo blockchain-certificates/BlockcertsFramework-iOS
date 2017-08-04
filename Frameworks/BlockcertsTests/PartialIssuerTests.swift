@@ -166,6 +166,29 @@ class PartialIssuerTests: XCTestCase {
         }
     }
     
+    
+    func testPartialIssuerEncodable() {
+        let partial = PartialIssuer(name: nameValue,
+                                    email: emailValue,
+                                    image: Data(),
+                                    id: URL(string: idValue)!,
+                                    url: URL(string: urlValue)!)
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(partial)
+            
+            let string = String(data:data, encoding: .utf8)
+            print(string!)
+            
+            let decoder = JSONDecoder()
+            let decodedPartial = try decoder.decode(PartialIssuer.self, from: data)
+            
+            XCTAssertEqual(partial, decodedPartial)
+        } catch {
+            XCTFail("Threw an error while deocding: \(error)")
+        }
+    }
+    
     //
     // MARK - private test helper functions
     //

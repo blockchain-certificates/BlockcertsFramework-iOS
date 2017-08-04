@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PartialIssuer : Issuer, Codable {
+public struct PartialIssuer : Issuer, Codable, Equatable {
     public let version = IssuerVersion.embedded
     public let name : String
     public let email : String
@@ -35,6 +35,27 @@ public struct PartialIssuer : Issuer, Codable {
         id = try container.decode(URL.self, forKey: .id)
         url = try container.decode(URL.self, forKey: .url)
         revocationListURL = try container.decodeIfPresent(URL.self, forKey: .revocationListURL)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(name, forKey: .name)
+        try container.encode(email, forKey: .email)
+        let imageURL = URL(string:"data:image/png;base64,\(image.base64EncodedString())")!
+        try container.encode(imageURL, forKey: .image)
+        try container.encode(id, forKey: .id)
+        try container.encode(url, forKey: .url)
+        try container.encode(revocationListURL, forKey: .revocationListURL)
+    }
+    
+    public init(name: String, email: String, image: Data, id: URL, url: URL, revocationListURL : URL? = nil) {
+        self.name = name
+        self.email = email
+        self.image = image
+        self.id = id
+        self.url = url
+        self.revocationListURL = revocationListURL
     }
     
     public init(dictionary: [String: Any]) throws {
@@ -85,5 +106,14 @@ public struct PartialIssuer : Issuer, Codable {
         dict["image"] = "data:image/png;base64,\(image.base64EncodedString())"
         dict["url"] = url
         return dict
+    }
+    
+    public static func ==(lhs: PartialIssuer, rhs: PartialIssuer) -> Bool {
+        return lhs.name == rhs.name
+            && lhs.email == rhs.email
+            && lhs.image == rhs.image
+            && lhs.id == rhs.id
+            && lhs.url == rhs.url
+            && lhs.revocationListURL == rhs.revocationListURL
     }
 }
