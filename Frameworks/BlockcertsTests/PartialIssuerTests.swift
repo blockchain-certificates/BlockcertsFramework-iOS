@@ -101,11 +101,8 @@ class PartialIssuerTests: XCTestCase {
         
         guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
             let file = try? Data(contentsOf: fileUrl),
-            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any] else {
-                return nil
-        }
-        
-        guard let certificateData = json["certificate"] as? [String: Any],
+            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any],
+            let certificateData = json["certificate"] as? [String: Any],
             let issuerData = certificateData["issuer"] as? [String: Any] else {
                 return nil
         }
@@ -119,11 +116,8 @@ class PartialIssuerTests: XCTestCase {
         
         guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
             let file = try? Data(contentsOf: fileUrl),
-            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any] else {
-                return nil
-        }
-        
-        guard let documentData = json["document"] as? [String : Any],
+            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any],
+            let documentData = json["document"] as? [String : Any],
             let certificateData = documentData["certificate"] as? [String: Any],
             let issuerData = certificateData["issuer"] as? [String: Any] else {
                 return nil
@@ -138,11 +132,8 @@ class PartialIssuerTests: XCTestCase {
         
         guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
             let file = try? Data(contentsOf: fileUrl),
-            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any] else {
-                return nil
-        }
-        
-        guard let certificateData = json["badge"] as? [String: Any],
+            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any],
+            let certificateData = json["badge"] as? [String: Any],
             let issuerData = certificateData["issuer"] as? [String: Any] else {
                 return nil
         }
@@ -156,11 +147,8 @@ class PartialIssuerTests: XCTestCase {
         
         guard let fileUrl = testBundle.url(forResource: filename, withExtension: "json"),
             let file = try? Data(contentsOf: fileUrl),
-            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any] else {
-                return nil
-        }
-        
-        guard let certificateData = json["badge"] as? [String: Any],
+            let json = try? JSONSerialization.jsonObject(with: file, options: []) as! [String : Any],
+            let certificateData = json["badge"] as? [String: Any],
             let issuerData = certificateData["issuer"] as? [String: Any] else {
                 return nil
         }
