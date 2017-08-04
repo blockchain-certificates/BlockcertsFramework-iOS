@@ -112,6 +112,60 @@ class PartialIssuerTests: XCTestCase {
         }
     }
     
+    func testPartialIssuerDecodableV1_2() {
+        guard let partialJSON = getPartialIssuerFromV1_2Certificate(),
+            let data = try? JSONSerialization.data(withJSONObject: partialJSON, options: []) else {
+                XCTFail("Failed to load data for this test")
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(PartialIssuer.self, from: data)
+            
+            XCTAssertEqual(issuer.email, "fakeEmail@gamoeofthronesxyz.org")
+            XCTAssertEqual(issuer.id, URL(string:"http://www.blockcerts.org/mockissuer/issuer/got-issuer.json")!)
+        } catch {
+            XCTFail("Threw an error while deocding: \(error)")
+        }
+    }
+    
+    func testPartialIssuerDecodableV2_0a() {
+        guard let partialJSON = getPartialIssuerFromV2_0AlphaCertificate(),
+            let data = try? JSONSerialization.data(withJSONObject: partialJSON, options: []) else {
+                XCTFail("Failed to load data for this test")
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(PartialIssuer.self, from: data)
+            
+            XCTAssertEqual(issuer.email, "contact@issuer.org")
+            XCTAssertEqual(issuer.id, URL(string:"https://www.blockcerts.org/samples/2.0-alpha/issuerTestnet.json")!)
+        } catch {
+            XCTFail("Threw an error while deocding: \(error)")
+        }
+    }
+    
+    func testPartialIssuerDecodableV2_0() {
+        guard let partialJSON = getPartialIssuerFromV2_0Certificate(),
+            let data = try? JSONSerialization.data(withJSONObject: partialJSON, options: []) else {
+                XCTFail("Failed to load data for this test")
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(PartialIssuer.self, from: data)
+            
+            XCTAssertEqual(issuer.email, "contact@issuer.org")
+            XCTAssertEqual(issuer.id, URL(string:"https://www.blockcerts.org/samples/2.0/issuer-testnet.json")!)
+        } catch {
+            XCTFail("Threw an error while deocding: \(error)")
+        }
+    }
+    
     //
     // MARK - private test helper functions
     //
