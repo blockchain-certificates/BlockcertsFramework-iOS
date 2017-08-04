@@ -94,7 +94,27 @@ class PartialIssuerTests: XCTestCase {
         XCTAssertEqual(issuer?.id, URL(string: idValue)!)
     }
     
+    func testPartialIssuerDecodableV1_1() {
+        guard let partialJSON = getPartialIssuerFromV1_1Certificate(),
+            let data = try? JSONSerialization.data(withJSONObject: partialJSON, options: []) else {
+                XCTFail("Failed to load data for this test")
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(PartialIssuer.self, from: data)
+            
+            XCTAssertEqual(issuer.email, "fakeEmail@gamoeofthronesxyz.org")
+            XCTAssertEqual(issuer.id, URL(string:"http://www.blockcerts.org/mockissuer/issuer/got-issuer.json")!)
+        } catch {
+            XCTFail("Threw an error while deocding: \(error)")
+        }
+    }
     
+    //
+    // MARK - private test helper functions
+    //
     private func getPartialIssuerFromV1_1Certificate() -> [String: Any]? {
         let filename = "sample_signed_cert-valid-1.1.0"
         let testBundle = Bundle(for: type(of: self))

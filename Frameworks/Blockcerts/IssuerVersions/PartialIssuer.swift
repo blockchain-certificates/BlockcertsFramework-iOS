@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct PartialIssuer : Issuer {
+public struct PartialIssuer : Issuer, Codable {
     public let version = IssuerVersion.embedded
     public let name : String
     public let email : String
@@ -19,6 +19,23 @@ public struct PartialIssuer : Issuer {
     public let introductionMethod: IssuerIntroductionMethod = .unknown
     
     public let revocationListURL : URL?
+    
+    private enum CodingKeys : String, CodingKey {
+        case name, email, image, id, url
+        case revocationListURL = "revocationList"
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        name = try container.decode(String.self, forKey: .name)
+        email = try container.decode(String.self, forKey: .email)
+        let imageURL = try container.decode(URL.self, forKey: .image)
+        image = try Data(contentsOf: imageURL)
+        id = try container.decode(URL.self, forKey: .id)
+        url = try container.decode(URL.self, forKey: .url)
+        revocationListURL = try container.decodeIfPresent(URL.self, forKey: .revocationListURL)
+    }
     
     public init(dictionary: [String: Any]) throws {
         guard let name = dictionary["name"] as? String else {
