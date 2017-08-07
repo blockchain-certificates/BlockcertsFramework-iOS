@@ -218,10 +218,15 @@ public struct KeyRotation : Comparable, Codable {
         revoked = try container.decodeIfPresent(Date.self, forKey: .revoked)
         expires = try container.decodeIfPresent(Date.self, forKey: .expires)
     }
-//
-//    public func encode(to encoder: Encoder) throws {
-//        <#code#>
-//    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(key, forKey: .key)
+        try container.encode(on.toString(), forKey: .on)
+        try container.encodeIfPresent(revoked, forKey: .revoked)
+        try container.encodeIfPresent(expires, forKey: .expires)
+    }
     
     public init(on: Date, key: String, revoked: Date? = nil, expires: Date? = nil) {
         self.on = on

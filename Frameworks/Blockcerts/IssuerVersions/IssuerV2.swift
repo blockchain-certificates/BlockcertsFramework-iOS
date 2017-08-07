@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Decodable {
+public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Codable, Equatable {
     public let version = IssuerVersion.two
     public let name : String
     public let email : String
@@ -86,6 +86,35 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
                                                                      introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
                                                                      successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
                                                                      errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(name, forKey: .name)
+        try container.encode(email, forKey: .email)
+        try container.encode(id, forKey: .id)
+        try container.encode(url, forKey: .url)
+        try container.encode(publicKeys, forKey: .publicKeys)
+        try container.encode("data:image/png;base64,\(image.asHexString())", forKey: .image)
+        
+        try container.encodeIfPresent(revocationURL, forKey: .revocationURL)
+        try container.encodeIfPresent(analyticsURL, forKey: .analyticsURL)
+        
+        switch introductionMethod {
+        case .basic(let introductionURL):
+            try container.encode("basic", forKey: .introductionAuthenticationMethod)
+            try container.encode(introductionURL, forKey: .introductionURL)
+        case .webAuthentication(let introductionURL, let successURL, let errorURL):
+            try container.encode("web", forKey: .introductionAuthenticationMethod)
+            try container.encode(introductionURL, forKey: .introductionURL)
+            try container.encode(successURL, forKey: .introductionSuccessURL)
+            try container.encode(errorURL, forKey: .introductionErrorURL)
+        case .unknown:
+            fallthrough
+        default:
+            break;
+        }
     }
     
     
@@ -235,6 +264,18 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         }
         
         return dictionary
+    }
+    
+    public static func ==(lhs: IssuerV2, rhs: IssuerV2) -> Bool {
+        return lhs.name == rhs.name
+            && lhs.email == rhs.email
+            && lhs.image == rhs.image
+            && lhs.id == rhs.id
+            && lhs.url == rhs.url
+            && lhs.publicKeys == rhs.publicKeys
+            && lhs.introductionMethod == rhs.introductionMethod
+            && lhs.revocationURL == rhs.revocationURL
+            && lhs.analyticsURL == rhs.analyticsURL
     }
 }
 

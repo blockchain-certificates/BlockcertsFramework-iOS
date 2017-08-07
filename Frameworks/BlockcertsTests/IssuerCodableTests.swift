@@ -68,9 +68,9 @@ class IssuerCodableTests: XCTestCase {
     
     func testV2Codable() {
         // Attempt decode
-        let issuerV1File = "issuer-v2"
+        let issuerFile = "issuer-v2"
         let testBundle = Bundle(for: type(of: self))
-        guard let fileUrl = testBundle.url(forResource: issuerV1File, withExtension: "json") ,
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
             let file = try? Data(contentsOf: fileUrl) else {
                 return
         }
@@ -88,6 +88,23 @@ class IssuerCodableTests: XCTestCase {
         }
         
         // Attempt encode
+        let issuer = IssuerV2(name: "Name",
+                              email: "Email@address.com",
+                              image: Data(),
+                              id: URL(string: "https://issuer.com/blockcerts")!,
+                              url: URL(string: "https://issuer.com")!,
+                              revocationURL: URL(string: "https://issuer.com/revoke")!,
+                              publicKeys: [KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")],
+                              introductionMethod: .basic(introductionURL: URL(string: "https://issuer.com/intro")!),
+                              analyticsURL: nil)
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(issuer)
+            let result = try decoder.decode(IssuerV2.self, from: data)
+            XCTAssertEqual(issuer, result)
+        } catch {
+            XCTFail("Encoding (or decoding after the fact) failed: \(error)")
+        }
     }
     
     func testV2AlphaCodable() {
