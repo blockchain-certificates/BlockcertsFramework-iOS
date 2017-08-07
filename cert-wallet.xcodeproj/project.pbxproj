@@ -62,6 +62,9 @@
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		83541E6F1F34D46F0063EAB6 /* IssuerCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83541E6E1F34D46F0063EAB6 /* IssuerCodableTests.swift */; };
+		83541E711F350EA00063EAB6 /* issuer-v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 83541E701F350EA00063EAB6 /* issuer-v2.json */; };
+		83541E731F350F020063EAB6 /* issuer-v2a.json in Resources */ = {isa = PBXBuildFile; fileRef = 83541E721F350F020063EAB6 /* issuer-v2a.json */; };
+		83541E751F3512050063EAB6 /* issuer-v2a-alternate.json in Resources */ = {isa = PBXBuildFile; fileRef = 83541E741F3512050063EAB6 /* issuer-v2a-alternate.json */; };
 		8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; };
 		8354F3181D9F13840008DB09 /* JSONLD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83558F941F32797300EB194E /* issuer-v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 83558F931F32797300EB194E /* issuer-v1.json */; };
@@ -334,6 +337,9 @@
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		83541E6E1F34D46F0063EAB6 /* IssuerCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuerCodableTests.swift; sourceTree = "<group>"; };
+		83541E701F350EA00063EAB6 /* issuer-v2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "issuer-v2.json"; sourceTree = "<group>"; };
+		83541E721F350F020063EAB6 /* issuer-v2a.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "issuer-v2a.json"; sourceTree = "<group>"; };
+		83541E741F3512050063EAB6 /* issuer-v2a-alternate.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "issuer-v2a-alternate.json"; sourceTree = "<group>"; };
 		8354F3101D9F13840008DB09 /* JSONLD.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONLD.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		83558F931F32797300EB194E /* issuer-v1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "issuer-v1.json"; sourceTree = "<group>"; };
 		835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CertificateDetailViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -670,6 +676,9 @@
 			isa = PBXGroup;
 			children = (
 				83558F931F32797300EB194E /* issuer-v1.json */,
+				83541E701F350EA00063EAB6 /* issuer-v2.json */,
+				83541E721F350F020063EAB6 /* issuer-v2a.json */,
+				83541E741F3512050063EAB6 /* issuer-v2a-alternate.json */,
 			);
 			path = Issuers;
 			sourceTree = "<group>";
@@ -1307,6 +1316,7 @@
 				83166BED1F17E4C60022CCB0 /* sample_unsigned_cert-1.2.0.json in Resources */,
 				83166BE71F17E4C60022CCB0 /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				83166BEE1F17E4C60022CCB0 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
+				83541E751F3512050063EAB6 /* issuer-v2a-alternate.json in Resources */,
 				83166BF01F17E4C60022CCB0 /* sample_cert-revoked-2.0a.json in Resources */,
 				83166BE91F17E4C60022CCB0 /* modified_1.2_jsonld.json in Resources */,
 				83558F941F32797300EB194E /* issuer-v1.json in Resources */,
@@ -1316,9 +1326,11 @@
 				83166BF11F17E4C60022CCB0 /* sample_cert-unmapped-2.0a.json in Resources */,
 				83166BF21F17E4C60022CCB0 /* sample_cert-valid-2.0a.json in Resources */,
 				83166BEF1F17E4C60022CCB0 /* sample_unsigned_cert_with_metadata-1.2.0.json in Resources */,
+				83541E711F350EA00063EAB6 /* issuer-v2.json in Resources */,
 				83166BF51F180B820022CCB0 /* sample_cert-valid-2.0.json in Resources */,
 				83166BEA1F17E4C60022CCB0 /* multiimage_1.2.json in Resources */,
 				83166BE61F17E4C60022CCB0 /* sample_signed_cert-1.1.0.json in Resources */,
+				83541E731F350F020063EAB6 /* issuer-v2a.json in Resources */,
 				837ED99C1EC37AAA0095F100 /* index.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

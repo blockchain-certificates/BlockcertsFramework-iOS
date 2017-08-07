@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport {
+public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Decodable {
     public let version = IssuerVersion.two
     public let name : String
     public let email : String
@@ -23,6 +23,18 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
     public let revocationURL : URL?
     public let analyticsURL: URL?
     
+    private enum CodingKeys : String, CodingKey {
+        case name, email, image, id, url
+        case publicKeys = "publicKey"
+        
+        case revocationURL = "revocationList"
+        case analyticsURL
+        
+        case introductionAuthenticationMethod
+        case introductionURL
+        case introductionSuccessURL
+        case introductionErrorURL
+    }
 
     /// Create an issuer from a complete set of data.
     ///
@@ -53,6 +65,27 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport 
         self.publicKeys = publicKeys.sorted(by: <)
         self.introductionMethod = introductionMethod
         self.analyticsURL = analyticsURL
+    }
+    
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+        email = try container.decode(String.self, forKey: .email)
+        id = try container.decode(URL.self, forKey: .id)
+        url = try container.decode(URL.self, forKey: .url)
+        publicKeys = try container.decode(Array.self, forKey: .publicKeys)
+        let imageURL = try container.decode(URL.self, forKey: .image)
+        image = try Data(contentsOf: imageURL)
+        
+        revocationURL = try container.decodeIfPresent(URL.self, forKey: .revocationURL)
+        analyticsURL = try container.decodeIfPresent(URL.self, forKey: .analyticsURL)
+        
+        introductionMethod = try IssuerIntroductionMethod.methodFrom(name: try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod),
+                                                                     introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
+                                                                     successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
+                                                                     errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
     }
     
     

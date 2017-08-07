@@ -199,6 +199,30 @@ public struct KeyRotation : Comparable, Codable {
     /// WHen this certificate expires on its own, unless it is revoked before
     public let expires : Date?
     
+    private enum CodingKeys : String, CodingKey {
+        case key = "id"
+        case on = "created"
+        case revoked, expires
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        key = try container.decode(String.self, forKey: .key)
+        let dateString = try container.decode(String.self, forKey: .on)
+        if let date = dateString.toDate() {
+            on = date
+        } else {
+            throw IssuerError.invalid(property: "publicKey..id")
+        }
+        revoked = try container.decodeIfPresent(Date.self, forKey: .revoked)
+        expires = try container.decodeIfPresent(Date.self, forKey: .expires)
+    }
+//
+//    public func encode(to encoder: Encoder) throws {
+//        <#code#>
+//    }
+    
     public init(on: Date, key: String, revoked: Date? = nil, expires: Date? = nil) {
         self.on = on
         self.key = key
