@@ -1,0 +1,9 @@
+{
+    "issuer": {
+        "url": "https://www.issuer.org",
+        "image": "data:image/png;base64,",
+        "email": "contact@issuer.org",
+        "name": "University of Learning",
+        "id": "https://www.blockcerts.org/samples/2.0/issuer-testnet.json"
+    }
+}

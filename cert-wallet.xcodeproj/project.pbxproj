@@ -123,6 +123,7 @@
 		838DE6C11F3A4F3D00185A49 /* embedded-issuer-v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 838DE6C01F3A4F3D00185A49 /* embedded-issuer-v1.json */; };
 		838DE6C31F3A4F7100185A49 /* embedded-issuer-v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 838DE6C21F3A4F7100185A49 /* embedded-issuer-v2.json */; };
 		838DE6C51F3A57AD00185A49 /* embedded-optional-issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 838DE6C41F3A57AD00185A49 /* embedded-optional-issuer.json */; };
+		838DE6C71F3A5C6200185A49 /* embedded-issuer-partial.json in Resources */ = {isa = PBXBuildFile; fileRef = 838DE6C61F3A5C6200185A49 /* embedded-issuer-partial.json */; };
 		839174661DA56B6300CB6E54 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; };
 		839174671DA56B6300CB6E54 /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		839174741DA56EFB00CB6E54 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 8391746B1DA56B9500CB6E54 /* CommonCrypto.h */; };
@@ -392,6 +393,7 @@
 		838DE6C01F3A4F3D00185A49 /* embedded-issuer-v1.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "embedded-issuer-v1.json"; sourceTree = "<group>"; };
 		838DE6C21F3A4F7100185A49 /* embedded-issuer-v2.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "embedded-issuer-v2.json"; sourceTree = "<group>"; };
 		838DE6C41F3A57AD00185A49 /* embedded-optional-issuer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "embedded-optional-issuer.json"; sourceTree = "<group>"; };
+		838DE6C61F3A5C6200185A49 /* embedded-issuer-partial.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "embedded-issuer-partial.json"; sourceTree = "<group>"; };
 		8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8391746B1DA56B9500CB6E54 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommonCrypto.h; path = Frameworks/CommonCrypto/CommonCrypto.h; sourceTree = SOURCE_ROOT; };
 		8391746C1DA56B9500CB6E54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Frameworks/CommonCrypto/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -660,6 +662,7 @@
 				83541E741F3512050063EAB6 /* issuer-v2a-alternate.json */,
 				838DE6C01F3A4F3D00185A49 /* embedded-issuer-v1.json */,
 				838DE6C21F3A4F7100185A49 /* embedded-issuer-v2.json */,
+				838DE6C61F3A5C6200185A49 /* embedded-issuer-partial.json */,
 				838DE6C41F3A57AD00185A49 /* embedded-optional-issuer.json */,
 			);
 			path = Issuers;
@@ -1249,6 +1252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				83166BED1F17E4C60022CCB0 /* sample_unsigned_cert-1.2.0.json in Resources */,
+				838DE6C71F3A5C6200185A49 /* embedded-issuer-partial.json in Resources */,
 				83166BE71F17E4C60022CCB0 /* sample_signed_cert-valid-1.1.0.json in Resources */,
 				83166BEE1F17E4C60022CCB0 /* sample_unsigned_cert-invalid_no_email-1.2.0.json in Resources */,
 				83541E751F3512050063EAB6 /* issuer-v2a-alternate.json in Resources */,

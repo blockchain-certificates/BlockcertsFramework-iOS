@@ -92,7 +92,12 @@ public enum IssuerParser {
             return issuer
         } catch { }
         
-        let issuer = try container.decode(IssuerV1.self, forKey: key)
+        do {
+            let issuer = try container.decode(IssuerV1.self, forKey: key)
+            return issuer
+        } catch { }
+        
+        let issuer = try container.decode(PartialIssuer.self, forKey: key)
         return issuer
     }
     
@@ -110,7 +115,13 @@ public enum IssuerParser {
             return issuer
         } catch { }
         
-        let issuer = try container.decodeIfPresent(IssuerV1.self, forKey: key)
+        do {
+            let issuer = try container.decodeIfPresent(IssuerV1.self, forKey: key)
+            return issuer
+        } catch { }
+        
+        let issuer = try container.decodeIfPresent(PartialIssuer.self, forKey: key)
+        
         return issuer
     }
     
