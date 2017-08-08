@@ -77,8 +77,41 @@ public enum IssuerParser {
             return try PartialIssuer(dictionary: dictionary)
         }
     }
+
+    public static func decode<Key>(from container: KeyedDecodingContainer<Key>, forKey key: Key) throws -> Issuer {
+        //
+        // Attempt to decode with the latest Issuer format, then go back in history until V1.
+        //
+        do {
+            let issuer = try container.decode(IssuerV2.self, forKey: key)
+            return issuer
+        } catch { }
+        
+        do {
+            let issuer = try container.decode(IssuerV2Alpha.self, forKey: key)
+            return issuer
+        } catch { }
+        
+        let issuer = try container.decode(IssuerV1.self, forKey: key)
+        return issuer
+    }
     
-//    public static func decode(from container: )
+    public static func encode<Key>(_ value: Issuer, to container: inout KeyedEncodingContainer<Key>, forKey key: Key) throws {
+        switch value.version {
+        case .two:
+            try container.encode(value as! IssuerV2, forKey: key)
+        case .twoAlpha:
+            try container.encode(value as! IssuerV2Alpha, forKey: key)
+        case .one:
+            try container.encode(value as! IssuerV1, forKey: key)
+        case .embedded:
+            try container.encode(value as! PartialIssuer, forKey: key)
+        default:
+            throw IssuerError.unknownVersion
+        }
+    }
+    
+//    public static func decodeIfPresent(from container: KeyedDecodingContainer<Key>, forKey: Key) throws -> Issuer {}
 }
 
 /// Issuer version. Used for parsing; data model is the same
