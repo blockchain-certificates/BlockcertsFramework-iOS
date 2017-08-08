@@ -160,7 +160,7 @@ fileprivate enum MethodsForV2 {
         if assertionIDURL != nil {
             assertionUID = assertionID
         } else if let range = assertionID.range(of:Constants.guidRegexp, options: .regularExpression) {
-            assertionUID = assertionID.substring(with: range)
+            assertionUID = String(assertionID[range])
         }
         
         guard assertionUID != nil else {

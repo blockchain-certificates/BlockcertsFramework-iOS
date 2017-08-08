@@ -290,7 +290,8 @@ fileprivate func keyRotationScheduleV2(from dictionary: [String : String]) throw
     
     var publicKey = key
     if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        publicKey = key.substring(from: key.index(key.startIndex, offsetBy: 21))
+        let index = key.index(after: key.index(of: ":")!)
+        publicKey = String(key[index...])
     }
     
     guard let date = dateString.toDate() else {

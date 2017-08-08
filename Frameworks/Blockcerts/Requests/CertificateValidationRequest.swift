@@ -155,7 +155,7 @@ public class CertificateValidationRequest : CommonRequest {
         var targetAddress = certificate.recipient.publicAddress
         let addressPrefixSeparator = ":"
         if let separatorRange = targetAddress.range(of: addressPrefixSeparator) {
-            targetAddress = targetAddress.substring(from: separatorRange.upperBound)
+            targetAddress = String(targetAddress[separatorRange.upperBound...])
         }
         
         // All mainnet addresses start with 1.
@@ -275,7 +275,7 @@ public class CertificateValidationRequest : CommonRequest {
             if let remoteHash = possibleRemoteHash,
                 remoteHash.hasPrefix(opReturnPrefix) {
                 let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: opReturnPrefix.characters.count)
-                possibleRemoteHash = remoteHash.substring(from: startIndex)
+                possibleRemoteHash = String(remoteHash[startIndex...])
             }
             
             self?.remoteHash = possibleRemoteHash
