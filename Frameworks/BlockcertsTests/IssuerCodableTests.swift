@@ -127,6 +127,25 @@ class IssuerCodableTests: XCTestCase {
         } catch {
             XCTFail("Something went wrong \(error)")
         }
+        
+        // Attempt encode
+        let issuer = IssuerV2Alpha(name: "Name",
+                                   email: "Email@address.com",
+                                   image: Data(),
+                                   id: URL(string: "https://issuer.com/blockcerts")!,
+                                   url: URL(string: "https://issuer.com")!,
+                                   revocationURL: URL(string: "https://issuer.com/revoke")!,
+                                   publicKeys: [KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")],
+                                   introductionMethod: .basic(introductionURL: URL(string: "https://issuer.com/intro")!),
+                                   analyticsURL: nil)
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(issuer)
+            let result = try decoder.decode(IssuerV2Alpha.self, from: data)
+            XCTAssertEqual(issuer, result)
+        } catch {
+            XCTFail("Encoding (or decoding after the fact) failed: \(error)")
+        }
     }
     
     func testAlternateV2AlphaCodable() {
@@ -148,6 +167,26 @@ class IssuerCodableTests: XCTestCase {
             XCTAssertEqual(issuer.publicKeys.first?.key, "ecdsa-koblitz-pubkey:mq1ooUTRfNapwyXUSdTVov4fJUYiQsZFWG")
         } catch {
             XCTFail("Something went wrong \(error)")
+        }
+        
+        
+        // Attempt encode
+        let issuer = IssuerV2Alpha(name: "Name",
+                                   email: "Email@address.com",
+                                   image: Data(),
+                                   id: URL(string: "https://issuer.com/blockcerts")!,
+                                   url: URL(string: "https://issuer.com")!,
+                                   revocationURL: URL(string: "https://issuer.com/revoke")!,
+                                   publicKeys: [KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")],
+                                   introductionMethod: .basic(introductionURL: URL(string: "https://issuer.com/intro")!),
+                                   analyticsURL: nil)
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(issuer)
+            let result = try decoder.decode(IssuerV2Alpha.self, from: data)
+            XCTAssertEqual(issuer, result)
+        } catch {
+            XCTFail("Encoding (or decoding after the fact) failed: \(error)")
         }
     }
 }

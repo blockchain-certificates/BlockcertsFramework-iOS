@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Decodable {
+public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Codable {
     public let version = IssuerVersion.twoAlpha
     public let name : String
     public let email : String
@@ -104,6 +104,36 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
                                                                      successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
                                                                      errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
     }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(name, forKey: .name)
+        try container.encode(email, forKey: .email)
+        try container.encode(id, forKey: .id)
+        try container.encode(url, forKey: .url)
+        try container.encode(issuerKeys, forKey: .issuerKeys)
+        try container.encode("data:image/png;base64,\(image.asHexString())", forKey: .image)
+        
+        try container.encodeIfPresent(revocationURL, forKey: .revocationURL)
+        try container.encodeIfPresent(analyticsURL, forKey: .analyticsURL)
+        
+        switch introductionMethod {
+        case .basic(let introductionURL):
+            try container.encode("basic", forKey: .introductionAuthenticationMethod)
+            try container.encode(introductionURL, forKey: .introductionURL)
+        case .webAuthentication(let introductionURL, let successURL, let errorURL):
+            try container.encode("web", forKey: .introductionAuthenticationMethod)
+            try container.encode(introductionURL, forKey: .introductionURL)
+            try container.encode(successURL, forKey: .introductionSuccessURL)
+            try container.encode(errorURL, forKey: .introductionErrorURL)
+        case .unknown:
+            fallthrough
+        default:
+            break;
+        }
+    }
+    
     /// Create an issuer from a complete set of data.
     ///
     /// - parameter name:                 The issuer's name
@@ -288,18 +318,6 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
 
 // MARK: - Equatable & Comparable conformance
 extension IssuerV2Alpha : Equatable {
-//    public static func ==(lhs: Issuer, rhs: IssuerV2Alpha) -> Bool {
-//        // Switch the order of the arguments
-//        return rhs == lhs
-//    }
-//    
-//    public static func ==(lhs: IssuerV2Alpha, rhs: Issuer) -> Bool {
-//        guard let rhsIssuerV2a = rhs as? IssuerV2Alpha else {
-//            return false
-//        }
-//        return lhs == rhsIssuerV2a
-//    }
-    
     public static func ==(lhs: IssuerV2Alpha, rhs: IssuerV2Alpha) -> Bool {
         return lhs.name == rhs.name
             && lhs.email == rhs.email
