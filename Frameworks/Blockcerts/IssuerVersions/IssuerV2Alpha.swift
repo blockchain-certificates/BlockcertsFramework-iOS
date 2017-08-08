@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport {
+public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Decodable {
     public let version = IssuerVersion.twoAlpha
     public let name : String
     public let email : String
@@ -17,12 +17,93 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     public let id : URL
     public let url : URL
     public let introductionMethod : IssuerIntroductionMethod
-    public let publicKeys: [KeyRotation]
+    public var publicKeys: [KeyRotation] {
+        return issuerKeys.map { $0.toKeyRotation() }
+    }
     
     // MARK: Optional Properties
     public let revocationURL : URL?
     public let analyticsURL: URL?
+    private let issuerKeys : [KeyRotationV2a]
     
+    private enum CodingKeys : String, CodingKey {
+        case name, email, image, id, url
+        case issuerKeys = "publicKeys"
+        
+        case revocationURL = "revocationList"
+        case analyticsURL
+        
+        case introductionAuthenticationMethod
+        case introductionURL
+        case introductionSuccessURL
+        case introductionErrorURL
+    }
+    
+    private struct KeyRotationV2a : Codable {
+        let publicKey : String
+        let created : Date
+        let expires : Date?
+        let revoked : Date?
+        
+        private enum CodingKeys : CodingKey {
+            case publicKey, created, expires, revoked
+        }
+        
+        init(from keyRotation: KeyRotation) {
+            created = keyRotation.on
+            publicKey = keyRotation.key
+            expires = keyRotation.expires
+            revoked = keyRotation.revoked
+        }
+        
+        public func toKeyRotation() -> KeyRotation {
+            return KeyRotation(on: created, key: publicKey, revoked: revoked, expires: expires)
+        }
+        
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            
+            publicKey = try container.decode(String.self, forKey: .publicKey)
+            let createdString = try container.decode(String.self, forKey: .created)
+            if let date = createdString.toDate() {
+                created = date
+            } else {
+                throw IssuerError.invalid(property: "publicKeys..created")
+            }
+            
+            expires = try container.decodeIfPresent(Date.self, forKey: .expires)
+            revoked = try container.decodeIfPresent(Date.self, forKey: .revoked)
+        }
+        
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            
+            try container.encode(publicKey, forKey: .publicKey)
+            try container.encode(created.toString(), forKey: .created)
+            try container.encodeIfPresent(expires, forKey: .expires)
+            try container.encodeIfPresent(revoked, forKey: .revoked)
+        }
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+        email = try container.decode(String.self, forKey: .email)
+        id = try container.decode(URL.self, forKey: .id)
+        url = try container.decode(URL.self, forKey: .url)
+        issuerKeys = try container.decode(Array.self, forKey: .issuerKeys)
+        let imageURL = try container.decode(URL.self, forKey: .image)
+        image = try Data(contentsOf: imageURL)
+        
+        revocationURL = try container.decodeIfPresent(URL.self, forKey: .revocationURL)
+        analyticsURL = try container.decodeIfPresent(URL.self, forKey: .analyticsURL)
+        
+        introductionMethod = try IssuerIntroductionMethod.methodFrom(name: try container.decodeIfPresent(String.self, forKey: .introductionAuthenticationMethod),
+                                                                     introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
+                                                                     successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
+                                                                     errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
+    }
     /// Create an issuer from a complete set of data.
     ///
     /// - parameter name:                 The issuer's name
@@ -49,7 +130,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         self.id = id
         self.url = url
         self.revocationURL = revocationURL
-        self.publicKeys = publicKeys.sorted(by: <)
+        issuerKeys = publicKeys.sorted(by: <).map { KeyRotationV2a(from: $0) }
         self.introductionMethod = introductionMethod
         self.analyticsURL = analyticsURL
     }
@@ -89,7 +170,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         }
         
         let parsedIssuerKeys = try parseKeys(from: dictionary, with: "publicKeys", converter: keyRotationScheduleV2Alpha)
-        publicKeys = parsedIssuerKeys.sorted(by: <)
+        issuerKeys = parsedIssuerKeys.sorted(by: <).map { KeyRotationV2a(from: $0) }
         
         self.name = name
         self.email = email

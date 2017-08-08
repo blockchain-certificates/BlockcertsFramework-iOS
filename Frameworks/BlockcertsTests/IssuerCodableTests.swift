@@ -108,9 +108,46 @@ class IssuerCodableTests: XCTestCase {
     }
     
     func testV2AlphaCodable() {
+        // Attempt decode
+        let issuerFile = "issuer-v2a"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
         
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(IssuerV2Alpha.self, from: file)
+            XCTAssertEqual(issuer.id, URL(string: "https://www.blockcerts.org/samples/2.0/issuer-testnet.json")!)
+            XCTAssertEqual(issuer.url, URL(string: "https://www.issuer.org")!)
+            XCTAssertEqual(issuer.name, "University of Learning")
+            XCTAssertEqual(issuer.email, "contact@issuer.org")
+            XCTAssertEqual(issuer.publicKeys.first?.key, "ecdsa-koblitz-pubkey:mq1ooUTRfNapwyXUSdTVov4fJUYiQsZFWG")
+        } catch {
+            XCTFail("Something went wrong \(error)")
+        }
     }
+    
     func testAlternateV2AlphaCodable() {
+        // Attempt decode
+        let issuerFile = "issuer-v2a-alternate"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
         
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(IssuerV2Alpha.self, from: file)
+            XCTAssertEqual(issuer.id, URL(string: "https://www.blockcerts.org/samples/2.0/issuer-testnet.json")!)
+            XCTAssertEqual(issuer.url, URL(string: "https://www.issuer.org")!)
+            XCTAssertEqual(issuer.name, "University of Learning")
+            XCTAssertEqual(issuer.email, "contact@issuer.org")
+            XCTAssertEqual(issuer.publicKeys.first?.key, "ecdsa-koblitz-pubkey:mq1ooUTRfNapwyXUSdTVov4fJUYiQsZFWG")
+        } catch {
+            XCTFail("Something went wrong \(error)")
+        }
     }
 }

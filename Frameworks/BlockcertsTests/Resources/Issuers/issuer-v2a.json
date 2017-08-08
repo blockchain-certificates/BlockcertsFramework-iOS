@@ -1,11 +1,11 @@
 {
-    "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json],
+    "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
     "type": "Profile",
-    "id": "https://mainnettestprod.adangutierrez.com/issuer/59419a331f13200c4456bf57.json",
-    "name": "Main Net Prod Test",
-    "url": "http://mainnetprodtest.adangutierrez.com",
+    "id": "https://www.blockcerts.org/samples/2.0/issuer-testnet.json",
+    "name": "University of Learning",
+    "url": "https://www.issuer.org",
     "image": "data:image/png;base64,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",
-    "email": "mainnetprodtest@email.ghostinspector.com",
+    "email": "contact@issuer.org",
     "publicKeys": [{
                   "publicKey": "ecdsa-koblitz-pubkey:mq1ooUTRfNapwyXUSdTVov4fJUYiQsZFWG",
                   "created": "2017-06-14T20:19:31.964+00:00"
