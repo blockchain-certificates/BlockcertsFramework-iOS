@@ -243,13 +243,68 @@ class IssuerCodableTests: XCTestCase {
                               introductionMethod: .basic(introductionURL: URL(string: "https://issuer.com/intro")!),
                               analyticsURL: nil)
         let embedded = EmbeddedIssuer(with: issuer)
-
+        
         let encoder = JSONEncoder()
         do {
             let data = try encoder.encode(embedded)
             let result = try decoder.decode(EmbeddedIssuer.self, from: data)
             XCTAssert(result.issuer is IssuerV2)
             XCTAssertEqual(result.issuer as! IssuerV2, issuer)
+        } catch {
+            XCTFail("Encoding (or decoding after the fact) failed: \(error)")
+        }
+    }
+    
+    func testEmbeddedOptionalIssuer() {
+        //
+        // This is showing how you can use the version-independent IssuerParser to parse Issuers when you don't know what specific version
+        // of the Issuer format the object intends to use.
+        //
+        struct EmbeddedIssuer : Codable {
+            let issuer : Issuer?
+            
+            private enum CodingKeys : CodingKey {
+                case issuer
+            }
+            
+            init(with issuer: Issuer?) {
+                self.issuer = issuer
+            }
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                issuer = try IssuerParser.decodeIfPresent(from: container, forKey: .issuer)
+            }
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                try IssuerParser.encodeIfPresent(issuer, to: &container, forKey: .issuer)
+            }
+        }
+        
+        let issuerFile = "embedded-optional-issuer"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let embedded = try decoder.decode(EmbeddedIssuer.self, from: file)
+            XCTAssertNil(embedded.issuer)
+        } catch {
+            print("Failed: \(error)")
+        }
+        
+        // Attempt encode
+        let embedded = EmbeddedIssuer(with: nil)
+        
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(embedded)
+            let result = try decoder.decode(EmbeddedIssuer.self, from: data)
+            XCTAssertNil(result.issuer)
         } catch {
             XCTFail("Encoding (or decoding after the fact) failed: \(error)")
         }

@@ -96,6 +96,24 @@ public enum IssuerParser {
         return issuer
     }
     
+    public static func decodeIfPresent<Key>(from container: KeyedDecodingContainer<Key>, forKey key: Key) throws -> Issuer? {
+        //
+        // Attempt to decode with the latest Issuer format, then go back in history until V1.
+        //
+        do {
+            let issuer = try container.decodeIfPresent(IssuerV2.self, forKey: key)
+            return issuer
+        } catch { }
+        
+        do {
+            let issuer = try container.decodeIfPresent(IssuerV2Alpha.self, forKey: key)
+            return issuer
+        } catch { }
+        
+        let issuer = try container.decodeIfPresent(IssuerV1.self, forKey: key)
+        return issuer
+    }
+    
     public static func encode<Key>(_ value: Issuer, to container: inout KeyedEncodingContainer<Key>, forKey key: Key) throws {
         switch value.version {
         case .two:
@@ -106,12 +124,15 @@ public enum IssuerParser {
             try container.encode(value as! IssuerV1, forKey: key)
         case .embedded:
             try container.encode(value as! PartialIssuer, forKey: key)
-        default:
-            throw IssuerError.unknownVersion
         }
     }
     
-//    public static func decodeIfPresent(from container: KeyedDecodingContainer<Key>, forKey: Key) throws -> Issuer {}
+    public static func encodeIfPresent<Key>(_ value: Issuer?, to container: inout KeyedEncodingContainer<Key>, forKey key: Key) throws {
+        guard let issuer = value else {
+            return
+        }
+        try IssuerParser.encode(issuer, to: &container, forKey: key)
+    }
 }
 
 /// Issuer version. Used for parsing; data model is the same
