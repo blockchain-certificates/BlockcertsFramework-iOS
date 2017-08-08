@@ -255,6 +255,71 @@ class IssuerCodableTests: XCTestCase {
         }
     }
     
+    func testEmbeddedV1Issuer() {
+        //
+        // This is showing how you can use the version-independent IssuerParser to parse Issuers when you don't know what specific version
+        // of the Issuer format the object intends to use.
+        //
+        struct EmbeddedIssuer : Codable {
+            let issuer : Issuer
+            
+            private enum CodingKeys : CodingKey {
+                case issuer
+            }
+            
+            init(with issuer: Issuer) {
+                self.issuer = issuer
+            }
+            
+            init(from decoder: Decoder) throws {
+                let container = try decoder.container(keyedBy: CodingKeys.self)
+                issuer = try IssuerParser.decode(from: container, forKey: .issuer)
+            }
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                try IssuerParser.encode(issuer, to: &container, forKey: .issuer)
+            }
+        }
+        
+        let issuerFile = "embedded-issuer-v1"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let embedded = try decoder.decode(EmbeddedIssuer.self, from: file)
+            XCTAssertEqual(embedded.issuer.version, .one)
+        } catch {
+            print("Failed: \(error)")
+        }
+        
+        // Attempt encode
+        let issuer = IssuerV1(name: "Name",
+                              email: "Email@address.com",
+                              image: Data(),
+                              id: URL(string: "https://issuer.com/blockcerts")!,
+                              url: URL(string: "https://issuer.com")!,
+                              revocationURL: URL(string: "https://issuer.com/revoke")!,
+                              publicIssuerKeys: [KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")],
+                              publicRevocationKeys: [KeyRotation(on: Date(timeIntervalSince1970: 0), key: "REVOCATION_KEY")],
+                              introductionURL: URL(string: "https://issuer.com/introduce")!)
+        let embedded = EmbeddedIssuer(with: issuer)
+        
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(embedded)
+            let result = try decoder.decode(EmbeddedIssuer.self, from: data)
+            XCTAssert(result.issuer is IssuerV1)
+            XCTAssertEqual(result.issuer as! IssuerV1, issuer)
+        } catch {
+            XCTFail("Encoding (or decoding after the fact) failed: \(error)")
+        }
+    }
+    
     func testEmbeddedOptionalIssuer() {
         //
         // This is showing how you can use the version-independent IssuerParser to parse Issuers when you don't know what specific version
