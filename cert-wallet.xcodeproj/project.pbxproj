@@ -12,10 +12,8 @@
 		3B684B0D1EBA8D2A007185AE /* sample_v1_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B0C1EBA8D2A007185AE /* sample_v1_issuer.json */; };
 		3B8E1E531E9BF71000DC636D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
-		53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */; };
 		830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
-		830ABA7F1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		83166BBB1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 83166B9F1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json */; };
 		83166BBC1F17DF870022CCB0 /* sample_signed_cert-valid-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 83166BA01F17DF870022CCB0 /* sample_signed_cert-valid-1.1.0.json */; };
 		83166BBD1F17DF870022CCB0 /* sample_unsigned_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 83166BA11F17DF870022CCB0 /* sample_unsigned_cert-1.1.0.json */; };
@@ -69,11 +67,9 @@
 		8354F3181D9F13840008DB09 /* JSONLD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8354F3101D9F13840008DB09 /* JSONLD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		83558F941F32797300EB194E /* issuer-v1.json in Resources */ = {isa = PBXBuildFile; fileRef = 83558F931F32797300EB194E /* issuer-v1.json */; };
 		835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
-		835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835B624F1D64DA7700C95EB8 /* CertificateDetailViewController.swift */; };
 		8363EB201F33C56F008F3FC1 /* PartialIssuer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8363EB1E1F33C56F008F3FC1 /* PartialIssuer.swift */; };
 		8363EB221F33C96B008F3FC1 /* PartialIssuerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8363EB211F33C96B008F3FC1 /* PartialIssuerTests.swift */; };
 		8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
-		8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8369CB081D6F6378006D603E /* AddIssuerViewController.swift */; };
 		8369CB141D70D02C006D603E /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8369CB131D70D02C006D603E /* Settings.bundle */; };
 		836A31A71D5933D800943801 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A61D5933D800943801 /* AppDelegate.swift */; };
 		836A31A91D5933D800943801 /* IssuersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31A81D5933D800943801 /* IssuersViewController.swift */; };
@@ -84,7 +80,6 @@
 		836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A31BD1D5933D800943801 /* KeychainTests.swift */; };
 		836DC53B1F191F75001FA732 /* CertificateV2_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DC53A1F191F75001FA732 /* CertificateV2_0Tests.swift */; };
 		836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
-		836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */; };
 		837ED9321EC37A440095F100 /* Blockcerts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; };
 		837ED93E1EC37A440095F100 /* Blockcerts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; };
 		837ED93F1EC37A440095F100 /* Blockcerts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 837ED9291EC37A440095F100 /* Blockcerts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -130,17 +125,12 @@
 		839174741DA56EFB00CB6E54 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 8391746B1DA56B9500CB6E54 /* CommonCrypto.h */; };
 		83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83AC79241D678D5600AEE1FA /* CertificateValidationRequestTests.swift */; };
 		83B3835C1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
-		83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83B3835B1D6D0C0400268BCE /* RenderedCertificateView.xib */; };
 		83B3835F1D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
-		83B383601D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83B3835E1D6D0C6500268BCE /* RenderedCertificateView.swift */; };
 		83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */; };
-		83CD9CDF1D788D1B0077D769 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83CD9CDD1D788D1B0077D769 /* MockURLSession.swift */; };
 		83DF11C81D88617B002E8921 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B41D88617B002E8921 /* Keychain.swift */; };
 		83DF11C91D88617B002E8921 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B41D88617B002E8921 /* Keychain.swift */; };
-		83DF11CA1D88617B002E8921 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF11B41D88617B002E8921 /* Keychain.swift */; };
 		83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
-		83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83DF831E1D8B3653006CA7AF /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DF831A1D8B3653006CA7AF /* Globals.swift */; };
 		83EE9BBC1F2FD101005009D2 /* IssuerV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BB91F2FD101005009D2 /* IssuerV1.swift */; };
 		83EE9BBD1F2FD101005009D2 /* IssuerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BBA1F2FD101005009D2 /* IssuerV2.swift */; };
@@ -183,13 +173,6 @@
 			remoteInfo = JSONLD;
 		};
 		836A31BA1D5933D800943801 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 836A319B1D5933D800943801 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 836A31A21D5933D800943801;
-			remoteInfo = "cert-wallet";
-		};
-		836A31C51D5933D800943801 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 836A319B1D5933D800943801 /* Project object */;
 			proxyType = 1;
@@ -359,8 +342,6 @@
 		836A31B91D5933D800943801 /* cert-walletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		836A31BD1D5933D800943801 /* KeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainTests.swift; sourceTree = "<group>"; };
 		836A31BF1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		836A31C41D5933D800943801 /* cert-walletUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "cert-walletUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		836A31CA1D5933D800943801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		836DC53A1F191F75001FA732 /* CertificateV2_0Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CertificateV2_0Tests.swift; sourceTree = "<group>"; };
 		836DF0DF1D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderedCertificateTableViewCell.swift; sourceTree = "<group>"; };
 		837ED9291EC37A440095F100 /* Blockcerts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blockcerts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -467,14 +448,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		836A31C11D5933D800943801 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				53D1A4D647C466C91012AF06 /* libPods-cert-walletUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,7 +664,6 @@
 				83E2B5531D6CAB3C005665E5 /* RenderedCertificateView */,
 				836A31A51D5933D800943801 /* cert-wallet */,
 				836A31BC1D5933D800943801 /* cert-walletTests */,
-				836A31C71D5933D800943801 /* cert-walletUITests */,
 				832A0BAB1D8B12D900BDCD59 /* ImportAction */,
 				832A0BB91D8B12D900BDCD59 /* ImportActionFileProvider */,
 				836A31A41D5933D800943801 /* Products */,
@@ -708,7 +680,6 @@
 			children = (
 				836A31A31D5933D800943801 /* cert-wallet.app */,
 				836A31B91D5933D800943801 /* cert-walletTests.xctest */,
-				836A31C41D5933D800943801 /* cert-walletUITests.xctest */,
 				832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */,
 				832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */,
 				8354F3101D9F13840008DB09 /* JSONLD.framework */,
@@ -747,14 +718,6 @@
 				836A31BF1D5933D800943801 /* Info.plist */,
 			);
 			path = "cert-walletTests";
-			sourceTree = "<group>";
-		};
-		836A31C71D5933D800943801 /* cert-walletUITests */ = {
-			isa = PBXGroup;
-			children = (
-				836A31CA1D5933D800943801 /* Info.plist */,
-			);
-			path = "cert-walletUITests";
 			sourceTree = "<group>";
 		};
 		837ED9461EC37A9E0095F100 /* Blockcerts */ = {
@@ -1042,27 +1005,6 @@
 			productReference = 836A31B91D5933D800943801 /* cert-walletTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		836A31C31D5933D800943801 /* cert-walletUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 836A31D31D5933D800943801 /* Build configuration list for PBXNativeTarget "cert-walletUITests" */;
-			buildPhases = (
-				01A5D829CFD72D0CB3275488 /* [CP] Check Pods Manifest.lock */,
-				836A31C01D5933D800943801 /* Sources */,
-				836A31C11D5933D800943801 /* Frameworks */,
-				836A31C21D5933D800943801 /* Resources */,
-				B149A693BAF2EF8EA15BCC1F /* [CP] Embed Pods Frameworks */,
-				919841014C9054859E4E03D2 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				836A31C61D5933D800943801 /* PBXTargetDependency */,
-			);
-			name = "cert-walletUITests";
-			productName = "cert-walletUITests";
-			productReference = 836A31C41D5933D800943801 /* cert-walletUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		837ED9281EC37A440095F100 /* Blockcerts */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 837ED9401EC37A440095F100 /* Build configuration list for PBXNativeTarget "Blockcerts" */;
@@ -1169,13 +1111,6 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 836A31A21D5933D800943801;
 					};
-					836A31C31D5933D800943801 = {
-						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = CYEWR6MU44;
-						LastSwiftMigration = 0900;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 836A31A21D5933D800943801;
-					};
 					837ED9281EC37A440095F100 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = CYEWR6MU44;
@@ -1211,7 +1146,6 @@
 			targets = (
 				836A31A21D5933D800943801 /* cert-wallet */,
 				836A31B81D5933D800943801 /* cert-walletTests */,
-				836A31C31D5933D800943801 /* cert-walletUITests */,
 				832A0BA91D8B12D900BDCD59 /* ImportAction */,
 				832A0BB71D8B12D900BDCD59 /* ImportActionFileProvider */,
 				8354F30F1D9F13840008DB09 /* JSONLD */,
@@ -1294,14 +1228,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		836A31C21D5933D800943801 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83B3835D1D6D0C0400268BCE /* RenderedCertificateView.xib in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		837ED9271EC37A440095F100 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1345,21 +1271,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		01A5D829CFD72D0CB3275488 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		59A5AD2CEF282BC219BD888D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1375,21 +1286,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		919841014C9054859E4E03D2 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		973703F906B32F944695ABB2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1403,21 +1299,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B149A693BAF2EF8EA15BCC1F /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-cert-walletUITests/Pods-cert-walletUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D326545BB549E4916A22ADF9 /* [CP] Copy Pods Resources */ = {
@@ -1539,21 +1420,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		836A31C01D5933D800943801 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83B383601D6D0C6500268BCE /* RenderedCertificateView.swift in Sources */,
-				830ABA7F1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
-				8369CB0A1D6F6378006D603E /* AddIssuerViewController.swift in Sources */,
-				83DF11CA1D88617B002E8921 /* Keychain.swift in Sources */,
-				83CD9CDF1D788D1B0077D769 /* MockURLSession.swift in Sources */,
-				83DF831D1D8B3653006CA7AF /* Globals.swift in Sources */,
-				835B62511D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
-				836DF0E11D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		837ED9241EC37A440095F100 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1637,11 +1503,6 @@
 			isa = PBXTargetDependency;
 			target = 836A31A21D5933D800943801 /* cert-wallet */;
 			targetProxy = 836A31BA1D5933D800943801 /* PBXContainerItemProxy */;
-		};
-		836A31C61D5933D800943801 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 836A31A21D5933D800943801 /* cert-wallet */;
-			targetProxy = 836A31C51D5933D800943801 /* PBXContainerItemProxy */;
 		};
 		837ED9341EC37A440095F100 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2018,41 +1879,6 @@
 			};
 			name = Release;
 		};
-		836A31D41D5933D800943801 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0A6D478F92C4DA29760002F /* Pods-cert-walletUITests.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CYEWR6MU44;
-				INFOPLIST_FILE = "cert-walletUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "cert-walletUITests-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_TARGET_NAME = "cert-wallet";
-			};
-			name = Debug;
-		};
-		836A31D51D5933D800943801 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E356569F68C6D153A8F9DECD /* Pods-cert-walletUITests.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CYEWR6MU44;
-				INFOPLIST_FILE = "cert-walletUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.learningmachine.cert-walletUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "cert-walletUITests-Bridging-Header.h";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
-				TEST_TARGET_NAME = "cert-wallet";
-			};
-			name = Release;
-		};
 		837ED9411EC37A440095F100 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2246,15 +2072,6 @@
 			buildConfigurations = (
 				836A31D11D5933D800943801 /* Debug */,
 				836A31D21D5933D800943801 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		836A31D31D5933D800943801 /* Build configuration list for PBXNativeTarget "cert-walletUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				836A31D41D5933D800943801 /* Debug */,
-				836A31D51D5933D800943801 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
