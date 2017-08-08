@@ -253,12 +253,12 @@ class IssuerTests: XCTestCase {
             
         ]
         
-        let version = IssuerParser.detectVersion(from: input)
-        XCTAssertEqual(version, .one)
+        let issuer = IssuerParser.parse(dictionary: input)
+        XCTAssertEqual(issuer?.version, .one)
     }
     
     func testVersionDetectionForV2Alpha() {
-        let issuer : [String : Any] = [
+        let issuerData : [String : Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
             "type": "Profile",
             "id": idValue,
@@ -275,8 +275,8 @@ class IssuerTests: XCTestCase {
             "introductionURL": introductionURLValue
         ]
         
-        var version = IssuerParser.detectVersion(from: issuer)
-        XCTAssertEqual(version, .twoAlpha)
+        var issuer = IssuerParser.parse(dictionary: issuerData)
+        XCTAssertEqual(issuer?.version, .twoAlpha)
         
         let issuerWithWebAuth : [String: Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
@@ -298,12 +298,12 @@ class IssuerTests: XCTestCase {
             "introductionErrorURL": introductionURLErrorValue
         ]
 
-        version = IssuerParser.detectVersion(from: issuerWithWebAuth)
-        XCTAssertEqual(version, .twoAlpha)
+        issuer = IssuerParser.parse(dictionary: issuerWithWebAuth)
+        XCTAssertEqual(issuer?.version, .twoAlpha)
     }
     
     func testVersionDetectionForV2() {
-        let issuer : [String : Any] = [
+        let issuerData : [String : Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
             "type": "Profile",
             "id": idValue,
@@ -320,8 +320,8 @@ class IssuerTests: XCTestCase {
             "introductionURL": introductionURLValue
         ]
         
-        var version = IssuerParser.detectVersion(from: issuer)
-        XCTAssertEqual(version, .two)
+        var issuer = IssuerParser.parse(dictionary: issuerData)
+        XCTAssertEqual(issuer?.version, .two)
         
         let issuerWithWebAuth : [String: Any] = [
             "@context": ["https://openbadgespec.org/v2/context.json", "https://www.blockcerts.org/schema/2.0-alpha/context.json"],
@@ -343,8 +343,8 @@ class IssuerTests: XCTestCase {
             "introductionErrorURL": introductionURLErrorValue
         ]
         
-        version = IssuerParser.detectVersion(from: issuerWithWebAuth)
-        XCTAssertEqual(version, .two)
+        issuer = IssuerParser.parse(dictionary: issuerWithWebAuth)
+        XCTAssertEqual(issuer?.version, .two)
     }
     
     func testDictionaryInitializationWithVersionDetection() {

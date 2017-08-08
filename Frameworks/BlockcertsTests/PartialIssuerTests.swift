@@ -85,9 +85,6 @@ class PartialIssuerTests: XCTestCase {
             "email": emailValue,
         ]
         
-        let version = IssuerParser.detectVersion(from: issuerJSON)
-        XCTAssertEqual(version, IssuerVersion.embedded)
-        
         let issuer = IssuerParser.parse(dictionary: issuerJSON)
         XCTAssertNotNil(issuer)
         XCTAssertEqual(issuer?.version, .embedded)

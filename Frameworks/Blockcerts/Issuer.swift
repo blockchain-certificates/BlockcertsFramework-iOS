@@ -78,16 +78,7 @@ public enum IssuerParser {
         }
     }
     
-    public static func detectVersion(from dictionary: [String: Any]) -> IssuerVersion? {
-        if dictionary["issuerKeys"] != nil {
-            return .one
-        } else if dictionary["publicKey"] != nil {
-            return .two
-        } else if dictionary["publicKeys"] != nil {
-            return .twoAlpha
-        }
-        return .embedded
-    }
+//    public static func decode(from container: )
 }
 
 /// Issuer version. Used for parsing; data model is the same
