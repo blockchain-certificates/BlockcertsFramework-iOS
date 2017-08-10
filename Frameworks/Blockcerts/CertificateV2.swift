@@ -190,11 +190,26 @@ fileprivate enum MethodsForV2 {
             }
         }
         
+        var metadataJson : [String : Any] = [:]
+        if let metadataString = assertionData["metadataJson"] as? String {
+            do {
+                let data = metadataString.data(using: .utf8)
+                metadataJson = try JSONSerialization.jsonObject(with: data!, options: []) as! [String: Any]
+            } catch {
+                print("Failed to parse metadata json:")
+                print(metadataString)
+            }
+        }
+        
+        let htmlDisplay = assertionData["displayHtml"] as? String
+        
         return Assertion(issuedOn: issuedOnDate,
                          signatureImages: signatureImages,
                          evidence: evidence,
                          uid: assertionUID,
-                         id: assertionIDURL)
+                         id: assertionIDURL,
+                         metadata: Metadata(json: metadataJson),
+                         htmlDisplay: htmlDisplay)
     }
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         guard let verifyData = verifyJSON as? [String : AnyObject],
