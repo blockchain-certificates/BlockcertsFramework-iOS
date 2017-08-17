@@ -96,7 +96,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         try container.encode(id, forKey: .id)
         try container.encode(url, forKey: .url)
         try container.encode(publicKeys, forKey: .publicKeys)
-        try container.encode("data:image/png;base64,\(image.asHexString())", forKey: .image)
+        try container.encode("data:image/png;base64,\(image.base64EncodedString())", forKey: .image)
         
         try container.encodeIfPresent(revocationURL, forKey: .revocationURL)
         try container.encodeIfPresent(analyticsURL, forKey: .analyticsURL)

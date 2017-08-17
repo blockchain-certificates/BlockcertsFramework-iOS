@@ -173,7 +173,7 @@ public class CertificateValidationRequest : CommonRequest {
     
     internal func computeLocalHash() {
         if certificate.version == .oneDotOne {
-            self.localHash = sha256(data: certificate.file).asHexString()
+            self.localHash = hexStringFrom(data: sha256(data: certificate.file))
             state = .fetchingRemoteHash
         } else if certificate.version == .oneDotTwo {
             let docData : Data!
@@ -200,7 +200,7 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
                 
-                self.localHash = sha256(data: stringData).asHexString()
+                self.localHash = hexStringFrom(data: sha256(data: stringData))
 
                 self.state = .fetchingRemoteHash
             })
@@ -231,7 +231,7 @@ public class CertificateValidationRequest : CommonRequest {
                 
                 self.normalizedCertificate = resultString
                 
-                self.localHash = sha256(data: stringData).asHexString()
+                self.localHash = hexStringFrom(data: sha256(data: stringData))
                 
                 self.state = .fetchingRemoteHash
             })
@@ -557,6 +557,15 @@ func sha256(data : Data) -> Data {
         _ = CC_SHA256($0, CC_LONG(data.count), &hash)
     }
     return Data(bytes: hash)
+}
+
+func hexStringFrom(data: Data) -> String {
+    var hexString = ""
+    for byte in data {
+        hexString += String(format: "%02x", byte)
+    }
+    
+    return hexString
 }
 
 extension Array {

@@ -46,17 +46,6 @@ extension String {
     }
 }
 
-extension Data {
-    public func asHexString() -> String {
-        var hexString = ""
-        for byte in self {
-            hexString += String(format: "%02x", byte)
-        }
-        
-        return hexString
-    }
-}
-
 fileprivate let isoFormats = [
     "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZZ",
     "yyyy-MM-dd'T'HH:mm:ss.SSS",
