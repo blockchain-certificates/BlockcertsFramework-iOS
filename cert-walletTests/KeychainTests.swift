@@ -27,8 +27,8 @@ class KeychainTests: XCTestCase {
         let firstAddress = keychain.nextPublicAddress()
         let secondAddress = keychain.nextPublicAddress()
         
-        XCTAssertEqual(firstAddress, "1GJetgbaGvD3ztwF5bh8AKb2RCCkizxus")
-        XCTAssertEqual(secondAddress, "14YGtBBBxGdxkGN1XYM5yNPFAhy7TzGCMW")
+        XCTAssertEqual(firstAddress, "1KBdbBJRVYffWHWWZ1moECfdVBSEnDpLHi")
+        XCTAssertEqual(secondAddress, "1EiJMaaahrhpbhgaNzMeUe1ZoiXdbBhWhR")
     }
     
     func testKeychainSearch() {

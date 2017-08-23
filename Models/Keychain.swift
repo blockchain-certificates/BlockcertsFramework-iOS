@@ -11,6 +11,8 @@ import Security
 import Blockcerts
 
 private var unusedKeyIndexKey = "org.blockcerts.unused-key-index"
+private var unusedKeyV2IndexKey = "org.blockcerts.v2.unused-key-index"
+
 
 public enum KeychainErrors : Error {
     case invalidPassphrase
@@ -22,7 +24,7 @@ class Keychain {
     }
     private var unusedKeyIndex : UInt32 {
         didSet {
-            UserDefaults.standard.set(Int(unusedKeyIndex), forKey: unusedKeyIndexKey)
+            UserDefaults.standard.set(Int(unusedKeyIndex), forKey: unusedKeyV2IndexKey)
         }
     }
     private let mnemonic : BTCMnemonic
@@ -31,7 +33,7 @@ class Keychain {
     
     convenience init(seedPhrase: String) {
         // This lookup returns 0 if it can't be found.
-        let index = UInt32(UserDefaults.standard.integer(forKey: unusedKeyIndexKey))
+        let index = UInt32(UserDefaults.standard.integer(forKey: unusedKeyV2IndexKey))
         self.init(seedPhrase: seedPhrase, unusedKeyIndex: index)
     }
     
@@ -42,8 +44,8 @@ class Keychain {
         }
         self.unusedKeyIndex = unusedKeyIndex
         self.mnemonic = mnemonic
-        keychain = BTCKeychain(seed: mnemonic.data)
-        accountKeychain = keychain.derivedKeychain(withPath: "m/44'/0'/0'")
+        keychain = mnemonic.keychain
+        accountKeychain = keychain.derivedKeychain(withPath: "m/44'/0'/0'/0")
     }
     
     func nextPublicAddress() -> String {
@@ -135,7 +137,7 @@ extension Keychain {
     }
     
     private static func save(unusedKeyIndex: Int) {
-        UserDefaults.standard.set(unusedKeyIndex, forKey: unusedKeyIndexKey)
+        UserDefaults.standard.set(unusedKeyIndex, forKey: unusedKeyV2IndexKey)
     }
     
     public static func isValidPassphrase(_ passphrase: String) -> Bool {
@@ -153,7 +155,7 @@ extension Keychain {
         _shared = nil
         
         // Reset the unusedKeyIndex
-        UserDefaults.standard.removeObject(forKey: unusedKeyIndexKey)
+        UserDefaults.standard.removeObject(forKey: unusedKeyV2IndexKey)
         UserDefaults.standard.synchronize()
         
         return result == noErr
