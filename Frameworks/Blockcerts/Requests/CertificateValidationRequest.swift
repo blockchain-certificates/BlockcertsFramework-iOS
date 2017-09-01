@@ -145,6 +145,7 @@ public class CertificateValidationRequest : CommonRequest {
         state = .failure(reason: "Aborted")
     }
     
+    
     internal func assertChain() {
         guard chain == .mainnet else {
             // We only need to assert mainnet if the chain is set to mainnet. If it's any other value, then we can't be held responsible for how you're validating.
@@ -152,23 +153,53 @@ public class CertificateValidationRequest : CommonRequest {
             return
         }
         
-        var targetAddress = certificate.recipient.publicAddress
+        var targetChain : BitcoinChain? = nil
+        
+        if let chainForIssuer = getChainForIssuer(certificate) {
+            targetChain = chainForIssuer
+        } else if let chainForRecipient = getChainForRecipient(certificate) {
+            targetChain = chainForRecipient
+        }
+        
+        switch targetChain {
+        case .some(.testnet):
+            state = .failure(reason: "This is a testnet certificate. It cannot be validated.")
+        case .none:
+            state = .failure(reason: "This certificate is from an unknown blockchain and cannot be validated.")
+        case .some(.mainnet):
+            // This is successful. yaaay
+            break;
+        }
+        
+        state = .computingLocalHash
+    }
+    
+    private func getChainForIssuer(_ certificate: Certificate) -> BitcoinChain? {
+        return nil
+    }
+    
+    private func getChainForRecipient(_ certificate: Certificate) -> BitcoinChain? {
+        return chain(for: certificate.recipient.publicAddress)
+    }
+    
+    private func chain(for address: String) -> BitcoinChain? {
+        var targetAddress = address
+        
         let addressPrefixSeparator = ":"
         if let separatorRange = targetAddress.range(of: addressPrefixSeparator) {
             targetAddress = String(targetAddress[separatorRange.upperBound...])
         }
         
         // All mainnet addresses start with 1.
-        guard targetAddress.hasPrefix("1") else {
-            if targetAddress.hasPrefix("m") || targetAddress.hasPrefix("n") {
-                state = .failure(reason: "This is a testnet certificate. It cannot be validated.")
-            } else {
-                state = .failure(reason: "This certificate is from an unknown blockchain and cannot be validated.")
-            }
-            return
+        if targetAddress.hasPrefix("1") {
+            return .mainnet
         }
         
-        state = .computingLocalHash
+        if targetAddress.hasPrefix("m") || targetAddress.hasPrefix("n") {
+            return .testnet
+        }
+        
+        return nil
     }
     
     internal func computeLocalHash() {
