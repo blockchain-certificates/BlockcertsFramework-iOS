@@ -43,4 +43,18 @@ class CertificateV2_0Tests: XCTestCase {
         XCTAssertEqual(cert.id, "urn:uuid:bbba8553-8ec1-445f-82c9-a57251dd731c")
     }
     
+    func testImportVerifyProperties() {
+        guard let file = file,
+            let cert = try? CertificateParser.parse(data: file, asVersion: .two) else {
+                XCTFail("Failed to laod the test file in CertificateTests")
+                return
+        }
+        let verifyData = cert.verifyData
+        
+        XCTAssertEqual(verifyData.type, "MerkleProofVerification2017")
+        XCTAssertNil(verifyData.signedAttribute)
+        XCTAssertEqual(verifyData.publicKey, "ecdsa-koblitz-pubkey:msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj")
+        XCTAssertNil(verifyData.signer)
+    }
+    
 }

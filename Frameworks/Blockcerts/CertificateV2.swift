@@ -211,18 +211,16 @@ fileprivate enum MethodsForV2 {
                          metadata: Metadata(json: metadataJson),
                          htmlDisplay: htmlDisplay)
     }
+    
     static func parse(verifyJSON: AnyObject?) -> Verify? {
         guard let verifyData = verifyJSON as? [String : AnyObject],
             let type : Array<String> = verifyData["type"] as! Array<String>? else {
                 return nil
         }
         
-        var signerURL : URL? = nil
-        if let signer = verifyData["publicKey"] {
-            signerURL = URL(string: signer as! String)
-        }
-        
-        return Verify(signer: signerURL, signedAttribute: nil, type: type[0])
+        let publicKey = verifyData["publicKey"] as? String
+
+        return Verify(signer: nil, publicKey: publicKey, signedAttribute: nil, type: type[0])
     }
     
     static func parse(receiptJSON: AnyObject?) -> Receipt? {
