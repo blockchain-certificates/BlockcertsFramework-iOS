@@ -175,7 +175,11 @@ public class CertificateValidationRequest : CommonRequest {
     }
     
     private func getChainForIssuer(_ certificate: Certificate) -> BitcoinChain? {
-        return nil
+        guard let issuerAddress = certificate.verifyData.publicKey else {
+            return nil
+        }
+        
+        return chain(for: issuerAddress)
     }
     
     private func getChainForRecipient(_ certificate: Certificate) -> BitcoinChain? {
