@@ -108,6 +108,7 @@ class CertificateV1_2SignedTests: XCTestCase {
         
         XCTAssertEqual(verifyData.type, "ECDSA(secp256k1)")
         XCTAssertEqual(verifyData.signedAttribute, "uid")
+        XCTAssertNil(verifyData.publicKey)
         XCTAssertEqual(verifyData.signer, URL(string: "http://www.blockcerts.org/mockissuer/keys/got_public_key.asc"))
     }
 }

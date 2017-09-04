@@ -96,6 +96,7 @@ class CertificateV1_1Tests: XCTestCase {
         
         XCTAssertEqual(verifyData.type, "ECDSA(secp256k1)")
         XCTAssertEqual(verifyData.signedAttribute, "uid")
+        XCTAssertNil(verifyData.publicKey)
         XCTAssertEqual(verifyData.signer, URL(string: "https://www.theissuer.edu/keys/signing-public-key.asc"))
     }
 }

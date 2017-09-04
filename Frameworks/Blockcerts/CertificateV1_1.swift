@@ -177,6 +177,6 @@ enum MethodsForV1_1 {
             signerURL = URL(string: signer)
         }
         
-        return Verify(signer: signerURL, signedAttribute: signedAttribute, type: type)
+        return Verify(signer: signerURL, publicKey: nil, signedAttribute: signedAttribute, type: type)
     }
 }
