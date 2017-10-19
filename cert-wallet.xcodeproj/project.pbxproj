@@ -59,6 +59,7 @@
 		832A0BBD1D8B12D900BDCD59 /* FileProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */; };
 		832A0BC11D8B12D900BDCD59 /* ImportActionFileProvider.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BB81D8B12D900BDCD59 /* ImportActionFileProvider.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		832A0BC41D8B12D900BDCD59 /* ImportAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 832A0BAA1D8B12D900BDCD59 /* ImportAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		832CADD01F99403700FDE275 /* issuer-v2-with-issuing-estimates.json in Resources */ = {isa = PBXBuildFile; fileRef = 832CADCF1F99403700FDE275 /* issuer-v2-with-issuing-estimates.json */; };
 		83541E6F1F34D46F0063EAB6 /* IssuerCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83541E6E1F34D46F0063EAB6 /* IssuerCodableTests.swift */; };
 		83541E711F350EA00063EAB6 /* issuer-v2.json in Resources */ = {isa = PBXBuildFile; fileRef = 83541E701F350EA00063EAB6 /* issuer-v2.json */; };
 		83541E731F350F020063EAB6 /* issuer-v2a.json in Resources */ = {isa = PBXBuildFile; fileRef = 83541E721F350F020063EAB6 /* issuer-v2a.json */; };
@@ -321,6 +322,7 @@
 		832A0BBB1D8B12D900BDCD59 /* ImportActionFileProvider.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ImportActionFileProvider.entitlements; sourceTree = "<group>"; };
 		832A0BBC1D8B12D900BDCD59 /* FileProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProvider.swift; sourceTree = "<group>"; };
 		832A0BBE1D8B12D900BDCD59 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		832CADCF1F99403700FDE275 /* issuer-v2-with-issuing-estimates.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "issuer-v2-with-issuing-estimates.json"; sourceTree = "<group>"; };
 		834910E51D5E439F00872DAE /* cert-wallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-wallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910E91D5E445900872DAE /* cert-walletTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		834910EA1D5E445900872DAE /* cert-walletUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cert-walletUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -660,6 +662,7 @@
 			children = (
 				83558F931F32797300EB194E /* issuer-v1.json */,
 				83541E701F350EA00063EAB6 /* issuer-v2.json */,
+				832CADCF1F99403700FDE275 /* issuer-v2-with-issuing-estimates.json */,
 				83541E721F350F020063EAB6 /* issuer-v2a.json */,
 				83541E741F3512050063EAB6 /* issuer-v2a-alternate.json */,
 				838DE6C01F3A4F3D00185A49 /* embedded-issuer-v1.json */,
@@ -1204,6 +1207,7 @@
 				8369CB141D70D02C006D603E /* Settings.bundle in Resources */,
 				836A31B01D5933D800943801 /* Assets.xcassets in Resources */,
 				836A31AE1D5933D800943801 /* Main.storyboard in Resources */,
+				832CADD01F99403700FDE275 /* issuer-v2-with-issuing-estimates.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
