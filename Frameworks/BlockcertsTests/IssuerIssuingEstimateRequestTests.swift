@@ -78,4 +78,44 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
         
         waitForExpectations(timeout: 20.0, handler: nil)
     }
+    
+    func testUnsupportedSignedEstimateResponse() {
+        // As it stands, we have "signed" as the default since it's more secure, but our implementation doesn't support it yet.
+        // Let's double check that we fail correctly when we encounter it for now.
+
+        // Variable values to test
+        let estimateURL = URL(string: "https://issuer.org/estimate/url")!
+        let expectedKey = "THIS_IS_NOT_A_REAL_KEY"
+        
+        // Standard Expectations
+        let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
+        
+        // Parse the issuer
+        let issuer = IssuerV2(name: "name",
+                              email: "email@address.com",
+                              image: Data(), id: URL(string: "http://issuer.com/")!,
+                              url: URL(string: "http://issuer.com/url")!,
+                              revocationURL: nil,
+                              publicKeys: [],
+                              introductionMethod: .unknown,
+                              analyticsURL: nil,
+                              issuingEstimateURL: estimateURL,
+                              issuingEstimateAuth: .signed)
+        
+        // Mock out the network
+        let session = MockURLSession()
+        
+        // And now... actually do the test bits
+        let request = IssuerIssuingEstimateRequest(from: issuer, with: expectedKey, session: session) { (result) in
+            itShouldCallTheCallback.fulfill()
+            guard case .errored(let message) = result else {
+                XCTFail("Response should fail, but it did not.")
+                return
+            }
+            XCTAssertEqual(message, "Not Implemented")
+        }
+        request.start()
+        
+        waitForExpectations(timeout: 20.0, handler: nil)
+    }
 }

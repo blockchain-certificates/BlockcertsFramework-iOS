@@ -39,14 +39,18 @@ public class IssuerIssuingEstimateRequest : CommonRequest {
             callback(.errored(message: "Couldn't make the request -- the issuer is missing an issuingEstimateURL."))
             return
         }
+        var requestURL : URL?
         
-        guard var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: false) else {
-            callback(.errored(message: "Failed to convert the issuingEstimateURL into its base components."))
+        switch issuer.issuingEstimateAuth {
+        case .signed:
+            callback(.errored(message: "Not Implemented"))
             return
+        case .unsigned:
+            requestURL = getURLForUnsignedRequest(against: baseURL)
         }
-        components.queryItems = [ URLQueryItem(name: "key", value: recipientKey) ]
-        guard let queryURL = components.url else {
-            callback(.errored(message: "Failed to convert the query string parameters back into a URL to query."))
+        
+        guard let queryURL = requestURL else {
+            callback(.errored(message: "Failed to generate a request URL for this issuer."))
             return
         }
         
@@ -77,5 +81,13 @@ public class IssuerIssuingEstimateRequest : CommonRequest {
     public func abort() {
         currentTask?.cancel()
         callback(.aborted)
+    }
+    
+    private func getURLForUnsignedRequest(against url: URL) -> URL? {
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+            return nil
+        }
+        components.queryItems = [ URLQueryItem(name: "key", value: recipientKey) ]
+        return components.url
     }
 }
