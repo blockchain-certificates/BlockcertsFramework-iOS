@@ -8,11 +8,27 @@
 
 import Foundation
 
-public enum IssuerIssuingEstimateRequestError : Error {
+public enum IssuerIssuingEstimateResult : Error {
     case aborted
+    case errored(message : String)
+    case success(estimates: [CertificateIssuingEstimate])
+}
+
+public struct CertificateIssuingEstimate : Codable {
+    let title : String
+    let willIssueOn: Date
 }
 
 public class IssuerIssuingEstimateRequest : CommonRequest {
+    let callback : ((IssuerIssuingEstimateResult) -> Void)
+    let session : URLSessionProtocol
+    let issuer: IssuingEstimateSupport
+    
+    public init(issuer: IssuingEstimateSupport, session: URLSessionProtocol = URLSession.shared, callback: @escaping (IssuerIssuingEstimateResult) -> Void) {
+        self.callback = callback
+        self.session = session
+        self.issuer = issuer
+    }
     
     public func start() {
         fatalError("Not Implemented")
