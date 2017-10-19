@@ -44,6 +44,15 @@ public protocol ServerBasedRevocationSupport {
     var revocationURL : URL? { get }
 }
 
+public protocol IssuingEstimateSupport {
+    var issuingEstimateURL: URL? { get }
+    var issuingEstimateAuth : IssuingEstimateAuthType { get }
+}
+
+public enum IssuingEstimateAuthType : String, Codable {
+    case signed, unsigned
+}
+
 public typealias IssuerWithAnalytics = Issuer & AnalyticsSupport
 public typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
 

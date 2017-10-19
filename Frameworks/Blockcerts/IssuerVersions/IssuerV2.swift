@@ -9,7 +9,7 @@
 import Foundation
 
 
-public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Codable, Equatable {
+public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, IssuingEstimateSupport, Codable, Equatable {
     public let version = IssuerVersion.two
     public let name : String
     public let email : String
@@ -22,6 +22,8 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
     // MARK: Optional Properties
     public let revocationURL : URL?
     public let analyticsURL: URL?
+    public let issuingEstimateURL: URL?
+    public let issuingEstimateAuth: IssuingEstimateAuthType
     
     private enum CodingKeys : String, CodingKey {
         case name, email, image, id, url
@@ -29,6 +31,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         
         case revocationURL = "revocationList"
         case analyticsURL
+        case issuingEstimateURL, issuingEstimateAuth
         
         case introductionAuthenticationMethod
         case introductionURL
@@ -55,7 +58,9 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
                 revocationURL: URL? = nil,
                 publicKeys: [KeyRotation],
                 introductionMethod: IssuerIntroductionMethod,
-                analyticsURL: URL?) {
+                analyticsURL: URL?,
+                issuingEstimateURL: URL? = nil,
+                issuingEstimateAuth: IssuingEstimateAuthType? = nil) {
         self.name = name
         self.email = email
         self.image = image
@@ -65,6 +70,8 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         self.publicKeys = publicKeys.sorted(by: <)
         self.introductionMethod = introductionMethod
         self.analyticsURL = analyticsURL
+        self.issuingEstimateURL = issuingEstimateURL
+        self.issuingEstimateAuth = issuingEstimateAuth ?? .signed
     }
     
     
@@ -86,6 +93,8 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
                                                                      introductionURL: try container.decodeIfPresent(URL.self, forKey: .introductionURL),
                                                                      successURL: try container.decodeIfPresent(URL.self, forKey: .introductionSuccessURL),
                                                                      errorURL: try container.decodeIfPresent(URL.self, forKey: .introductionErrorURL))
+        issuingEstimateURL = try container.decodeIfPresent(URL.self, forKey: .issuingEstimateURL)
+        issuingEstimateAuth = try container.decodeIfPresent(IssuingEstimateAuthType.self, forKey: .issuingEstimateAuth) ?? .signed
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -100,6 +109,8 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         
         try container.encodeIfPresent(revocationURL, forKey: .revocationURL)
         try container.encodeIfPresent(analyticsURL, forKey: .analyticsURL)
+        try container.encodeIfPresent(issuingEstimateURL, forKey: .issuingEstimateURL)
+        try container.encode(issuingEstimateAuth, forKey: .issuingEstimateAuth)
         
         switch introductionMethod {
         case .basic(let introductionURL):
@@ -223,6 +234,9 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         } else {
             self.revocationURL = nil
         }
+        
+        issuingEstimateURL = nil
+        issuingEstimateAuth = .signed
     }
     
     
