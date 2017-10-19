@@ -50,8 +50,8 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
             XCTAssertEqual(firstQuery?.value, expectedKey)
             
             let response = CertificateIssuingEstimate(title: estimateTitle, willIssueOn: estimateDate)
-            
-            let encoded = try? JSONEncoder().encode(response)
+
+            let encoded = try? JSONEncoder().encode([response])
             XCTAssertNotNil(encoded)
             return (
                 data: encoded!,
