@@ -38,7 +38,7 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
         
         // Mock out the network
         let session = MockURLSession()
-        session.respond(to: estimateURL) { request in
+        session.respond(to: URL(string: "https://issuer.org/estimate/url?key=THIS_IS_NOT_A_REAL_KEY")!) { request in
             itShouldCallTheServer.fulfill()
             
             let components = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)
@@ -75,5 +75,7 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
             XCTAssertEqual(firstEstimate.willIssueOn, estimateDate)
         }
         request.start()
+        
+        waitForExpectations(timeout: 20.0, handler: nil)
     }
 }
