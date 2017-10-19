@@ -20,11 +20,13 @@ public struct CertificateIssuingEstimate : Codable {
 }
 
 public class IssuerIssuingEstimateRequest : CommonRequest {
+    let recipientKey : String
     let callback : ((IssuerIssuingEstimateResult) -> Void)
     let session : URLSessionProtocol
     let issuer: IssuingEstimateSupport
     
-    public init(issuer: IssuingEstimateSupport, session: URLSessionProtocol = URLSession.shared, callback: @escaping (IssuerIssuingEstimateResult) -> Void) {
+    public init(from issuer: IssuingEstimateSupport, with key: String, session: URLSessionProtocol = URLSession.shared, callback: @escaping (IssuerIssuingEstimateResult) -> Void) {
+        recipientKey = key
         self.callback = callback
         self.session = session
         self.issuer = issuer
