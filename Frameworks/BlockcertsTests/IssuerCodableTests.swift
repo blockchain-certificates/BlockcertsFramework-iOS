@@ -83,6 +83,7 @@ class IssuerCodableTests: XCTestCase {
             XCTAssertEqual(issuer.name, "University of Learning")
             XCTAssertEqual(issuer.email, "contact@issuer.org")
             XCTAssertEqual(issuer.publicKeys.first?.key, "ecdsa-koblitz-pubkey:msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj")
+            XCTAssertEqual(issuer.issuingEstimateAuth, .signed) // test that signed is the default when it's missing
         } catch {
             XCTFail("Something went wrong \(error)")
         }
@@ -428,6 +429,47 @@ class IssuerCodableTests: XCTestCase {
             let data = try encoder.encode(embedded)
             let result = try decoder.decode(EmbeddedIssuer.self, from: data)
             XCTAssertNil(result.issuer)
+        } catch {
+            XCTFail("Encoding (or decoding after the fact) failed: \(error)")
+        }
+    }
+    
+    func testIssuerIssuingEstimateExtension() {
+        // Attempt decode
+        let issuerFile = "issuer-v2-with-issuing-estimates"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let issuer = try decoder.decode(IssuerV2.self, from: file)
+            XCTAssertEqual(issuer.name, "University of Learning")
+            XCTAssertEqual(issuer.issuingEstimateURL, URL(string: "https://issuer.org/estimate/url")!)
+            XCTAssertEqual(issuer.issuingEstimateAuth, .unsigned)
+        } catch {
+            XCTFail("Something went wrong \(error)")
+        }
+        
+        // Attempt encode
+        let issuer = IssuerV2(name: "Name",
+                              email: "Email@address.com",
+                              image: Data(),
+                              id: URL(string: "https://issuer.com/blockcerts")!,
+                              url: URL(string: "https://issuer.com")!,
+                              revocationURL: URL(string: "https://issuer.com/revoke")!,
+                              publicKeys: [KeyRotation(on: Date(timeIntervalSince1970: 0), key: "ISSUER_KEY")],
+                              introductionMethod: .basic(introductionURL: URL(string: "https://issuer.com/intro")!),
+                              analyticsURL: nil,
+                              issuingEstimateURL: URL(string: "https://issuer.org/estimate/url")!,
+                              issuingEstimateAuth: .unsigned)
+        let encoder = JSONEncoder()
+        do {
+            let data = try encoder.encode(issuer)
+            let result = try decoder.decode(IssuerV2.self, from: data)
+            XCTAssertEqual(issuer, result)
         } catch {
             XCTFail("Encoding (or decoding after the fact) failed: \(error)")
         }
