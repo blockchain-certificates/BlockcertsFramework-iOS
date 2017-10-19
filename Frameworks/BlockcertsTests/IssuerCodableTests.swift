@@ -83,6 +83,7 @@ class IssuerCodableTests: XCTestCase {
             XCTAssertEqual(issuer.name, "University of Learning")
             XCTAssertEqual(issuer.email, "contact@issuer.org")
             XCTAssertEqual(issuer.publicKeys.first?.key, "ecdsa-koblitz-pubkey:msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj")
+            XCTAssertEqual(issuer.issuingEstimateAuth, .signed) // test that signed is the default when it's missing
         } catch {
             XCTFail("Something went wrong \(error)")
         }
