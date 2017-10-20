@@ -47,29 +47,12 @@ public class IssuerIdentificationRequest : CommonRequest {
                 return
             }
 
-            guard let jsonData = try? JSONSerialization.jsonObject(with: data, options: []),
-                let json = jsonData as? [String: Any] else {
+            guard let issuer = IssuerParser.decode(data: data) else {
                 self?.report(failure: .jsonSerializationFailure(data: data))
                 return
             }
             
-            // TODO: Handle more nuanced responses with IssuerParser
-            if let issuer = IssuerParser.parse(dictionary: json) {
-                self?.reportSuccess(with: issuer)
-            } else {
-                self?.report(failure: .unknownResponse)
-            }
-            
-//            do {
-//                let issuer = try Issuer(dictionary: json)
-//                self?.reportSuccess(with: issuer)
-//            } catch IssuerError.missing(let property) {
-//                self?.report(failure: .issuerMissing(property: property))
-//            } catch IssuerError.invalid(let property) {
-//                self?.report(failure: .issuerInvalid(property: property))
-//            } catch {
-//                self?.report(failure: .unknownResponse)
-//            }
+            self?.reportSuccess(with: issuer)
         }
         currentTask?.resume()
     }
