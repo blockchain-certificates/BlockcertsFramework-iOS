@@ -15,8 +15,8 @@ public enum IssuerIssuingEstimateResult : Error {
 }
 
 public struct CertificateIssuingEstimate : Codable {
-    let title : String
-    let willIssueOn: Date
+    public let title : String
+    public let willIssueOn: Date
 }
 
 public class IssuerIssuingEstimateRequest : CommonRequest {
