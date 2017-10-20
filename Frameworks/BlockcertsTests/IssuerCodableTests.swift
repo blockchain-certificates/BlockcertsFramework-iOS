@@ -474,4 +474,53 @@ class IssuerCodableTests: XCTestCase {
             XCTFail("Encoding (or decoding after the fact) failed: \(error)")
         }
     }
+    
+    // MARK: - IssuerParser decoding
+    func testV2IssuerParser() {
+        // Attempt decode
+        let issuerFile = "issuer-v2"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerFile, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let issuer = IssuerParser.decode(data: file)
+
+        XCTAssertNotNil(issuer)
+        if let v2Issuer = issuer as? IssuerV2 {
+            XCTAssertEqual(v2Issuer.id, URL(string: "https://www.blockcerts.org/samples/2.0/issuer-testnet.json")!)
+            XCTAssertEqual(v2Issuer.url, URL(string: "https://www.issuer.org")!)
+            XCTAssertEqual(v2Issuer.name, "University of Learning")
+            XCTAssertEqual(v2Issuer.email, "contact@issuer.org")
+            XCTAssertEqual(v2Issuer.publicKeys.first?.key, "ecdsa-koblitz-pubkey:msBCHdwaQ7N2ypBYupkp6uNxtr9Pg76imj")
+            XCTAssertEqual(v2Issuer.issuingEstimateAuth, .signed) // test that signed is the default when it's missing
+        } else {
+            XCTFail("Parsed an issuer, but it wasn't v2")
+        }
+    }
+    
+    func testV1IssuerParser() {
+        // Attempt decode
+        let issuerV1File = "issuer-v1"
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: issuerV1File, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let issuer = IssuerParser.decode(data: file)
+        XCTAssertNotNil(issuer)
+        if let issuerV1 = issuer as? IssuerV1 {
+            XCTAssertEqual(issuerV1.id, URL(string: "http://www.blockcerts.org/mockissuer/issuer/got-issuer.json")!)
+            XCTAssertEqual(issuerV1.url, URL(string: "http://www.blockcerts.org/mockissuer/certificates/")!)
+            XCTAssertEqual(issuerV1.name, "Game of thrones issuer on testnet")
+            XCTAssertEqual(issuerV1.email, "org@org.org")
+            XCTAssertEqual(issuerV1.issuerKeys.first?.key, "mmShyF6mhf6LeQzPdEsmiCghhgMuEn9TNF")
+            XCTAssertEqual(issuerV1.revocationKeys.first?.key, "mz7poFND7hVGRtPWjiZizcCnjf6wEDWjjT")
+        } else {
+            XCTFail("Parsed an issuer, but it wasn't v1")
+        }
+        
+    }
 }

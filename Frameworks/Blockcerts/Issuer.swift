@@ -87,6 +87,23 @@ public enum IssuerParser {
         }
     }
 
+    public static func decode(data: Data) -> Issuer? {
+        let decoder = JSONDecoder()
+        
+        var issuer : Issuer? = try? decoder.decode(IssuerV2.self, from: data)
+        if issuer == nil {
+            issuer = try? decoder.decode(IssuerV2Alpha.self, from: data)
+        }
+        if issuer == nil {
+            issuer = try? decoder.decode(IssuerV1.self, from: data)
+        }
+        if issuer == nil {
+            issuer = try? decoder.decode(PartialIssuer.self, from: data)
+        }
+        
+        return issuer
+    }
+    
     public static func decode<Key>(from container: KeyedDecodingContainer<Key>, forKey key: Key) throws -> Issuer {
         //
         // Attempt to decode with the latest Issuer format, then go back in history until V1.
