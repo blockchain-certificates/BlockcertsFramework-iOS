@@ -52,14 +52,15 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
             let response = """
                 [
                     {
-                        "title": "Diploma",
-                        "willIssueOn": "2018-03-10T18:17:48.102+00:00"
+                        "title": "\(estimateTitle)",
+                        "willIssueOn": "\(estimateDate.toString())"
                     }
                 ]
                 """
 
             let encoded = response.data(using: .utf8)
             XCTAssertNotNil(encoded)
+
             return (
                 data: encoded!,
                 response: HTTPURLResponse(url: estimateURL, statusCode: 200, httpVersion: nil, headerFields: nil),

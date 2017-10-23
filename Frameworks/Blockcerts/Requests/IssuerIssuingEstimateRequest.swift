@@ -15,8 +15,39 @@ public enum IssuerIssuingEstimateResult : Error {
 }
 
 public struct CertificateIssuingEstimate : Codable {
+    public enum ParsingError : Error {
+        case invalidDate
+    }
     public let title : String
     public let willIssueOn: Date
+    
+    private enum CodingKeys : CodingKey {
+        case title, willIssueOn
+    }
+    
+    public init(title: String, willIssueOn date: Date) {
+        self.title = title
+        willIssueOn = date
+    }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CertificateIssuingEstimate.CodingKeys.self)
+        
+        title = try container.decode(String.self, forKey: .title)
+        let dateString = try container.decode(String.self, forKey: .willIssueOn)
+        if let date = dateString.toDate() {
+            willIssueOn = date
+        } else {
+            throw ParsingError.invalidDate
+        }
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CertificateIssuingEstimate.CodingKeys.self)
+        
+        try container.encode(title, forKey: .title)
+        try container.encode(willIssueOn.toString(), forKey: .willIssueOn)
+    }
 }
 
 public class IssuerIssuingEstimateRequest : CommonRequest {
