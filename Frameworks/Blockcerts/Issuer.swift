@@ -275,6 +275,7 @@ public struct KeyRotation : Comparable, Codable {
     /// A base64-encoded string representing the data of the key.
     public let key : String
     
+    
     /// When this certificate was revoked
     public let revoked : Date?
     
