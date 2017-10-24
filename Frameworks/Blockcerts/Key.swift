@@ -17,6 +17,19 @@ public struct Key {
         self.value = value
     }
     
+    public init(string value: String) {
+        if value.contains(":") {
+            let components = value.components(separatedBy: ":")
+            if components.count > 1 {
+                self.init(value: components[components.startIndex.advanced(by: 1)], scope: components.first)
+            } else {
+                self.init(value: components.first ?? "")
+            }
+        } else {
+            self.init(value: value)
+        }
+    }
+    
     public var scopedValue : String {
         if let scope = scope {
             return "\(scope):\(value)"
@@ -45,23 +58,7 @@ extension Key : Hashable {
     }
 }
 
-//extension Key : ExpressibleByStringLiteral {
-//    public typealias StringLiteralType = String
-//    
-//    public init(stringLiteral value: StringLiteralType) {
-//        if value.contains(":") {
-//            let components = value.components(separatedBy: ":")
-//            if components.count > 1 {
-//                self.scope = components.first
-//                self.value = components[components.startIndex.advanced(by: 1)]
-//            } else {
-//                self.scope = nil
-//                self.value = components.first ?? ""
-//            }
-//        } else {
-//            self.value = value
-//            self.scope = nil
-//        }
-//    }
-//}
+extension Key {
+    
+}
 
