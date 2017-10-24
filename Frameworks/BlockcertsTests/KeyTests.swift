@@ -53,4 +53,16 @@ class KeyTests: XCTestCase {
         XCTAssertNil(unscopedKey.scope)
         XCTAssertEqual(unscopedKey.value, "ALT_VALUE")
     }
+    
+    func testStringLiteral() {
+        let key : Key = "ecdsa-koblitz-pubkey:VALUE"
+        
+        XCTAssertEqual(key.scope, "ecdsa-koblitz-pubkey")
+        XCTAssertEqual(key.value, "VALUE")
+        
+        let unscopedKey : Key = "ALT_VALUE"
+        
+        XCTAssertNil(unscopedKey.scope)
+        XCTAssertEqual(unscopedKey.value, "ALT_VALUE")
+    }
 }
