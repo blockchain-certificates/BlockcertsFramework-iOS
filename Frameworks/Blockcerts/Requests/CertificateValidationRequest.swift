@@ -88,11 +88,11 @@ public class CertificateValidationRequest : CommonRequest {
     // Private state built up over the validation sequence
     var localHash : String?
     var remoteHash : String?
-    private var revocationKey : String?
-    private var revokedAddresses : Set<String>?
+    private var revocationKey : Key?
+    private var revokedAddresses : Set<Key>?
     var normalizedCertificate : String?
     var txDate : Date?
-    var signingPublicKey : String?
+    var signingPublicKey : Key?
     
     public init(for certificate: Certificate,
          with transactionId: String,
@@ -317,7 +317,7 @@ public class CertificateValidationRequest : CommonRequest {
             self?.revokedAddresses = transactionData.revokedAddresses
             self?.txDate = transactionData.txDate
             self?.signingPublicKey = transactionData.signingPublicKey
-            
+
             self?.state = .comparingHashes
         }
         task.resume()
@@ -390,7 +390,7 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.state = .failure(reason: "Couldn't parse first revokeKey")
                     return
             }
-            self?.revocationKey = revokeKey
+            self?.revocationKey = Key(string: revokeKey)
             guard let issuerKey = issuerKeys.first?["key"] else {
                 self?.state = .failure(reason: "Couldn't parse issuerKey")
                 return
@@ -472,7 +472,8 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             if self.certificate.recipient.revocationAddress != nil {
-                let certificateRevoked : Bool = (revokedAddresses?.contains(self.certificate.recipient.revocationAddress!))!
+                let recipientRevocationAddress = Key(string: self.certificate.recipient.revocationAddress!)
+                let certificateRevoked : Bool = (revokedAddresses?.contains(recipientRevocationAddress))!
                 if certificateRevoked {
                     self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.certificate.recipient.revocationAddress!)")
                     return
@@ -544,11 +545,10 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Certificate is missing.")
                 return
             }
-            guard let signingKeyValue = self?.signingPublicKey else {
+            guard let signingKey = self?.signingPublicKey else {
                 self?.state = .failure(reason: "Couldn't parse determine transaction signing public key.")
                 return
             }
-            let signingKey = Key(string: signingKeyValue)
             guard let txDate = self?.txDate else {
                 self?.state = .failure(reason: "Couldn't parse determine transaction date.")
                 return

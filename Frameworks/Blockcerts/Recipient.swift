@@ -24,6 +24,7 @@ public struct Recipient {
     public let isHashed : Bool
     
     /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
+    // TODO: CHANGE TO KEY
     public let publicAddress : String
     
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
