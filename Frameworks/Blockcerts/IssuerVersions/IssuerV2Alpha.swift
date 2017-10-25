@@ -71,8 +71,10 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
                 throw IssuerError.invalid(property: "publicKeys..created")
             }
             
-            expires = try container.decodeIfPresent(Date.self, forKey: .expires)
-            revoked = try container.decodeIfPresent(Date.self, forKey: .revoked)
+            let expiresString = try container.decodeIfPresent(String.self, forKey: .expires)
+            expires = expiresString?.toDate()
+            let revokedString = try container.decodeIfPresent(String.self, forKey: .revoked)
+            revoked = revokedString?.toDate()
         }
         
         public func encode(to encoder: Encoder) throws {
@@ -80,8 +82,8 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
             
             try container.encode(publicKey, forKey: .publicKey)
             try container.encode(created.toString(), forKey: .created)
-            try container.encodeIfPresent(expires, forKey: .expires)
-            try container.encodeIfPresent(revoked, forKey: .revoked)
+            try container.encodeIfPresent(expires?.toString(), forKey: .expires)
+            try container.encodeIfPresent(revoked?.toString(), forKey: .revoked)
         }
     }
     

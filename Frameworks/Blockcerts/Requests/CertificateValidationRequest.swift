@@ -554,9 +554,11 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            let issuerPublicKeyMap = issuer.publicKeys.toDictionary { $0.key }
+            let matchingKeyInfo = issuer.publicKeys.first(where: { (keyRotation) -> Bool in
+                keyRotation.key == signingKey
+            })
             
-            guard let keyInfo = issuerPublicKeyMap[signingKey] else {
+            guard let keyInfo = matchingKeyInfo else {
                 self?.state = .failure(reason: "Couldn't find issuer public key.")
                 return
             }
