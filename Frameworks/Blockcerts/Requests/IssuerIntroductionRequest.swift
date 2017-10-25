@@ -77,7 +77,7 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
     func startBasicIntroduction(at url: URL) {
         // Create JSON body. Start with the provided extra data parameters if they're present.
         var dataMap = delegate.introductionData(for: issuer, from: recipient)
-        dataMap["bitcoinAddress"] = recipient.publicAddress
+        dataMap["bitcoinAddress"] = recipient.publicAddress.scopedValue
         
         guard let data = try? JSONSerialization.data(withJSONObject: dataMap, options: []) else {
             reportFailure(.cannotSerializePostData)

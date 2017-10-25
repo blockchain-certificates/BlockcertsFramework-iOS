@@ -218,9 +218,12 @@ fileprivate enum MethodsForV2 {
                 return nil
         }
         
-        let publicKey = verifyData["publicKey"] as? String
+        var address : BlockchainAddress? = nil
+        if let publicKey = verifyData["publicKey"] as? String {
+            address = BlockchainAddress(string: publicKey)
+        }
 
-        return Verify(signer: nil, publicKey: publicKey, signedAttribute: nil, type: type[0])
+        return Verify(signer: nil, publicKey: address, signedAttribute: nil, type: type[0])
     }
     
     static func parse(receiptJSON: AnyObject?) -> Receipt? {

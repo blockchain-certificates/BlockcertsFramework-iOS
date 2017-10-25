@@ -88,11 +88,11 @@ public class CertificateValidationRequest : CommonRequest {
     // Private state built up over the validation sequence
     var localHash : String?
     var remoteHash : String?
-    private var revocationKey : String?
-    private var revokedAddresses : Set<String>?
+    private var revocationKey : BlockchainAddress?
+    private var revokedAddresses : Set<BlockchainAddress>?
     var normalizedCertificate : String?
     var txDate : Date?
-    var signingPublicKey : String?
+    var signingPublicKey : BlockchainAddress?
     
     public init(for certificate: Certificate,
          with transactionId: String,
@@ -186,20 +186,13 @@ public class CertificateValidationRequest : CommonRequest {
         return chain(for: certificate.recipient.publicAddress)
     }
     
-    private func chain(for address: String) -> BitcoinChain? {
-        var targetAddress = address
-        
-        let addressPrefixSeparator = ":"
-        if let separatorRange = targetAddress.range(of: addressPrefixSeparator) {
-            targetAddress = String(targetAddress[separatorRange.upperBound...])
-        }
-        
+    private func chain(for address: BlockchainAddress) -> BitcoinChain? {
         // All mainnet addresses start with 1.
-        if targetAddress.hasPrefix("1") {
+        if address.value.hasPrefix("1") {
             return .mainnet
         }
         
-        if targetAddress.hasPrefix("m") || targetAddress.hasPrefix("n") {
+        if address.value.hasPrefix("m") || address.value.hasPrefix("n") {
             return .testnet
         }
         
@@ -317,7 +310,7 @@ public class CertificateValidationRequest : CommonRequest {
             self?.revokedAddresses = transactionData.revokedAddresses
             self?.txDate = transactionData.txDate
             self?.signingPublicKey = transactionData.signingPublicKey
-            
+
             self?.state = .comparingHashes
         }
         task.resume()
@@ -390,7 +383,7 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.state = .failure(reason: "Couldn't parse first revokeKey")
                     return
             }
-            self?.revocationKey = revokeKey
+            self?.revocationKey = BlockchainAddress(string: revokeKey)
             guard let issuerKey = issuerKeys.first?["key"] else {
                 self?.state = .failure(reason: "Couldn't parse issuerKey")
                 return
@@ -471,8 +464,8 @@ public class CertificateValidationRequest : CommonRequest {
                 self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(revocationKey)")
                 return
             }
-            if self.certificate.recipient.revocationAddress != nil {
-                let certificateRevoked : Bool = (revokedAddresses?.contains(self.certificate.recipient.revocationAddress!))!
+            if let recipientRevocationAddress = self.certificate.recipient.revocationAddress {
+                let certificateRevoked : Bool = (revokedAddresses?.contains(recipientRevocationAddress))!
                 if certificateRevoked {
                     self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.certificate.recipient.revocationAddress!)")
                     return
@@ -553,9 +546,11 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            let issuerPublicKeyMap = issuer.publicKeys.toDictionary { $0.key }
+            let matchingKeyInfo = issuer.publicKeys.first(where: { (keyRotation) -> Bool in
+                keyRotation.key == signingKey
+            })
             
-            guard let keyInfo = issuerPublicKeyMap[signingKey] else {
+            guard let keyInfo = matchingKeyInfo else {
                 self?.state = .failure(reason: "Couldn't find issuer public key.")
                 return
             }

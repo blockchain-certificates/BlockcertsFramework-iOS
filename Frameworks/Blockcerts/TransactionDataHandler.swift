@@ -11,8 +11,8 @@ import Foundation
 
 public struct TransactionData {
     public let opReturnScript : String?
-    public let revokedAddresses : Set<String>?
-    public let signingPublicKey : String?
+    public let revokedAddresses : Set<BlockchainAddress>?
+    public let signingPublicKey : BlockchainAddress?
     public let txDate : Date?
 }
 
@@ -64,15 +64,18 @@ public class BlockchainInfoHandler : TransactionDataHandler {
             super.failureReason = "No output values were 0: \(outputs)"
             return
         }
-        var revoked : Set<String> = Set()
+        var revoked : Set<BlockchainAddress> = Set()
         for output in outputs {
             if (output["spent"] as? Bool == true) {
-                revoked.insert(output["addr"] as! String)
+                let address = output["addr"] as! String
+                revoked.insert(BlockchainAddress(string: address))
             }
         }
         
-        super.transactionData = TransactionData(opReturnScript : opReturnScript, revokedAddresses: revoked,
-        signingPublicKey: nil, txDate: nil)
+        super.transactionData = TransactionData(opReturnScript: opReturnScript,
+                                                revokedAddresses: revoked,
+                                                signingPublicKey: nil,
+                                                txDate: nil)
     }
 }
 
@@ -96,11 +99,11 @@ public class BlockcypherHandler : TransactionDataHandler {
             super.failureReason = "No output values were 0: \(outputs)"
             return
         }
-        var revoked : Set<String> = Set()
+        var revoked : Set<BlockchainAddress> = Set()
         for output in outputs {
             if (output["spent_by"] as? String != nil) {
                 let addresses = output["addresses"] as! [String]
-                revoked.insert(addresses[0])
+                revoked.insert(BlockchainAddress(string: addresses[0]))
             }
         }
         
@@ -119,10 +122,11 @@ public class BlockcypherHandler : TransactionDataHandler {
             return
         }
         
-        guard let signingPublicKey = addresses.first else {
+        guard let signingPublicKeyValue = addresses.first else {
             super.failureReason = "Couldn't find the first signing public key inputs: \(inputs)"
             return
         }
+        let signingPublicKey = BlockchainAddress(string: signingPublicKeyValue)
 
         guard let txDateString = json["received"] as? String else {
             super.failureReason = "Missing 'received' property in response:\n\(json)"

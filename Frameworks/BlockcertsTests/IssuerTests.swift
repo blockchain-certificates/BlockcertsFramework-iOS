@@ -36,13 +36,13 @@ class IssuerTests: XCTestCase {
         let expectedIssuerKeys : [[String: String]] = [
             [
                 "date": issuerKey.on.toString(),
-                "key": issuerKey.key
+                "key": issuerKey.key.scopedValue
             ]
         ]
         let expectedRevocationKeys : [[String: String]] = [
             [
                 "date": revocationKey.on.toString(),
-                "key": revocationKey.key
+                "key": revocationKey.key.scopedValue
             ]
         ]
         
@@ -76,13 +76,13 @@ class IssuerTests: XCTestCase {
             "issuerKeys": [
                 [
                     "date": issuerKey.on.toString(),
-                    "key": issuerKey.key
+                    "key": issuerKey.key.scopedValue
                 ]
             ],
             "revocationKeys": [
                 [
                     "date": revocationKey.on.toString(),
-                    "key": revocationKey.key
+                    "key": revocationKey.key.scopedValue
                 ]
             ]
 
@@ -137,13 +137,13 @@ class IssuerTests: XCTestCase {
             "issuerKeys": [
                 [
                     "date": issuerKey.on.toString(),
-                    "key": issuerKey.key
+                    "key": issuerKey.key.scopedValue
                 ]
             ],
             "revocationKeys": [
                 [
                     "date": revocationKey.on.toString(),
-                    "key": revocationKey.key
+                    "key": revocationKey.key.scopedValue
                 ]
             ]
             
@@ -178,13 +178,13 @@ class IssuerTests: XCTestCase {
             "issuerKeys": [
                 [
                     "date": issuerKey.on.toString(),
-                    "key": issuerKey.key
+                    "key": issuerKey.key.scopedValue
                 ]
             ],
             "revocationKeys": [
                 [
                     "date": revocationKey.on.toString(),
-                    "key": revocationKey.key
+                    "key": revocationKey.key.scopedValue
                 ]
             ]
             
@@ -211,13 +211,13 @@ class IssuerTests: XCTestCase {
             "issuerKeys": [
                 [
                     "date": issuerKey.on.toString(),
-                    "key": issuerKey.key
+                    "key": issuerKey.key.scopedValue
                 ]
             ],
             "revocationKeys": [
                 [
                     "date": revocationKey.on.toString(),
-                    "key": revocationKey.key
+                    "key": revocationKey.key.scopedValue
                 ]
             ]
             
@@ -241,13 +241,13 @@ class IssuerTests: XCTestCase {
             "issuerKeys": [
                 [
                     "date": issuerKey.on.toString(),
-                    "key": issuerKey.key
+                    "key": issuerKey.key.scopedValue
                 ]
             ],
             "revocationKeys": [
                 [
                     "date": revocationKey.on.toString(),
-                    "key": revocationKey.key
+                    "key": revocationKey.key.scopedValue
                 ]
             ]
             
@@ -359,13 +359,13 @@ class IssuerTests: XCTestCase {
             "issuerKeys": [
                 [
                     "date": issuerKey.on.toString(),
-                    "key": issuerKey.key
+                    "key": issuerKey.key.scopedValue
                 ]
             ],
             "revocationKeys": [
                 [
                     "date": revocationKey.on.toString(),
-                    "key": revocationKey.key
+                    "key": revocationKey.key.scopedValue
                 ]
             ]
             

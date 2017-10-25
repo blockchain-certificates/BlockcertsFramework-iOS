@@ -14,7 +14,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
         let itShouldCallTheServer = expectation(description: "Mocking framework should call our fake server function.")
         
-        let expectedAddress = "FakeRecipientPublicKey"
+        let expectedAddress = BlockchainAddress(string: "FakeRecipientPublicKey")
         let expectedEmail = "johnny@blockcerts.org"
         let expectedName = "Johnny Strong"
         let introductionURL = URL(string: "https://blockcerts.org/introduce/")!
@@ -25,10 +25,10 @@ class IssuerIntroductionRequestTests: XCTestCase {
                               id: URL(string: "https://blockcerts.org/issuer.json")!,
                               url: URL(string: "https://blockcerts.org")!,
                               publicIssuerKeys: [
-                                KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_ISSUER_KEY")
+                                KeyRotation(on: Date(timeIntervalSince1970: 0), key: BlockchainAddress(string: "FAKE_ISSUER_KEY"))
                               ],
                               publicRevocationKeys: [
-                                KeyRotation(on: Date(timeIntervalSince1970: 0), key: "FAKE_REVOCATION_KEY")
+                                KeyRotation(on: Date(timeIntervalSince1970: 0), key: BlockchainAddress(string: "FAKE_REVOCATION_KEY"))
                               ],
                               introductionURL: introductionURL)
         
@@ -51,7 +51,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
             let map = json as? [String: String]
             XCTAssertNotNil(map, "Currently, the json is always String:String type")
             
-            XCTAssertEqual(map!["bitcoinAddress"], expectedAddress)
+            XCTAssertEqual(map!["bitcoinAddress"], expectedAddress.value)
             XCTAssertEqual(map!["email"], expectedEmail)
             XCTAssertEqual(map!["name"], expectedName)
 

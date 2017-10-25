@@ -40,7 +40,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     }
     
     private struct KeyRotationV2a : Codable {
-        let publicKey : String
+        let publicKey : BlockchainAddress
         let created : Date
         let expires : Date?
         let revoked : Date?
@@ -63,7 +63,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            publicKey = try container.decode(String.self, forKey: .publicKey)
+            publicKey = try container.decode(BlockchainAddress.self, forKey: .publicKey)
             let createdString = try container.decode(String.self, forKey: .created)
             if let date = createdString.toDate() {
                 created = date
@@ -71,8 +71,10 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
                 throw IssuerError.invalid(property: "publicKeys..created")
             }
             
-            expires = try container.decodeIfPresent(Date.self, forKey: .expires)
-            revoked = try container.decodeIfPresent(Date.self, forKey: .revoked)
+            let expiresString = try container.decodeIfPresent(String.self, forKey: .expires)
+            expires = expiresString?.toDate()
+            let revokedString = try container.decodeIfPresent(String.self, forKey: .revoked)
+            revoked = revokedString?.toDate()
         }
         
         public func encode(to encoder: Encoder) throws {
@@ -80,8 +82,8 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
             
             try container.encode(publicKey, forKey: .publicKey)
             try container.encode(created.toString(), forKey: .created)
-            try container.encodeIfPresent(expires, forKey: .expires)
-            try container.encodeIfPresent(revoked, forKey: .revoked)
+            try container.encodeIfPresent(expires?.toString(), forKey: .expires)
+            try container.encodeIfPresent(revoked?.toString(), forKey: .revoked)
         }
     }
     
@@ -282,7 +284,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         let serializedIssuerKeys = publicKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": keyRotation.on.toString(),
-                "key": keyRotation.key
+                "key": keyRotation.key.scopedValue
             ]
         }
 
@@ -337,12 +339,7 @@ fileprivate func keyRotationScheduleV2Alpha(from dictionary: [String : String]) 
     guard let key : String = dictionary["publicKey"] else {
         throw IssuerError.missing(property: "publicKey")
     }
-    
-    var publicKey = key
-    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        let index = key.index(after: key.index(of: ":")!)
-        publicKey = String(key[index...])
-    }
+    let publicKey = BlockchainAddress(string: key)
     
     guard let date = dateString.toDate() else {
         throw IssuerError.invalid(property: "created")
