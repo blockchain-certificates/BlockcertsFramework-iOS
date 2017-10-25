@@ -6,6 +6,3 @@ script:
   - set -o pipefail
   - xcodebuild clean build -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=11.0,name=iPhone SE" CODE_SIGNING_REQUIRED=NO | xcpretty -c || true
   - xcodebuild test        -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=11.0,name=iPhone SE" CODE_SIGNING_REQUIRED=NO | xcpretty -c
-notifications:
-  slack:
-    secure: e90JWPRQLWgSPe9XY8uWz94m7r9RPHa6svnxmbHa5zFEmUacp4XN6dLuhrqr8RQk4wutsq+car3XopK/btdOQkiPQTY3b0bOOR57L95UlbSZxsLTnIxZNF2W3KMYGH4iZdKtfiTLXA/4R7q8vVT1KSlSPsiZKMO3U0zuv/HC59iB1kzniszWab9hN6g6I6h4prMTFp+4/VkSdHtZtHQDCq3JiugIf+D9wc9CwpioGdXt4cjJhST1gW51bVndOzVmus+S87ugyX9vtvxN9LlcRuHgpdazcWJ7UZwy9uZkbqduo3OOH60Uv70mVHGxaypUqbZNNJ6b5YgmqGNIER2ryaUoNcle6Ge1pR9WVtitdCRQDtDdMCBSVRRvtlEEOr9OEqzhQeEjBodhq4fpmUBIyo2GLkl4yWUQDbaZkLn7pgLFq/XeAkraSSeUcYDCtfGjmohtKK8/3jE9B08EBdGyc8GYAUCYNKigwUJwojwNeFtDzpcm7gPz3enfkjDtIF1s7uGKDkyMCFO//rxTer+bebBSQqxEc+ATCgC2q0E2DAgUflvLDaeVrzdloP2SCh5Gqpo1xUbZKUglo768qS7S5xnEgzkRM9683RYl/ZkoXaqEPTasv4lqAEQ48jSjWxmr3kMPgFiFTd25DXvig/uVX5E/9i3amoZfpIm8AiLtt6c=
