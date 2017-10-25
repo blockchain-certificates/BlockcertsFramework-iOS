@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Key {
+public struct Key : Codable {
     public let scope : String?
     public let value : String
 
@@ -30,6 +30,7 @@ public struct Key {
         }
     }
     
+    
     public var scopedValue : String {
         if let scope = scope {
             return "\(scope):\(value)"
@@ -39,6 +40,18 @@ public struct Key {
     
     public var unscoped : Key {
         return Key(value: value)
+    }
+    
+    // Mark - Codable conformance
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let string = try container.decode(String.self)
+        self.init(string: string)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(scopedValue)
     }
 }
 
