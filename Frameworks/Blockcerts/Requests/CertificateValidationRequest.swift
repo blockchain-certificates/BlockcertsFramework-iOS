@@ -186,20 +186,13 @@ public class CertificateValidationRequest : CommonRequest {
         return chain(for: certificate.recipient.publicAddress)
     }
     
-    private func chain(for address: String) -> BitcoinChain? {
-        var targetAddress = address
-        
-        let addressPrefixSeparator = ":"
-        if let separatorRange = targetAddress.range(of: addressPrefixSeparator) {
-            targetAddress = String(targetAddress[separatorRange.upperBound...])
-        }
-        
+    private func chain(for address: Key) -> BitcoinChain? {
         // All mainnet addresses start with 1.
-        if targetAddress.hasPrefix("1") {
+        if address.value.hasPrefix("1") {
             return .mainnet
         }
         
-        if targetAddress.hasPrefix("m") || targetAddress.hasPrefix("n") {
+        if address.value.hasPrefix("m") || address.value.hasPrefix("n") {
             return .testnet
         }
         
@@ -471,8 +464,7 @@ public class CertificateValidationRequest : CommonRequest {
                 self.state = .failure(reason: "Certificate Batch has been revoked by issuer. Revocation key is \(revocationKey)")
                 return
             }
-            if self.certificate.recipient.revocationAddress != nil {
-                let recipientRevocationAddress = Key(string: self.certificate.recipient.revocationAddress!)
+            if let recipientRevocationAddress = self.certificate.recipient.revocationAddress {
                 let certificateRevoked : Bool = (revokedAddresses?.contains(recipientRevocationAddress))!
                 if certificateRevoked {
                     self.state = .failure(reason: "Certificate has been revoked by issuer. Revocation key is \(self.certificate.recipient.revocationAddress!)")

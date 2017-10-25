@@ -24,13 +24,12 @@ public struct Recipient {
     public let isHashed : Bool
     
     /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
-    // TODO: CHANGE TO KEY
-    public let publicAddress : String
+    public let publicAddress : Key
     
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
-    public let revocationAddress : String?
+    public let revocationAddress : Key?
     
-    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: Key, revocationAddress: Key? = nil) {
         self.name = name
         self.identity = identity
         self.identityType = identityType
@@ -59,6 +58,8 @@ public struct Recipient {
         }
     }
     
+    
+    
     //
     // MARK: - Old properties & initializers for pre-v2.0 certificates
     //
@@ -86,6 +87,14 @@ public struct Recipient {
             return deprecatedFamilyName ?? ""
         }
     }
+
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
+        var revokeKey : Key? = nil
+        if let address = revocationAddress {
+            revokeKey = Key(string: address)
+        }
+        self.init(name: name, identity: identity, identityType: identityType, isHashed: isHashed, publicAddress: Key(string: publicAddress), revocationAddress: revokeKey)
+    }
     
     public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
         self.deprecatedGivenName = givenName
@@ -93,8 +102,12 @@ public struct Recipient {
         self.identity = identity
         self.identityType = identityType
         self.isHashed = isHashed
-        self.publicAddress = publicAddress
-        self.revocationAddress = revocationAddress
+        self.publicAddress = Key(string: publicAddress)
+        if let address = revocationAddress {
+            self.revocationAddress = Key(string: address)
+        } else {
+            self.revocationAddress = nil
+        }
         self.name = "\(givenName) \(familyName)"
     }
 }
