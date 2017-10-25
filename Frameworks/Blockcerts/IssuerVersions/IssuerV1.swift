@@ -16,13 +16,13 @@ public enum IssuerError : Error {
 
 public struct KeyRotationV1 : Codable, Equatable {
     public let date : Date
-    public let key : Key
+    public let key : BlockchainAddress
     
     private enum CodingKeys : CodingKey {
         case date, key
     }
     
-    init(date: Date, key: Key) {
+    init(date: Date, key: BlockchainAddress) {
         self.date = date
         self.key = key
     }
@@ -39,7 +39,7 @@ public struct KeyRotationV1 : Codable, Equatable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        key = try container.decode(Key.self, forKey: .key)
+        key = try container.decode(BlockchainAddress.self, forKey: .key)
         let dateString = try container.decode(String.self, forKey: .date)
         if let date = dateString.toDate() {
             self.date = date
@@ -361,7 +361,7 @@ fileprivate func keyRotationSchedule(from dictionary: [String : String]) throws 
         throw IssuerError.invalid(property: "date")
     }
     
-    return KeyRotation(on: date, key: Key(string: key))
+    return KeyRotation(on: date, key: BlockchainAddress(string: key))
 }
 
 

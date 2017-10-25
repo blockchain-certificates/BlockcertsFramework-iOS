@@ -11,8 +11,8 @@ import Foundation
 
 public struct TransactionData {
     public let opReturnScript : String?
-    public let revokedAddresses : Set<Key>?
-    public let signingPublicKey : Key?
+    public let revokedAddresses : Set<BlockchainAddress>?
+    public let signingPublicKey : BlockchainAddress?
     public let txDate : Date?
 }
 
@@ -64,11 +64,11 @@ public class BlockchainInfoHandler : TransactionDataHandler {
             super.failureReason = "No output values were 0: \(outputs)"
             return
         }
-        var revoked : Set<Key> = Set()
+        var revoked : Set<BlockchainAddress> = Set()
         for output in outputs {
             if (output["spent"] as? Bool == true) {
                 let address = output["addr"] as! String
-                revoked.insert(Key(string: address))
+                revoked.insert(BlockchainAddress(string: address))
             }
         }
         
@@ -99,11 +99,11 @@ public class BlockcypherHandler : TransactionDataHandler {
             super.failureReason = "No output values were 0: \(outputs)"
             return
         }
-        var revoked : Set<Key> = Set()
+        var revoked : Set<BlockchainAddress> = Set()
         for output in outputs {
             if (output["spent_by"] as? String != nil) {
                 let addresses = output["addresses"] as! [String]
-                revoked.insert(Key(string: addresses[0]))
+                revoked.insert(BlockchainAddress(string: addresses[0]))
             }
         }
         
@@ -126,7 +126,7 @@ public class BlockcypherHandler : TransactionDataHandler {
             super.failureReason = "Couldn't find the first signing public key inputs: \(inputs)"
             return
         }
-        let signingPublicKey = Key(string: signingPublicKeyValue)
+        let signingPublicKey = BlockchainAddress(string: signingPublicKeyValue)
 
         guard let txDateString = json["received"] as? String else {
             super.failureReason = "Missing 'received' property in response:\n\(json)"

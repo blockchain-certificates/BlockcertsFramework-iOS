@@ -1,5 +1,5 @@
 //
-//  Key.swift
+//  BlockchainAddress.swift
 //  Blockcerts
 //
 //  Created by Chris Downie on 10/24/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Key : Codable {
+public struct BlockchainAddress : Codable {
     public let scope : String?
     public let value : String
 
@@ -38,8 +38,8 @@ public struct Key : Codable {
         return value
     }
     
-    public var unscoped : Key {
-        return Key(value: value)
+    public var unscoped : BlockchainAddress {
+        return BlockchainAddress(value: value)
     }
     
     // Mark - Codable conformance
@@ -55,8 +55,8 @@ public struct Key : Codable {
     }
 }
 
-extension Key : Equatable {
-    public static func ==(lhs: Key, rhs: Key) -> Bool {
+extension BlockchainAddress : Equatable {
+    public static func ==(lhs: BlockchainAddress, rhs: BlockchainAddress) -> Bool {
         let areBothScoped = (lhs.scope != nil && rhs.scope != nil)
         let doScopesMatch = (lhs.scope == rhs.scope)
         let doKeysMatch = (lhs.value == rhs.value)
@@ -65,13 +65,13 @@ extension Key : Equatable {
     }
 }
 
-extension Key : Hashable {
+extension BlockchainAddress : Hashable {
     public var hashValue: Int {
         return scopedValue.hashValue
     }
 }
 
-extension Key : ExpressibleByStringLiteral {
+extension BlockchainAddress : ExpressibleByStringLiteral {
     public typealias StringLiteralType = String
     
     public init(stringLiteral value: StringLiteralType) {
@@ -79,7 +79,7 @@ extension Key : ExpressibleByStringLiteral {
     }
 }
 
-extension Key : CustomStringConvertible {
+extension BlockchainAddress : CustomStringConvertible {
     public var description: String {
         return scopedValue
     }

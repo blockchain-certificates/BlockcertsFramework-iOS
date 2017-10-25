@@ -301,7 +301,7 @@ fileprivate func keyRotationScheduleV2(from dictionary: [String : String]) throw
     guard let keyValue : String = dictionary["id"] else {
         throw IssuerError.missing(property: "id")
     }
-    let publicKey = Key(string: keyValue)
+    let publicKey = BlockchainAddress(string: keyValue)
 
     guard let date = dateString.toDate() else {
         throw IssuerError.invalid(property: "created")

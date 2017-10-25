@@ -88,11 +88,11 @@ public class CertificateValidationRequest : CommonRequest {
     // Private state built up over the validation sequence
     var localHash : String?
     var remoteHash : String?
-    private var revocationKey : Key?
-    private var revokedAddresses : Set<Key>?
+    private var revocationKey : BlockchainAddress?
+    private var revokedAddresses : Set<BlockchainAddress>?
     var normalizedCertificate : String?
     var txDate : Date?
-    var signingPublicKey : Key?
+    var signingPublicKey : BlockchainAddress?
     
     public init(for certificate: Certificate,
          with transactionId: String,
@@ -186,7 +186,7 @@ public class CertificateValidationRequest : CommonRequest {
         return chain(for: certificate.recipient.publicAddress)
     }
     
-    private func chain(for address: Key) -> BitcoinChain? {
+    private func chain(for address: BlockchainAddress) -> BitcoinChain? {
         // All mainnet addresses start with 1.
         if address.value.hasPrefix("1") {
             return .mainnet
@@ -383,7 +383,7 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.state = .failure(reason: "Couldn't parse first revokeKey")
                     return
             }
-            self?.revocationKey = Key(string: revokeKey)
+            self?.revocationKey = BlockchainAddress(string: revokeKey)
             guard let issuerKey = issuerKeys.first?["key"] else {
                 self?.state = .failure(reason: "Couldn't parse issuerKey")
                 return

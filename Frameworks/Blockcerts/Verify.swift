@@ -12,7 +12,7 @@ import Foundation
 public struct Verify {
     /// URI where issuer's public key is presented, or the public key itself. One of these will be present
     public let signer : URL?
-    public let publicKey : Key?
+    public let publicKey : BlockchainAddress?
     
     /// Name of the attribute in the json that is signed by the issuer's private key. Default is `"uid"`, referring to the uid attribute.
     public let signedAttribute : String?
@@ -20,7 +20,7 @@ public struct Verify {
     /// Name of the signing method. Default is `"ECDSA(secp256k1)"`, referring to the Bitcoin method of signing messages with the issuer's private key.
     public let type : String
     
-    public init(signer: URL?, publicKey: Key?, signedAttribute: String?, type: String) {
+    public init(signer: URL?, publicKey: BlockchainAddress?, signedAttribute: String?, type: String) {
         self.signer = signer
         self.publicKey = publicKey
         self.signedAttribute = signedAttribute
@@ -28,9 +28,9 @@ public struct Verify {
     }
     
     public init(signer: URL?, publicKeyValue: String?, signedAttribute: String?, type: String) {
-        var key: Key? = nil
+        var key: BlockchainAddress? = nil
         if let keyValue = publicKeyValue {
-            key = Key(string: keyValue)
+            key = BlockchainAddress(string: keyValue)
         }
         
         self.init(signer: signer, publicKey: key, signedAttribute: signedAttribute, type: type)

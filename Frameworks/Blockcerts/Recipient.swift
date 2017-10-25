@@ -24,12 +24,12 @@ public struct Recipient {
     public let isHashed : Bool
     
     /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
-    public let publicAddress : Key
+    public let publicAddress : BlockchainAddress
     
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
-    public let revocationAddress : Key?
+    public let revocationAddress : BlockchainAddress?
     
-    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: Key, revocationAddress: Key? = nil) {
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: BlockchainAddress, revocationAddress: BlockchainAddress? = nil) {
         self.name = name
         self.identity = identity
         self.identityType = identityType
@@ -89,11 +89,11 @@ public struct Recipient {
     }
 
     public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
-        var revokeKey : Key? = nil
+        var revokeKey : BlockchainAddress? = nil
         if let address = revocationAddress {
-            revokeKey = Key(string: address)
+            revokeKey = BlockchainAddress(string: address)
         }
-        self.init(name: name, identity: identity, identityType: identityType, isHashed: isHashed, publicAddress: Key(string: publicAddress), revocationAddress: revokeKey)
+        self.init(name: name, identity: identity, identityType: identityType, isHashed: isHashed, publicAddress: BlockchainAddress(string: publicAddress), revocationAddress: revokeKey)
     }
     
     public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
@@ -102,9 +102,9 @@ public struct Recipient {
         self.identity = identity
         self.identityType = identityType
         self.isHashed = isHashed
-        self.publicAddress = Key(string: publicAddress)
+        self.publicAddress = BlockchainAddress(string: publicAddress)
         if let address = revocationAddress {
-            self.revocationAddress = Key(string: address)
+            self.revocationAddress = BlockchainAddress(string: address)
         } else {
             self.revocationAddress = nil
         }

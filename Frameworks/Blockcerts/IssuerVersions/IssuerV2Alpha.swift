@@ -40,7 +40,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     }
     
     private struct KeyRotationV2a : Codable {
-        let publicKey : Key
+        let publicKey : BlockchainAddress
         let created : Date
         let expires : Date?
         let revoked : Date?
@@ -63,7 +63,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            publicKey = try container.decode(Key.self, forKey: .publicKey)
+            publicKey = try container.decode(BlockchainAddress.self, forKey: .publicKey)
             let createdString = try container.decode(String.self, forKey: .created)
             if let date = createdString.toDate() {
                 created = date
@@ -339,7 +339,7 @@ fileprivate func keyRotationScheduleV2Alpha(from dictionary: [String : String]) 
     guard let key : String = dictionary["publicKey"] else {
         throw IssuerError.missing(property: "publicKey")
     }
-    let publicKey = Key(string: key)
+    let publicKey = BlockchainAddress(string: key)
     
     guard let date = dateString.toDate() else {
         throw IssuerError.invalid(property: "created")

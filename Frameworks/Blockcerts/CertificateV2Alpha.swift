@@ -218,9 +218,9 @@ fileprivate enum MethodsForV2 {
                 return nil
         }
         
-        var address : Key? = nil
+        var address : BlockchainAddress? = nil
         if let publicAddress = verifyData["creator"] as? String {
-            address = Key(string: publicAddress)
+            address = BlockchainAddress(string: publicAddress)
         }
         
         return Verify(signer: nil, publicKey: address, signedAttribute: nil, type: type[0])
