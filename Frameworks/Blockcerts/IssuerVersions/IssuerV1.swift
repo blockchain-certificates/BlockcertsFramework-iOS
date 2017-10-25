@@ -16,13 +16,13 @@ public enum IssuerError : Error {
 
 public struct KeyRotationV1 : Codable, Equatable {
     public let date : Date
-    public let key : String
+    public let key : Key
     
     private enum CodingKeys : CodingKey {
         case date, key
     }
     
-    init(date: Date, key: String) {
+    init(date: Date, key: Key) {
         self.date = date
         self.key = key
     }
@@ -39,7 +39,7 @@ public struct KeyRotationV1 : Codable, Equatable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        key = try container.decode(String.self, forKey: .key)
+        key = try container.decode(Key.self, forKey: .key)
         let dateString = try container.decode(String.self, forKey: .date)
         if let date = dateString.toDate() {
             self.date = date
@@ -288,13 +288,13 @@ public struct IssuerV1 : Issuer, Codable {
         let serializedIssuerKeys = issuerKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": keyRotation.date.toString(),
-                "key": keyRotation.key
+                "key": keyRotation.key.scopedValue
             ]
         }
         let serializedRevocationKeys = revocationKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": keyRotation.date.toString(),
-                "key": keyRotation.key
+                "key": keyRotation.key.scopedValue
             ]
         }
         
@@ -361,7 +361,7 @@ fileprivate func keyRotationSchedule(from dictionary: [String : String]) throws 
         throw IssuerError.invalid(property: "date")
     }
     
-    return KeyRotation(on: date, key: key)
+    return KeyRotation(on: date, key: Key(string: key))
 }
 
 

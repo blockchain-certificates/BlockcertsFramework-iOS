@@ -40,7 +40,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     }
     
     private struct KeyRotationV2a : Codable {
-        let publicKey : String
+        let publicKey : Key
         let created : Date
         let expires : Date?
         let revoked : Date?
@@ -63,7 +63,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             
-            publicKey = try container.decode(String.self, forKey: .publicKey)
+            publicKey = try container.decode(Key.self, forKey: .publicKey)
             let createdString = try container.decode(String.self, forKey: .created)
             if let date = createdString.toDate() {
                 created = date
@@ -282,7 +282,7 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         let serializedIssuerKeys = publicKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": keyRotation.on.toString(),
-                "key": keyRotation.key
+                "key": keyRotation.key.scopedValue
             ]
         }
 
@@ -337,12 +337,7 @@ fileprivate func keyRotationScheduleV2Alpha(from dictionary: [String : String]) 
     guard let key : String = dictionary["publicKey"] else {
         throw IssuerError.missing(property: "publicKey")
     }
-    
-    var publicKey = key
-    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        let index = key.index(after: key.index(of: ":")!)
-        publicKey = String(key[index...])
-    }
+    let publicKey = Key(string: key)
     
     guard let date = dateString.toDate() else {
         throw IssuerError.invalid(property: "created")

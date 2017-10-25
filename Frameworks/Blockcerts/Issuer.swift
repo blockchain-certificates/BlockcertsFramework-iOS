@@ -273,7 +273,7 @@ public struct KeyRotation : Comparable, Codable {
     /// This is when the key was published. As long as no other KeyRotation is observed after this date, it can be safely assumed that this key is valid and in use
     public let on : Date
     /// A base64-encoded string representing the data of the key.
-    public let key : String
+    public let key : Key
     
     
     /// When this certificate was revoked
@@ -291,7 +291,7 @@ public struct KeyRotation : Comparable, Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        key = try container.decode(String.self, forKey: .key)
+        key = try container.decode(Key.self, forKey: .key)
         let dateString = try container.decode(String.self, forKey: .on)
         if let date = dateString.toDate() {
             on = date
@@ -311,7 +311,7 @@ public struct KeyRotation : Comparable, Codable {
         try container.encodeIfPresent(expires, forKey: .expires)
     }
     
-    public init(on: Date, key: String, revoked: Date? = nil, expires: Date? = nil) {
+    public init(on: Date, key: Key, revoked: Date? = nil, expires: Date? = nil) {
         self.on = on
         self.key = key
         self.revoked = revoked

@@ -79,3 +79,9 @@ extension Key : ExpressibleByStringLiteral {
     }
 }
 
+extension Key : CustomStringConvertible {
+    public var description: String {
+        return scopedValue
+    }
+}
+

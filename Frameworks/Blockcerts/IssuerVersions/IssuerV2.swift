@@ -247,7 +247,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         let serializedIssuerKeys = publicKeys.map { (keyRotation) -> [String : String] in
             return [
                 "date": keyRotation.on.toString(),
-                "key": keyRotation.key
+                "key": keyRotation.key.scopedValue
             ]
         }
         
@@ -298,16 +298,11 @@ fileprivate func keyRotationScheduleV2(from dictionary: [String : String]) throw
         throw IssuerError.missing(property: "created")
     }
     
-    guard let key : String = dictionary["id"] else {
+    guard let keyValue : String = dictionary["id"] else {
         throw IssuerError.missing(property: "id")
     }
-    
-    var publicKey = key
-    if publicKey.hasPrefix("ecdsa-koblitz-pubkey:") {
-        let index = key.index(after: key.index(of: ":")!)
-        publicKey = String(key[index...])
-    }
-    
+    let publicKey = Key(string: keyValue)
+
     guard let date = dateString.toDate() else {
         throw IssuerError.invalid(property: "created")
     }

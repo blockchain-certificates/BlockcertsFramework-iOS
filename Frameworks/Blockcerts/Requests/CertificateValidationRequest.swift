@@ -544,10 +544,11 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Certificate is missing.")
                 return
             }
-            guard let signingKey = self?.signingPublicKey else {
+            guard let signingKeyValue = self?.signingPublicKey else {
                 self?.state = .failure(reason: "Couldn't parse determine transaction signing public key.")
                 return
             }
+            let signingKey = Key(string: signingKeyValue)
             guard let txDate = self?.txDate else {
                 self?.state = .failure(reason: "Couldn't parse determine transaction date.")
                 return
