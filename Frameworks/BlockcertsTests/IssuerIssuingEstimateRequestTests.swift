@@ -15,7 +15,7 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
         let estimateURL = URL(string: "https://issuer.org/estimate/url")!
         let estimateTitle = "Title of Certificate"
         let estimateDate = Date(timeIntervalSince1970: 0)
-        let expectedKey = "THIS_IS_NOT_A_REAL_KEY"
+        let expectedKey = BlockchainAddress(string: "THIS_IS_NOT_A_REAL_KEY")
 
         // Standard Expectations
         let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
@@ -47,7 +47,7 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
             XCTAssertEqual(components?.queryItems?.count, 1)
             let firstQuery = components?.queryItems?.first
             XCTAssertEqual(firstQuery?.name, "key")
-            XCTAssertEqual(firstQuery?.value, expectedKey)
+            XCTAssertEqual(firstQuery?.value, expectedKey.scopedValue)
             
             let response = """
                 [
@@ -93,7 +93,7 @@ class IssuerIssuingEstimateRequestTests: XCTestCase {
 
         // Variable values to test
         let estimateURL = URL(string: "https://issuer.org/estimate/url")!
-        let expectedKey = "THIS_IS_NOT_A_REAL_KEY"
+        let expectedKey = BlockchainAddress(string: "THIS_IS_NOT_A_REAL_KEY")
         
         // Standard Expectations
         let itShouldCallTheCallback = expectation(description: "The request's callback handler will be called.")
