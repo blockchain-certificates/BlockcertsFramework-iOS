@@ -298,8 +298,10 @@ public struct KeyRotation : Comparable, Codable {
         } else {
             throw IssuerError.invalid(property: "publicKey..id")
         }
-        revoked = try container.decodeIfPresent(Date.self, forKey: .revoked)
-        expires = try container.decodeIfPresent(Date.self, forKey: .expires)
+        let revokedString = try container.decodeIfPresent(String.self, forKey: .revoked)
+        revoked = revokedString?.toDate()
+        let expiresString = try container.decodeIfPresent(String.self, forKey: .expires)
+        expires = expiresString?.toDate()
     }
 
     public func encode(to encoder: Encoder) throws {
@@ -307,8 +309,8 @@ public struct KeyRotation : Comparable, Codable {
         
         try container.encode(key, forKey: .key)
         try container.encode(on.toString(), forKey: .on)
-        try container.encodeIfPresent(revoked, forKey: .revoked)
-        try container.encodeIfPresent(expires, forKey: .expires)
+        try container.encodeIfPresent(revoked?.toString(), forKey: .revoked)
+        try container.encodeIfPresent(expires?.toString(), forKey: .expires)
     }
     
     public init(on: Date, key: Key, revoked: Date? = nil, expires: Date? = nil) {
