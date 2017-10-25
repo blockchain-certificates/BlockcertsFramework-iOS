@@ -51,15 +51,15 @@ public struct CertificateIssuingEstimate : Codable {
 }
 
 public class IssuerIssuingEstimateRequest : CommonRequest {
-    public let recipientKey : String
+    public let recipientAddress : BlockchainAddress
     public let callback : ((IssuerIssuingEstimateResult) -> Void)
     public let issuer: IssuingEstimateSupport
     
     private let session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
     
-    public init(from issuer: IssuingEstimateSupport, with key: String, session: URLSessionProtocol = URLSession.shared, callback: @escaping (IssuerIssuingEstimateResult) -> Void) {
-        recipientKey = key
+    public init(from issuer: IssuingEstimateSupport, with address: BlockchainAddress, session: URLSessionProtocol = URLSession.shared, callback: @escaping (IssuerIssuingEstimateResult) -> Void) {
+        recipientAddress = address
         self.callback = callback
         self.session = session
         self.issuer = issuer
@@ -118,7 +118,8 @@ public class IssuerIssuingEstimateRequest : CommonRequest {
         guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
             return nil
         }
-        components.queryItems = [ URLQueryItem(name: "key", value: recipientKey) ]
+        components.queryItems = [ URLQueryItem(name: "key", value: recipientAddress.scopedValue) ]
         return components.url
     }
 }
+
