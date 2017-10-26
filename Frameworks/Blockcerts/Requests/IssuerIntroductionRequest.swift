@@ -13,9 +13,11 @@ public enum IssuerIntroductionRequestError : Error {
     case aborted
     case issuerMissingIntroductionURL
     case cannotSerializePostData
-    case genericErrorFromServer(error: Error?)
-    case errorResponseFromServer(response: HTTPURLResponse)
+    case genericErrorFromServer(error: Error?, data: Data?)
+    case errorResponseFromServer(response: HTTPURLResponse, data: Data?)
+    case invalidNonce
     case introductionMethodNotSupported
+    case authenticationFailed
     case webAuthenticationFailed
     case webAuthenticationMisconfigured
 }
@@ -24,6 +26,10 @@ public protocol IssuerIntroductionRequestDelegate : class {
     func introductionData(for issuer: Issuer, from recipient: Recipient) -> [String: Any]
     func presentWebView(at url:URL, with navigationDelegate:WKNavigationDelegate) throws
     func dismissWebView()
+}
+
+private struct ErrorMessage : Codable {
+    let message : String
 }
 
 public extension IssuerIntroductionRequestDelegate {
@@ -91,11 +97,21 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
         
         currentTask = session.dataTask(with: request) { [weak self] (data, response, error) in
             guard let response = response as? HTTPURLResponse else {
-                self?.reportFailure(.genericErrorFromServer(error: error))
+                self?.reportFailure(.genericErrorFromServer(error: error, data: data))
                 return
             }
             guard response.statusCode == 200 else {
-                self?.reportFailure(.errorResponseFromServer(response: response))
+                var message = ""
+                if let errorData = data,
+                    let errorMessage = try? JSONDecoder().decode(ErrorMessage.self, from: errorData) {
+                    message = errorMessage.message
+                }
+
+                if message == "Invalid nonce" {
+                    self?.reportFailure(.authenticationFailed)
+                } else {
+                    self?.reportFailure(.errorResponseFromServer(response: response, data: data))
+                }
                 return
             }
             
