@@ -13,9 +13,9 @@ extension String {
     ///
     /// - returns: Data representing that hexidecimal sequence if the string is valid. Nil otherwise.
     public func asHexData() -> Data? {
-        let adjustedString = self.characters.count % 2 == 1 ? "0" + self : self
+        let adjustedString = self.count % 2 == 1 ? "0" + self : self
         
-        let (pairs, _) = adjustedString.characters.reduce((Array<String>(), nil)) { (partialResult, char) -> (Array<String>, Character?) in
+        let (pairs, _) = adjustedString.reduce((Array<String>(), nil)) { (partialResult, char) -> (Array<String>, Character?) in
             var (pairs, lastCharacter) = partialResult
             
             if let previousCharacter = lastCharacter {

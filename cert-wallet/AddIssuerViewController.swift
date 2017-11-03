@@ -97,7 +97,7 @@ class AddIssuerViewController: UIViewController {
         guard let nameString = firstNamefield.text else {
             return false
         }
-        guard nameString.characters.count > 0 else {
+        guard nameString.count > 0 else {
             return false
         }
         return true
@@ -108,7 +108,7 @@ class AddIssuerViewController: UIViewController {
             return false
         }
         nameString = nameString.trimmingCharacters(in: .whitespaces)
-        guard nameString.characters.count > 0 else {
+        guard nameString.count > 0 else {
             return false
         }
         return true
@@ -119,14 +119,14 @@ class AddIssuerViewController: UIViewController {
             return false
         }
         emailString = emailString.trimmingCharacters(in: .whitespaces)
-        guard emailString.characters.count > 0 else {
+        guard emailString.count > 0 else {
             return false
         }
         
         // Check that this is a valid email.
         let emailRegex = "\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b"
         let regex = try! NSRegularExpression(pattern: emailRegex, options: [.caseInsensitive])
-        let range = NSRange(location: 0, length: emailString.characters.count)
+        let range = NSRange(location: 0, length: emailString.count)
         
         return nil != regex.firstMatch(in: emailString, options: [], range: range)
     }

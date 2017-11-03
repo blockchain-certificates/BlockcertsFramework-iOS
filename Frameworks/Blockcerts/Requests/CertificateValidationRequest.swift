@@ -302,7 +302,7 @@ public class CertificateValidationRequest : CommonRequest {
             let opReturnPrefix = "6a20"
             if let remoteHash = possibleRemoteHash,
                 remoteHash.hasPrefix(opReturnPrefix) {
-                let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: opReturnPrefix.characters.count)
+                let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: opReturnPrefix.count)
                 possibleRemoteHash = String(remoteHash[startIndex...])
             }
             

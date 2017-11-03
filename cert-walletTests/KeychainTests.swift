@@ -7,7 +7,7 @@
 //
 
 import XCTest
-@testable import cert_wallet
+//@testable import cert_wallet
 
 class KeychainTests: XCTestCase {
     func testKeychainSeedPhraseGeneration() {
@@ -15,7 +15,7 @@ class KeychainTests: XCTestCase {
         let expectedMnemonic = "abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon art"
         let mnemonic = Keychain.generateSeedPhrase(withRandomData: seedData)
         
-        XCTAssertTrue(mnemonic.characters.count > 0, "Mnemonic phrase should not be empty")
+        XCTAssertTrue(mnemonic.count > 0, "Mnemonic phrase should not be empty")
         XCTAssertEqual(mnemonic, expectedMnemonic, "0-seed should generate simple mnemonic phrase")
     }
     
