@@ -326,7 +326,7 @@ class CertificateValidationRequestTests: XCTestCase {
         // Make the validation request.
         let request = CertificateValidationRequest(for: certificate!, bitcoinManager: CoreBitcoinManager(), chain: BitcoinChain.testnet, jsonld: MockJSONLD(normalizedString: normalizedString), session: mockedSession) { (success, errorMessage) in
             XCTAssertFalse(success)
-            XCTAssertEqual(errorMessage, "Transaction was issued after Issuer revoked the key.")
+            XCTAssertEqual(errorMessage, "Issuer key was not valid on the transaction date.")
             testExpectation.fulfill()
         }
         XCTAssertNotNil(request)
