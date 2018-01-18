@@ -423,4 +423,59 @@ class IssuerTests: XCTestCase {
         XCTAssertEqual(resultV2Alpha as? IssuerV2Alpha, expectedResultV2Alpha)
     }
     
+    // MARK: - KeyRotation
+    func testKeyRotationDateValidity() {
+        let oneDayInMilliseconds = 1000 * 60 * 24.0;
+        let genericKey = BlockchainAddress(value: "DEADBEEF", scope: "ecdsa-koblitz-pubkey")
+        let creationDate = Date(timeIntervalSince1970: 10 * oneDayInMilliseconds)
+        
+        let infinityKey = KeyRotation(on: creationDate, key: genericKey)
+        
+        let oneDayLater = creationDate.addingTimeInterval(oneDayInMilliseconds)
+        let oneDayBefore = creationDate.addingTimeInterval(-oneDayInMilliseconds)
+
+        XCTAssertFalse(infinityKey.isValid(on: oneDayBefore))
+        XCTAssertTrue(infinityKey.isValid(on: creationDate))
+        XCTAssertTrue(infinityKey.isValid(on: oneDayLater))
+    }
+    
+    func testExpiredKeyRotationDateValidity() {
+        let oneDayInMilliseconds = 1000 * 60 * 24.0;
+        let genericKey = BlockchainAddress(value: "DEADBEEF", scope: "ecdsa-koblitz-pubkey")
+        
+        let creationDate = Date(timeIntervalSince1970: 10 * oneDayInMilliseconds)
+        let oneDayBefore = creationDate.addingTimeInterval(-oneDayInMilliseconds)
+        let oneDayLater = creationDate.addingTimeInterval(oneDayInMilliseconds)
+        let fiveDaysLater = creationDate.addingTimeInterval(5 * oneDayInMilliseconds)
+        let tenDaysLater = creationDate.addingTimeInterval(10 * oneDayInMilliseconds)
+        
+        let expiryDate = fiveDaysLater
+        let expiringKey = KeyRotation(on: creationDate, key: genericKey, revoked: nil, expires: expiryDate)
+        
+        XCTAssertFalse(expiringKey.isValid(on: oneDayBefore))
+        XCTAssertTrue(expiringKey.isValid(on: creationDate))
+        XCTAssertTrue(expiringKey.isValid(on: oneDayLater))
+        XCTAssertFalse(expiringKey.isValid(on: expiryDate))
+        XCTAssertFalse(expiringKey.isValid(on: tenDaysLater))
+    }
+    
+    func testRevokedKeyRotationDateValidity() {
+        let oneDayInMilliseconds = 1000 * 60 * 24.0;
+        let genericKey = BlockchainAddress(value: "DEADBEEF", scope: "ecdsa-koblitz-pubkey")
+        
+        let creationDate = Date(timeIntervalSince1970: 10 * oneDayInMilliseconds)
+        let oneDayBefore = creationDate.addingTimeInterval(-oneDayInMilliseconds)
+        let oneDayLater = creationDate.addingTimeInterval(oneDayInMilliseconds)
+        let fiveDaysLater = creationDate.addingTimeInterval(5 * oneDayInMilliseconds)
+        let tenDaysLater = creationDate.addingTimeInterval(10 * oneDayInMilliseconds)
+        
+        let revocationDate = fiveDaysLater
+        let revokedKey = KeyRotation(on: creationDate, key: genericKey, revoked: revocationDate, expires: nil)
+        
+        XCTAssertFalse(revokedKey.isValid(on: oneDayBefore))
+        XCTAssertTrue(revokedKey.isValid(on: creationDate))
+        XCTAssertTrue(revokedKey.isValid(on: oneDayLater))
+        XCTAssertFalse(revokedKey.isValid(on: revocationDate))
+        XCTAssertFalse(revokedKey.isValid(on: tenDaysLater))
+    }
 }

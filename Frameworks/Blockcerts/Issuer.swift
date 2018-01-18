@@ -327,6 +327,14 @@ public struct KeyRotation : Comparable, Codable {
     public static func <(lhs: KeyRotation, rhs: KeyRotation) -> Bool {
         return lhs.on < rhs.on
     }
+    
+    public func isValid(on date: Date) -> Bool {
+        let isAfterCreationDate = (on <= date);
+        let isBeforeRevokeDate = (revoked == nil) || (date < revoked!);
+        let isBeforeExpireDate = (expires == nil) || (date < expires!);
+        
+        return isAfterCreationDate && isBeforeRevokeDate && isBeforeExpireDate;
+    }
 }
 
 
