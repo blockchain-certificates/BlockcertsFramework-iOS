@@ -354,6 +354,7 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Got a valid response, but no data from \(url)")
                 return
             }
+
             guard let json = try? JSONSerialization.jsonObject(with: data) as! [String: AnyObject] else {
                 self?.state = .failure(reason: "Certificate didn't return valid JSON data from \(url)")
                 return
@@ -555,21 +556,9 @@ public class CertificateValidationRequest : CommonRequest {
                 return
             }
             
-            if txDate < keyInfo.on {
-                self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key.")
+            guard keyInfo.isValid(on: txDate) else {
+                self?.state = .failure(reason: "Issuer key was not valid on the transaction date.")
                 return
-            }
-            if keyInfo.revoked != nil {
-                if txDate > keyInfo.revoked! {
-                    self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key.")
-                    return
-                }
-            }
-            if keyInfo.expires != nil {
-                if txDate > keyInfo.expires! {
-                    self?.state = .failure(reason: "Transaction was issued after the Issuer key expired.")
-                    return
-                }
             }
             
             self?.state = .checkingRevokedStatus

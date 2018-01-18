@@ -210,7 +210,7 @@ class CertificateValidationRequestTests: XCTestCase {
     }
     
     /// A revoked assertion should fail
-    func testRevokedV2Certificate() {
+    func testRevokedV2AlphaCertificate() {
         let certFilename = "sample_cert-revoked-2.0a"
         let txFilename = "tx_valid-2.0"
         let sampleIssuerFilename = "sample_issuer"
@@ -273,7 +273,7 @@ class CertificateValidationRequestTests: XCTestCase {
     }
     
     /// If the transaction was issued after the issuer revoked the key, verification should fail
-    func testV2CertificateAuthenticityFailure() {
+    func testV2AlphaCertificateAuthenticityFailure() {
         let certFilename = "sample_cert-authenticity-2.0a"
         let txFilename = "tx_invalid-authenticity-2.0"
         let sampleIssuerFilename = "sample_issuer"
@@ -336,7 +336,7 @@ class CertificateValidationRequestTests: XCTestCase {
     }
     
     /// A tampered V2 certificate (field changed) should fail
-    func testV2TamperedCertificateFailure() {
+    func testV2AlphaTamperedCertificateFailure() {
         let certFilename = "sample_cert-tampered-2.0a"
         let txFilename = "tx_invalid-authenticity-2.0"
         let sampleIssuerFilename = "sample_issuer"
@@ -399,7 +399,7 @@ class CertificateValidationRequestTests: XCTestCase {
     }
     
     /// A valid v2 certificate with a legacy-formatted issuer identification should pass
-    func testValidV2CertificateWithV1Issuer() {
+    func testValidV2AlphaCertificateWithV1Issuer() {
         let v2ValidFilename = "sample_cert-v1-issuer-2.0a"
         let v2txFilename = "tx_valid-v1-issuer-2.0"
         let sampleIssuerFilename = "sample_v1_issuer"
