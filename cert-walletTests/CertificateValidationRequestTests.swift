@@ -12,6 +12,7 @@ import Blockcerts
 
 class CertificateValidationRequestTests: XCTestCase {
     
+    // MARK: - V1.1 Certificates
     func testTamperedV1_1Certificate() {
         let v1_1transactionId = "d5df311055bf0fe656b9d6fa19aad15c915b47303e06677b812773c37050e35d"
         let v1_1filename = "sample_signed_cert-1.1.0"
@@ -147,12 +148,13 @@ class CertificateValidationRequestTests: XCTestCase {
         waitForExpectations(timeout: 20.0, handler: nil)
     }
     
+    // MARK: - V2 Alpha Tests
     func testValidV2AlphaCertificate() {
         let certFilename = "sample_cert-valid-2.0a"
-        let txFilename = "tx_valid-2.0"
+        let txFilename = "tx_valid-2.0a"
         let sampleIssuerFilename = "sample_issuer"
-        let normalizedFilename = "normalized-2.0"
-        let revocationList = "revocation_list-2.0"
+        let normalizedFilename = "normalized-2.0a"
+        let revocationList = "revocation_list-2.0a"
         let revocationUrlString = "https://www.blockcerts.org/samples/2.0-alpha/revocationList.json"
         let issuerUrlString = "https://www.blockcerts.org/samples/2.0-alpha/issuerTestnet.json"
 
@@ -212,10 +214,10 @@ class CertificateValidationRequestTests: XCTestCase {
     /// A revoked assertion should fail
     func testRevokedV2AlphaCertificate() {
         let certFilename = "sample_cert-revoked-2.0a"
-        let txFilename = "tx_valid-2.0"
+        let txFilename = "tx_valid-2.0a"
         let sampleIssuerFilename = "sample_issuer"
-        let normalizedFilename = "normalized_revoked-2.0"
-        let revocationList = "revocation_list-2.0"
+        let normalizedFilename = "normalized_revoked-2.0a"
+        let revocationList = "revocation_list-2.0a"
         let revocationUrlString = "https://www.blockcerts.org/samples/2.0-alpha/revocationList.json"
         let issuerUrlString = "https://www.blockcerts.org/samples/2.0-alpha/issuerTestnet.json"
         
@@ -275,10 +277,10 @@ class CertificateValidationRequestTests: XCTestCase {
     /// If the transaction was issued after the issuer revoked the key, verification should fail
     func testV2AlphaCertificateAuthenticityFailure() {
         let certFilename = "sample_cert-authenticity-2.0a"
-        let txFilename = "tx_invalid-authenticity-2.0"
+        let txFilename = "tx_invalid-authenticity-2.0a"
         let sampleIssuerFilename = "sample_issuer"
-        let normalizedFilename = "normalized_authenticity-2.0"
-        let revocationList = "revocation_list-2.0"
+        let normalizedFilename = "normalized_authenticity-2.0a"
+        let revocationList = "revocation_list-2.0a"
         let revocationUrlString = "https://www.blockcerts.org/samples/2.0-alpha/revocationList.json"
         let issuerUrlString = "https://www.blockcerts.org/samples/2.0-alpha/issuerTestnet.json"
         
@@ -338,10 +340,10 @@ class CertificateValidationRequestTests: XCTestCase {
     /// A tampered V2 certificate (field changed) should fail
     func testV2AlphaTamperedCertificateFailure() {
         let certFilename = "sample_cert-tampered-2.0a"
-        let txFilename = "tx_invalid-authenticity-2.0"
+        let txFilename = "tx_invalid-authenticity-2.0a"
         let sampleIssuerFilename = "sample_issuer"
-        let normalizedFilename = "normalized_tampered-2.0"
-        let revocationList = "revocation_list-2.0"
+        let normalizedFilename = "normalized_tampered-2.0a"
+        let revocationList = "revocation_list-2.0a"
         let revocationUrlString = "https://www.blockcerts.org/samples/2.0-alpha/revocationList.json"
         let issuerUrlString = "https://www.blockcerts.org/samples/2.0-alpha/issuerTestnet.json"
         
@@ -404,7 +406,7 @@ class CertificateValidationRequestTests: XCTestCase {
         let v2txFilename = "tx_valid-v1-issuer-2.0"
         let sampleIssuerFilename = "sample_v1_issuer"
         let v2normalized = "normalized_v1-issuer-2.0"
-        let v2revocationList = "revocation_list-2.0"
+        let v2revocationList = "revocation_list-2.0a"
         let revocationUrlString = "https://www.blockcerts.org/samples/2.0-alpha/revocationList.json"
         let issuerUrlString = "https://w3id.org/blockcerts/mockissuer/issuer/issuerTestnet_v1.json"
         
@@ -461,6 +463,8 @@ class CertificateValidationRequestTests: XCTestCase {
         waitForExpectations(timeout: 2000.0, handler: nil)
     }
     
+    // MARK: - V2.0 Certificate Tests
+
     class MockJSONLD : JSONLDProcessor {
         
         let normalizedString:String
