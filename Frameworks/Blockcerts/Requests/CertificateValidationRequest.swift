@@ -559,15 +559,19 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.state = .failure(reason: "Transaction was issued before Issuer's created date for this key.")
                 return
             }
-            if keyInfo.revoked != nil {
-                if txDate > keyInfo.revoked! {
+            if let revoked = keyInfo.revoked {
+                if txDate > revoked {
                     self?.state = .failure(reason: "Transaction was issued after Issuer revoked the key.")
                     return
                 }
             }
-            if keyInfo.expires != nil {
-                if txDate > keyInfo.expires! {
+            if let expires = keyInfo.expires {
+                if txDate > expires {
                     self?.state = .failure(reason: "Transaction was issued after the Issuer key expired.")
+                    return
+                }
+                if Date() > expires {
+                    self?.state = .failure(reason: "The Issuer key has expired.")
                     return
                 }
             }
