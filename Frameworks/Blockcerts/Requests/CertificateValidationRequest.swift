@@ -21,7 +21,7 @@ import CommonCrypto
 public indirect enum ValidationState {
     case notStarted
     case assertingChain
-    case computingLocalHash, fetchingRemoteHash, comparingHashes, checkingIssuerSignature, checkingRevokedStatus
+    case computingLocalHash, fetchingRemoteHash, comparingHashes, checkingIssuerSignature, checkingRevokedStatus, checkingExpiration
     case success
     case failure(reason : String, state: ValidationState)
     // these are v1.2
@@ -81,6 +81,8 @@ public class CertificateValidationRequest : CommonRequest {
                 checkReceipt()
             case .checkingAuthenticity:
                 checkAuthenticity()
+            case .checkingExpiration:
+                checkExpiration()
             }
         }
     }
@@ -93,6 +95,7 @@ public class CertificateValidationRequest : CommonRequest {
     var normalizedCertificate : String?
     var txDate : Date?
     var signingPublicKey : BlockchainAddress?
+    var expiresDate : Date?
     
     public init(for certificate: Certificate,
          with transactionId: String,
@@ -416,7 +419,7 @@ public class CertificateValidationRequest : CommonRequest {
                 let url = concreteIssuer.revocationURL else {
                 // Issuer does not revoke certificates
                 // Success
-                self.state = .success
+                self.state = .checkingExpiration
                 return
             }
             let request = session.dataTask(with: url) { [weak self] (data, response, error) in
@@ -454,7 +457,7 @@ public class CertificateValidationRequest : CommonRequest {
                 }
             
                 // Success
-                self?.state = .success
+                self?.state = .checkingExpiration
             }
             request.resume()
         } else {
@@ -569,20 +572,33 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
             }
-            if let expires = keyInfo.expires {
-                if txDate > expires {
-                    self?.fail(reason: "Transaction was issued after the Issuer key expired.")
-                    return
-                }
-                if Date() > expires {
-                    self?.fail(reason: "The Issuer key has expired.")
-                    return
-                }
-            }
+            
+            // expiration will be checked later if date exists
+            self?.expiresDate = keyInfo.expires
             
             self?.state = .checkingRevokedStatus
         }
         request.resume()
+    }
+    
+    internal func checkExpiration() {
+        guard let expiresDate = expiresDate else {
+            state = .success
+            return
+        }
+        guard let txDate = txDate else {
+            fail(reason: "Couldn't parse determine transaction date.")
+            return
+        }
+        if txDate > expiresDate {
+            fail(reason: "Transaction was issued after the Issuer key expired.")
+            return
+        }
+        if Date() > expiresDate {
+            fail(reason: "The Issuer key has expired.")
+            return
+        }
+        state = .success
     }
 }
 
