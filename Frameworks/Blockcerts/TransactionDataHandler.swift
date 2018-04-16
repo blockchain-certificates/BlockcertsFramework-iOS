@@ -32,11 +32,11 @@ public class TransactionDataHandler {
     
     public static func create(chain: BitcoinChain, transactionId: String) -> TransactionDataHandler {
         if chain == .testnet {
-            let transactionUrlAsString = "http://api.blockcypher.com/v1/btc/test3/txs/\(transactionId)";
-            return BlockcypherHandler(transactionUrlAsString: transactionUrlAsString);
+            let transactionUrlAsString = "http://api.blockcypher.com/v1/btc/test3/txs/\(transactionId)"
+            return BlockcypherHandler(transactionUrlAsString: transactionUrlAsString)
         } else {
-            let transactionUrlAsString = "https://api.blockcypher.com/v1/btc/main/txs/\(transactionId)";
-            return BlockcypherHandler(transactionUrlAsString: transactionUrlAsString);
+            let transactionUrlAsString = "https://api.blockcypher.com/v1/btc/main/txs/\(transactionId)"
+            return BlockcypherHandler(transactionUrlAsString: transactionUrlAsString)
         }
         
         // We can use this for fallback in the future if we want...

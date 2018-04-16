@@ -229,7 +229,7 @@ extension CertificateDetailViewController {
         }
         
         
-        let completionHandler : (Bool, String?) -> Void = { [weak self] (success, errorMessage) in
+        let completionHandler : (Bool, String?, ValidationState?) -> Void = { [weak self] (success, errorMessage, state) in
             if success {
                 completeAlert.title = "Success"
                 completeAlert.message = "This is a valid certificate!"

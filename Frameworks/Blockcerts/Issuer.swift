@@ -279,7 +279,7 @@ public struct KeyRotation : Comparable, Codable {
     /// When this certificate was revoked
     public let revoked : Date?
     
-    /// WHen this certificate expires on its own, unless it is revoked before
+    /// When this certificate expires on its own, unless it is revoked before
     public let expires : Date?
     
     private enum CodingKeys : String, CodingKey {
