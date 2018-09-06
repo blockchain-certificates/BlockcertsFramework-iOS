@@ -221,7 +221,7 @@ extension CertificatesViewController {
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
         
-        certificates = filenames.flatMap { (filename) in
+        certificates = filenames.compactMap { (filename) in
             guard let data = try? Data(contentsOf: URL(fileURLWithPath: filename, relativeTo: directoryUrl)),
                 let certificate = try? CertificateParser.parse(data: data) else {
                     // Certificate is invalid. Don't load it.
