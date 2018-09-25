@@ -127,7 +127,6 @@
 		838DE6C71F3A5C6200185A49 /* embedded-issuer-partial.json in Resources */ = {isa = PBXBuildFile; fileRef = 838DE6C61F3A5C6200185A49 /* embedded-issuer-partial.json */; };
 		839174661DA56B6300CB6E54 /* CommonCrypto.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; };
 		839174671DA56B6300CB6E54 /* CommonCrypto.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		839174741DA56EFB00CB6E54 /* CommonCrypto.h in Headers */ = {isa = PBXBuildFile; fileRef = 8391746B1DA56B9500CB6E54 /* CommonCrypto.h */; };
 		83917FCB1F9939A400C5D6EF /* IssuerIssuingEstimateRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83917FCA1F9939A400C5D6EF /* IssuerIssuingEstimateRequest.swift */; };
 		83A28FE11F9F9B2900675558 /* BlockchainAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A28FE01F9F9B2900675558 /* BlockchainAddress.swift */; };
 		83A28FE31F9F9F0700675558 /* BlockchainAddressTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A28FE21F9F9F0700675558 /* BlockchainAddressTests.swift */; };
@@ -402,12 +401,6 @@
 		838DE6C41F3A57AD00185A49 /* embedded-optional-issuer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "embedded-optional-issuer.json"; sourceTree = "<group>"; };
 		838DE6C61F3A5C6200185A49 /* embedded-issuer-partial.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "embedded-issuer-partial.json"; sourceTree = "<group>"; };
 		8391745F1DA56B6300CB6E54 /* CommonCrypto.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CommonCrypto.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8391746B1DA56B9500CB6E54 /* CommonCrypto.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CommonCrypto.h; path = Frameworks/CommonCrypto/CommonCrypto.h; sourceTree = SOURCE_ROOT; };
-		8391746C1DA56B9500CB6E54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = Frameworks/CommonCrypto/Info.plist; sourceTree = SOURCE_ROOT; };
-		8391746E1DA56C2100CB6E54 /* CommonCrypto.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = CommonCrypto.xcconfig; path = Frameworks/CommonCrypto/CommonCrypto.xcconfig; sourceTree = SOURCE_ROOT; };
-		8391746F1DA56DDC00CB6E54 /* iphoneos.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = iphoneos.modulemap; path = Frameworks/CommonCrypto/iphoneos.modulemap; sourceTree = SOURCE_ROOT; };
-		839174701DA56DDC00CB6E54 /* iphonesimulator.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = iphonesimulator.modulemap; path = Frameworks/CommonCrypto/iphonesimulator.modulemap; sourceTree = SOURCE_ROOT; };
-		839174711DA56DDC00CB6E54 /* macosx.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; name = macosx.modulemap; path = Frameworks/CommonCrypto/macosx.modulemap; sourceTree = SOURCE_ROOT; };
 		83917FCA1F9939A400C5D6EF /* IssuerIssuingEstimateRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssuerIssuingEstimateRequest.swift; sourceTree = "<group>"; };
 		83A28FE01F9F9B2900675558 /* BlockchainAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainAddress.swift; sourceTree = "<group>"; };
 		83A28FE21F9F9F0700675558 /* BlockchainAddressTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockchainAddressTests.swift; sourceTree = "<group>"; };
@@ -830,19 +823,6 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		839174601DA56B6300CB6E54 /* CommonCrypto */ = {
-			isa = PBXGroup;
-			children = (
-				8391746B1DA56B9500CB6E54 /* CommonCrypto.h */,
-				8391746E1DA56C2100CB6E54 /* CommonCrypto.xcconfig */,
-				8391746C1DA56B9500CB6E54 /* Info.plist */,
-				8391746F1DA56DDC00CB6E54 /* iphoneos.modulemap */,
-				839174701DA56DDC00CB6E54 /* iphonesimulator.modulemap */,
-				839174711DA56DDC00CB6E54 /* macosx.modulemap */,
-			);
-			path = CommonCrypto;
-			sourceTree = "<group>";
-		};
 		83DF11B01D88617B002E8921 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -878,7 +858,6 @@
 			children = (
 				837ED9461EC37A9E0095F100 /* Blockcerts */,
 				837ED9751EC37AAA0095F100 /* BlockcertsTests */,
-				839174601DA56B6300CB6E54 /* CommonCrypto */,
 				8354F3111D9F13840008DB09 /* JSONLD */,
 				D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */,
 				2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */,
@@ -923,7 +902,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				839174741DA56EFB00CB6E54 /* CommonCrypto.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2005,7 +1983,6 @@
 		};
 		839174681DA56B6300CB6E54 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8391746E1DA56C2100CB6E54 /* CommonCrypto.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2031,7 +2008,6 @@
 		};
 		839174691DA56B6300CB6E54 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8391746E1DA56C2100CB6E54 /* CommonCrypto.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_IDENTITY = "";
