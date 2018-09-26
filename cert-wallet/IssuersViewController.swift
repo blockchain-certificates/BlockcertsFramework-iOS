@@ -32,7 +32,7 @@ class IssuersViewController: UITableViewController {
     
     @objc internal func loadIssuers() {
         let codedIssuers = NSKeyedUnarchiver.unarchiveObject(withFile: archiveURL.path) as? [[String: Any]] ?? []
-        issuers = codedIssuers.flatMap({ IssuerParser.parse(dictionary: $0) })
+        issuers = codedIssuers.compactMap({ IssuerParser.parse(dictionary: $0) })
         tableView.reloadData()
     }
 }

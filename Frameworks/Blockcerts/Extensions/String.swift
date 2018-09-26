@@ -38,7 +38,7 @@ extension String {
         }
         
         var data = Data()
-        for number in numberSequence.flatMap({ $0 }) {
+        for number in numberSequence.compactMap({ $0 }) {
             data.append(number)
         }
         
