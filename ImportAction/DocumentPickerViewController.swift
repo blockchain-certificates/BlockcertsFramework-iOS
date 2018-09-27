@@ -71,7 +71,7 @@ class DocumentPickerViewController: UIDocumentPickerExtensionViewController {
         let directoryUrl = URL(fileURLWithPath: documentsDirectory)
         let filenames = (try? FileManager.default.contentsOfDirectory(atPath: documentsDirectory)) ?? []
         
-        certificates = filenames.flatMap { (filename) in
+        certificates = filenames.compactMap { (filename) in
             let fileURL = URL(fileURLWithPath: filename, relativeTo: directoryUrl)
             guard let data = try? Data(contentsOf: fileURL),
                 let certificate = try? CertificateParser.parse(data: data) else {

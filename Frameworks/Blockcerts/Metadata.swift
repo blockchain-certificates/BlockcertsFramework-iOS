@@ -65,7 +65,7 @@ public struct Metadata {
     }
     
     public var visibleMetadata : [Metadatum] {
-        return visiblePaths.flatMap(metadatumFor)
+        return visiblePaths.compactMap(metadatumFor)
     }
 }
 

@@ -170,7 +170,7 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
 
 extension IssuerIntroductionRequest : WKNavigationDelegate {
     public func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        guard case IssuerIntroductionMethod.webAuthentication(_, let successURL, let errorURL) = issuer.introductionMethod else {
+        guard case IssuerIntroductionMethod.webAuthentication(_, _, let errorURL) = issuer.introductionMethod else {
             return
         }
         guard let webURL = webView.url else {
@@ -182,10 +182,7 @@ extension IssuerIntroductionRequest : WKNavigationDelegate {
             webComponents.queryItems = nil
             let compareToUrl = webComponents.url
             
-            if compareToUrl == successURL {
-                webView.stopLoading()
-                reportSuccess()
-            } else if compareToUrl == errorURL {
+            if compareToUrl == errorURL {
                 webView.stopLoading()
                 reportFailure(.webAuthenticationFailed)
             }
@@ -193,6 +190,19 @@ extension IssuerIntroductionRequest : WKNavigationDelegate {
             webView.stopLoading()
             reportFailure(.webAuthenticationFailed)
         }
+    }
+    
+    public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard case IssuerIntroductionMethod.webAuthentication(_, let successURL, _) = issuer.introductionMethod else {
+            return
+        }
+        
+        if navigationAction.request.url == successURL {
+            webView.stopLoading()
+            reportSuccess()
+        }
+        
+        decisionHandler(.allow)
     }
 }
 
