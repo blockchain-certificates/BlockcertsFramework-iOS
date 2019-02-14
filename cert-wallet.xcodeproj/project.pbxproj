@@ -10,8 +10,9 @@
 		321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */; };
 		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
 		3B684B0D1EBA8D2A007185AE /* sample_v1_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B0C1EBA8D2A007185AE /* sample_v1_issuer.json */; };
-		3B8E1E531E9BF71000DC636D /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
+		4ED0B9AC01B7FE34E09590E1 /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */; };
+		4ED0BB47185B7D0FF0E60F21 /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */; };
 		830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		83166BBB1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 83166B9F1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json */; };
@@ -145,6 +146,7 @@
 		83EE9BBE1F2FD101005009D2 /* IssuerV2Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BBB1F2FD101005009D2 /* IssuerV2Alpha.swift */; };
 		83FF84701F1827650003E1A6 /* CertificateV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FF846F1F1827650003E1A6 /* CertificateV2.swift */; };
 		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
+		EA12A1C42214E41E004965DB /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -155,6 +157,7 @@
 			isEditable = 1;
 			outputFiles = (
 			);
+			script = "# Type a script or drag a script file from your workspace to insert its path.\n";
 		};
 /* End PBXBuildRule section */
 
@@ -273,6 +276,7 @@
 		3B684B0C1EBA8D2A007185AE /* sample_v1_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_v1_issuer.json; sourceTree = "<group>"; };
 		3B90A0551E999F4F00C027B7 /* got_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = got_issuer.json; sourceTree = "<group>"; };
 		4577D4DA579179516CE8C7E7 /* Pods-cert-wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.release.xcconfig"; sourceTree = "<group>"; };
+		4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerUtils.swift; sourceTree = "<group>"; };
 		63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreBitcoinManager.swift; sourceTree = "<group>"; };
 		83166B9F1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
@@ -739,6 +743,7 @@
 		837ED9461EC37A9E0095F100 /* Blockcerts */ = {
 			isa = PBXGroup;
 			children = (
+				EAB175FA2214C2190085E3F4 /* Utils */,
 				837ED9AF1EC382080095F100 /* BitcoinManager.swift */,
 				837ED9471EC37A9E0095F100 /* Assertion.swift */,
 				837ED9481EC37A9E0095F100 /* BlockchainCertificates.h */,
@@ -864,6 +869,14 @@
 				63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EAB175FA2214C2190085E3F4 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		FB7ABE3E3FD88A725A13B911 /* Pods */ = {
@@ -1413,6 +1426,7 @@
 				83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */,
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
+				4ED0BB47185B7D0FF0E60F21 /* LoggerUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1420,10 +1434,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA12A1C42214E41E004965DB /* LoggerUtils.swift in Sources */,
 				83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */,
 				83DF11C91D88617B002E8921 /* Keychain.swift in Sources */,
 				836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */,
-				3B8E1E531E9BF71000DC636D /* (null) in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
 				830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
 				83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */,
@@ -1462,6 +1476,7 @@
 				8363EB201F33C56F008F3FC1 /* PartialIssuer.swift in Sources */,
 				837ED9701EC37A9E0095F100 /* IssuerCreationRequest.swift in Sources */,
 				837ED9731EC37A9E0095F100 /* TransactionDataHandler.swift in Sources */,
+				4ED0B9AC01B7FE34E09590E1 /* LoggerUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

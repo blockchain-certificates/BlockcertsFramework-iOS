@@ -25,10 +25,12 @@ public class IssuerIdentificationRequest : CommonRequest {
     
     private var session : URLSessionProtocol
     private var currentTask : URLSessionDataTaskProtocol?
+    private var logger: LoggerProtocol
     
-    public init(id: URL, session: URLSessionProtocol = URLSession.shared, callback: ((Issuer?, IssuerIdentificationRequestError?) -> Void)?) {
+    public init(id: URL, logger: LoggerProtocol, session: URLSessionProtocol = URLSession.shared, callback: ((Issuer?, IssuerIdentificationRequestError?) -> Void)?) {
         self.callback = callback
         self.session = session
+        self.logger = logger
         url = id
     }
     

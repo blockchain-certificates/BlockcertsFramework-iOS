@@ -64,7 +64,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         }
         
         // Create the request
-        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, session: session) { (possibleError) in
+        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, loggingTo: DefaultLogger(), session: session) { (possibleError) in
             XCTAssertNil(possibleError)
             itShouldCallTheCallback.fulfill()
         }
@@ -147,7 +147,7 @@ class IssuerIntroductionRequestTests: XCTestCase {
         }
         
         // Create the request
-        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, session: session) { (error) in
+        let request = IssuerIntroductionRequest(introduce: recipient, to: issuer, loggingTo: DefaultLogger(), session: session) { (error) in
             XCTAssertNil(error)
             itShouldCallTheCallback.fulfill()
         }
