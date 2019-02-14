@@ -109,7 +109,12 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
         currentTask = session.dataTask(with: request) { [weak self] (data, response, error) in
             self?.logger.tag(self?.tag).debug("HTTP_REQUEST: response from request: \(url)")
             guard let response = response as? HTTPURLResponse else {
-                self?.logger.tag(self?.tag).error("HTTP_REQUEST: generic error from server for request: \(url)")
+                if let e = error {
+                    self?.logger.tag(self?.tag).error("HTTP_REQUEST: generic error from server for request: \(url) error: \(e)")
+                } else {
+                    self?.logger.tag(self?.tag).error("HTTP_REQUEST: generic error from server for request: \(url)")
+                }
+
                 self?.reportFailure(.genericErrorFromServer(error: error, data: data))
                 return
             }
@@ -186,7 +191,7 @@ public class IssuerIntroductionRequest : NSObject, CommonRequest {
     }
     
     func reportFailure(_ reason: IssuerIntroductionRequestError) {
-        logger.tag(tag).debug("reporting failure \(reason.localizedDescription)")
+        logger.tag(tag).debug("reporting failure \(reason)")
         callback?(reason)
         resetState()
     }

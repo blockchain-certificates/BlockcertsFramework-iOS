@@ -19,6 +19,8 @@ public enum IssuerIdentificationRequestError : Error {
 }
 
 public class IssuerIdentificationRequest : CommonRequest {
+    private let tag = String(describing: IssuerIdentificationRequest.self)
+
     public var callback : ((Issuer?, IssuerIdentificationRequestError?) -> Void)?
     public let url : URL
     
@@ -32,44 +34,62 @@ public class IssuerIdentificationRequest : CommonRequest {
         self.session = session
         self.logger = logger
         url = id
+
+        logger.tag(tag).debug("init call with id/url: \(id)")
     }
     
     public func start() {
+        logger.tag(tag).debug("HTTP_REQUEST: request to url: \(url)")
         currentTask = session.dataTask(with: url) { [weak self] (data, response, error) in
+            self?.logger.tag(self?.tag).debug("HTTP_REQUEST: response")
             guard let response = response as? HTTPURLResponse else {
+                if let e = error {
+                    self?.logger.tag(self?.tag).error("HTTP_REQUEST: failure unknownResponse it was nil error: \(e)")
+                } else {
+                    self?.logger.tag(self?.tag).error("HTTP_REQUEST: failure unknownResponse it was nil")
+                }
                 self?.report(failure: .unknownResponse)
                 return
             }
+            self?.logger.tag(self?.tag).debug("HTTP_REQUEST: status code: \(response.statusCode)")
             guard response.statusCode == 200 else {
+                self?.logger.tag(self?.tag).error("HTTP_REQUEST: status code was not 200, it was: \(response.statusCode) with response: \(response)")
                 self?.report(failure: .httpFailure(status: response.statusCode, response: response))
                 return
             }
             guard let data = data else {
+                self?.logger.tag(self?.tag).error("HTTP_REQUEST: no data in the response")
                 self?.report(failure: .missingJSONData)
                 return
             }
 
             guard let issuer = IssuerParser.decode(data: data) else {
+                self?.logger.tag(self?.tag).error("HTTP_REQUEST: failure trying to get issuer out of data: \(data)")
                 self?.report(failure: .jsonSerializationFailure(data: data))
                 return
             }
-            
+
+            self?.logger.tag(self?.tag).info("HTTP_REQUEST: SUCCESS")
             self?.reportSuccess(with: issuer)
         }
         currentTask?.resume()
+        logger.tag(tag).info("HTTP_REQUEST: request created")
     }
     
     public func abort() {
+        logger.tag(tag).info("aborting current task")
         currentTask?.cancel()
         report(failure: .aborted)
     }
     
     private func report(failure: IssuerIdentificationRequestError) {
+        logger.tag(tag).debug("reporting failure: \(failure)")
         callback?(nil, failure)
         callback = nil
     }
     
     private func reportSuccess(with issuer: Issuer) {
+        logger.tag(tag).debug("reporting success issuer: \(issuer)")
         callback?(issuer, nil)
         callback = nil
     }
