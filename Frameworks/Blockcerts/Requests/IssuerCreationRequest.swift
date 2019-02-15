@@ -64,7 +64,11 @@ public class IssuerIdentificationRequest : CommonRequest {
             }
 
             guard let issuer = IssuerParser.decode(data: data) else {
-                self?.logger.tag(self?.tag).error("HTTP_REQUEST: failure trying to get issuer out of data: \(data)")
+                if let dataString = String(data: data, encoding: String.Encoding.utf8) {
+                    self?.logger.tag(self?.tag).error("HTTP_REQUEST: failure trying to get issuer out of data: \(dataString)")
+                } else {
+                    self?.logger.tag(self?.tag).error("HTTP_REQUEST: failure trying to get issuer out of data jsonSerializationFailure. Could not decode the data with utf8!")
+                }
                 self?.report(failure: .jsonSerializationFailure(data: data))
                 return
             }
