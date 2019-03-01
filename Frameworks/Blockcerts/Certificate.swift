@@ -217,6 +217,22 @@ extension Certificate {
     var htmlDisplay : String? {
         return nil
     }
+
+    public func getDebugDescription() -> String {
+        return "version: \(version) " +
+                "title: \(title) " +
+                "subtitle: \(subtitle) " +
+                "description: \(description) " +
+                "language: \(language) " +
+                "id: \(id) " +
+                "signature: \(signature) " +
+                "issuer: \(issuer) " +
+                "recipient: \(recipient) " +
+                "verifyData: \(verifyData) " +
+                "receipt: \(receipt) " +
+                "metadata: \(metadata) " +
+                "shareUrl: \(shareUrl)"
+    }
 }
 
 // These are useful parsing functions that are version-independent.
