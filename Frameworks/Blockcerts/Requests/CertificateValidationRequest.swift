@@ -536,7 +536,7 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.fail(reason: "Got a valid response, but no data from \(url)")
                 return
             }
-            guard let issuer = IssuerParser.decode(data: data) else {
+            guard let issuer = IssuerParser.decode(data: data, logger: DefaultLogger()) else {
                 self?.fail(reason: "Issuer didn't return valid JSON data from \(url)")
                 return
             }

@@ -58,19 +58,45 @@ public typealias IssuerWithRevocation = Issuer & ServerBasedRevocationSupport
 
 
 public enum IssuerParser {
-    public static func parse(dictionary: [String: Any]) -> Issuer? {
-        var issuer : Issuer? = try? IssuerV2(dictionary: dictionary)
+    private static let tag = String(describing: IssuerParser.self)
+
+    public static func parse(dictionary: [String: Any], logger: LoggerProtocol?) -> Issuer? {
+        logger?.tag(tag).info("parsing start")
+        var issuer : Issuer? = nil
+
+        do {
+            logger?.tag(tag).info("trying IssuerV2")
+            try issuer = IssuerV2(dictionary: dictionary)
+        } catch {
+            logger?.tag(tag).error("IssuerV2 failed: \(error)")
+        }
         
         if issuer == nil {
-            issuer = try? IssuerV2Alpha(dictionary: dictionary)
+            do {
+                logger?.tag(tag).info("trying IssuerV2Alpha")
+                try issuer = IssuerV2Alpha(dictionary: dictionary)
+            } catch {
+                logger?.tag(tag).error("IssuerV2Alpha failed: \(error)")
+            }
         }
         if issuer == nil {
-            issuer = try? IssuerV1(dictionary: dictionary)
+            do {
+                logger?.tag(tag).info("trying IssuerV1")
+                try issuer = IssuerV1(dictionary: dictionary)
+            } catch {
+                logger?.tag(tag).error("IssuerV1 failed: \(error)")
+            }
         }
         if issuer == nil {
-            issuer = try? PartialIssuer(dictionary: dictionary)
+            do {
+                logger?.tag(tag).info("trying PartialIssuer")
+                try issuer = PartialIssuer(dictionary: dictionary)
+            } catch {
+                logger?.tag(tag).error("PartialIssuer failed: \(error)")
+            }
         }
 
+        logger?.tag(tag).info("parsing end")
         return issuer
     }
     
@@ -87,20 +113,47 @@ public enum IssuerParser {
         }
     }
 
-    public static func decode(data: Data) -> Issuer? {
+    public static func decode(data: Data, logger: LoggerProtocol?) -> Issuer? {
         let decoder = JSONDecoder()
-        
-        var issuer : Issuer? = try? decoder.decode(IssuerV2.self, from: data)
-        if issuer == nil {
-            issuer = try? decoder.decode(IssuerV2Alpha.self, from: data)
+
+        logger?.tag(tag).info("decoding start")
+        var issuer : Issuer? = nil
+        //ISSUER V2 DECODING
+        do {
+            logger?.tag(tag).info("trying IssuerV2")
+            try issuer = decoder.decode(IssuerV2.self, from: data)
+        } catch {
+            logger?.tag(tag).error("IssuerV2 failed: \(error)")
         }
-        if issuer == nil {
-            issuer = try? decoder.decode(IssuerV1.self, from: data)
+        //ISSUER V2 ALPHA DECODING
+        if (issuer == nil) {
+            do {
+                logger?.tag(tag).info("trying IssuerV2Alpha")
+                try issuer = decoder.decode(IssuerV2Alpha.self, from: data)
+            } catch {
+                logger?.tag(tag).error("IssuerV2Alpha failed: \(error)")
+            }
         }
-        if issuer == nil {
-            issuer = try? decoder.decode(PartialIssuer.self, from: data)
+        //ISSUER V1 DECODING
+        if (issuer == nil) {
+            do {
+                logger?.tag(tag).info("trying IssuerV1")
+                try issuer = decoder.decode(IssuerV1.self, from: data)
+            } catch {
+                logger?.tag(tag).error("IssuerV1 failed: \(error)")
+            }
         }
-        
+        //PARTIAL ISSUER DECODING
+        if (issuer == nil) {
+            do {
+                logger?.tag(tag).info("trying PartialIssuer")
+                try issuer = decoder.decode(PartialIssuer.self, from: data)
+            } catch {
+                logger?.tag(tag).error("PartialIssuer failed: \(error)")
+            }
+        }
+
+        logger?.tag(tag).info("decoding end")
         return issuer
     }
     
