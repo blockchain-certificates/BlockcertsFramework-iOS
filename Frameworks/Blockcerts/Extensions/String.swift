@@ -65,6 +65,7 @@ extension String {
         
         if date == nil {
             let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US_POSIX")
             
             for format in isoFormats {
                 formatter.dateFormat = format
