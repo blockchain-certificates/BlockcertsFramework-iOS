@@ -54,7 +54,7 @@ public class CertificateValidationRequest : CommonRequest {
         didSet {
             // Notify the delegate
             delegate?.certificateValidationStateChanged(from: oldValue, to: state)
-            
+
             // Perform the action associated with the new state
             switch state {
             case .notStarted:
@@ -86,7 +86,7 @@ public class CertificateValidationRequest : CommonRequest {
             }
         }
     }
-    
+
     // Private state built up over the validation sequence
     var localHash : String?
     var remoteHash : String?
@@ -96,7 +96,7 @@ public class CertificateValidationRequest : CommonRequest {
     var txDate : Date?
     var signingPublicKey : BlockchainAddress?
     var expiresDate : Date?
-    
+
     public init(for certificate: Certificate,
          with transactionId: String,
          bitcoinManager: BitcoinManager,
@@ -112,12 +112,12 @@ public class CertificateValidationRequest : CommonRequest {
         self.completionHandler = completionHandler
         self.chain = chain
         self.bitcoinManager = bitcoinManager
-        
+
         if (starting) {
             self.start()
         }
     }
-    
+
     public convenience init?(for certificate: Certificate,
                       bitcoinManager: BitcoinManager,
                      chain: BitcoinChain = .mainnet,
@@ -129,7 +129,7 @@ public class CertificateValidationRequest : CommonRequest {
             // To use this init function
             return nil
         }
-        
+
         self.init(for: certificate,
                   with: transactionId,
                   bitcoinManager: bitcoinManager,
@@ -139,35 +139,35 @@ public class CertificateValidationRequest : CommonRequest {
                   session: session,
                   completionHandler: completionHandler)
     }
-    
+
     private func fail(reason: String) {
         state = ValidationState.failure(reason: reason, state: state)
     }
-    
+
     public func start() {
         state = .assertingChain
     }
-    
+
     public func abort() {
         fail(reason: "Aborted")
     }
-    
-    
+
+
     internal func assertChain() {
         guard chain == .mainnet else {
             // We only need to assert mainnet if the chain is set to mainnet. If it's any other value, then we can't be held responsible for how you're validating.
             state = .computingLocalHash
             return
         }
-        
+
         var targetChain : BitcoinChain? = nil
-        
+
         if let chainForIssuer = getChainForIssuer(certificate) {
             targetChain = chainForIssuer
         } else if let chainForRecipient = getChainForRecipient(certificate) {
             targetChain = chainForRecipient
         }
-        
+
         switch targetChain {
         case .some(.testnet):
             fail(reason: "This is a testnet certificate. It cannot be validated.")
@@ -177,35 +177,35 @@ public class CertificateValidationRequest : CommonRequest {
             // This is successful. yaaay
             break;
         }
-        
+
         state = .computingLocalHash
     }
-    
+
     private func getChainForIssuer(_ certificate: Certificate) -> BitcoinChain? {
         guard let issuerAddress = certificate.verifyData.publicKey else {
             return nil
         }
-        
+
         return chain(for: issuerAddress)
     }
-    
+
     private func getChainForRecipient(_ certificate: Certificate) -> BitcoinChain? {
         return chain(for: certificate.recipient.publicAddress)
     }
-    
+
     private func chain(for address: BlockchainAddress) -> BitcoinChain? {
         // All mainnet addresses start with 1.
         if address.value.hasPrefix("1") {
             return .mainnet
         }
-        
+
         if address.value.hasPrefix("m") || address.value.hasPrefix("n") {
             return .testnet
         }
-        
+
         return nil
     }
-    
+
     internal func computeLocalHash() {
         if certificate.version == .oneDotOne {
             self.localHash = hexStringFrom(data: sha256(data: certificate.file))
@@ -220,7 +220,7 @@ public class CertificateValidationRequest : CommonRequest {
                 fail(reason: "Failed to re-parse the document node out of the certificate's file.")
                 return
             }
-            
+
             jsonld.normalize(docData: docData, callback: { (error, resultString) in
                 guard error == nil else {
                     self.fail(reason: "Failed JSON-LD compact with \(error!)")
@@ -234,7 +234,7 @@ public class CertificateValidationRequest : CommonRequest {
                     self.fail(reason: "Result could not be translated into raw data: \(resultString)")
                     return
                 }
-                
+
                 self.localHash = hexStringFrom(data: sha256(data: stringData))
 
                 self.state = .fetchingRemoteHash
@@ -263,20 +263,20 @@ public class CertificateValidationRequest : CommonRequest {
                     self.fail(reason: "Result could not be translated into raw data: \(resultString)")
                     return
                 }
-                
+
                 self.normalizedCertificate = resultString
-                
+
                 self.localHash = hexStringFrom(data: sha256(data: stringData))
-                
+
                 self.state = .fetchingRemoteHash
             })
-            
+
         }
     }
-    
+
     internal func fetchRemoteHash() {
         let transactionDataHandler = TransactionDataHandler.create(chain: self.chain, transactionId: transactionId)
-        
+
         guard let transactionUrl = URL(string: transactionDataHandler.transactionUrlAsString!) else {
             fail(reason: "Transaction ID (\(transactionId)) is invalid")
             return
@@ -295,16 +295,16 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.fail(reason: "Transaction didn't return valid JSON data from \(transactionUrl)")
                 return
             }
-            
+
             // Let's parse the OP_RETURN value out of the data.
             transactionDataHandler.parseResponse(json: json!)
             guard let transactionData = transactionDataHandler.transactionData else {
                 self?.fail(reason: transactionDataHandler.failureReason ?? "Undeclared")
                 return
             }
-            
+
             var possibleRemoteHash = transactionData.opReturnScript
-            
+
             // Some providers prepend
             let opReturnPrefix = "6a20"
             if let remoteHash = possibleRemoteHash,
@@ -312,7 +312,7 @@ public class CertificateValidationRequest : CommonRequest {
                 let startIndex = remoteHash.index(remoteHash.startIndex, offsetBy: opReturnPrefix.count)
                 possibleRemoteHash = String(remoteHash[startIndex...])
             }
-            
+
             self?.remoteHash = possibleRemoteHash
             self?.revokedAddresses = transactionData.revokedAddresses
             self?.txDate = transactionData.txDate
@@ -322,7 +322,7 @@ public class CertificateValidationRequest : CommonRequest {
         }
         task.resume()
     }
-    
+
     internal func compareHashes() {
         let compareToHash : String?
         if certificate.version == .oneDotOne,
@@ -331,18 +331,18 @@ public class CertificateValidationRequest : CommonRequest {
         } else {
             compareToHash = self.certificate.receipt?.targetHash
         }
-        
+
         guard let localHash = self.localHash,
             let correctHashResult = compareToHash else {
                 fail(reason: "Can't compare hashes: one of the hashes is still nil")
                 return
         }
-        
+
         guard localHash == correctHashResult else {
             fail(reason: "Local hash doesn't match remote hash:\n Local:\(localHash)\nRemote:\(correctHashResult)")
             return
         }
-        
+
         if certificate.version == .oneDotOne {
             state = .checkingIssuerSignature
         } else {
@@ -365,7 +365,7 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.fail(reason: "Certificate didn't return valid JSON data from \(url)")
                 return
             }
-            
+
             let chain = self?.chain ?? .mainnet
             guard let bitcoinManager = self?.bitcoinManager else {
                 self?.fail(reason: "Incorrect configuration. ValidationRequest needs to have a bitcoin manager specified.")
@@ -375,12 +375,12 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.fail(reason: "Certificate is missing.")
                 return
             }
-            
+
             guard let signature = self?.certificate.signature else {
                 self?.fail(reason: "Signature is missing")
                 return
             }
-            
+
             guard let issuerKeys = json["issuerKeys"] as? [[String : String]],
                 let revocationKeys = json["revocationKeys"] as? [[String : String]] else {
                     self?.fail(reason: "Couldn't parse issuerKeys or revocationKeys from json: \n\(json)")
@@ -399,20 +399,20 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.fail(reason: "Couldn't parse message")
                 return
             }
-                
+
             let address = bitcoinManager.address(for: message, with: signature, on: chain)
-                
+
             guard address == issuerKey else {
                 self?.fail(reason: "Issuer key doesn't match derived address:\n Address:\(address!)\n issuerKey:\(issuerKey)")
                 return
             }
-            
-            
+
+
             self?.state = .checkingRevokedStatus
         }
         request.resume()
     }
-    
+
     internal func checkRevokedStatus() {
         if certificate.version == .twoAlpha {
             guard let concreteIssuer = certificate.issuer as? IssuerV2Alpha,
@@ -436,7 +436,7 @@ public class CertificateValidationRequest : CommonRequest {
                     self?.fail(reason: "Certificate didn't return valid JSON data from \(url)")
                     return
                 }
-                
+
                 guard let revokedAssertions = json["revokedAssertions"] as? Array<[String: String]> else {
                     self?.fail(reason: "Couldn't parse revoked assertions")
                     return
@@ -455,7 +455,7 @@ public class CertificateValidationRequest : CommonRequest {
                         return
                     }
                 }
-            
+
                 // Success
                 self?.state = .checkingExpiration
             }
@@ -482,7 +482,7 @@ public class CertificateValidationRequest : CommonRequest {
             state = .success
         }
     }
-    
+
     func checkMerkleRoot() {
         // TODO: here and everywhere affected
         // Would like "version is after 1.1". Perhaps via comparator support on the version enum
@@ -490,28 +490,28 @@ public class CertificateValidationRequest : CommonRequest {
             fail(reason: "Invalid state. Shouldn't need to check merkle root for this version of the cert format")
             return
         }
-        
+
         // compare merkleRoot to blockchain
         guard let merkleRoot = certificate.receipt?.merkleRoot,
             let remoteHash = self.remoteHash else {
                 fail(reason: "Can't compare hashes: at least one hash is still nil")
                 return
         }
-        
+
         guard merkleRoot == remoteHash else {
             fail(reason: "MerkleRoot does not match remote hash:\n Merkle:\(merkleRoot)\nRemote:\(remoteHash)")
             return
         }
-        
+
         state = .checkingReceipt
     }
-    
+
     func checkReceipt() {
         guard certificate.version > .oneDotOne else {
             fail(reason: "Invalid state. Shouldn't need to check receipt for this version of the cert format")
             return
         }
-        
+
         let isReceiptValid = ReceiptVerifier().validate(receipt: certificate.receipt!, chain: chain)
         guard isReceiptValid else {
             fail(reason: "Invalid Merkle Receipt:\n Receipt\(certificate.receipt!)")
@@ -523,7 +523,7 @@ public class CertificateValidationRequest : CommonRequest {
             state = .checkingAuthenticity
         }
     }
-    
+
     internal func checkAuthenticity() {
         let url = certificate.issuer.id
         let request = session.dataTask(with: certificate.issuer.id) { [weak self] (data, response, error) in
@@ -552,16 +552,16 @@ public class CertificateValidationRequest : CommonRequest {
                 self?.fail(reason: "Couldn't parse determine transaction date.")
                 return
             }
-            
+
             let matchingKeyInfo = issuer.publicKeys.first(where: { (keyRotation) -> Bool in
                 keyRotation.key == signingKey
             })
-            
+
             guard let keyInfo = matchingKeyInfo else {
                 self?.fail(reason: "Couldn't find issuer public key.")
                 return
             }
-            
+
             if txDate < keyInfo.on {
                 self?.fail(reason: "Transaction was issued before Issuer's created date for this key.")
                 return
@@ -572,15 +572,15 @@ public class CertificateValidationRequest : CommonRequest {
                     return
                 }
             }
-            
+
             // expiration will be checked later if date exists
             self?.expiresDate = keyInfo.expires
-            
+
             self?.state = .checkingRevokedStatus
         }
         request.resume()
     }
-    
+
     internal func checkExpiration() {
         guard let expiresDate = expiresDate else {
             state = .success
@@ -617,7 +617,7 @@ func hexStringFrom(data: Data) -> String {
     for byte in data {
         hexString += String(format: "%02x", byte)
     }
-    
+
     return hexString
 }
 
