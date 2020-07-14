@@ -37,7 +37,7 @@ public struct Metadata {
             }
             
             groupedMetadata[group] = pairedValues.map { (key: String, value: Any) -> Metadatum in
-                return schema.metadatumFor(group: group, key: key, value: value)
+                return schema.metadatumFor(json: json, group: group, key: key, value: value)
             }
         }
 
@@ -164,42 +164,55 @@ private struct MetadataSchema {
     
     static func createTupleForSchema(json:[String: Any]) -> (label: String?, type: MetadatumType) {
         let label = json["title"] as? String
-        var type = MetadatumType.unknown
-        
-        if let stringType = json[typeKey] as? String {
-            switch stringType {
-            case "string":
-                if json[patternKey] as? String == "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" {
-                    type = .date
-                } else if json[formatKey] as? String == "email" {
-                    type = .email
-                } else if json[formatKey] as? String == "uri" {
-                    type = .uri
-                } else if let options = json[enumKey] as? [String] {
-                    type = .enumSingleOption(from:options)
-                } else {
-                    type = .string
+        var type: MetadatumType = .unknown
+        if let keyTypes = json[typeKey] as? [String] {
+            for stringType in keyTypes {
+                type = getTypeFromString(json: json, stringType: stringType)
+                if (type != .unknown) {
+                    break
                 }
-            case "array":
-                if let items = json["items"] as? [String : Any],
-                    let options = items[enumKey] as? [String] {
-                    type = .enumMultipleOptions(from: options)
-                }
-            case "number":
-                type = .number
-            case "integer":
-                type = .integer
-            case "boolean":
-                type = .boolean
-            default:
-                break
             }
+        }
+        if let stringType = json[typeKey] as? String {
+            type = getTypeFromString(json: json, stringType: stringType)
         }
         
         return (label: label, type: type)
     }
     
-    func metadatumFor(group: String, key: String, value: Any) -> Metadatum {
+    private static func getTypeFromString(json: [String: Any], stringType: String) -> MetadatumType {
+        var type = MetadatumType.unknown
+        switch stringType {
+        case "string":
+            if json[patternKey] as? String == "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" {
+                type = .date
+            } else if json[formatKey] as? String == "email" {
+                type = .email
+            } else if json[formatKey] as? String == "uri" {
+                type = .uri
+            } else if let options = json[enumKey] as? [String] {
+                type = .enumSingleOption(from:options)
+            } else {
+                type = .string
+            }
+        case "array":
+            if let items = json["items"] as? [String : Any],
+                let options = items[enumKey] as? [String] {
+                type = .enumMultipleOptions(from: options)
+            }
+        case "number":
+            type = .number
+        case "integer":
+            type = .integer
+        case "boolean":
+            type = .boolean
+        default:
+            break
+        }
+        return type
+    }
+    
+    func metadatumFor(json: [String : Any], group: String, key: String, value: Any) -> Metadatum {
         let type = self.type(for: group, withKey: key, value: value)
         let label = self.label(for: group, with: key)
         let displayValue = self.displayValue(for: value, type: type)
