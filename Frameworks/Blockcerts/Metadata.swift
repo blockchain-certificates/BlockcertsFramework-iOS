@@ -37,7 +37,7 @@ public struct Metadata {
             }
             
             groupedMetadata[group] = pairedValues.map { (key: String, value: Any) -> Metadatum in
-                return schema.metadatumFor(json: json, group: group, key: key, value: value)
+                return schema.metadatumFor(group: group, key: key, value: value)
             }
         }
 
@@ -212,7 +212,7 @@ private struct MetadataSchema {
         return type
     }
     
-    func metadatumFor(json: [String : Any], group: String, key: String, value: Any) -> Metadatum {
+    func metadatumFor(group: String, key: String, value: Any) -> Metadatum {
         let type = self.type(for: group, withKey: key, value: value)
         let label = self.label(for: group, with: key)
         let displayValue = self.displayValue(for: value, type: type)
