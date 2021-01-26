@@ -1,7 +1,7 @@
 language: objective-c
 osx_image: xcode10
 install:
-  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  - gem install xcpretty --no-document --quiet
 script:
   - set -o pipefail
   - xcodebuild clean build -workspace cert-wallet.xcworkspace -scheme cert-wallet -sdk iphonesimulator -destination "OS=12.0,name=iPhone SE" CODE_SIGNING_REQUIRED=NO | xcpretty -c || true

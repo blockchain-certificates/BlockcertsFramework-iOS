@@ -133,14 +133,14 @@ class AddIssuerViewController: UIViewController {
     
     // MARK: - Contacting the issuer
     func createIssuer(from issuerUrl: URL, for recipient: Recipient, callback: ((Issuer?) -> Void)?) {
-        let creationRequest = IssuerIdentificationRequest(id: issuerUrl, logger: DefaultLogger()) { [weak self] (issuer, error) in
+        let creationRequest = IssuerIdentificationRequest(id: issuerUrl, logger: DefaultLogger() as! Blockcerts.LoggerProtocol) { [weak self] (issuer, error) in
             // TODO: consume the error 
             guard let issuer = issuer else {
                 DispatchQueue.main.async { callback?(nil) }
                 return
             }
 
-            let introductionRequest = IssuerIntroductionRequest(introduce: recipient, to: issuer, loggingTo: DefaultLogger(), callback: { (error) in
+            let introductionRequest = IssuerIntroductionRequest(introduce: recipient, to: issuer, loggingTo: DefaultLogger() as! Blockcerts.LoggerProtocol, callback: { (error) in
                 if error == nil {
                     DispatchQueue.main.async { callback?(issuer) }
                 } else {

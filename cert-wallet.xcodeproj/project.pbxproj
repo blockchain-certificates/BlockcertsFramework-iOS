@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6F4D6EF7A2EE481444F2577 /* libPods-cert-wallet.a */; };
 		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
 		3B684B0D1EBA8D2A007185AE /* sample_v1_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B0C1EBA8D2A007185AE /* sample_v1_issuer.json */; };
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
@@ -145,7 +144,6 @@
 		83EE9BBD1F2FD101005009D2 /* IssuerV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BBA1F2FD101005009D2 /* IssuerV2.swift */; };
 		83EE9BBE1F2FD101005009D2 /* IssuerV2Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83EE9BBB1F2FD101005009D2 /* IssuerV2Alpha.swift */; };
 		83FF84701F1827650003E1A6 /* CertificateV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83FF846F1F1827650003E1A6 /* CertificateV2.swift */; };
-		AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */; };
 		EA12A1C42214E41E004965DB /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +152,8 @@
 			isa = PBXBuildRule;
 			compilerSpec = com.apple.compilers.proxy.script;
 			fileType = pattern.proxy;
+			inputFiles = (
+			);
 			isEditable = 1;
 			outputFiles = (
 			);
@@ -454,7 +454,6 @@
 				837ED93E1EC37A440095F100 /* Blockcerts.framework in Frameworks */,
 				839174661DA56B6300CB6E54 /* CommonCrypto.framework in Frameworks */,
 				8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */,
-				321FEEE7FC0BF7912EB1DE29 /* libPods-cert-wallet.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,7 +461,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AA1B0EAE1F82FD996272EA85 /* libPods-cert-walletTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1154,6 +1152,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
