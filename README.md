@@ -1,5 +1,5 @@
 # Blockcerts Framework for iOS
-[![Build Status](https://travis-ci.org/blockchain-certificates/cert-wallet.svg?branch=master)](https://travis-ci.org/blockchain-certificates/cert-wallet)
+[![Build Status](https://travis-ci.org/blockchain-certificates/BlockcertsFramework-iOS.svg?branch=master)](https://travis-ci.org/blockchain-certificates/BlockcertsFramework-iOS.svg?branch=master)
 
 This repository contains the core modules used to implement Blockcerts functionality in iOS. 
 
