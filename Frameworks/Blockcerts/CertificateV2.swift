@@ -135,10 +135,11 @@ fileprivate enum MethodsForV2 {
             let name = recipientProfile["name"] as? String,
             let identityType = recipientData["type"] as? String,
             let isHashed = recipientData["hashed"] as? Bool,
-            let publicKey = recipientProfile["publicKey"] as? String,
             let identity = recipientData["identity"] as? String else {
                 return nil
         }
+        
+        let publicKey = recipientProfile["publicKey"] as? String
         
         return Recipient(name: name,
                          identity: identity,

@@ -193,14 +193,16 @@ public class CertificateValidationRequest : CommonRequest {
         return chain(for: certificate.recipient.publicAddress)
     }
 
-    private func chain(for address: BlockchainAddress) -> BitcoinChain? {
-        // All mainnet addresses start with 1.
-        if address.value.hasPrefix("1") {
-            return .mainnet
-        }
+    private func chain(for address: BlockchainAddress?) -> BitcoinChain? {
+        if let address = address {
+            // All mainnet addresses start with 1.
+            if address.value.hasPrefix("1") {
+                return .mainnet
+            }
 
-        if address.value.hasPrefix("m") || address.value.hasPrefix("n") {
-            return .testnet
+            if address.value.hasPrefix("m") || address.value.hasPrefix("n") {
+                return .testnet
+            }
         }
 
         return nil
