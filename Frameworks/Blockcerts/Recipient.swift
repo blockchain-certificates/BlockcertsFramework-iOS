@@ -24,12 +24,12 @@ public struct Recipient {
     public let isHashed : Bool
     
     /// Bitcoin address (compressed public key, usually 24 characters) of the recipient.
-    public let publicAddress : BlockchainAddress
+    public let publicAddress : BlockchainAddress?
     
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
     public let revocationAddress : BlockchainAddress?
     
-    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: BlockchainAddress, revocationAddress: BlockchainAddress? = nil) {
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: BlockchainAddress? = nil, revocationAddress: BlockchainAddress? = nil) {
         self.name = name
         self.identity = identity
         self.identityType = identityType
@@ -88,26 +88,38 @@ public struct Recipient {
         }
     }
 
-    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
-        var revokeKey : BlockchainAddress? = nil
-        if let address = revocationAddress {
-            revokeKey = BlockchainAddress(string: address)
+    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String? = nil, revocationAddress: String? = nil) {
+        var publicKey: BlockchainAddress? = nil
+        if let publicAddress = publicAddress {
+            publicKey = BlockchainAddress(string: publicAddress)
         }
-        self.init(name: name, identity: identity, identityType: identityType, isHashed: isHashed, publicAddress: BlockchainAddress(string: publicAddress), revocationAddress: revokeKey)
+        
+        var revokeKey: BlockchainAddress? = nil
+        if let revokeAddress = revocationAddress {
+            revokeKey = BlockchainAddress(string: revokeAddress)
+        }
+        self.init(name: name, identity: identity, identityType: identityType, isHashed: isHashed, publicAddress: publicKey, revocationAddress: revokeKey)
     }
     
-    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String, revocationAddress: String? = nil) {
+    public init(givenName: String, familyName: String, identity: String, identityType: String, isHashed: Bool, publicAddress: String? = nil, revocationAddress: String? = nil) {
         self.deprecatedGivenName = givenName
         self.deprecatedFamilyName = familyName
         self.identity = identity
         self.identityType = identityType
         self.isHashed = isHashed
-        self.publicAddress = BlockchainAddress(string: publicAddress)
-        if let address = revocationAddress {
-            self.revocationAddress = BlockchainAddress(string: address)
+                
+        if let publicAddress = publicAddress {
+            self.publicAddress = BlockchainAddress(string: publicAddress)
+        } else {
+            self.publicAddress = nil
+        }
+        
+        if let revocationAddress = revocationAddress {
+            self.revocationAddress = BlockchainAddress(string: revocationAddress)
         } else {
             self.revocationAddress = nil
         }
+        
         self.name = "\(givenName) \(familyName)"
     }
 }

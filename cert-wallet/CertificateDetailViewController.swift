@@ -84,7 +84,7 @@ class CertificateDetailViewController: UITableViewController {
                 "Identity": certificate.recipient.identity,
                 "Identity Type": certificate.recipient.identityType,
                 "Hashed?": "\(certificate.recipient.isHashed)",
-                "Public Key": certificate.recipient.publicAddress.scopedValue
+                "Public Key": certificate.recipient.publicAddress != nil ? certificate.recipient.publicAddress!.scopedValue : ""
             ]),
             CertificateProperty(title: "Assertion", values: [
                 "Issued On": "\(certificate.assertion.issuedOn)",

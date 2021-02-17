@@ -95,7 +95,7 @@ extension CertificatesViewController {
             let deletedCertificate : Certificate! = self?.certificates.remove(at: indexPath.row)
             
             let documentsDirectory = URL(fileURLWithPath: Paths.certificateDirectory)
-            let certificateFilename = deletedCertificate.assertion.uid
+            let certificateFilename = deletedCertificate.assertion.uid.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
             let filePath = URL(fileURLWithPath: certificateFilename, relativeTo: documentsDirectory)
             
             let coordinator = NSFileCoordinator()
@@ -195,7 +195,7 @@ extension CertificatesViewController {
         }
         
         // At this point, data is totally a valid certificate. Let's save that to the documents directory.
-        let filename = certificate.assertion.uid
+        let filename = certificate.assertion.uid.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!
         let success = save(certificateData: data, withFilename: filename)
         let isCertificateInList = certificates.contains(where: { $0.assertion.uid == certificate.assertion.uid })
             
