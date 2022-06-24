@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+public struct Display {
+    /// The content media type of the display
+    var contentMediaType : String { get }
+
+    /// The display content
+    var content : String { get }
+    
+    public init(contentMediaType: String, content: String) {
+        self.contentMediaType = contentMediaType
+        self.content = content
+    }
+}
