@@ -10,10 +10,10 @@ import Foundation
 
 public struct Display {
     /// The content media type of the display
-    var contentMediaType : String { get }
+    var contentMediaType : String
 
     /// The display content
-    var content : String { get }
+    var content : String
     
     public init(contentMediaType: String, content: String) {
         self.contentMediaType = contentMediaType
