@@ -45,7 +45,7 @@ struct CertificateV2 : Certificate {
         guard let fileType = json["type"] as? String else {
             throw CertificateParserError.jsonLDError(description: "Missing type property")
         }
-        guard var certificateData = json["badge"] as? [String: AnyObject] else {
+        guard let certificateData = json["badge"] as? [String: AnyObject] else {
             throw CertificateParserError.missingData(description: "Missing 'badge' property.")
         }
         
@@ -181,7 +181,7 @@ fileprivate enum MethodsForV2 {
         if let signatureImageURI = signatureImageData as? String {
             signatureImages.append(SignatureImage(image: imageData(from: signatureImageURI), title: nil))
         } else if let signatureImageArray = signatureImageData as? [[String : Any]] {
-            for var datum in signatureImageArray {
+            for datum in signatureImageArray {
                 guard let imageURI = datum["image"] as? String else {
                     return nil
                 }
