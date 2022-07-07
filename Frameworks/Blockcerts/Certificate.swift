@@ -96,7 +96,7 @@ public enum CertificateParser {
     /// - parameter data: A Data-representation of the Certificate. Usually, this is a JSON object.
     ///
     /// - returns: A certificate if the provided data passes any known version of the Certificate format. Nil otherwise.
-    public static func parse(data: Data) throws -> Certificate? {
+    public static func parse(data: Data) throws -> Certificate {
         let certificateVersion: String = try getBlockcertsVersion(data: data)
         switch certificateVersion {
         case "v1.1":
@@ -110,7 +110,7 @@ public enum CertificateParser {
         case "v3", "v3.0":
             return try CertificateV3(data: data)
         default:
-            return nil
+            throw CertificateParserError.invalidData(description: "Invalid Blockcerts version")
         }
         
         // return try CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
