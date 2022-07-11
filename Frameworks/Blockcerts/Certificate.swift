@@ -65,7 +65,7 @@ public enum CertificateParser {
         var contextArray: [String] = []
         
         if context is Array<Any> {
-            contextArray = context as! [String]
+            contextArray = getStringsFromArray(arr: context as! [AnyObject])
         } else {
             contextArray.append(context as! String)
         }
@@ -341,4 +341,8 @@ func getBlockcertsVersionNumber(url blockcertsUrl: String) throws -> String {
     }
     
     return ""
+}
+
+func getStringsFromArray(arr array: [AnyObject]) -> [String] {
+    return array.compactMap{ $0 as? String }
 }
