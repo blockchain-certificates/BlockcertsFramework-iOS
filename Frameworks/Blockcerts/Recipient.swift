@@ -29,7 +29,7 @@ public struct Recipient {
     /// Issuer's recipient-specific revocation Bitcoin address (compressed public key, usually 24 characters).
     public let revocationAddress : BlockchainAddress?
     
-    public init(name: String, identity: String, identityType: String, isHashed: Bool, publicAddress: BlockchainAddress? = nil, revocationAddress: BlockchainAddress? = nil) {
+    public init(name: String, identity: String = "", identityType: String = "", isHashed: Bool = false, publicAddress: BlockchainAddress? = nil, revocationAddress: BlockchainAddress? = nil) {
         self.name = name
         self.identity = identity
         self.identityType = identityType
