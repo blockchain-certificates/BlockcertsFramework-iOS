@@ -15,7 +15,7 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
     public let email : String
     public let image : Data
     public let id : URL
-    public let url : URL
+    public let url : URL?
     public let introductionMethod : IssuerIntroductionMethod
     public let publicKeys: [KeyRotation]
     
@@ -72,6 +72,20 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         self.analyticsURL = analyticsURL
         self.issuingEstimateURL = issuingEstimateURL
         self.issuingEstimateAuth = issuingEstimateAuth ?? .signed
+    }
+    
+    public init(id: URL) {
+        self.name = ""
+        self.email = ""
+        self.image = imageData(from: "")
+        self.id = id
+        self.url = URL(string: "")
+        self.revocationURL = nil
+        self.publicKeys = []
+        self.introductionMethod = .unknown
+        self.analyticsURL = nil
+        self.issuingEstimateURL = nil
+        self.issuingEstimateAuth = .signed
     }
     
     

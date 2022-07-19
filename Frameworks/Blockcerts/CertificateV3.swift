@@ -72,9 +72,13 @@ struct CertificateV3 : Certificate {
         self.subtitle = ""
         self.image = imageData(from: "")
         
+        guard let recipient = MethodsForV3.parse(recipientJSON: json) else {
+            throw CertificateParserError.genericError
+        }
+        
         // Use helper methods to parse Issuer, CredentialSubject and Display.
         guard let issuer = MethodsForV3.parse(issuerJSON: json["issuer"]),
-              let recipient = MethodsForV3.parse(recipientJSON: json),
+//              let recipient = MethodsForV3.parse(recipientJSON: json),
               let display = MethodsForV3.parse(displayJSON: json["display"]),
               let metadataJSON = MethodsForV3.parse(metadataJSON: json),
               let assertion = MethodsForV3.parse(assertionJSON: assertionVal as AnyObject?),
@@ -107,6 +111,11 @@ fileprivate enum MethodsForV3 {
         
         if issuerJSON is String {
             issuerId = issuerJSON as! String
+            guard let issuerIdURL = URL(string: issuerId) else {
+                print("Issuer not defined")
+                return nil
+            }
+            return IssuerV2(id: issuerIdURL)
         } else {
             issuerId = issuerJSON?["id"] as! String
         }
@@ -134,19 +143,15 @@ fileprivate enum MethodsForV3 {
     }
     
     static func parse(recipientJSON json: [String : Any]) -> Recipient? {
-        guard let recipientData = json["credentialSubject"] as? [String : Any],
-              let name = recipientData["name"] as? String,
-              let claim = recipientData["claim"] as? [String: AnyObject] else {
-                return nil
+        if let recipientData = json["credentialSubject"] as? [String : Any] {
+            let publicKey = recipientData["publicKey"] as? BlockchainAddress
+            let name : String = recipientData["name"] as? String ?? recipientData["id"] as! String
+            
+            return Recipient(name: name,
+                             publicAddress: publicKey)
         }
         
-//        let identityType = recipientData["type"] as? String
-//        let isHashed = recipientData["hashed"] as? Bool
-//        let identity = recipientData["identity"] as? String
-        let publicKey = recipientData["publicKey"] as? BlockchainAddress
-        
-        return Recipient(name: name,
-                         publicAddress: publicKey)
+        return nil
     }
     
     static func parse(metadataJSON: [String : Any]) -> Metadata? {
