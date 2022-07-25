@@ -242,16 +242,21 @@ fileprivate enum MethodsForV3 {
             return "No readable content"
         }
         
-        let contentEncoding = displayJsonData["contentEncoding"]
+        var contentEncoding : String = ""
+        if let _contentEncoding = displayJsonData["contentEncoding"] {
+            contentEncoding = "\(_contentEncoding),"
+        }
+        
         let rawContentMediaType = ContentMediaType(rawValue: contentMediaType)
         
         switch rawContentMediaType {
         case .textHtml:
             return content
         case .imagePng, .imageJpeg, .imageGif, .imageBmp:
-            return "<img src=\"data:\(contentMediaType);\(contentEncoding),\(content)\"/>"
+            
+            return "<img src=\"data:\(contentMediaType);\(contentEncoding)\(content)\"/>"
         case .applicationPdf:
-            return "<embed width=\"100%\" height=\"100%\" type=\"application/pdf\" src=\"data:\(contentMediaType);\(contentEncoding),\(content)\"/>"
+            return "<embed width=\"100%\" height=\"100%\" type=\"application/pdf\" src=\"data:\(contentMediaType);\(contentEncoding)\(content)\"/>"
         default:
             return "No readable content"
         }
