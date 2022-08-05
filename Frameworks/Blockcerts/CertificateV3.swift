@@ -122,7 +122,6 @@ fileprivate enum MethodsForV3 {
             let logoURI = issuerData["image"],
             let issuerEmail = issuerData["email"],
             let issuerName = issuerData["name"],
-            let issuerDescription = issuerData["description"],
             let issuerIdURL = URL(string: issuerId) else {
                 return nil
         }
@@ -206,13 +205,12 @@ fileprivate enum MethodsForV3 {
     }
     
     static func parse(verifyJSON: [String: AnyObject?]) -> Verify? {
-        guard let verifyData = verifyJSON as? [String : AnyObject],
-            let type : Array<String> = verifyData["type"] as! Array<String>? else {
-                return nil
+        guard let type : Array<String> = verifyJSON["type"] as! Array<String>? else {
+            return nil
         }
 
         var address : BlockchainAddress? = nil
-        if let publicKey = verifyData["publicKey"] as? String {
+        if let publicKey = verifyJSON["publicKey"] as? String {
             address = BlockchainAddress(string: publicKey)
         }
 

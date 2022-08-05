@@ -51,7 +51,7 @@ public enum CertificateParserError : Error {
 }
 
 /// CertificateParser should never be instantiated. Call one of its `parse` methods to turn a Data object into a Certificate.
-public enum CertificateParser {
+public class CertificateParser {
     
     /// This function retrieves the Blockcerts version from the JSON-LD @context value
     public static func getBlockcertsVersion (data: Data) throws -> String {
