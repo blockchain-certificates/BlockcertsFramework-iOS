@@ -44,6 +44,14 @@ extension String {
         
         return data
     }
+    
+    /// Test whether or not a string is a DID
+    ///
+    /// - returns: Boolean
+    public func isDid() -> Bool {
+        let didSegments : [String.SubSequence] = self.split(separator: ":")
+        return self.starts(with: "did:") && didSegments.count == 3
+    }
 }
 
 fileprivate let isoFormats = [
