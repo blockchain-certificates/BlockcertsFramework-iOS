@@ -112,8 +112,6 @@ public class CertificateParser {
         default:
             throw CertificateParserError.invalidData(description: "Invalid Blockcerts version")
         }
-        
-        // return try CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
     }
     
     /// This parses a data object as a specific version of the certificate format. Useful if you're expecting a 1.2
