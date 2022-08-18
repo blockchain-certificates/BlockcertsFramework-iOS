@@ -73,8 +73,8 @@ struct CertificateV3 : Certificate {
         self.image = imageData(from: "")
         
         // Use helper methods to parse Issuer, CredentialSubject and Display.
-        guard let issuer = MethodsForV3.parse(issuerJSON: json["issuer"]),
-              let recipient = MethodsForV3.parse(recipientJSON: json),
+        guard let recipient = MethodsForV3.parse(recipientJSON: json),
+              let issuerJson = MethodsForV3.parse(issuerJSON: json["issuer"] as! [String : Any]),
               let display = MethodsForV3.parse(displayJSON: json["display"]),
               let metadataJSON = MethodsForV3.parse(metadataJSON: json),
               let assertion = MethodsForV3.parse(assertionJSON: assertionVal as AnyObject?),
@@ -82,11 +82,8 @@ struct CertificateV3 : Certificate {
             throw CertificateParserError.genericError
         }
         
-//        guard let receiptData = MethodsForV3.parse(receiptJSON: json["signature"]) else {
-//            throw CertificateParserError.genericError
-//        }
-    
-        self.issuer = issuer
+        self.issuer = issuerJson
+        self.issuerId = issuerId
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
@@ -97,34 +94,61 @@ struct CertificateV3 : Certificate {
         self.credentialSubject = json["credentialSubject"] as! [String : AnyObject]
         self.issuanceDate = json["issuanceDate"] as! String
         self.expirationDate = json["expirationDate"] as? String ?? ""
+        
+//        guard let receiptData = MethodsForV3.parse(receiptJSON: json["signature"]) else {
+//            throw CertificateParserError.genericError
+//        }
     }
 }
 
 fileprivate enum MethodsForV3 {
-    static func parse(issuerJSON: AnyObject?) -> Issuer? {
-        // TODO support issuer as string or as object
-        var issuerId: String
-        
+    
+    static func getIssuerId(issuerJSON: AnyObject?) -> String? {
         if issuerJSON is String {
-            issuerId = issuerJSON as! String
-            guard let issuerIdURL = URL(string: issuerId) else {
-                print("Issuer not defined")
+            return issuerJSON as? String
+        } else {
+            return issuerJSON?["id"] as? String
+        }
+    }
+    
+    static func fetchIssuerProfile(issuerProfileId : String) -> [String: AnyObject]? {
+        if let issuerProfileUrl = URL(string: issuerProfileId) {
+            do {
+                let parsedJson: [String: AnyObject] = try deserializeJson(from: Data(contentsOf: issuerProfileUrl))
+                return parsedJson
+            } catch {
+                print("fetching issuer failed with error: \(error)")
                 return nil
             }
-            return IssuerV2(id: issuerIdURL)
         } else {
-            issuerId = issuerJSON?["id"] as! String
+            return nil
+        }
+    }
+    
+    static func fetchIssuer(issuerID: String) -> String {
+        let issuerProfileId : String = issuerID
+        
+        if (issuerID.isDid()) {
+            let didDocumentLoaded : DidDocument = DidMethods.resolveDidDocument(didUri: issuerProfileId)!
+            return didDocumentLoaded.getIssuerProfileUrl()
+        } else {
+            return issuerProfileId
+        }
+    }
+    
+    static func parse(issuerJSON json: [String: Any]) -> Issuer? {
+        let issuerId: String = MethodsForV3.getIssuerId(issuerJSON: json as AnyObject)!
+        
+        guard let issuerData = json as? [String : String],
+              let issuerURLString = issuerData["url"],
+              let issuerURL = URL(string: issuerURLString),
+              let logoURI = issuerData["image"],
+              let issuerEmail = issuerData["email"],
+              let issuerName = issuerData["name"],
+              let issuerIdURL = URL(string: issuerId) else {
+            return nil
         }
         
-        guard let issuerData = issuerJSON as? [String : String],
-            let issuerURLString = issuerData["url"],
-            let issuerURL = URL(string: issuerURLString),
-            let logoURI = issuerData["image"],
-            let issuerEmail = issuerData["email"],
-            let issuerName = issuerData["name"],
-            let issuerIdURL = URL(string: issuerId) else {
-                return nil
-        }
         let logo = imageData(from: logoURI)
         
         return IssuerV2(name: issuerName,

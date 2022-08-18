@@ -88,7 +88,7 @@ class CertificateDetailViewController: UITableViewController {
             ]),
             CertificateProperty(title: "Assertion", values: [
                 "Issued On": "\(certificate.assertion.issuedOn)",
-                "Evidence": certificate.assertion.evidence,
+                "Evidence": certificate.assertion.evidence!,
                 "UID": certificate.assertion.uid,
                 "ID": "\(String(describing: certificate.assertion.id))"
             ]),
@@ -153,7 +153,7 @@ extension CertificateDetailViewController {
                 renderedViewCell.descriptionText = certificate.description
                 renderedViewCell.sealIcon = UIImage(data: certificate.image)
                 
-                certificate.assertion.signatureImages.forEach { (signatureData) in
+                certificate.assertion.signatureImages!.forEach { (signatureData) in
                     guard let image = UIImage(data: signatureData.image) else {
                         return
                     }

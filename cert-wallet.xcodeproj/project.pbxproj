@@ -15,6 +15,11 @@
 		222B67AA28661DE7007D7EBB /* testnet-display-png-3.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 222B67A628661DE7007D7EBB /* testnet-display-png-3.0.json */; };
 		222B67AB28661DE7007D7EBB /* has-recipient-publicKey-3.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 222B67A728661DE7007D7EBB /* has-recipient-publicKey-3.0.json */; };
 		222B67AD286A07B8007D7EBB /* CertificateV3_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B67AC286A07B8007D7EBB /* CertificateV3_0Tests.swift */; };
+		224FE53A28AE923F00A24062 /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE53928AE923F00A24062 /* JsonLoader.swift */; };
+		224FE53B28AE923F00A24062 /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE53928AE923F00A24062 /* JsonLoader.swift */; };
+		224FE53C28AE923F00A24062 /* JsonLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224FE53928AE923F00A24062 /* JsonLoader.swift */; };
+		226B298C28A4430300C320A9 /* DidDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B298B28A4430300C320A9 /* DidDocument.swift */; };
+		226B298D28A4430300C320A9 /* DidDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B298B28A4430300C320A9 /* DidDocument.swift */; };
 		3B3F8A351EB1780D00543CBA /* sample_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B3F8A341EB1780D00543CBA /* sample_issuer.json */; };
 		3B684B0D1EBA8D2A007185AE /* sample_v1_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B684B0C1EBA8D2A007185AE /* sample_v1_issuer.json */; };
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
@@ -286,6 +291,8 @@
 		222B67A628661DE7007D7EBB /* testnet-display-png-3.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "testnet-display-png-3.0.json"; sourceTree = "<group>"; };
 		222B67A728661DE7007D7EBB /* has-recipient-publicKey-3.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "has-recipient-publicKey-3.0.json"; sourceTree = "<group>"; };
 		222B67AC286A07B8007D7EBB /* CertificateV3_0Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateV3_0Tests.swift; sourceTree = "<group>"; };
+		224FE53928AE923F00A24062 /* JsonLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JsonLoader.swift; path = ../../../../../wallet/JsonLoader.swift; sourceTree = "<group>"; };
+		226B298B28A4430300C320A9 /* DidDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidDocument.swift; sourceTree = "<group>"; };
 		2480E99759E82A39B681E528 /* libPods-cert-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2EC550FD5CE48EBC6F6DB6F5 /* Pods-cert-walletTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-walletTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cert-walletTests/Pods-cert-walletTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3B3F8A341EB1780D00543CBA /* sample_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sample_issuer.json; sourceTree = "<group>"; };
@@ -795,6 +802,7 @@
 				837ED9B11EC382E00095F100 /* Constants.swift */,
 				222B679A2864B547007D7EBB /* Display.swift */,
 				222B679E2865F74D007D7EBB /* ContentMediaType.swift */,
+				226B298B28A4430300C320A9 /* DidDocument.swift */,
 			);
 			name = Blockcerts;
 			path = Frameworks/Blockcerts;
@@ -904,6 +912,7 @@
 		EAB175FA2214C2190085E3F4 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				224FE53928AE923F00A24062 /* JsonLoader.swift */,
 				4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */,
 			);
 			path = Utils;
@@ -1459,6 +1468,8 @@
 				8369CB091D6F6378006D603E /* AddIssuerViewController.swift in Sources */,
 				836DF0E01D6E0FFD00B53B52 /* RenderedCertificateTableViewCell.swift in Sources */,
 				83DF831B1D8B3653006CA7AF /* Globals.swift in Sources */,
+				224FE53A28AE923F00A24062 /* JsonLoader.swift in Sources */,
+				226B298C28A4430300C320A9 /* DidDocument.swift in Sources */,
 				835B62501D64DA7700C95EB8 /* CertificateDetailViewController.swift in Sources */,
 				830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
 				4ED0BB47185B7D0FF0E60F21 /* LoggerUtils.swift in Sources */,
@@ -1473,6 +1484,7 @@
 				83DF831C1D8B3653006CA7AF /* Globals.swift in Sources */,
 				83DF11C91D88617B002E8921 /* Keychain.swift in Sources */,
 				836A31BE1D5933D800943801 /* KeychainTests.swift in Sources */,
+				224FE53B28AE923F00A24062 /* JsonLoader.swift in Sources */,
 				83AC79251D678D5600AEE1FA /* CertificateValidationRequestTests.swift in Sources */,
 				830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */,
 				83CD9CDE1D788D1B0077D769 /* MockURLSession.swift in Sources */,
@@ -1505,6 +1517,7 @@
 				83917FCB1F9939A400C5D6EF /* IssuerIssuingEstimateRequest.swift in Sources */,
 				837ED95F1EC37A9E0095F100 /* Assertion.swift in Sources */,
 				83FF84701F1827650003E1A6 /* CertificateV2.swift in Sources */,
+				224FE53C28AE923F00A24062 /* JsonLoader.swift in Sources */,
 				837ED9721EC37A9E0095F100 /* Signature.swift in Sources */,
 				83A28FE11F9F9B2900675558 /* BlockchainAddress.swift in Sources */,
 				837ED9611EC37A9E0095F100 /* Certificate.swift in Sources */,
@@ -1512,6 +1525,7 @@
 				837ED9691EC37A9E0095F100 /* Metadata.swift in Sources */,
 				837ED9631EC37A9E0095F100 /* CertificateV1_2.swift in Sources */,
 				8363EB201F33C56F008F3FC1 /* PartialIssuer.swift in Sources */,
+				226B298D28A4430300C320A9 /* DidDocument.swift in Sources */,
 				837ED9701EC37A9E0095F100 /* IssuerCreationRequest.swift in Sources */,
 				837ED9731EC37A9E0095F100 /* TransactionDataHandler.swift in Sources */,
 				4ED0B9AC01B7FE34E09590E1 /* LoggerUtils.swift in Sources */,
