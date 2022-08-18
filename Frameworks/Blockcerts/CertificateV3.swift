@@ -83,7 +83,6 @@ struct CertificateV3 : Certificate {
         }
         
         self.issuer = issuerJson
-        self.issuerId = issuerId
         self.recipient = recipient
         self.assertion = assertion
         self.verifyData = verifyData
