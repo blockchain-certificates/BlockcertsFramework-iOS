@@ -21,17 +21,20 @@ struct DidDocumentVerificationMethod : Codable {
 
 struct DidDocument: Codable {
     let id: String
-    let service: [DidDocumentService]
+    let service: [DidDocumentService]?
     let verificationMethod: [DidDocumentVerificationMethod]
     let authentication: [String]
     
     public func getIssuerProfileUrl() -> String {
         var issuerProfileUrl : String = ""
         
-        var serviceIterator = self.service.makeIterator()
-        while let serviceEntry = serviceIterator.next() {
-            if serviceEntry.type == "IssuerProfile" {
-                issuerProfileUrl = serviceEntry.serviceEndpoint
+        if (self.service != nil) {
+            if var serviceIterator = self.service?.makeIterator() {
+                while let serviceEntry = serviceIterator.next() {
+                    if serviceEntry.type == "IssuerProfile" {
+                        issuerProfileUrl = serviceEntry.serviceEndpoint
+                    }
+                }
             }
         }
         return issuerProfileUrl
