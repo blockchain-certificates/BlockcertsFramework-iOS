@@ -74,7 +74,7 @@ struct CertificateV3 : Certificate {
         
         // Use helper methods to parse Issuer, CredentialSubject and Display.
         guard let recipient = MethodsForV3.parse(recipientJSON: json),
-              let issuerJson = MethodsForV3.parse(issuerJSON: json["issuer"] as! [String : Any]),
+              let issuerJson = MethodsForV3.parse(issuerJSON: json["issuer"] as AnyObject),
               let display = MethodsForV3.parse(displayJSON: json["display"]),
               let metadataJSON = MethodsForV3.parse(metadataJSON: json),
               let assertion = MethodsForV3.parse(assertionJSON: assertionVal as AnyObject?),
@@ -124,7 +124,7 @@ fileprivate enum MethodsForV3 {
         }
     }
     
-    static func fetchIssuer(issuerID: String) -> String {
+    static func fetchIssuer(issuerID: String) -> String? {
         let issuerProfileId : String = issuerID
         
         if (issuerID.isDid()) {
@@ -135,26 +135,31 @@ fileprivate enum MethodsForV3 {
         }
     }
     
-    static func parse(issuerJSON json: [String: Any]) -> Issuer? {
-        let issuerId: String = MethodsForV3.getIssuerId(issuerJSON: json as AnyObject)!
+    static func fetchIssuerProfile(issuerProfileUrl: String) -> IssuerV2? {
+        do {
+            let issuerProfile : Data = try JsonLoader.loadJsonUrl(jsonUrl: issuerProfileUrl)!
+            let res: IssuerV2 = try JSONDecoder().decode(IssuerV2.self,
+                                                         from: issuerProfile)
+            return res
+        } catch let error {
+            print("resolveDidDocument :: could not resolve Did Document : ", error)
+            return nil
+        }
+    }
+    
+    static func parse(issuerJSON issuerJson: AnyObject) -> Issuer? {
+        let issuerId: String = MethodsForV3.getIssuerId(issuerJSON: issuerJson as AnyObject)!
         
-        guard let issuerData = json as? [String : String],
-              let issuerURLString = issuerData["url"],
-              let issuerURL = URL(string: issuerURLString),
-              let logoURI = issuerData["image"],
-              let issuerEmail = issuerData["email"],
-              let issuerName = issuerData["name"],
-              let issuerIdURL = URL(string: issuerId) else {
+        guard let issuerIdURLString = MethodsForV3.fetchIssuer(issuerID: issuerId),
+              let issuerProfile = MethodsForV3.fetchIssuerProfile(issuerProfileUrl: issuerIdURLString) else {
             return nil
         }
         
-        let logo = imageData(from: logoURI)
-        
-        return IssuerV2(name: issuerName,
-                        email: issuerEmail,
-                        image: logo,
-                        id: issuerIdURL,
-                        url: issuerURL,
+        return IssuerV2(name: issuerProfile.name,
+                        email: issuerProfile.email,
+                        image: issuerProfile.image,
+                        id: URL(string: issuerIdURLString)!,
+                        url: issuerProfile.url!,
                         publicKeys: [],
                         introductionMethod: .unknown,
                         analyticsURL: nil)
