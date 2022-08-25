@@ -124,15 +124,19 @@ fileprivate enum MethodsForV3 {
         }
     }
     
-    static func fetchIssuer(issuerID: String) -> String? {
-        let issuerProfileId : String = issuerID
+    static func fetchIssuer(issuerID: String) throws -> String? {
+        var issuerProfileId : String = issuerID
         
         if (issuerID.isDid()) {
             let didDocumentLoaded : DidDocument = DidMethods.resolveDidDocument(didUri: issuerProfileId)!
-            return didDocumentLoaded.getIssuerProfileUrl()
-        } else {
-            return issuerProfileId
+            issuerProfileId = didDocumentLoaded.getIssuerProfileUrl()
         }
+        
+        if (issuerProfileId.count == 0) {
+            throw CertificateParserError.missingData(description: "No issuer profile ID")
+        }
+        
+        return issuerProfileId
     }
     
     static func fetchIssuerProfile(issuerProfileUrl: String) -> IssuerV2? {
@@ -148,21 +152,44 @@ fileprivate enum MethodsForV3 {
     }
     
     static func parse(issuerJSON issuerJson: AnyObject) -> Issuer? {
-        let issuerId: String = MethodsForV3.getIssuerId(issuerJSON: issuerJson as AnyObject)!
-        
-        guard let issuerIdURLString = MethodsForV3.fetchIssuer(issuerID: issuerId),
-              let issuerProfile = MethodsForV3.fetchIssuerProfile(issuerProfileUrl: issuerIdURLString) else {
-            return nil
+        let issuerId: String = MethodsForV3.getIssuerId(issuerJSON: issuerJson)!
+    
+        // If issuer profile can be retrieved
+        do {
+            let issuerIdURLString = try MethodsForV3.fetchIssuer(issuerID: issuerId)
+            let fetchedIssuerProfile = MethodsForV3.fetchIssuerProfile(issuerProfileUrl: issuerIdURLString!)!
+            
+            return IssuerV2(name: fetchedIssuerProfile.name,
+                            email: fetchedIssuerProfile.email,
+                            image: fetchedIssuerProfile.image,
+                            id: URL(string: issuerIdURLString!)!,
+                            url: fetchedIssuerProfile.url!,
+                            publicKeys: [],
+                            introductionMethod: .unknown,
+                            analyticsURL: nil)
+        } catch {
+            // If issuer profile cannot be retrieved, we use the potential values in the Blockcerts document
+            guard let issuerData = issuerJson as? [String : String],
+                let issuerURLString = issuerData["url"],
+                let issuerURL = URL(string: issuerURLString),
+                let logoURI = issuerData["image"],
+                let issuerEmail = issuerData["email"],
+                let issuerName = issuerData["name"],
+                let issuerIdURL = URL(string: issuerId) else {
+                    return nil
+            }
+            
+            let logo = imageData(from: logoURI)
+            
+            return IssuerV2(name: issuerName,
+                            email: issuerEmail,
+                            image: logo,
+                            id: issuerIdURL,
+                            url: issuerURL,
+                            publicKeys: [],
+                            introductionMethod: .unknown,
+                            analyticsURL: nil)
         }
-        
-        return IssuerV2(name: issuerProfile.name,
-                        email: issuerProfile.email,
-                        image: issuerProfile.image,
-                        id: URL(string: issuerIdURLString)!,
-                        url: issuerProfile.url!,
-                        publicKeys: [],
-                        introductionMethod: .unknown,
-                        analyticsURL: nil)
     }
     
     static func parse(recipientJSON json: [String : Any]) -> Recipient? {
