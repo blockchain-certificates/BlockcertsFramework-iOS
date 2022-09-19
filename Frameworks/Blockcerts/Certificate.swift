@@ -13,12 +13,14 @@ import Foundation
 /// - oneDotOne: This is a v1.1 certificate
 /// - oneDotTwo: This is a v1.2 certificate
 /// - two: This is a v2 certificate
+/// - three: This is a v3 certificate
 public enum CertificateVersion : Int {
     // Note, these should always be listed in increasing certificate version order
     case oneDotOne = 1
     case oneDotTwo
     case twoAlpha
     case two
+    case three
 }
 
 /// Make CertificateVersion support < or > comparisons
@@ -49,7 +51,44 @@ public enum CertificateParserError : Error {
 }
 
 /// CertificateParser should never be instantiated. Call one of its `parse` methods to turn a Data object into a Certificate.
-public enum CertificateParser {
+public class CertificateParser {
+    
+    /// This function retrieves the Blockcerts version from the JSON-LD @context value
+    public static func getBlockcertsVersion (data: Data) throws -> String {
+        let jsonObject = try deserializeJson(from: data)
+        
+        if (CertificateParser.isV1_1(json: jsonObject)) {
+            return "v1.1"
+        }
+        
+        let context = jsonObject["@context"]
+        var contextArray: [String] = []
+        
+        if context is Array<Any> {
+            contextArray = getStringsFromArray(arr: context as! [AnyObject])
+        } else {
+            contextArray.append(context as! String)
+        }
+        
+        let blockcertsContextURL = filterBlockcertsContext(contextArray: contextArray)
+        
+        if let blockcertsVersion = try getBlockcertsVersionNumber(url: blockcertsContextURL) as String? {
+            return "v" + blockcertsVersion
+        }
+        
+        return "invalid Blockcerts version"
+    }
+    
+    /// This function returns whether or not a Blockcerts document is of version 1.1
+    private static func isV1_1 (json: [String: AnyObject]) -> Bool {
+        return json["certificate"] != nil
+            && json["assertion"] != nil
+            && json["verify"] != nil
+            && json["recipient"] != nil
+            && json["signature"] != nil
+            && json["@context"] == nil
+    }
+    
     /// This is the most general parse function. Pass it a data object representing the certificate, and it will
     /// auto-detect which version of the Certificate format to use. It will always use the latest version that
     /// passes a valid parse
@@ -58,7 +97,21 @@ public enum CertificateParser {
     ///
     /// - returns: A certificate if the provided data passes any known version of the Certificate format. Nil otherwise.
     public static func parse(data: Data) throws -> Certificate {
-        return try CertificateParser.parse(data: data, withMinimumVersion: .oneDotOne)
+        let certificateVersion: String = try getBlockcertsVersion(data: data)
+        switch certificateVersion {
+        case "v1.1":
+            return try CertificateV1_1(data: data)
+        case "v1", "v1.2":
+            return try CertificateV1_2(data: data)
+        case "v2", "v2.0", "v2.1":
+            return try CertificateV2(data: data)
+        case "v2.0-alpha":
+            return try CertificateV2Alpha(data: data)
+        case "v3", "v3.0":
+            return try CertificateV3(data: data)
+        default:
+            throw CertificateParserError.invalidData(description: "Invalid Blockcerts version")
+        }
     }
     
     /// This parses a data object as a specific version of the certificate format. Useful if you're expecting a 1.2
@@ -70,6 +123,8 @@ public enum CertificateParser {
     /// - returns: A Certificate if `data` is a valid Certificate at the specified version. Nil otherwise.
     public static func parse(data: Data, asVersion version: CertificateVersion) throws -> Certificate {
         switch version {
+        case .three:
+            return try CertificateV3(data: data)
         case .two:
             return try CertificateV2(data: data)
         case .twoAlpha:
@@ -123,8 +178,18 @@ public enum CertificateParser {
                 }
             }
             fallthrough
+        case .three:
+            if cert == nil {
+                do {
+                    cert = try CertificateV3(data: data)
+                } catch {
+                    cert = nil
+                    lastError = error
+                }
+            }
+            fallthrough
             
-            // After testing all final versions, Try some alpha versions.
+        // After testing all final versions, Try some alpha versions.
         case .twoAlpha:
             if cert == nil {
                 do {
@@ -245,3 +310,37 @@ func imageData(from dataURI: String?) -> Data {
     return data
 }
 
+func deserializeJson(from data: Data) throws -> [String: AnyObject] {
+    do {
+        return try JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject]
+    } catch {
+        throw CertificateParserError.notValidJSON
+    }
+}
+
+func stringContainsBlockcerts (string string: String) -> Bool {
+    return string.range(of: "blockcerts") != nil
+}
+
+func filterBlockcertsContext(contextArray contextArray: [String]) -> String {
+    if let blockcertsMatches = contextArray.filter({ (item: String) -> Bool in
+        return stringContainsBlockcerts(string: item)
+    }) as? [String] {
+        return blockcertsMatches[0]
+    }
+    
+    return ""
+}
+
+func getBlockcertsVersionNumber(url blockcertsUrl: String) throws -> String {
+    let regex = try NSRegularExpression(pattern: "(?:blockcerts)/(?:schema)?/?v?([1-9]+.?[0-9]*(-alpha)?)", options: NSRegularExpression.Options.caseInsensitive)
+    if let version = regex.firstMatch(in: blockcertsUrl, options: [], range: NSRange(location: 0, length: blockcertsUrl.utf16.count)) {
+        return String(blockcertsUrl[Range(version.range(at: 1), in: blockcertsUrl)!])
+    }
+    
+    return ""
+}
+
+func getStringsFromArray(arr array: [AnyObject]) -> [String] {
+    return array.compactMap{ $0 as? String }
+}

@@ -28,4 +28,14 @@ class String_Extensions: XCTestCase {
         XCTAssertNil("1234x".asHexData())
         XCTAssertNil("0x001".asHexData())
     }
+    
+    func testValidDid() {
+        XCTAssertTrue("did:ion:abcdefgh".isDid())
+    }
+    
+    func testInvalidDid() {
+        XCTAssertFalse("did:ionabcdefgh".isDid())
+        XCTAssertFalse("didionabcdefgh".isDid())
+        XCTAssertFalse("https://blockcerts.org".isDid())
+    }
 }

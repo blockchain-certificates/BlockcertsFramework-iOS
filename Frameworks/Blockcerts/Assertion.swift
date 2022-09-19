@@ -19,10 +19,10 @@ public struct Assertion {
     public let issuedOn : Date
     
     /// An array of base-64 encoded png images, paired with a title for each signature.
-    public let signatureImages : [ SignatureImage ]
+    public let signatureImages : [ SignatureImage ]?
     
     /// Text, uri, etc. that shows evidence of the recipient's learning that the certificate represents. Can be left as an empty string if not used.
-    public let evidence : String
+    public let evidence : String?
     
     /// Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
     public let uid : String
@@ -43,7 +43,7 @@ public struct Assertion {
         self.uid = uid
         self.id = id
         self.metadata = metadata
-        signatureImages = [SignatureImage(image: signatureImage, title: nil)]
+        self.signatureImages = [SignatureImage(image: signatureImage, title: nil)]
         self.htmlDisplay = htmlDisplay
     }
     
@@ -64,5 +64,22 @@ public struct Assertion {
         self.signatureImages = signatureImages
         self.metadata = metadata
         self.htmlDisplay = htmlDisplay
+    }
+    
+    /// Public memberwise initializer.
+    ///
+    /// - Parameters:
+    ///   - issuedOn: Date the the certificate JSON was created.
+    ///   - uid: Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
+    ///   - id: URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
+    ///   - metadata: Metadata object that contains all anscillary data associated with this certificate.
+    public init(issuedOn: Date, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
+        self.issuedOn = issuedOn
+        self.uid = uid
+        self.id = id
+        self.metadata = metadata
+        self.htmlDisplay = htmlDisplay
+        self.signatureImages = nil
+        self.evidence = nil
     }
 }

@@ -15,8 +15,10 @@ class CertificateParserTests: XCTestCase {
     let v1_2filename = "sample_unsigned_cert-1.2.0"
     let v1_2signedFilename = "sample_signed_cert-1.2.0"
     let v1_2signedValidFilename = "sample_signed_cert-valid-1.2.0"
-    let v2_signedValidFilename = "sample_cert-valid-2.0a"
-    let v2_signedRevokedFilename = "sample_cert-revoked-2.0a"
+    let v2alpha_signedValidFilename = "sample_cert-valid-2.0a"
+    let v2alpha_signedRevokedFilename = "sample_cert-revoked-2.0a"
+    let v2_filename = "sample_cert-valid-2.0"
+    let v3_testValidFilename = "testnet-valid-3.0"
     
     // MARK: - Simple parse(data:) calls
     func testExpectingV1_1Certificate() {
@@ -104,7 +106,7 @@ class CertificateParserTests: XCTestCase {
     
     func testExpectingV2SignedValidCertificateAsV2_() {
         let testBundle = Bundle(for: type(of: self))
-        guard let fileUrl = testBundle.url(forResource: v2_signedValidFilename, withExtension: "json") ,
+        guard let fileUrl = testBundle.url(forResource: v2alpha_signedValidFilename, withExtension: "json") ,
             let file = try? Data(contentsOf: fileUrl) else {
                 return
         }
@@ -116,7 +118,7 @@ class CertificateParserTests: XCTestCase {
     
     func testExpectingV2SignedRevokedCertificateAsV2_() {
         let testBundle = Bundle(for: type(of: self))
-        guard let fileUrl = testBundle.url(forResource: v2_signedRevokedFilename, withExtension: "json") ,
+        guard let fileUrl = testBundle.url(forResource: v2alpha_signedRevokedFilename, withExtension: "json") ,
             let file = try? Data(contentsOf: fileUrl) else {
                 return
         }
@@ -124,5 +126,65 @@ class CertificateParserTests: XCTestCase {
         let certificate = try? CertificateParser.parse(data: file, asVersion: .twoAlpha)
         XCTAssertNotNil(certificate)
         XCTAssertEqual(certificate?.version, .twoAlpha)
+    }
+    
+    func testGetBlockcertsVersion1_1_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v1_1signedFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let blockcertsVersion = try? CertificateParser.getBlockcertsVersion(data: file)
+        XCTAssertNotNil(blockcertsVersion)
+        XCTAssertEqual(blockcertsVersion, "v1.1")
+    }
+    
+    func testGetBlockcertsVersion1_2_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v1_2signedValidFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let blockcertsVersion = try? CertificateParser.getBlockcertsVersion(data: file)
+        XCTAssertNotNil(blockcertsVersion)
+        XCTAssertEqual(blockcertsVersion, "v1")
+    }
+    
+    func testGetBlockcertsVersion2_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v2_filename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let blockcertsVersion = try? CertificateParser.getBlockcertsVersion(data: file)
+        XCTAssertNotNil(blockcertsVersion)
+        XCTAssertEqual(blockcertsVersion, "v2")
+    }
+    
+    func testGetBlockcertsVersion2alpha_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v2alpha_signedValidFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let blockcertsVersion = try? CertificateParser.getBlockcertsVersion(data: file)
+        XCTAssertNotNil(blockcertsVersion)
+        XCTAssertEqual(blockcertsVersion, "v2.0-alpha")
+    }
+    
+    func testGetBlockcertsVersion3_() {
+        let testBundle = Bundle(for: type(of: self))
+        guard let fileUrl = testBundle.url(forResource: v3_testValidFilename, withExtension: "json") ,
+            let file = try? Data(contentsOf: fileUrl) else {
+                return
+        }
+        
+        let blockcertsVersion = try? CertificateParser.getBlockcertsVersion(data: file)
+        XCTAssertNotNil(blockcertsVersion)
+        XCTAssertEqual(blockcertsVersion, "v3")
     }
 }
