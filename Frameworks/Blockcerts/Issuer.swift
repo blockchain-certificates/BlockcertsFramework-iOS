@@ -18,10 +18,10 @@ public protocol Issuer {
     var name : String { get }
 
     /// The email address where you can contact the issuer
-    var email : String { get }
+    var email : String? { get }
 
     /// Image data for the issuer. This can be used to populate a UIImage object
-    var image : Data { get }
+    var image : Data? { get }
 
     /// Unique identifier for an Issuer. Also, the URL where you can re-request data. This is useful if an instance of this struct only has partial data, or if you want to see that the keys are still valid.
     var id : URL { get }

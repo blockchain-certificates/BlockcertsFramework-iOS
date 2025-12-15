@@ -31,8 +31,9 @@ struct CertificateV3 : Certificate {
     let issuer : Issuer
     let metadata: Metadata
     let credentialSubject: [String: AnyObject]
-    let issuanceDate : String
-    let expirationDate : String
+    let credentialStatus: [String: AnyObject]
+    let issuanceDate : String?
+    let expirationDate : String?
     
     var htmlDisplay: String?
     
@@ -62,6 +63,10 @@ struct CertificateV3 : Certificate {
             certificateDescription = claim["description"] as? String ?? ""
         }
         
+//        if let credentialStatus = json["credentialStatus"] as? [String: AnyObject] {
+//            self.credentialStatus = credentialStatus
+//        }
+        
         self.title = certificateTitle
         self.description = certificateDescription
         
@@ -82,6 +87,11 @@ struct CertificateV3 : Certificate {
             throw CertificateParserError.genericError
         }
         
+//        self.credentialStatus = [String: AnyObject]()
+//        if let credentialStatus = json["credentialStatus"] as? [String: AnyObject] {
+//            self.credentialStatus = credentialStatus
+//        }
+        
         self.issuer = issuerJson
         self.recipient = recipient
         self.assertion = assertion
@@ -91,8 +101,32 @@ struct CertificateV3 : Certificate {
         self.htmlDisplay = display
         self.signature = nil
         self.credentialSubject = json["credentialSubject"] as! [String : AnyObject]
-        self.issuanceDate = json["issuanceDate"] as! String
-        self.expirationDate = json["expirationDate"] as? String ?? ""
+        self.credentialStatus = json["credentialStatus"] as? [String : AnyObject] ?? [String: AnyObject]()
+        
+        // Try multiple locations for issuanceDate
+        var issuanceDateValue: String? = nil
+        if let validFrom = json["validFrom"] as? String {
+            issuanceDateValue = validFrom
+        } else if let proof = json["proof"] as? [String: AnyObject],
+                  let created = proof["created"] as? String {
+            issuanceDateValue = created
+        } else if let proofArray = json["proof"] as? [[String: AnyObject]],
+                  let firstProof = proofArray.first,
+                  let created = firstProof["created"] as? String {
+            issuanceDateValue = created
+        } else if let issuanceDate = json["issuanceDate"] as? String {
+            issuanceDateValue = issuanceDate
+        }
+        self.issuanceDate = issuanceDateValue
+        
+        // Try multiple locations for expirationDate
+        var expirationDateValue: String? = nil
+        if let validUntil = json["validUntil"] as? String {
+            expirationDateValue = validUntil
+        } else if let expirationDate = json["expirationDate"] as? String {
+            expirationDateValue = expirationDate
+        }
+        self.expirationDate = expirationDateValue
         
 //        guard let receiptData = MethodsForV3.parse(receiptJSON: json["signature"]) else {
 //            throw CertificateParserError.genericError
@@ -139,15 +173,15 @@ fileprivate enum MethodsForV3 {
         return issuerProfileId
     }
     
-    static func fetchIssuerProfile(issuerProfileUrl: String) -> IssuerV2? {
+    static func fetchIssuerProfile(issuerProfileUrl: String) throws -> IssuerV2? {
         do {
             let issuerProfile : Data = try JsonLoader.loadJsonUrl(jsonUrl: issuerProfileUrl)!
             let res: IssuerV2 = try JSONDecoder().decode(IssuerV2.self,
                                                          from: issuerProfile)
             return res
         } catch let error {
-            print("resolveDidDocument :: could not resolve Did Document : ", error)
-            return nil
+            print(error)
+            throw CertificateParserError.missingData(description: "No issuer profile")
         }
     }
     
@@ -157,7 +191,7 @@ fileprivate enum MethodsForV3 {
         // If issuer profile can be retrieved
         do {
             let issuerIdURLString = try MethodsForV3.fetchIssuer(issuerID: issuerId)
-            let fetchedIssuerProfile = MethodsForV3.fetchIssuerProfile(issuerProfileUrl: issuerIdURLString!)!
+            let fetchedIssuerProfile = try MethodsForV3.fetchIssuerProfile(issuerProfileUrl: issuerIdURLString!)!
             
             return IssuerV2(name: fetchedIssuerProfile.name,
                             email: fetchedIssuerProfile.email,
@@ -221,10 +255,41 @@ fileprivate enum MethodsForV3 {
     
     static func parse(assertionJSON: AnyObject?) -> Assertion? {
         guard let assertionData = assertionJSON as? [String : Any],
-            let issuedOnString = assertionData["issuanceDate"] as? String,
-            let issuedOnDate = issuedOnString.toDate(),
             let assertionID = assertionData["id"] as? String else {
                 return nil
+        }
+        
+        // Try multiple locations for issuedOnString
+        var issuedOnString: String?
+        if let validFrom = assertionData["validFrom"] as? String {
+            issuedOnString = validFrom
+        } else if let proof = assertionData["proof"] as? [String: AnyObject],
+                  let created = proof["created"] as? String {
+            issuedOnString = created
+        } else if let proofArray = assertionData["proof"] as? [[String: AnyObject]],
+                  let firstProof = proofArray.first,
+                  let created = firstProof["created"] as? String {
+            issuedOnString = created
+        } else if let issuanceDate = assertionData["issuanceDate"] as? String {
+            issuedOnString = issuanceDate
+        }
+        
+        guard let issuedOnStr = issuedOnString,
+              let issuedOnDate = issuedOnStr.toDate() else {
+            return nil
+        }
+        
+        // Try multiple locations for expirationDate
+        var expirationDate: Date?
+        var expirationDateString: String?
+        if let validUntil = assertionData["validUntil"] as? String {
+            expirationDateString = validUntil
+        } else if let expDate = assertionData["expirationDate"] as? String {
+            expirationDateString = expDate
+        }
+        
+        if let expDateStr = expirationDateString {
+            expirationDate = expDateStr.toDate()
         }
         
         var assertionUID : String!
@@ -256,7 +321,8 @@ fileprivate enum MethodsForV3 {
                          uid: assertionUID,
                          id: assertionIDURL,
                          metadata: Metadata(json: metadataJson),
-                         htmlDisplay: htmlDisplay)
+                         htmlDisplay: htmlDisplay,
+                         expirationDate: expirationDate)
     }
     
     static func parse(verifyJSON: [String: AnyObject?]) -> Verify? {

@@ -11,8 +11,8 @@ import Foundation
 public struct PartialIssuer : Issuer, Codable, Equatable {
     public let version = IssuerVersion.embedded
     public let name : String
-    public let email : String
-    public let image : Data
+    public let email : String?
+    public let image : Data?
     public let id : URL
     public let url : URL
     public let publicKeys = [KeyRotation]()
@@ -42,8 +42,11 @@ public struct PartialIssuer : Issuer, Codable, Equatable {
         
         try container.encode(name, forKey: .name)
         try container.encode(email, forKey: .email)
-        let imageURL = URL(string:"data:image/png;base64,\(image.base64EncodedString())")!
-        try container.encode(imageURL, forKey: .image)
+        
+        if let issuerImage = image?.base64EncodedString() {
+            try container.encode("data:image/png;base64,\(issuerImage)", forKey: .image)
+        }
+        
         try container.encode(id, forKey: .id)
         try container.encode(url, forKey: .url)
         try container.encode(revocationListURL, forKey: .revocationListURL)
@@ -103,7 +106,11 @@ public struct PartialIssuer : Issuer, Codable, Equatable {
         dict["id"] = id
         dict["name"] = name
         dict["email"] = email
-        dict["image"] = "data:image/png;base64,\(image.base64EncodedString())"
+        
+        if let issuerImage = image?.base64EncodedString() {
+            dict["image"] = "data:image/png;base64,\(issuerImage)"
+        }
+        
         dict["url"] = url
         return dict
     }

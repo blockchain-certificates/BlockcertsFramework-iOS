@@ -25,6 +25,7 @@
 		3B90A0561E999F4F00C027B7 /* got_issuer.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B90A0551E999F4F00C027B7 /* got_issuer.json */; };
 		4ED0B9AC01B7FE34E09590E1 /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */; };
 		4ED0BB47185B7D0FF0E60F21 /* LoggerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */; };
+		526AFD952CB4373D0059B4DF /* liblottie-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526AFD942CB4373D0059B4DF /* liblottie-ios.a */; };
 		830ABA7D1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		830ABA7E1DA84E7C00185E19 /* CoreBitcoinManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */; };
 		83166BBB1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 83166B9F1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json */; };
@@ -300,6 +301,7 @@
 		3B90A0551E999F4F00C027B7 /* got_issuer.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = got_issuer.json; sourceTree = "<group>"; };
 		4577D4DA579179516CE8C7E7 /* Pods-cert-wallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cert-wallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-cert-wallet/Pods-cert-wallet.release.xcconfig"; sourceTree = "<group>"; };
 		4ED0BD21A63DF69A10F987E4 /* LoggerUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerUtils.swift; sourceTree = "<group>"; };
+		526AFD942CB4373D0059B4DF /* liblottie-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "liblottie-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63DAA36016F0A82280FC66C2 /* libPods-cert-walletUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cert-walletUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		830ABA7C1DA84E7C00185E19 /* CoreBitcoinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreBitcoinManager.swift; sourceTree = "<group>"; };
 		83166B9F1F17DF870022CCB0 /* sample_signed_cert-1.1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "sample_signed_cert-1.1.0.json"; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 			files = (
 				837ED93E1EC37A440095F100 /* Blockcerts.framework in Frameworks */,
 				839174661DA56B6300CB6E54 /* CommonCrypto.framework in Frameworks */,
+				526AFD952CB4373D0059B4DF /* liblottie-ios.a in Frameworks */,
 				8354F3171D9F13840008DB09 /* JSONLD.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -899,6 +902,7 @@
 		BA06BCAA0680E083B5A63088 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				526AFD942CB4373D0059B4DF /* liblottie-ios.a */,
 				837ED9461EC37A9E0095F100 /* Blockcerts */,
 				837ED9751EC37AAA0095F100 /* BlockcertsTests */,
 				8354F3111D9F13840008DB09 /* JSONLD */,
@@ -1824,6 +1828,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 			};
 			name = Debug;
 		};
@@ -1873,6 +1878,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

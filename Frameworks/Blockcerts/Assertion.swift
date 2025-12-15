@@ -18,6 +18,8 @@ public struct Assertion {
     /// Date the the certificate JSON was created.
     public let issuedOn : Date
     
+    public let expirationDate : Date?
+    
     /// An array of base-64 encoded png images, paired with a title for each signature.
     public let signatureImages : [ SignatureImage ]?
     
@@ -37,7 +39,7 @@ public struct Assertion {
     /// Public memberwise initializer. See above documentation for an explanation of each argument
     ///
     /// - returns: an initialized Assertion object.
-    public init(issuedOn: Date, signatureImage: Data, evidence: String, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
+    public init(issuedOn: Date, signatureImage: Data, evidence: String, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil, expirationDate: Date?) {
         self.issuedOn = issuedOn
         self.evidence = evidence
         self.uid = uid
@@ -45,6 +47,7 @@ public struct Assertion {
         self.metadata = metadata
         self.signatureImages = [SignatureImage(image: signatureImage, title: nil)]
         self.htmlDisplay = htmlDisplay
+        self.expirationDate = expirationDate!
     }
     
     /// Public memberwise initializer.
@@ -56,7 +59,7 @@ public struct Assertion {
     ///   - uid: Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
     ///   - id: URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
     ///   - metadata: Metadata object that contains all anscillary data associated with this certificate.
-    public init(issuedOn: Date, signatureImages: [SignatureImage], evidence: String, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
+    public init(issuedOn: Date, signatureImages: [SignatureImage], evidence: String, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil, expirationDate: Date? = nil) {
         self.issuedOn = issuedOn
         self.evidence = evidence
         self.uid = uid
@@ -64,6 +67,7 @@ public struct Assertion {
         self.signatureImages = signatureImages
         self.metadata = metadata
         self.htmlDisplay = htmlDisplay
+        self.expirationDate = expirationDate
     }
     
     /// Public memberwise initializer.
@@ -73,7 +77,7 @@ public struct Assertion {
     ///   - uid: Unique identifier. By default it is created using the string of a BSON ObjectId(), yielding an identifier 24 characters long.
     ///   - id: URI that links to the certificate on the viewer. Default is https://[domain]/[uid]
     ///   - metadata: Metadata object that contains all anscillary data associated with this certificate.
-    public init(issuedOn: Date, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil) {
+    public init(issuedOn: Date, uid: String, id: URL?, metadata: Metadata = Metadata(json: [:]), htmlDisplay: String? = nil, expirationDate: Date?) {
         self.issuedOn = issuedOn
         self.uid = uid
         self.id = id
@@ -81,5 +85,6 @@ public struct Assertion {
         self.htmlDisplay = htmlDisplay
         self.signatureImages = nil
         self.evidence = nil
+        self.expirationDate = expirationDate
     }
 }
