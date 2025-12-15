@@ -107,7 +107,7 @@ public class CertificateParser {
             return try CertificateV2(data: data)
         case "v2.0-alpha":
             return try CertificateV2Alpha(data: data)
-        case "v3", "v3.0":
+        case "v3", "v3.0", "v3.1", "v3.2":
             return try CertificateV3(data: data)
         default:
             throw CertificateParserError.invalidData(description: "Invalid Blockcerts version")

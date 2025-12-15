@@ -76,7 +76,7 @@ class CertificateDetailViewController: UITableViewController {
             ]),
             CertificateProperty(title: "Issuer", values: [
                 "Name": certificate.issuer.name,
-                "Email": certificate.issuer.email,
+                "Email": certificate.issuer.email ?? "",
                 "ID": "\(certificate.issuer.id)"
             ]),
             CertificateProperty(title: "Recipient", values: [
@@ -149,7 +149,9 @@ extension CertificateDetailViewController {
                 renderedViewCell.nameText = certificate.recipient.name
                 renderedViewCell.titleText = certificate.title
                 renderedViewCell.subtitleText = certificate.subtitle
-                renderedViewCell.certificateIcon = UIImage(data: certificate.issuer.image)
+                if let certificateIssuerImage = certificate.issuer.image {
+                    renderedViewCell.certificateIcon = UIImage(data: certificateIssuerImage)
+                }
                 renderedViewCell.descriptionText = certificate.description
                 renderedViewCell.sealIcon = UIImage(data: certificate.image)
                 

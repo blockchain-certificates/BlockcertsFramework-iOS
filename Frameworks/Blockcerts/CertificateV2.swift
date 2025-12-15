@@ -202,6 +202,11 @@ fileprivate enum MethodsForV2 {
             }
         }
         
+        var expirationDate: Date!
+        if let expirationDateString = assertionData["expires"] as? String {
+            expirationDate = expirationDateString.toDate()
+        }
+        
         let htmlDisplay = assertionData["displayHtml"] as? String
         
         return Assertion(issuedOn: issuedOnDate,
@@ -210,7 +215,8 @@ fileprivate enum MethodsForV2 {
                          uid: assertionUID,
                          id: assertionIDURL,
                          metadata: Metadata(json: metadataJson),
-                         htmlDisplay: htmlDisplay)
+                         htmlDisplay: htmlDisplay,
+                         expirationDate: expirationDate)
     }
     
     static func parse(verifyJSON: AnyObject?) -> Verify? {

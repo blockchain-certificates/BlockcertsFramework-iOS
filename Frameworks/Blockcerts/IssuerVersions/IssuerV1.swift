@@ -64,8 +64,8 @@ public struct KeyRotationV1 : Codable, Equatable {
 public struct IssuerV1 : Issuer, Codable {
     public let version = IssuerVersion.one
     public let name : String
-    public let email : String
-    public let image : Data
+    public let email : String?
+    public let image : Data?
     public let id : URL
     public let url : URL
     public var publicKeys: [KeyRotation] {
@@ -123,7 +123,11 @@ public struct IssuerV1 : Issuer, Codable {
         
         try container.encode(name, forKey: .name)
         try container.encode(email, forKey: .email)
-        try container.encode("data:image/png;base64,\(image.base64EncodedString())", forKey: .image)
+        
+        if let issuerImage = image?.base64EncodedString() {
+            try container.encode("data:image/png;base64,\(issuerImage)", forKey: .image)
+        }
+        
         try container.encode(id, forKey: .id)
         try container.encode(url, forKey: .url)
         try container.encode(issuerKeys, forKey: .issuerKeys)
@@ -298,10 +302,15 @@ public struct IssuerV1 : Issuer, Codable {
             ]
         }
         
+        var issuerImageBase64 = ""
+        if let issuerImage = image?.base64EncodedString() {
+            issuerImageBase64 = "data:image/png;base64,\(issuerImage)"
+        }
+        
         var dictionary : [String: Any] = [
             "name": name,
             "email": email,
-            "image": "data:image/png;base64,\(image.base64EncodedString())",
+            "image": issuerImageBase64,
             "id": "\(id)",
             "url": "\(url)",
             "issuerKeys": serializedIssuerKeys,

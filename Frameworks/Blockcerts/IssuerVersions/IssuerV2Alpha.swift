@@ -12,8 +12,6 @@ import Foundation
 public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, Codable {
     public let version = IssuerVersion.twoAlpha
     public let name : String
-    public let email : String
-    public let image : Data
     public let id : URL
     public let url : URL
     public let introductionMethod : IssuerIntroductionMethod
@@ -22,6 +20,8 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
     }
     
     // MARK: Optional Properties
+    public let email : String?
+    public let image : Data?
     public let revocationURL : URL?
     public let analyticsURL: URL?
     private let issuerKeys : [KeyRotationV2a]
@@ -115,7 +115,10 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
         try container.encode(id, forKey: .id)
         try container.encode(url, forKey: .url)
         try container.encode(issuerKeys, forKey: .issuerKeys)
-        try container.encode("data:image/png;base64,\(image.base64EncodedString())", forKey: .image)
+        
+        if let issuerImage = image?.base64EncodedString() {
+            try container.encode("data:image/png;base64,\(issuerImage)", forKey: .image)
+        }
         
         try container.encodeIfPresent(revocationURL, forKey: .revocationURL)
         try container.encodeIfPresent(analyticsURL, forKey: .analyticsURL)
@@ -288,10 +291,15 @@ public struct IssuerV2Alpha : Issuer, AnalyticsSupport, ServerBasedRevocationSup
             ]
         }
 
+        var issuerImageBase64 = ""
+        if let issuerImage = image?.base64EncodedString() {
+            issuerImageBase64 = "data:image/png;base64,\(issuerImage)"
+        }
+        
         var dictionary : [String: Any] = [
             "name": name,
             "email": email,
-            "image": "data:image/png;base64,\(image.base64EncodedString())",
+            "image": issuerImageBase64,
             "id": "\(id)",
             "url": "\(url)",
             "issuerKeys": serializedIssuerKeys,

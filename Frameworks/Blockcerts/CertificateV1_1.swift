@@ -162,7 +162,8 @@ enum MethodsForV1_1 {
                          signatureImage: signatureImage,
                          evidence: evidence,
                          uid: assertionUid,
-                         id: assertionIdUrl)
+                         id: assertionIdUrl,
+                         expirationDate: nil)
     }
     
     static func parse(verifyJSON: AnyObject?) -> Verify? {

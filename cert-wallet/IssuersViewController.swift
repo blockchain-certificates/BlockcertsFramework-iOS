@@ -47,7 +47,9 @@ extension IssuersViewController {
         let issuer = issuers[indexPath.row]
         
         cell.textLabel?.text = issuer.name
-        cell.imageView?.image = UIImage(data: issuer.image)
+        if let issuerImage = issuer.image {
+            cell.imageView?.image = UIImage(data: issuerImage)
+        }
         
         return cell
     }

@@ -12,14 +12,14 @@ import Foundation
 public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport, IssuingEstimateSupport, Codable, Equatable {
     public let version = IssuerVersion.two
     public let name : String
-    public let email : String
-    public let image : Data
     public let id : URL
-    public let url : URL?
     public let introductionMethod : IssuerIntroductionMethod
     public let publicKeys: [KeyRotation]
     
     // MARK: Optional Properties
+    public let url : URL?
+    public let email : String?
+    public let image : Data?
     public let revocationURL : URL?
     public let analyticsURL: URL?
     public let issuingEstimateURL: URL?
@@ -51,8 +51,8 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
     ///
     /// - returns: An initialized Issuer object.
     public init(name: String,
-                email: String,
-                image: Data,
+                email: String? = nil,
+                image: Data? = nil,
                 id: URL,
                 url: URL,
                 revocationURL: URL? = nil,
@@ -93,12 +93,15 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         name = try container.decode(String.self, forKey: .name)
-        email = try container.decode(String.self, forKey: .email)
+        email = try container.decodeIfPresent(String.self, forKey: .email)
         id = try container.decode(URL.self, forKey: .id)
         url = try container.decode(URL.self, forKey: .url)
         publicKeys = try container.decode(Array.self, forKey: .publicKeys)
-        let imageURL = try container.decode(URL.self, forKey: .image)
-        image = try Data(contentsOf: imageURL)
+        if let imageURL = try container.decodeIfPresent(URL.self, forKey: .image) {
+            image = try Data(contentsOf: imageURL)
+        } else {
+            image = nil
+        }
         
         revocationURL = try container.decodeIfPresent(URL.self, forKey: .revocationURL)
         analyticsURL = try container.decodeIfPresent(URL.self, forKey: .analyticsURL)
@@ -119,7 +122,10 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
         try container.encode(id, forKey: .id)
         try container.encode(url, forKey: .url)
         try container.encode(publicKeys, forKey: .publicKeys)
-        try container.encode("data:image/png;base64,\(image.base64EncodedString())", forKey: .image)
+        
+        if let issuerImage = image?.base64EncodedString() {
+            try container.encode("data:image/png;base64,\(issuerImage)", forKey: .image)
+        }
         
         try container.encodeIfPresent(revocationURL, forKey: .revocationURL)
         try container.encodeIfPresent(analyticsURL, forKey: .analyticsURL)
@@ -265,10 +271,15 @@ public struct IssuerV2 : Issuer, AnalyticsSupport, ServerBasedRevocationSupport,
             ]
         }
         
+        var issuerImageBase64 = ""
+        if let issuerImage = image?.base64EncodedString() {
+            issuerImageBase64 = "data:image/png;base64,\(issuerImage)"
+        }
+        
         var dictionary : [String: Any] = [
             "name": name,
             "email": email,
-            "image": "data:image/png;base64,\(image.base64EncodedString())",
+            "image": issuerImageBase64,
             "id": "\(id)",
             "url": "\(url)",
             "issuerKeys": serializedIssuerKeys,
